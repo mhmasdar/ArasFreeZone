@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.referendumActivity;
 import com.example.arka.arasfreezone1.suggestionActivity;
 
@@ -58,6 +59,7 @@ public class navigationDrawerFragment extends Fragment {
                 startActivity(i);
             }
         });
+
 
         return view;
     }

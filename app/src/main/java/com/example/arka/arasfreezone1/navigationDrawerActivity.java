@@ -70,6 +70,16 @@ public class navigationDrawerActivity extends AppCompatActivity {
             }
         });
 
+
+        txtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+            }
+        });
+
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
