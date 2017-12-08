@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
 import com.like.LikeButton;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -111,7 +112,7 @@ public class detailsFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
 
 
-        mPager.setAdapter(new detailsSliderAdapter(getContext()));
+        mPager.setAdapter(new detailsSliderAdapter(app.context));
 
 
         CirclePageIndicator indicator = (CirclePageIndicator)

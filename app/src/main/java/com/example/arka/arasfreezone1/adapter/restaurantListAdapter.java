@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
+import com.example.arka.arasfreezone1.models.PlacesModel;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,17 +33,12 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
     private Context context;
     private LayoutInflater mInflater;
+    private List<PlacesModel> placesList;
 
 
-    private int currentPage = 0;
-    private int totalSlides = 3;
-    private ViewPager mPager;
-    private boolean slider = false;
-    private static Timer swipeTimer = new Timer();
-
-
-    public restaurantListAdapter(Context context) {
+    public restaurantListAdapter(Context context, List<PlacesModel> placesList) {
         this.context = context;
+        this.placesList = placesList;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -56,12 +53,10 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
 
-        if (position == 0)
-        {
-            mPager.setVisibility(View.VISIBLE);
-        }
+        final PlacesModel currentObj = placesList.get(position);
+        holder.setData(currentObj, position);
 
-        holder.rating.setRating(Float.parseFloat("2.0"));
+        //holder.rating.setRating(Float.parseFloat("2.0"));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +75,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
     @Override
     public int getItemCount() {
-        return 7;
+        return placesList.size();
     }
 
 
@@ -92,6 +87,9 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         private RatingBar rating;
         private ImageView imgNews;
 
+        int position;
+        public PlacesModel current;
+
 
         myViewHolder(View itemView) {
             super(itemView);
@@ -101,36 +99,27 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             txtAddress = (TextView) itemView.findViewById(R.id.txtAddress);
             rating = (RatingBar) itemView.findViewById(R.id.rating);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
-            mPager = (ViewPager) itemView.findViewById(R.id.pager);
             Drawable drawable = rating.getProgressDrawable();
             drawable.setColorFilter(Color.parseColor("#16a086"), PorterDuff.Mode.SRC_ATOP);
 
-            initSlider();
+
         }
-    }
 
-    private void initSlider() {
+        public void setData(PlacesModel current, int position) {
 
+            this.rating.setRating(Float.parseFloat(current.star + ""));
+            this.txtName.setText(current.name);
+            this.txtAddress.setText(current.address);
+            //this.imgNews.setImageResource();
+            this.txtRank.setText(current.star + "");
 
-        mPager.setAdapter(new categoriesSliderAdapter(context));
+            this.position = position;
+            this.current = current;
 
+        }
 
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == totalSlides) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 2000, 4000);
 
     }
+
+
 }

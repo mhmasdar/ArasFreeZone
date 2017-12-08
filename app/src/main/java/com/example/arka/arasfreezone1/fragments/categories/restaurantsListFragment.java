@@ -1,8 +1,10 @@
 package com.example.arka.arasfreezone1.fragments.categories;
 
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -21,7 +23,12 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
+import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.PlacesModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,6 +47,12 @@ public class restaurantsListFragment extends Fragment {
     private Typeface typeface;
 
 
+    private int currentPage = 0;
+    private int totalSlides = 3;
+    private ViewPager mPager;
+    private boolean slider = false;
+    private static Timer swipeTimer = new Timer();
+
     public restaurantsListFragment() {
         // Required empty public constructor
     }
@@ -51,12 +64,13 @@ public class restaurantsListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_restaurants_list, container, false);
         initView(view);
-
+        initSlider();
 
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
 
-        setUpRecyclerView();
+        DbGetPlacesList dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Eating");
+        dbGetPlacesList.execute();
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +123,8 @@ public class restaurantsListFragment extends Fragment {
             }
         }, 2);
 
+        recycler.setNestedScrollingEnabled(false);
+
         return view;
     }
 
@@ -134,11 +150,12 @@ public class restaurantsListFragment extends Fragment {
         relativeBack = (RelativeLayout) view.findViewById(R.id.relative_back);
         catListTabLayout = (TabLayout) view.findViewById(R.id.catListTabLayout);
         recycler = (RecyclerView) view.findViewById(R.id.recycler);
+        mPager = (ViewPager) view.findViewById(R.id.pager);
     }
 
-    private void setUpRecyclerView(){
+    private void setUpRecyclerView(List<PlacesModel> placesList){
 
-        restaurantListAdapter adapter = new restaurantListAdapter(getContext());
+        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList);
         recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -146,5 +163,72 @@ public class restaurantsListFragment extends Fragment {
         recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
 
+    private void initSlider() {
+
+
+        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
+
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == totalSlides) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        if (!app.isScheduled) {
+            app.swipeTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(Update);
+                }
+            }, 2000, 2000);
+            app.isScheduled = true;
+        }
+
+    }
+
+
+    public class DbGetPlacesList extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        List<PlacesModel> placesList;
+        private Context context;
+        private String tblName;
+
+        public DbGetPlacesList(Context context, String tblName) {
+            this.context = context;
+            this.tblName = tblName;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            placesList = new ArrayList<>();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            placesList = databaseHelper.selectAllPlaces(tblName);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            setUpRecyclerView(placesList);
+
+        }
+
+    }
 
 }
