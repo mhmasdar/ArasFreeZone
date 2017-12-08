@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.categories.artFragment;
+import com.example.arka.arasfreezone1.fragments.categories.officesFragment;
 import com.example.arka.arasfreezone1.fragments.categories.organizationFragment;
 import com.example.arka.arasfreezone1.fragments.categories.restaurantsListFragment;
 import com.example.arka.arasfreezone1.fragments.categories.servicesFragment;
@@ -152,7 +153,12 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 idCategory = 8;
-
+                officesFragment fragment = new officesFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
@@ -160,6 +166,13 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 idCategory = 9;
+
+                medicalFragment fragment = new medicalFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
 
             }
         });
