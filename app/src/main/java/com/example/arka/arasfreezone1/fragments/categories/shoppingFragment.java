@@ -187,7 +187,6 @@ public class shoppingFragment extends Fragment {
         recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
 
-
     public class DbGetPlacesList extends AsyncTask<Object, Void, Void> {
 
 

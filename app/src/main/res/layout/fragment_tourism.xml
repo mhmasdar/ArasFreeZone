@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:id="@+id/catListTabLayout"
         android:background="@color/mainBarBack"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="3dp"
         app:tabTextAppearance="@style/MineCustomTabText"
         app:tabTextColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorPrimary"
