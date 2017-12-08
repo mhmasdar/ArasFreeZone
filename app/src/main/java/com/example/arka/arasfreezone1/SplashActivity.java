@@ -98,6 +98,20 @@ public class SplashActivity extends AppCompatActivity {
 
             result = webService.getEatings(app.isInternetOn());
 
+            result = webService.getMedicals(app.isInternetOn());
+
+            result = webService.getServices(app.isInternetOn());
+
+            result = webService.getShoppings(app.isInternetOn());
+
+            result = webService.getTourisms(app.isInternetOn());
+
+            result = webService.getTransports(app.isInternetOn());
+
+            result = webService.getRests(app.isInternetOn());
+
+            result = webService.getImages(app.isInternetOn());
+
             return null;
         }
 

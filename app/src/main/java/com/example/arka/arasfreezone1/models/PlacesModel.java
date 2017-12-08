@@ -26,7 +26,7 @@ public class PlacesModel {
     public String lastUpdate;
     public int idMenu;
     public int placeStar;
-    public int cost;
+    public String cost;
     public String tel;
 
 }

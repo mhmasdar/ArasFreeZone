@@ -10,7 +10,6 @@ public class ImgModel {
     public int idRow;
     public int type;
     public String name;
-    public boolean visibility;
     public String lastUpdate;
 
 }
