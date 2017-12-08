@@ -1,0 +1,150 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.arka.arasfreezone1.HomeFragment">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:orientation="vertical"
+       android:layout_height="match_parent">
+
+      <android.support.design.widget.AppBarLayout
+          android:layout_width="match_parent"
+          android:background="@color/colorPrimary"
+          android:layout_height="wrap_content">
+
+
+         <android.support.v7.widget.Toolbar
+             android:layout_width="match_parent"
+             android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_centerInParent="true"
+                   android:paddingBottom="5dp"
+                   android:paddingTop="5dp"
+                   android:layout_height="wrap_content">
+
+                  <ImageView
+                      android:layout_width="120dp"
+                      android:src="@drawable/logo"
+                      android:scaleType="fitXY"
+                      android:layout_height="match_parent" />
+
+                  <ImageView
+                      android:layout_width="25dp"
+                      android:src="@drawable/ic_aras"
+                      android:transitionName="App_Logo"
+                      android:layout_height="25dp" />
+
+
+               </LinearLayout>
+
+
+               <RelativeLayout
+                   android:id="@+id/relative_Menu"
+                   android:layout_width="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="5dp"
+                   android:background="?attr/selectableItemBackground"
+                   android:padding="8dp">
+
+                  <ImageView
+                      android:layout_width="23dp"
+                      android:layout_centerVertical="true"
+                      android:src="@drawable/ic_menu"
+                      android:layout_height="23dp" />
+
+               </RelativeLayout>
+
+
+            </RelativeLayout>
+
+         </android.support.v7.widget.Toolbar>
+
+      </android.support.design.widget.AppBarLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+         <android.support.v4.view.ViewPager
+             android:id="@+id/pager"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_alignParentTop="true" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_marginTop="40dp"
+             android:gravity="center"
+             android:layout_alignParentTop="true"
+             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/weather_icon"
+                android:layout_width="80dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/yellow"
+                android:textSize="50sp"
+                android:gravity="center"
+                android:fontFamily="@font/weatherfont"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+               <TextView
+                   android:id="@+id/current_temperature_field"
+                   android:layout_width="wrap_content"
+                   android:textSize="22sp"
+                   android:textStyle="bold"
+                   android:textColor="@color/white"
+                   android:layout_height="wrap_content"
+                   android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+               <!--humidity and pressure-->
+               <TextView
+                   android:id="@+id/humidity_field"
+                   android:layout_width="wrap_content"
+                   android:textSize="19sp"
+                   android:textColor="@color/white"
+                   android:layout_height="wrap_content"
+                   android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            </LinearLayout>
+
+         </LinearLayout>
+
+         <com.viewpagerindicator.CirclePageIndicator
+             android:id="@+id/indicator"
+             android:layout_width="match_parent"
+             android:layout_height="35dp"
+             android:layout_alignParentBottom="true"
+             android:layout_centerInParent="true"
+             android:paddingTop="5dp"
+             app:fillColor="@color/colorPrimary"
+             app:pageColor="@color/mainBarBack"
+             app:snap="false" />
+
+
+      </RelativeLayout>
+
+   </LinearLayout>
+
+
+</LinearLayout>

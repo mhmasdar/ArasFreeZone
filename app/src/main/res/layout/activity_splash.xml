@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.arka.arasfreezone1.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+            android:orientation="horizontal"
+         android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/imgSp1"
+                android:layout_weight="1"
+                android:src="@drawable/splash3"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/imgSp2"
+                android:layout_weight="0.4"
+                android:src="@drawable/splash2"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/imgSp3"
+                android:scaleType="fitXY"
+                android:layout_weight="1"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/splash4"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_weight="0.3"
+            android:id="@+id/splashBack"
+            android:background="@drawable/splash1"
+            android:orientation="vertical"
+            android:gravity="center"
+         android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:id="@+id/imgAras"
+                android:src="@drawable/ic_aras"
+                android:layout_height="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txtSplash"
+                android:layout_marginTop="10dp"
+                android:text="برنامه گردشگری منطقه آزاد ارس"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
