@@ -4,17 +4,18 @@ package com.example.arka.arasfreezone1.fragments.categories;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
-import com.example.arka.arasfreezone1.app;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -47,6 +48,7 @@ public class organizationFragment extends Fragment {
     private TextView txtOrgPhone;
     private TextView txtOrgWeb;
     private static Timer swipeTimer = new Timer();
+    private ImageView imgBack;
 
     public organizationFragment() {
         // Required empty public constructor
@@ -60,6 +62,15 @@ public class organizationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_organization, container, false);
         initView(view);
         initSlider(view);
+
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+        });
 
         lytOrgIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +223,7 @@ public class organizationFragment extends Fragment {
         txtOrgAddress = (TextView) view.findViewById(R.id.txtOrgAddress);
         txtOrgPhone = (TextView) view.findViewById(R.id.txtOrgPhone);
         txtOrgWeb = (TextView) view.findViewById(R.id.txtOrgWeb);
+        imgBack = (ImageView) view.findViewById(R.id.imgBack);
     }
 
     private void setLayoutsHeight() {

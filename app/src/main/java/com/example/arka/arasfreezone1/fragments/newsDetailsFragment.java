@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,15 @@ public class newsDetailsFragment extends Fragment {
                 Intent i = new Intent(getContext(), commentsActivity.class);
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
+            }
+        });
+
+
+        relativeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
             }
         });
 

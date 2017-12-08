@@ -14,6 +14,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -43,6 +45,7 @@ public class MapActivity extends AppCompatActivity {
     public LocationManager locationManager;
     public boolean flagPermission = false;
     private static final String TAG = MainActivity.class.getSimpleName();
+    private RelativeLayout lytBack;
     ArrayList<OverlayItem> items;
     ArrayList<OverlayItem> currentItems;
 
@@ -56,7 +59,16 @@ public class MapActivity extends AppCompatActivity {
 
 
         map = (MapView) findViewById(R.id.map);
+        lytBack = (RelativeLayout) findViewById(R.id.lytBack);
         map.setTileSource(TileSourceFactory.MAPNIK);
+
+
+        lytBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         //map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);

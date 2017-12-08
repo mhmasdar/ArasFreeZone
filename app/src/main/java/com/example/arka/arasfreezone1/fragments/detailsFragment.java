@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,19 @@ public class detailsFragment extends Fragment {
 
         Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
         lytGallery.startAnimation(fade_in);
+
+
+        lytGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                galleryFragment fragment = new galleryFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
 
 
         imgBack.setOnClickListener(new View.OnClickListener() {

@@ -49,10 +49,10 @@ public class newsListFragment extends Fragment {
 
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
-        newsTabLayout.addTab(newsTabLayout.newTab().setText("هنری"));
-        newsTabLayout.addTab(newsTabLayout.newTab().setText("اجتماعی"));
-        newsTabLayout.addTab(newsTabLayout.newTab().setText("فرهنگی"));
-        newsTabLayout.addTab(newsTabLayout.newTab().setText("سیاسی"));
+        newsTabLayout.addTab(newsTabLayout.newTab().setText("فرهنگ و جامعه"));
+        newsTabLayout.addTab(newsTabLayout.newTab().setText("گردشگری"));
+        newsTabLayout.addTab(newsTabLayout.newTab().setText("عمرانی"));
+        newsTabLayout.addTab(newsTabLayout.newTab().setText("اقتصادی"));
         newsTabLayout.addTab(newsTabLayout.newTab().setText("همه اخبار"));
 
 

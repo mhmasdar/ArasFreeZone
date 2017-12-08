@@ -47,7 +47,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/lytMenu"
+                    android:id="@+id/lytBack"
                     android:layout_width="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -70,7 +70,6 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

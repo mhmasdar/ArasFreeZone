@@ -1,13 +1,171 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.arka.arasfreezone1.fragments.galleryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="گالری عکس"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/lytBack"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back"
+                        android:layout_height="22dp" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="10dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    android:src="@drawable/back2"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

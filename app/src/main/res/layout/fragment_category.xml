@@ -73,6 +73,7 @@
                     android:id="@+id/lytStay"
                     android:layout_weight="1"
                     android:orientation="vertical"
+                    android:background="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingTop="30dp"
                     android:paddingBottom="30dp"
@@ -101,6 +102,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/lytShopping"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center"
@@ -131,6 +133,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/lytRestaurant"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center"
@@ -166,6 +169,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytTravel"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -196,6 +200,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytArt"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -226,6 +231,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytTourism"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -262,6 +268,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytMedical"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -292,6 +299,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytOffices"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -322,6 +330,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytUtilities"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -358,6 +367,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytOrganization"
                     android:layout_weight="0.5"
                     android:orientation="vertical"
@@ -388,6 +398,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/lytEvents"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -410,7 +421,6 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

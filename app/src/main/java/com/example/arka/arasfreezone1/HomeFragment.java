@@ -29,11 +29,12 @@ import java.util.TimerTask;
  */
 public class HomeFragment extends Fragment {
 
-    private ViewPager mPager;
+    private ViewPagerCustomDuration mPager;
     private static int currentPage = 0;
     private RelativeLayout relative_Menu;
     TextView cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     private boolean checkWeather = true;
+    private CirclePageIndicator indicator;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,22 +46,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         currentTemperatureField = (TextView)view.findViewById(R.id.current_temperature_field);
         humidity_field = (TextView)view.findViewById(R.id.humidity_field);
         weatherIcon = (TextView)view.findViewById(R.id.weather_icon);
+        relative_Menu = (RelativeLayout) view.findViewById(R.id.relative_Menu);
+        mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
+        indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+
+        initSlider();
+
 
         if (checkWeather && app.isInternetOn()) {
             WeatherServiceCallBack WcallBack = new WeatherServiceCallBack();
             WcallBack.execute();
         }
-
-
-
-        mPager = (ViewPager) view.findViewById(R.id.pager);
-        relative_Menu = (RelativeLayout) view.findViewById(R.id.relative_Menu);
-        mPager.setAdapter(new SlidingImage_Adapter(getContext()));
-
 
         relative_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +71,54 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        CirclePageIndicator indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+
+        return view;
+    }
+
+
+    private class WeatherServiceCallBack extends AsyncTask<Object, Void, Void> {
+
+        private WeatherService weatherService;
+        private WeatherModel weatherModel;
+        private WebService webService;
+        private ReligiousTimesModel timesModel;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            weatherService = new WeatherService();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            weatherModel = weatherService.getCurrentWeather();
+            timesModel = webService.getReligiousTimes(app.isInternetOn());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            //set weather
+            currentTemperatureField.setText(weatherModel.temperature);
+            humidity_field.setText(weatherModel.pressure + " / " + weatherModel.humidity);
+            weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
+            checkWeather = false;
+
+            //set times
+
+
+        }
+    }
+
+
+    private void initSlider(){
+
+
+        mPager.setAdapter(new SlidingImage_Adapter(getContext()));
         indicator.setViewPager(mPager);
         final float density = getResources().getDisplayMetrics().density;
 
@@ -118,47 +164,5 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return view;
     }
-
-
-    private class WeatherServiceCallBack extends AsyncTask<Object, Void, Void> {
-
-        private WeatherService weatherService;
-        private WeatherModel weatherModel;
-        private WebService webService;
-        private ReligiousTimesModel timesModel;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            weatherService = new WeatherService();
-            webService = new WebService();
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            weatherModel = weatherService.getCurrentWeather();
-            timesModel = webService.getReligiousTimes(app.isInternetOn());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            //set weather
-            currentTemperatureField.setText(weatherModel.temperature);
-            humidity_field.setText(weatherModel.pressure + " / " + weatherModel.humidity);
-            weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
-            checkWeather = false;
-
-            //set times
-
-
-        }
-    }
-
-
 }
