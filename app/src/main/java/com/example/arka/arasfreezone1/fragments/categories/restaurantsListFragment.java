@@ -50,8 +50,6 @@ public class restaurantsListFragment extends Fragment {
     private int currentPage = 0;
     private int totalSlides = 3;
     private ViewPager mPager;
-    private boolean slider = false;
-    private static Timer swipeTimer = new Timer();
 
     public restaurantsListFragment() {
         // Required empty public constructor

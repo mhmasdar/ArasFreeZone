@@ -55,7 +55,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
         List<PlacesModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
-        String order = "orderb";
+        //String order = "orderb";
         String sql = "SELECT * FROM " + tblName;
         Cursor cursor = ArasDB.rawQuery(sql, null);
         cursor.moveToFirst();
