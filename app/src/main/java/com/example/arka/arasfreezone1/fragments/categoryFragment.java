@@ -17,9 +17,11 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.categories.artFragment;
 import com.example.arka.arasfreezone1.fragments.categories.organizationFragment;
 import com.example.arka.arasfreezone1.fragments.categories.restaurantsListFragment;
+import com.example.arka.arasfreezone1.fragments.categories.servicesFragment;
 import com.example.arka.arasfreezone1.fragments.categories.shoppingFragment;
 import com.example.arka.arasfreezone1.fragments.categories.stayFragment;
 import com.example.arka.arasfreezone1.fragments.categories.tourismFragment;
+import com.example.arka.arasfreezone1.fragments.categories.transportFragment;
 
 
 /**
@@ -126,14 +128,24 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 idCategory = 6;
-
+                transportFragment fragment = new transportFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         lytUtilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 idCategory = 7;
-
+                servicesFragment fragment = new servicesFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         lytOffices.setOnClickListener(new View.OnClickListener() {
