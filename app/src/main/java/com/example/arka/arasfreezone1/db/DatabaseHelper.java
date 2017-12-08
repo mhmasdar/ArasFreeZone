@@ -51,6 +51,72 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
             return lastUpdate;
     }
 
+    public List<PlacesModel> selectAllPlaces(String tblName) {
+
+        List<PlacesModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String order = "orderb";
+        String sql = "SELECT * FROM " + tblName;
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                PlacesModel pm = new PlacesModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public PlacesModel selectPlacesDetail(String tblName, int id) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + id;
+        PlacesModel pm = new PlacesModel();
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+                pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+                pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                pm.starCount = cursor.getInt(cursor.getColumnIndex("starCount"));
+                pm.likeCount = cursor.getInt(cursor.getColumnIndex("likeCount"));
+                pm.info = cursor.getString(cursor.getColumnIndex("info"));
+                pm.website = cursor.getString(cursor.getColumnIndex("website"));
+                pm.idStartDay = cursor.getInt(cursor.getColumnIndex("idStartDay"));
+                pm.idEndDay = cursor.getInt(cursor.getColumnIndex("idEndDay"));
+                pm.startTime = cursor.getString(cursor.getColumnIndex("startTime"));
+                pm.endTime = cursor.getString(cursor.getColumnIndex("endTime"));
+//                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
+//                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return pm ;
+    }
+
 
 
     public List<String> selectCaltureById(String r) {

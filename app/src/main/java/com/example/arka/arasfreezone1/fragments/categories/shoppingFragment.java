@@ -53,7 +53,7 @@ public class shoppingFragment extends Fragment {
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
 
-        setUpRecyclerView();
+//        setUpRecyclerView();
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -133,14 +133,14 @@ public class shoppingFragment extends Fragment {
         }
     }
 
-    private void setUpRecyclerView(){
-
-        restaurantListAdapter adapter = new restaurantListAdapter(getContext());
-        recycler.setAdapter(adapter);
-
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler.setLayoutManager(mLinearLayoutManagerVertical);
-    }
+//    private void setUpRecyclerView(){
+//
+//        restaurantListAdapter adapter = new restaurantListAdapter(getContext());
+//        recycler.setAdapter(adapter);
+//
+//        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
+//        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+//        recycler.setLayoutManager(mLinearLayoutManagerVertical);
+//    }
 
 }

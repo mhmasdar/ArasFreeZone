@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.arka.arasfreezone1.fragments.categories.restaurantsListFragment">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
 
         <android.support.v7.widget.Toolbar
@@ -22,29 +22,29 @@
 
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/txtCatTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:text="رستوران ها"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_centerInParent="true"
-                    android:layout_height="wrap_content" />
+                    android:textSize="16sp" />
 
                 <RelativeLayout
                     android:id="@+id/relative_back"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp">
 
                     <ImageView
                         android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back"
-                        android:layout_height="23dp" />
+                        android:src="@drawable/ic_back" />
 
                 </RelativeLayout>
 
@@ -56,36 +56,48 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
         android:id="@+id/catListTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:background="@color/mainBarBack"
-        android:layout_marginBottom="5dp"
-        app:tabTextAppearance="@style/MineCustomTabText"
-        app:tabTextColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/colorPrimary"
         android:backgroundTintMode="src_over"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabMode="scrollable"
-        android:layout_height="wrap_content"/>
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/MineCustomTabText"
+        app:tabTextColor="@color/colorPrimary" />
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1">-->
-
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/pager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-
-    <!--</RelativeLayout>-->
-
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:id="@+id/recycler"
-        android:background="@color/white"
-        android:layout_weight="0.8"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/white" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
