@@ -7,14 +7,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
-import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.categories.artFragment;
+import com.example.arka.arasfreezone1.fragments.categories.medicalFragment;
 import com.example.arka.arasfreezone1.fragments.categories.officesFragment;
 import com.example.arka.arasfreezone1.fragments.categories.organizationFragment;
 import com.example.arka.arasfreezone1.fragments.categories.restaurantsListFragment;

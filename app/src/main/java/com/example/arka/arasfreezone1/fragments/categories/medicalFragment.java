@@ -1,4 +1,4 @@
-package com.example.arka.arasfreezone1.fragments;
+package com.example.arka.arasfreezone1.fragments.categories;
 
 
 import android.content.Context;
@@ -174,7 +174,7 @@ public class medicalFragment extends Fragment {
 
     private void setUpRecyclerView(List<PlacesModel> placesList){
 
-        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList);
+        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "Tbl_Medicals");
         recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());

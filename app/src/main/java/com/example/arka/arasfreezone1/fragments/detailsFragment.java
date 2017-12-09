@@ -2,7 +2,9 @@ package com.example.arka.arasfreezone1.fragments;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -25,9 +27,13 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.like.LikeButton;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,10 +59,14 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytMenu;
     private LinearLayout lytLocation;
     private TextView txtAddress;
-    private TextView txtInfo;
+    private TextView txtInfo, txtHour, txtDay;
     private LinearLayout lytWebsite;
     private LinearLayout lytOptions;
     private LinearLayout lytComments;
+
+    String tblName;
+    int id;
+    PlacesModel placesModel;
 
     public detailsFragment() {
         // Required empty public constructor
@@ -68,8 +78,15 @@ public class detailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        Bundle args = getArguments();
+        id = args.getInt("ID");
+        tblName = args.getString("TBL_NAME");
+
         initView(view);
 
+        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
+        databaseCallback.execute();
 
         Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
         lytGallery.startAnimation(fade_in);
@@ -223,5 +240,98 @@ public class detailsFragment extends Fragment {
         lytWebsite = (LinearLayout) view.findViewById(R.id.lytWebsite);
         lytOptions = (LinearLayout) view.findViewById(R.id.lytOptions);
         lytComments = (LinearLayout) view.findViewById(R.id.lytComments);
+        txtDay = view.findViewById(R.id.txtDay);
+        txtHour = view.findViewById(R.id.txtHour);
     }
+
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int id;
+
+        public DatabaseCallback(Context context, String tblName, int id) {
+            this.context = context;
+            this.tblName = tblName;
+            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            placesModel = new PlacesModel();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            placesModel = databaseHelper.selectPlacesDetail(tblName, id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            txtLikeCount.setText(placesModel.likeCount + "");
+            txtAddress.setText("آدرس: " + placesModel.address);
+            txtInfo.setText(placesModel.info);
+            txtName.setText(placesModel.name);
+            txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
+            switch (placesModel.idStartDay){
+                case 1:
+                    txtDay.setText("شنبه تا ");
+                    break;
+                case 2:
+                    txtDay.setText("یکشنبه تا ");
+                    break;
+                case 3:
+                    txtDay.setText("دوشنبه تا ");
+                    break;
+                case 4:
+                    txtDay.setText("سه شنبه تا ");
+                    break;
+                case 5:
+                    txtDay.setText("جهارشنبه تا ");
+                    break;
+                case 6:
+                    txtDay.setText("پنجشنبه تا ");
+                    break;
+                case 7:
+                    txtDay.setText("جمعه تا ");
+                    break;
+            }
+            switch (placesModel.idEndDay){
+                case 1:
+                    txtDay.setText(txtDay.getText().toString() + "شنبه");
+                    break;
+                case 2:
+                    txtDay.setText(txtDay.getText().toString() + "یکشنبه");
+                    break;
+                case 3:
+                    txtDay.setText(txtDay.getText().toString() + "دوشنبه");
+                    break;
+                case 4:
+                    txtDay.setText(txtDay.getText().toString() + "سه شنبه");
+                    break;
+                case 5:
+                    txtDay.setText(txtDay.getText().toString() + "جهارشنبه");
+                    break;
+                case 6:
+                    txtDay.setText(txtDay.getText().toString() + "پنجشنبه");
+                    break;
+                case 7:
+                    txtDay.setText(txtDay.getText().toString() + "جمعه");
+                    break;
+            }
+
+        }
+
+    }
+
 }

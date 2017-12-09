@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -34,12 +35,13 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     private Context context;
     private LayoutInflater mInflater;
     private List<PlacesModel> placesList;
+    private String tblName;
 
-
-    public restaurantListAdapter(Context context, List<PlacesModel> placesList) {
+    public restaurantListAdapter(Context context, List<PlacesModel> placesList, String tblName) {
         this.context = context;
         this.placesList = placesList;
         mInflater = LayoutInflater.from(context);
+        this.tblName = tblName;
     }
 
     @Override
@@ -62,6 +64,12 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             @Override
             public void onClick(View view) {
                 detailsFragment fragment = new detailsFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("ID", currentObj.id);
+                args.putString("TBL_NAME", tblName);
+                fragment.setArguments(args);
+
                 MainActivity activity = (MainActivity) context;
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);

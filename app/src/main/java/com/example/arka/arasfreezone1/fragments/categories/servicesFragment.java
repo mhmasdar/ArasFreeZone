@@ -64,7 +64,7 @@ public class servicesFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DbGetPlacesList dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Services");
+        DatabaseCallback dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Services");
         dbGetPlacesList.execute();
 
 
@@ -174,7 +174,7 @@ public class servicesFragment extends Fragment {
 
     private void setUpRecyclerView(List<PlacesModel> placesList){
 
-        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList);
+        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "Tbl_Services");
         recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -182,7 +182,7 @@ public class servicesFragment extends Fragment {
         recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
 
-    public class DbGetPlacesList extends AsyncTask<Object, Void, Void> {
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
 
         private DatabaseHelper databaseHelper;
@@ -190,7 +190,7 @@ public class servicesFragment extends Fragment {
         private Context context;
         private String tblName;
 
-        public DbGetPlacesList(Context context, String tblName) {
+        public DatabaseCallback(Context context, String tblName) {
             this.context = context;
             this.tblName = tblName;
         }

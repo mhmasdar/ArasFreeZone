@@ -99,8 +99,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 pm.starCount = cursor.getInt(cursor.getColumnIndex("starCount"));
                 pm.likeCount = cursor.getInt(cursor.getColumnIndex("likeCount"));
-                pm.info = cursor.getString(cursor.getColumnIndex("info"));
-                pm.website = cursor.getString(cursor.getColumnIndex("website"));
+                pm.info = cursor.getString(cursor.getColumnIndex("Info"));
+                pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
                 pm.idStartDay = cursor.getInt(cursor.getColumnIndex("idStartDay"));
                 pm.idEndDay = cursor.getInt(cursor.getColumnIndex("idEndDay"));
                 pm.startTime = cursor.getString(cursor.getColumnIndex("startTime"));
