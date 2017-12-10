@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
@@ -146,6 +147,26 @@ public class detailsFragment extends Fragment {
                 Intent intentCall = new Intent(Intent.ACTION_DIAL);
                 intentCall.setData(Uri.fromParts("tel", placesModel.phone, null));
                 startActivity(intentCall);
+            }
+        });
+
+        lytWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String url = "";
+                if (placesModel.website != null && !placesModel.website.equals("")) {
+                    url = placesModel.website;
+
+                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                        url = "http://" + url;
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                }
+                else{
+                    Toast.makeText(getContext(),"وب سایت موجود نمی باشد", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
