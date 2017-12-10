@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,8 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytWebsite;
     private LinearLayout lytOptions;
     private LinearLayout lytComments;
+    ImageView imgMenuAndCost;
+    TextView txtMenuAndCost;
 
     String tblName;
     int id;
@@ -84,6 +87,10 @@ public class detailsFragment extends Fragment {
         tblName = args.getString("TBL_NAME");
 
         initView(view);
+
+        lytMenu.setVisibility(View.GONE);
+        if (tblName.equals("Tbl_Tourisms") || tblName.equals("Tbl_Rests") || tblName.equals("Tbl_Transports") || tblName.equals("Tbl_Eating"))
+            lytMenu.setVisibility(View.VISIBLE);
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
@@ -130,6 +137,15 @@ public class detailsFragment extends Fragment {
                 Intent i = new Intent(getContext(), commentsActivity.class);
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
+            }
+        });
+
+        lytCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                intentCall.setData(Uri.fromParts("tel", placesModel.phone, null));
+                startActivity(intentCall);
             }
         });
 
@@ -242,6 +258,8 @@ public class detailsFragment extends Fragment {
         lytComments = (LinearLayout) view.findViewById(R.id.lytComments);
         txtDay = view.findViewById(R.id.txtDay);
         txtHour = view.findViewById(R.id.txtHour);
+        txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
+        imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
     }
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
@@ -278,11 +296,18 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+
             txtLikeCount.setText(placesModel.likeCount + "");
             txtAddress.setText("آدرس: " + placesModel.address);
             txtInfo.setText(placesModel.info);
             txtName.setText(placesModel.name);
             txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
+            if (tblName.equals("Tbl_Tourisms")){
+                imgMenuAndCost.setImageResource(R.drawable.cost);
+                txtMenuAndCost.setText(placesModel.cost + "ریال");
+            }
+
+
             switch (placesModel.idStartDay){
                 case 1:
                     txtDay.setText("شنبه تا ");

@@ -105,6 +105,10 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 pm.idEndDay = cursor.getInt(cursor.getColumnIndex("idEndDay"));
                 pm.startTime = cursor.getString(cursor.getColumnIndex("startTime"));
                 pm.endTime = cursor.getString(cursor.getColumnIndex("endTime"));
+                if (tblName.equals("Tbl_Tourisms"))
+                    pm.cost = cursor.getString(cursor.getColumnIndex("cost"));
+                if (tblName.equals("Tbl_Rests"))
+                    pm.starCount = cursor.getInt(cursor.getColumnIndex("starCount"));
 //                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
 //                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
 
