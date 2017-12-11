@@ -103,10 +103,12 @@ public class HomeFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             //set weather
-            currentTemperatureField.setText(weatherModel.temperature);
-            humidity_field.setText(weatherModel.pressure + " / " + weatherModel.humidity);
-            weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
-            checkWeather = false;
+            if (weatherModel != null) {
+                currentTemperatureField.setText(weatherModel.temperature);
+                humidity_field.setText(weatherModel.pressure + " / " + weatherModel.humidity);
+                weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
+                checkWeather = false;
+            }
 
             //set times
 

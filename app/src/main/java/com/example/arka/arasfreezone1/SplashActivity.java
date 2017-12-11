@@ -110,7 +110,7 @@ public class SplashActivity extends AppCompatActivity {
 
             result = webService.getRests(app.isInternetOn());
 
-            result = webService.getImages(app.isInternetOn());
+            //result = webService.getImages(app.isInternetOn());
 
             return null;
         }
