@@ -77,9 +77,10 @@ public class servicesFragment extends Fragment {
         });
 
 
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("بازارچه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("فروشگاه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("مرکز خرید"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("پمپ بنزین"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("پارکینگ"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("تعمیرگاه"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("سالن ورزشی"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -113,7 +114,7 @@ public class servicesFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 

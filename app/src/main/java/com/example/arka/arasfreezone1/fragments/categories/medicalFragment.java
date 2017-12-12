@@ -77,9 +77,10 @@ public class medicalFragment extends Fragment {
         });
 
 
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("بازارچه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("فروشگاه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("مرکز خرید"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("کلینیک"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("داروخانه"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("درمانگاه"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("بیمارستان"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -113,7 +114,7 @@ public class medicalFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 
