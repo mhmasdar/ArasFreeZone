@@ -65,6 +65,7 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytWebsite;
     private LinearLayout lytOptions;
     private LinearLayout lytComments;
+    private LinearLayout lytDrivers;
     ImageView imgMenuAndCost;
     TextView txtMenuAndCost;
 
@@ -263,6 +264,7 @@ public class detailsFragment extends Fragment {
     private void initView(View view) {
         lytRating = (LinearLayout) view.findViewById(R.id.lytRating);
         lytGallery = (LinearLayout) view.findViewById(R.id.lytGallery);
+        lytDrivers = (LinearLayout) view.findViewById(R.id.lytDrivers);
         txtName = (TextView) view.findViewById(R.id.txtName);
         imgShare = (ImageView) view.findViewById(R.id.imgShare);
         imgBookmark = (ImageView) view.findViewById(R.id.imgBookmark);

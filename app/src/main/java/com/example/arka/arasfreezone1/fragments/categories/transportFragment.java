@@ -78,9 +78,10 @@ public class transportFragment extends Fragment {
         });
 
 
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("بازارچه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("فروشگاه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("مرکز خرید"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("آژانس تلفنی"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه قطار"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه اتوبوس"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه تاکسی"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class transportFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 
@@ -223,6 +224,5 @@ public class transportFragment extends Fragment {
         }
 
     }
-
 
 }
