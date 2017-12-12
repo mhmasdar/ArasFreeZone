@@ -7,6 +7,7 @@ import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
+import com.example.arka.arasfreezone1.models.UserModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -160,14 +161,32 @@ public class WebService {
             return null;
     }
 
-    public String postLoginInfo(boolean isInternetAvailable, String userName, String password) {
+    public UserModel postLoginInfo(boolean isInternetAvailable, String userName, String password) {
 
         if (isInternetAvailable) {
 
             String response = connectToServer(addr + "login/login?username=" + userName + "&pass=" + password, "GET");
             Log.i("LOG", response + "");
 
-            return response;
+            if (response != null) {
+
+                try {
+                    JSONObject Object = new JSONObject(response);
+                    UserModel userModel = new UserModel();
+                    userModel.id = Object.getInt("");
+                    userModel.name = Object.getString("");
+                    userModel.lName = Object.getString("");
+                    userModel.mobile = Object.getString("");
+                    userModel.email = Object.getString("");
+                    userModel.pass = Object.getString("");
+
+                    return userModel;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
         } else
             return null;
     }

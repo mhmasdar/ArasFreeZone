@@ -121,18 +121,18 @@ public class SplashActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-            SharedPreferences prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
-            Intent i;
-
-
-            if (prefs.getBoolean("LogIn_Check", false))
-            {
-                i = new Intent(getApplicationContext(), MainActivity.class);
-            }
-            else
-            {
-                i = new Intent(getApplicationContext(), loginActivity.class);
-            }
+//            SharedPreferences prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+//            Intent i;
+//
+//
+//            if (prefs.getBoolean("LogIn_Check", false))
+//            {
+//                i = new Intent(getApplicationContext(), MainActivity.class);
+//            }
+//            else
+//            {
+//                i = new Intent(getApplicationContext(), loginActivity.class);
+//            }
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -142,13 +142,13 @@ public class SplashActivity extends AppCompatActivity {
                 pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
-                //Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i, options.toBundle());
                 finish();
             }
             else
             {
-                //Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }

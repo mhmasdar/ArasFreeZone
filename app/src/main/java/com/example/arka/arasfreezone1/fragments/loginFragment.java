@@ -24,6 +24,7 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.SplashActivity;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.loginActivity;
+import com.example.arka.arasfreezone1.models.UserModel;
 import com.example.arka.arasfreezone1.services.WebService;
 
 /**
@@ -34,7 +35,6 @@ public class loginFragment extends Fragment {
 
     private Button btnUserLogin;
     private EditText edtUserName, edtUserPass;
-    private TextView txtGuestUser;
 
     public loginFragment() {
         // Required empty public constructor
@@ -62,14 +62,6 @@ public class loginFragment extends Fragment {
             }
         });
 
-        txtGuestUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
 
         return view;
     }
@@ -79,13 +71,12 @@ public class loginFragment extends Fragment {
         edtUserName = view.findViewById(R.id.edtUserName);
         edtUserPass = view.findViewById(R.id.edtUserPass);
         btnUserLogin = view.findViewById(R.id.btnUserLogin);
-        txtGuestUser = view.findViewById(R.id.txtGuestUser);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        String result;
+        UserModel result;
         String user, pass;
 
         @Override
@@ -110,16 +101,22 @@ public class loginFragment extends Fragment {
 
             if (result != null) {
 
-                if (Integer.parseInt(result) > 0) {
+                if (result.id > 0) {
 
                     SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("LogIn_Check", true);
-                    editor.putString("UserName", user);
+                    editor.putInt("IdUser", result.id);
+                    editor.putString("Name", result.name);
+                    editor.putString("LName", result.lName);
+                    editor.putString("Mobile", result.mobile);
+                    editor.putString("Email", result.email);
+                    editor.putString("Pass", result.pass);
                     editor.apply();
 
-                    Intent i = new Intent(getActivity(), MainActivity.class);
-                    startActivity(i);
+//                    Intent i = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(i);
+
                     getActivity().finish();
 
                 }

@@ -101,11 +101,16 @@ public class registerFragment extends Fragment {
                     SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("LogIn_Check", true);
-                    editor.putString("UserName", email);
+                    editor.putInt("IdUser", Integer.parseInt(result));
+                    editor.putString("Name", name);
+                    editor.putString("LName", lName);
+                    editor.putString("Mobile", mobile);
+                    editor.putString("Email", email);
+                    editor.putString("Pass", pass);
                     editor.apply();
 
-                    Intent i = new Intent(getActivity(), MainActivity.class);
-                    startActivity(i);
+//                    Intent i = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(i);
                     getActivity().finish();
 
                 }
