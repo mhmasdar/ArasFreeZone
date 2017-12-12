@@ -122,6 +122,10 @@ public class WebService {
     }
 
 
+
+
+
+
     public ReligiousTimesModel getReligiousTimes(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {
@@ -152,6 +156,31 @@ public class WebService {
 
             }
             return null;
+        } else
+            return null;
+    }
+
+    public String postLoginInfo(boolean isInternetAvailable, String userName, String password) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/login?username=" + userName + "&pass=" + password, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+    public String postRegisterInfo(boolean isInternetAvailable, String name, String lName, String mobile, String email, String pass) {
+
+        if (isInternetAvailable) {
+
+            String req = "{\"Name\":\"" + name + "\",\"LName\":\"" + lName + "\",\"Mobile\":\"" + mobile + "\",\"Email\":\"" + email + "\",\"Pass\":\"" + pass + "\",\"Visibility\":1,\"lastUpdate\":1}";
+            String response = connectToServerByJson(addr + "login/register", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
         } else
             return null;
     }

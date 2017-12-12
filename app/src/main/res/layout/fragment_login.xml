@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -29,12 +29,14 @@
             android:maxLines="1"
             android:textSize="15sp"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -47,7 +49,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -62,12 +64,13 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -80,7 +83,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
         <Button
             android:layout_width="match_parent"
@@ -96,7 +99,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -109,5 +112,19 @@
        android:padding="15dp"
        android:text="کلمه عبورم رو فراموش کردم"
        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtGuestUser"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="ورود کاربر میهمان"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

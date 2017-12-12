@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,8 @@ public class navigationDrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation_drawer);
         initView();
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+        txtUserEmail.setText(prefs.getString("UserName", ""));
 
         lytSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
