@@ -60,7 +60,6 @@ public class referendumActivity extends AppCompatActivity {
             }
         });
 
-
         changeTabsFont();
     }
 
