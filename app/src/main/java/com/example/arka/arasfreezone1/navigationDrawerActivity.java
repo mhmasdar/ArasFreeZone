@@ -32,7 +32,7 @@ public class navigationDrawerActivity extends AppCompatActivity {
         initView();
 
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
-        txtUserEmail.setText(prefs.getString("UserName", ""));
+        txtUserEmail.setText(prefs.getString("UserName", "کاربر مهمان"));
 
         lytSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override

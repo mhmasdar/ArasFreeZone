@@ -113,18 +113,4 @@
        android:text="کلمه عبورم رو فراموش کردم"
        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/txtGuestUser"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:text="ورود کاربر میهمان"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>
