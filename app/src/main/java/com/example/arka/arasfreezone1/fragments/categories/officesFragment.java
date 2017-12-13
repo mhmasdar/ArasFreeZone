@@ -67,7 +67,7 @@ public class officesFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DbGetPlacesList dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Medicals");
+        DbGetPlacesList dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Offices");
         dbGetPlacesList.execute();
 
 
@@ -182,7 +182,7 @@ public class officesFragment extends Fragment {
 
     private void setUpRecyclerView(List<PlacesModel> placesList){
 
-        officeListAdapter adapter = new officeListAdapter(getContext(), placesList, "Tbl_Medicals");
+        officeListAdapter adapter = new officeListAdapter(getContext(), placesList, "Tbl_Offices");
         recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());

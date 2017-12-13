@@ -95,7 +95,7 @@ public class SplashActivity extends AppCompatActivity {
 
             result = webService.getCulture(app.isInternetOn());
 
-            result = webService.getCOffices(app.isInternetOn());
+            result = webService.getOffices(app.isInternetOn());
 
             result = webService.getEatings(app.isInternetOn());
 

@@ -7,11 +7,12 @@ package com.example.arka.arasfreezone1.models;
 public class MenuModel {
 
     public int id;
-    public String price;
-    public int type;
-    public String name;
-    public String des;
-    public boolean visibility;
+    public int idRow;
+    public String Price;
+    public int Type;
+    public String Name;
+    public String Des;
+    public boolean Visibility;
     public String lastUpdate;
 
 }

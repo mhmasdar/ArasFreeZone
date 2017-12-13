@@ -66,6 +66,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 pm.type = cursor.getInt(cursor.getColumnIndex("type"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                if (!tblName.equals("Tbl_Offices"))
                 pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
@@ -121,7 +122,35 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         return pm ;
     }
 
+    public PlacesModel selectOfficesDetail(String tblName, int id) {
 
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + id;
+        PlacesModel pm = new PlacesModel();
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+                pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("tel"));
+                pm.info = cursor.getString(cursor.getColumnIndex("Info"));
+                pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
+
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return pm ;
+    }
 
     public List<String> selectCaltureById(String r) {
         List<String> list = new ArrayList<>();

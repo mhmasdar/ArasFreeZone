@@ -113,7 +113,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
         }
 
-        public void setData(PlacesModel current, int position) {
+        private void setData(PlacesModel current, int position) {
 
             this.rating.setRating(Float.parseFloat(current.star + ""));
             this.txtName.setText(current.name);

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.ImgModel;
+import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
 import com.example.arka.arasfreezone1.models.UserModel;
@@ -121,10 +122,6 @@ public class WebService {
         }
         return stringBuilder.toString();
     }
-
-
-
-
 
 
     public ReligiousTimesModel getReligiousTimes(boolean isInternetAvailable) {
@@ -283,7 +280,7 @@ public class WebService {
             return -10;
     }
 
-    public int getCOffices(boolean isInternetAvailable) {
+    public int getOffices(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {
             DatabaseHelper helper = new DatabaseHelper(app.context);
@@ -956,6 +953,45 @@ public class WebService {
             return -2;
         } else
             return -10;
+    }
+
+    public List<MenuModel> getMenu(boolean isInternetAvailable, int id, int idType) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "menu/select?idType=" + idType + "&id=" + id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<MenuModel> menuList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        MenuModel menuModel = new MenuModel();
+                        menuModel.id = Object.getInt("id");
+                        menuModel.idRow = Object.getInt("idRow");
+                        menuModel.Type = Object.getInt("Type");
+                        menuModel.Price = Object.getString("Price");
+                        menuModel.Des = Object.getString("Des");
+                        menuModel.Name = Object.getString("Name");
+
+                        menuList.add(menuModel);
+
+                    }
+                    return menuList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
     }
 
 }

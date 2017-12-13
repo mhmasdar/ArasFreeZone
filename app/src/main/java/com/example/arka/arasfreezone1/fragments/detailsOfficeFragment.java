@@ -1,7 +1,6 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,43 +11,31 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
-import com.example.arka.arasfreezone1.adapter.menuDialogAdapter;
 import com.example.arka.arasfreezone1.app;
-import com.example.arka.arasfreezone1.commentsActivity;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
-import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
-import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class detailsFragment extends Fragment {
+public class detailsOfficeFragment extends Fragment {
 
     private ViewPager mPager;
     private int currentPage = 0;
@@ -78,11 +65,7 @@ public class detailsFragment extends Fragment {
     int id;
     PlacesModel placesModel;
 
-    //recycler in dialog_menu
-    private RecyclerView recycler;
-    List<MenuModel> menuList;
-
-    public detailsFragment() {
+    public detailsOfficeFragment() {
         // Required empty public constructor
     }
 
@@ -91,7 +74,7 @@ public class detailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_details_office, container, false);
 
         Bundle args = getArguments();
         id = args.getInt("ID");
@@ -99,16 +82,11 @@ public class detailsFragment extends Fragment {
 
         initView(view);
 
-        lytMenu.setVisibility(View.GONE);
-        if (tblName.equals("Tbl_Tourisms") || tblName.equals("Tbl_Rests") || tblName.equals("Tbl_Transports") || tblName.equals("Tbl_Eating"))
-            lytMenu.setVisibility(View.VISIBLE);
-
-            DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
-            databaseCallback.execute();
+        DatabaseCallbackOffice databaseCallbackOffice = new DatabaseCallbackOffice(getContext(), tblName, id);
+        databaseCallbackOffice.execute();
 
         Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
         lytGallery.startAnimation(fade_in);
-
 
         lytGallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,24 +106,6 @@ public class detailsFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
-            }
-        });
-
-
-        lytRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRatingDialog();
-            }
-        });
-
-
-        lytComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), commentsActivity.class);
-                startActivity(i);
-                getActivity().overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
             }
         });
 
@@ -174,8 +134,6 @@ public class detailsFragment extends Fragment {
                 }
             }
         });
-
-        lytMenu.setOnClickListener(lytMenuClick);
 
         initSlider(view);
 
@@ -243,34 +201,9 @@ public class detailsFragment extends Fragment {
 
     }
 
-    private void showRatingDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_rating);
-        RatingBar rating_dialog = (RatingBar) dialog.findViewById(R.id.rating_dialog);
-        Button btnSubmitRating = (Button) dialog.findViewById(R.id.btnSubmitRating);
-        Button btnCancelRating = (Button) dialog.findViewById(R.id.btnCancelRating);
-        btnCancelRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        btnSubmitRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
-    }
-
     private void initView(View view) {
-        lytRating = (LinearLayout) view.findViewById(R.id.lytRating);
+
         lytGallery = (LinearLayout) view.findViewById(R.id.lytGallery);
-        lytDrivers = (LinearLayout) view.findViewById(R.id.lytDrivers);
         txtName = (TextView) view.findViewById(R.id.txtName);
         imgShare = (ImageView) view.findViewById(R.id.imgShare);
         imgBookmark = (ImageView) view.findViewById(R.id.imgBookmark);
@@ -278,48 +211,14 @@ public class detailsFragment extends Fragment {
         btnLike = (LikeButton) view.findViewById(R.id.btnLike);
         txtLikeCount = (TextView) view.findViewById(R.id.txtLikeCount);
         lytCall = (LinearLayout) view.findViewById(R.id.lytCall);
-        lytMenu = (LinearLayout) view.findViewById(R.id.lytMenu);
         lytLocation = (LinearLayout) view.findViewById(R.id.lytLocation);
         txtAddress = (TextView) view.findViewById(R.id.txtAddress);
         txtInfo = (TextView) view.findViewById(R.id.txtInfo);
         lytWebsite = (LinearLayout) view.findViewById(R.id.lytWebsite);
-        lytOptions = (LinearLayout) view.findViewById(R.id.lytOptions);
-        lytComments = (LinearLayout) view.findViewById(R.id.lytComments);
-        txtDay = view.findViewById(R.id.txtDay);
-        txtHour = view.findViewById(R.id.txtHour);
-        txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
-        imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
+
     }
 
-    View.OnClickListener lytMenuClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_menu);
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-
-            recycler = dialog.findViewById(R.id.recycler);
-
-            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
-            webServiceCallBackMenu.execute();
-
-        }
-    };
-
-    private void setUpRecyclerView(List<MenuModel> menuList){
-
-        menuDialogAdapter adapter = new menuDialogAdapter(getContext(), menuList);
-        recycler.setAdapter(adapter);
-
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler.setLayoutManager(mLinearLayoutManagerVertical);
-    }
-
-    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
+    public class DatabaseCallbackOffice extends AsyncTask<Object, Void, Void> {
 
 
         private DatabaseHelper databaseHelper;
@@ -327,7 +226,7 @@ public class detailsFragment extends Fragment {
         private String tblName;
         int id;
 
-        public DatabaseCallback(Context context, String tblName, int id) {
+        public DatabaseCallbackOffice(Context context, String tblName, int id) {
             this.context = context;
             this.tblName = tblName;
             this.id = id;
@@ -344,7 +243,7 @@ public class detailsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            placesModel = databaseHelper.selectPlacesDetail(tblName, id);
+            placesModel = databaseHelper.selectOfficesDetail(tblName, id);
 
             return null;
         }
@@ -353,106 +252,13 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-
-            txtLikeCount.setText(placesModel.likeCount + "");
             txtAddress.setText("آدرس: " + placesModel.address);
             txtInfo.setText(placesModel.info);
             txtName.setText(placesModel.name);
-            txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
-            if (tblName.equals("Tbl_Tourisms")) {
-                imgMenuAndCost.setImageResource(R.drawable.cost);
-                txtMenuAndCost.setText(placesModel.cost + "ریال");
-            }
-
-
-            switch (placesModel.idStartDay) {
-                case 1:
-                    txtDay.setText("شنبه تا ");
-                    break;
-                case 2:
-                    txtDay.setText("یکشنبه تا ");
-                    break;
-                case 3:
-                    txtDay.setText("دوشنبه تا ");
-                    break;
-                case 4:
-                    txtDay.setText("سه شنبه تا ");
-                    break;
-                case 5:
-                    txtDay.setText("جهارشنبه تا ");
-                    break;
-                case 6:
-                    txtDay.setText("پنجشنبه تا ");
-                    break;
-                case 7:
-                    txtDay.setText("جمعه تا ");
-                    break;
-            }
-            switch (placesModel.idEndDay) {
-                case 1:
-                    txtDay.setText(txtDay.getText().toString() + "شنبه");
-                    break;
-                case 2:
-                    txtDay.setText(txtDay.getText().toString() + "یکشنبه");
-                    break;
-                case 3:
-                    txtDay.setText(txtDay.getText().toString() + "دوشنبه");
-                    break;
-                case 4:
-                    txtDay.setText(txtDay.getText().toString() + "سه شنبه");
-                    break;
-                case 5:
-                    txtDay.setText(txtDay.getText().toString() + "جهارشنبه");
-                    break;
-                case 6:
-                    txtDay.setText(txtDay.getText().toString() + "پنجشنبه");
-                    break;
-                case 7:
-                    txtDay.setText(txtDay.getText().toString() + "جمعه");
-                    break;
-            }
 
         }
 
     }
 
-    private class WebServiceCallBackMenu extends AsyncTask<Object, Void, Void> {
-
-        private WebService webService;
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            menuList = new ArrayList<>();
-            webService = new WebService();
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            menuList = webService.getMenu(app.isInternetOn(), placesModel.type, placesModel.id);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            if (menuList != null) {
-
-                if (menuList.size() > 0)
-                    setUpRecyclerView(menuList);
-                else
-                    Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
-
-            } else {
-                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
-            }
-
-        }
-
-    }
 
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
+import com.example.arka.arasfreezone1.fragments.detailsOfficeFragment;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                detailsFragment fragment = new detailsFragment();
+                detailsOfficeFragment fragment = new detailsOfficeFragment();
 
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
