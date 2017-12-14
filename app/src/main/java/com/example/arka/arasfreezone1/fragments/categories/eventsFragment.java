@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,10 +71,8 @@ public class eventsFragment extends Fragment {
 
         eventsListAdapter adapter = new eventsListAdapter(getContext());
         recycler.setAdapter(adapter);
-
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler.setLayoutManager(mLinearLayoutManagerVertical);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recycler.setLayoutManager(gridLayoutManager);
     }
 
 

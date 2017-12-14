@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="230dp"
+    android:layout_margin="3dp">
+
 
     <ImageView
-        android:id="@+id/backImage"
+        android:id="@+id/img_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/test"
+        android:layout_gravity="center"
         android:scaleType="fitXY"
-        />
+        android:src="@drawable/test" />
 
     <LinearLayout
+        android:id="@+id/linear_NCandidate"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:background="#9d252525"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_height="match_parent">
+        android:paddingTop="8dp"
+        android:paddingBottom="10dp"
+        android:background="#9d252525">
 
         <TextView
+            android:id="@+id/txvTitle"
             android:layout_width="wrap_content"
-            android:id="@+id/txtSliderName"
-            android:textColor="@color/white"
-            android:textSize="15sp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="برگزاری میزگرد تخصصی فعالیت های دانش بنیان   در نمایشگاه رینوتک"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_marginTop="15dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:text="زمان : 96/9/22"
             android:textColor="@color/white"
             android:layout_gravity="right"
@@ -45,43 +51,48 @@
             android:layout_width="wrap_content"
             android:id="@+id/txtSliderDetail"
             android:layout_marginTop="5dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="مکان : جلفا - خیابان اصلی"
             android:textColor="@color/white"
             android:layout_gravity="right"
             android:paddingRight="10dp"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <ImageView
-                android:layout_width="40dp"
-                android:id="@+id/imgShare"
-                android:src="@drawable/ic_share1"
-                android:padding="10dp"
-                android:layout_centerInParent="true"
-                android:layout_height="40dp" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:src="@drawable/ic_bookmark"
-                android:padding="10dp"
-                android:layout_centerInParent="true"
-                android:layout_height="40dp" />
-
-            <!--<com.like.LikeButton-->
+            <!--<ImageView-->
                 <!--android:layout_width="30dp"-->
-                <!--android:id="@+id/btnLike"-->
-                <!--app:icon_size="21dp"-->
-                <!--app:icon_type="heart"-->
+                <!--android:id="@+id/imgShare"-->
+                <!--android:padding="7dp"-->
+                <!--android:src="@drawable/ic_share1"-->
+                <!--android:layout_centerInParent="true"-->
                 <!--android:layout_height="30dp" />-->
 
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:padding="7dp"-->
+                <!--android:src="@drawable/ic_bookmark"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_height="30dp" />-->
 
-        </LinearLayout>
+            <!--<com.like.LikeButton-->
+                <!--android:layout_width="25dp"-->
+                <!--android:id="@+id/btnLike"-->
+                <!--app:unlike_drawable="@drawable/ic_love"-->
+                <!--app:like_drawable="@drawable/ic_like1"-->
+                <!--app:icon_size="16dp"-->
+                <!--app:icon_type="heart"-->
+                <!--android:layout_height="25dp" />-->
+
+
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 
-</RelativeLayout>
+
+</FrameLayout>

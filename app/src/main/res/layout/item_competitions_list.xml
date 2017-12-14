@@ -18,112 +18,84 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:id="@+id/lytOption1"
         android:layout_marginTop="12dp"
-        android:gravity="right|center_vertical"
         android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="3dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="گزینه اول"
+                android:id="@+id/txtOption1"
+                android:gravity="center"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="گزینه دوم"
+                android:id="@+id/txtOption2"
+                android:gravity="center"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="گزینه سوم"
+                android:id="@+id/txtOption3"
+                android:gravity="center"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="گزینه چهارم"
+                android:id="@+id/txtOption4"
+                android:gravity="center"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:id="@+id/txtOption1"
-            android:text="گزینه اول"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:id="@+id/radioOption1"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:layout_marginLeft="5dp"
-            android:buttonTint="@color/colorPrimary"
-            android:layout_height="wrap_content" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:gravity="right"
+                android:id="@+id/radioGroup"
+                android:layout_height="match_parent">
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/radio1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:layout_height="40dp" />
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/radio2"
+                    android:buttonTint="@color/colorPrimary"
+                    android:layout_height="40dp" />
 
-    </LinearLayout>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/radio3"
+                    android:buttonTint="@color/colorPrimary"
+                    android:layout_height="40dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/lytOption2"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:gravity="right|center_vertical"
-        android:layout_height="wrap_content">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/radio4"
+                    android:buttonTint="@color/colorPrimary"
+                    android:layout_height="40dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/txtOption2"
-            android:text="گزینه دوم"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
+            </RadioGroup>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:id="@+id/radioOption2"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:layout_marginLeft="5dp"
-            android:buttonTint="@color/colorPrimary"
-            android:layout_height="wrap_content" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/lytOption3"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:gravity="right|center_vertical"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/txtOption3"
-            android:text="گزینه سوم"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:id="@+id/radioOption3"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:layout_marginLeft="5dp"
-            android:buttonTint="@color/colorPrimary"
-            android:layout_height="wrap_content" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/lytOption4"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:gravity="right|center_vertical"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/txtOption4"
-            android:text="گزینه چهارم"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:id="@+id/radioOption4"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:layout_marginLeft="5dp"
-            android:buttonTint="@color/colorPrimary"
-            android:layout_height="wrap_content" />
-
-
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -132,6 +104,5 @@
         android:layout_marginTop="10dp"
         android:background="@color/itmesShadow"
         android:layout_height="0.5dp"></LinearLayout>
-
 
 </LinearLayout>

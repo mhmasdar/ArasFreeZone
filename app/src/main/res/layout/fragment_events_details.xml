@@ -38,13 +38,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:background="?attr/selectableItemBackground"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="25dp"
+                        android:layout_width="22dp"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_back"
-                        android:layout_height="25dp" />
+                        android:layout_height="22dp" />
 
                 </RelativeLayout>
 
@@ -55,238 +55,279 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:src="@drawable/test"
-        android:layout_weight="0.8"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:text="برگزاری میزگرد تخصصی فعالیت های دانش بنیان ارس در نمایشگاه رینو"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical"
-        android:gravity="right"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="شروع رویداد"
-            android:textColor="@color/mainBarText"
-            android:textSize="12sp"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:src="@drawable/test"
+            android:layout_weight="0.8"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:background="@color/yellow"
-                android:text="افزودن به تقویم گوشی"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:gravity="right|center_vertical"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="جمعه 26 آبان 96"
-                    android:textColor="@color/mainBarText"
-                    android:layout_marginRight="5dp"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:src="@drawable/ic_event_details"
-                    android:layout_height="20dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        android:gravity="right"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="پایان رویداد"
-            android:textColor="@color/mainBarText"
-            android:textSize="12sp"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:background="@color/yellow"
-                android:text="افزودن به تقویم گوگل"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:gravity="right|center_vertical"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="جمعه 26 آبان 96"
-                    android:textColor="@color/mainBarText"
-                    android:layout_marginRight="5dp"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:src="@drawable/ic_event_details"
-                    android:layout_height="20dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        android:gravity="right"
-        android:layout_height="match_parent">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:gravity="right|center_vertical"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="جلفا - خیابان اصلی - فلکه بزرگ"
-                    android:textColor="@color/mainBarText"
-                    android:layout_marginRight="5dp"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:src="@drawable/ic_location"
-                    android:layout_height="20dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:gravity="right"
-            android:paddingRight="5dp"
-            android:paddingLeft="5dp"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
+                android:padding="7dp"
                 android:textColor="@color/colorPrimary"
-                android:text="درباره مجموعه :"
-                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="برگزاری میزگرد تخصصی فعالیت های دانش بنیان ارس در نمایشگاه رینو"
                 android:layout_height="wrap_content" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:scrollbars="none"
-                android:fillViewport="true"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/txtInfo"
-                    android:textColor="#a7b5b6"
-                    android:layout_gravity="right"
-                    android:text="@string/s3"
-                    android:lineSpacingMultiplier="1.2"
-                    android:textSize="12sp"
-                    android:layout_marginTop="4dp"
-                    android:layout_height="wrap_content" />
-
-            </ScrollView>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="شروع رویداد"
+                android:textColor="@color/mainBarText"
+                android:textSize="12sp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:text="افزودن به تقویم گوشی"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:gravity="right|center_vertical"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="جمعه 26 آبان 96"
+                        android:textColor="@color/mainBarText"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:src="@drawable/ic_event_details"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="پایان رویداد"
+                android:textColor="@color/mainBarText"
+                android:textSize="12sp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/yellow"
+                    android:text="افزودن به تقویم گوگل"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:gravity="right|center_vertical"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="جمعه 26 آبان 96"
+                        android:textColor="@color/mainBarText"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:src="@drawable/ic_event_details"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:id="@+id/imgShare"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_share1"
+                        android:padding="8dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="35dp" />
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:id="@+id/imgBookmark"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_bookmark1"
+                        android:padding="8dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="35dp" />
+
+                    <com.like.LikeButton
+                        android:layout_width="30dp"
+                        android:id="@+id/btnLike"
+                        app:unlike_drawable="@drawable/ic_love"
+                        app:like_drawable="@drawable/ic_like1"
+                        app:icon_size="20dp"
+                        app:icon_type="heart"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:gravity="right|center_vertical"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="جلفا - خیابان اصلی - فلکه بزرگ"
+                        android:textColor="@color/mainBarText"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:src="@drawable/ic_location"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="0.8"
+            android:layout_marginBottom="5dp"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:text="توضیحات"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:scrollbars="none"
+                        android:fillViewport="true"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/txtInfo"
+                            android:textColor="#a7b5b6"
+                            android:layout_gravity="right"
+                            android:text="@string/s3"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="wrap_content" />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
