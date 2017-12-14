@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.categories.artFragment;
+import com.example.arka.arasfreezone1.fragments.categories.eventsFragment;
 import com.example.arka.arasfreezone1.fragments.categories.medicalFragment;
 import com.example.arka.arasfreezone1.fragments.categories.officesFragment;
 import com.example.arka.arasfreezone1.fragments.categories.organizationFragment;
@@ -40,6 +41,7 @@ public class categoryFragment extends Fragment {
     private LinearLayout lytOffices;
     private LinearLayout lytUtilities;
     private LinearLayout lytOrganization;
+    private LinearLayout lytEvents;
     private int idCategory;
 
 
@@ -175,6 +177,22 @@ public class categoryFragment extends Fragment {
             }
         });
 
+
+        lytEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                idCategory = 10;
+
+                eventsFragment fragment = new eventsFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
+
         lytOrganization.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,5 +220,6 @@ public class categoryFragment extends Fragment {
         lytOffices = (LinearLayout) view.findViewById(R.id.lytOffices);
         lytUtilities = (LinearLayout) view.findViewById(R.id.lytUtilities);
         lytOrganization = (LinearLayout) view.findViewById(R.id.lytOrganization);
+        lytEvents = (LinearLayout) view.findViewById(R.id.lytEvents);
     }
 }
