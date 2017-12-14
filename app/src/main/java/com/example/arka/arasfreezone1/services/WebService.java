@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -983,6 +984,43 @@ public class WebService {
 
                     }
                     return menuList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+
+    public List<FacilityModel> getfacility(boolean isInternetAvailable, int id, int idType) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "facility/select?idType=" + idType + "&id=" + id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<FacilityModel> facilityList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        FacilityModel facilityModel = new FacilityModel();
+                        facilityModel.id = Object.getInt("id");
+                        facilityModel.idRow = Object.getInt("idRow");
+                        facilityModel.Type = Object.getInt("Type");
+                        facilityModel.Name = Object.getString("Name");
+
+                        facilityList.add(facilityModel);
+
+                    }
+                    return facilityList;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -20,7 +20,7 @@ import com.example.arka.arasfreezone1.services.WebService;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 2000;
     private ImageView imgSp1, imgSp2, imgSp3;
     private LinearLayout splashBack;
     private ImageView imgAras;

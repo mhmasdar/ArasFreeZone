@@ -10,6 +10,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.models.FacilityModel;
+
+import java.util.List;
 
 /**
  * Created by mohamadHasan on 12/12/2017.
@@ -19,12 +22,13 @@ public class facilityDialogAdapter extends RecyclerView.Adapter<facilityDialogAd
 
     private Context context;
     private LayoutInflater mInflater;
+    private List<FacilityModel> facilityList;
 
 
-
-    public facilityDialogAdapter(Context context) {
+    public facilityDialogAdapter(Context context, List<FacilityModel> facilityList) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        this.facilityList = facilityList;
     }
 
     @Override
@@ -37,20 +41,36 @@ public class facilityDialogAdapter extends RecyclerView.Adapter<facilityDialogAd
 
     @Override
     public void onBindViewHolder(facilityDialogAdapter.myViewHolder holder, int position) {
+        final FacilityModel currentObj = facilityList.get(position);
+        holder.setData(currentObj, position);
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return facilityList.size();
     }
 
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView txtFacility;
+        int position;
+        public FacilityModel current;
 
         myViewHolder(View itemView) {
             super(itemView);
+            txtFacility = (TextView) itemView.findViewById(R.id.txtFacility);
 
         }
+
+        private void setData(FacilityModel current, int position) {
+
+            this.txtFacility.setText(current.Name);
+
+            this.position = position;
+            this.current = current;
+
+        }
+
     }
 }
