@@ -1,11 +1,15 @@
 package com.example.arka.arasfreezone1;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.example.arka.arasfreezone1.services.WebService;
 
 public class suggestionActivity extends AppCompatActivity {
 
@@ -21,6 +25,20 @@ public class suggestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
         initView();
+
+        btnSendSuggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edtTitle.getText().toString().equals("") && !edtBody.getText().toString().equals("")){
+                    WebServiceCallBack callBack = new WebServiceCallBack();
+                    callBack.execute();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "عنوان و متن پیام را وارد کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     private void initView() {
@@ -39,9 +57,61 @@ public class suggestionActivity extends AppCompatActivity {
         });
     }
 
+    private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        String name, email, title, body, date;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            webService = new WebService();
+
+            name = edtName.getText().toString();
+            title = edtTitle.getText().toString();
+            body = edtBody.getText().toString();
+            email = edtEmail.getText().toString();
+            date = app.getDate();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postSuggestion(app.isInternetOn(), name, email, title, body, date);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+
+                    Toast.makeText(getApplicationContext(), "با موفقیت ارسال شد", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "ناموفق", Toast.LENGTH_LONG).show();
+                }
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.stay, R.anim.activity_back_enter);
     }
+
+
+
 }

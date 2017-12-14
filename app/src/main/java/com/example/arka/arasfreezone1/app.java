@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.example.arka.arasfreezone1.db.IOHelper;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import java.util.Timer;
 
@@ -65,6 +66,33 @@ public class app extends Application {
             }
         }
         return false;
+    }
+
+    public static String getDate(){
+
+        String date;
+
+        PersianCalendar persianCalendar = new PersianCalendar();
+        //date = persianCalendar.getPersianYear() + "" + persianCalendar.getPersianMonth() + "" + persianCalendar.getPersianDay() + "";
+        boolean flagMonth = false, flagDay = false;
+
+        if (persianCalendar.getPersianDay() / 10 < 1)
+            flagDay = true;
+        if ((persianCalendar.getPersianMonth()+1) / 10 < 1)
+            flagMonth = true;
+
+        date = persianCalendar.getPersianYear() + "";
+        if (flagMonth)
+            date += "0" + (persianCalendar.getPersianMonth() + 1);
+        else
+            date += "" + (persianCalendar.getPersianMonth() + 1);
+        if (flagDay)
+            date += "0" + persianCalendar.getPersianDay();
+        else
+            date += "" + persianCalendar.getPersianDay();
+
+
+        return date;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.arka.arasfreezone1.services;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.arka.arasfreezone1.app;
@@ -1028,6 +1029,19 @@ public class WebService {
             }
             return null;
 
+        } else
+            return null;
+    }
+
+    public String postSuggestion(boolean isInternetAvailable, String name, String email, String title, String body, String date) {
+
+        if (isInternetAvailable) {
+
+            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
+            String response = connectToServerByJson(addr + "suggestion/add", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
         } else
             return null;
     }
