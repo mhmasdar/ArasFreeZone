@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.example.arka.arasfreezone1.R.string.Tbl_Eating;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +76,7 @@ public class detailsFragment extends Fragment {
     ImageView imgMenuAndCost;
     TextView txtMenuAndCost;
 
+    int mainType;
     String tblName;
     int id;
     PlacesModel placesModel;
@@ -96,6 +99,7 @@ public class detailsFragment extends Fragment {
         Bundle args = getArguments();
         id = args.getInt("ID");
         tblName = args.getString("TBL_NAME");
+        mainType = getMainType(tblName);
 
         initView(view);
 
@@ -291,6 +295,45 @@ public class detailsFragment extends Fragment {
         imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
     }
 
+    private int getMainType(String name){
+        int type = 0;
+
+        assert name != null;
+        switch (name){
+            case "Tbl_Eating":
+                type = 1;
+                break;
+            case "Tbl_Shoppings":
+                type = 2;
+                break;
+            case "Tbl_Rests":
+                type = 3;
+                break;
+            case "Tbl_Tourisms":
+                type = 4;
+                break;
+            case "Tbl_Culturals":
+                type = 5;
+                break;
+            case "Tbl_Transports":
+                type = 6;
+                break;
+            case "Tbl_Services":
+                type = 7;
+                break;
+            case "Tbl_Offices":
+                type = 8;
+                break;
+            case "Tbl_Medicals":
+                type = 9;
+                break;
+                default:
+        }
+
+        return type;
+
+    }
+
     View.OnClickListener lytMenuClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -431,7 +474,7 @@ public class detailsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            menuList = webService.getMenu(app.isInternetOn(), placesModel.type, placesModel.id);
+            menuList = webService.getMenu(app.isInternetOn(), mainType, placesModel.id);
 
             return null;
         }
