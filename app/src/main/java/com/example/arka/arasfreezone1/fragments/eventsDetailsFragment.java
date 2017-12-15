@@ -2,6 +2,7 @@ package com.example.arka.arasfreezone1.fragments;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
@@ -24,7 +26,7 @@ import java.util.Calendar;
 public class eventsDetailsFragment extends Fragment {
 
     TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo;
-    Button btnAddtoGoogle, btnAddtoCalender;
+    Button btnCall, btnAddtoCalender;
 
     EventModel currentModel = new EventModel();
 
@@ -59,7 +61,23 @@ public class eventsDetailsFragment extends Fragment {
         setViews();
 
         btnAddtoCalender.setOnClickListener(btnCalenderClick);
-        btnAddtoGoogle.setOnClickListener(btnCalenderClick);
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentModel.phone != null) {
+                    if (currentModel.phone.length() > 0) {
+                        Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                        intentCall.setData(Uri.fromParts("tel", currentModel.phone, null));
+                        startActivity(intentCall);
+                    }
+                    else
+                        Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+            }
+        });
 
         return view;
     }
@@ -72,7 +90,7 @@ public class eventsDetailsFragment extends Fragment {
         txtAddress = view.findViewById(R.id.txtAddress);
         txtInfo = view.findViewById(R.id.txtInfo);
         btnAddtoCalender = view.findViewById(R.id.btnAddtoCalender);
-        btnAddtoGoogle = view.findViewById(R.id.btnAddtoGoogle);
+        btnCall = view.findViewById(R.id.btnCall);
 
     }
 

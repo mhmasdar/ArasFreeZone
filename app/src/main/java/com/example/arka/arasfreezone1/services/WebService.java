@@ -168,21 +168,31 @@ public class WebService {
             String response = connectToServer(addr + "login/login?username=" + userName + "&pass=" + password, "GET");
             Log.i("LOG", response + "");
 
-            if (response != null) {
+            if (response != null){
 
-                try {
-                    JSONObject Object = new JSONObject(response);
+                if (response.equals("[]")){
                     UserModel userModel = new UserModel();
-                    userModel.id = Object.getInt("");
-                    userModel.name = Object.getString("");
-                    userModel.lName = Object.getString("");
-                    userModel.mobile = Object.getString("");
-                    userModel.email = Object.getString("");
-                    userModel.pass = Object.getString("");
-
+                    userModel.id = -1;
                     return userModel;
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }
+                else {
+
+                    try {
+
+                        JSONArray Arrey = new JSONArray(response);
+                        JSONObject Object = Arrey.getJSONObject(0);
+                        UserModel userModel = new UserModel();
+                        userModel.id = Object.getInt("id");
+                        userModel.name = Object.getString("Name");
+                        userModel.lName = Object.getString("LName");
+                        userModel.mobile = Object.getString("Mobile");
+                        userModel.email = Object.getString("Email");
+                        userModel.pass = Object.getString("Pass");
+
+                        return userModel;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }

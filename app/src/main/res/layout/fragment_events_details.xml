@@ -112,11 +112,11 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/btnAddtoCalender"
+                    android:id="@+id/btnCall"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:background="@color/yellow"
-                    android:text="افزودن به تقویم گوشی"
+                    android:text="تماس"
                     android:textColor="@color/white"
                     android:textSize="11sp"
                     android:layout_height="wrap_content" />
@@ -170,11 +170,11 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/btnAddtoGoogle"
+                    android:id="@+id/btnAddtoCalender"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:background="@color/yellow"
-                    android:text="افزودن به تقویم گوگل"
+                    android:text="افزودن به تقویم"
                     android:textColor="@color/white"
                     android:textSize="11sp"
                     android:layout_height="wrap_content" />

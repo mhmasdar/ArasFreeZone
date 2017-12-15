@@ -106,12 +106,12 @@ public class loginFragment extends Fragment {
                     SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("LogIn_Check", true);
-                    editor.putInt("IdUser", result.id);
-                    editor.putString("Name", result.name);
-                    editor.putString("LName", result.lName);
-                    editor.putString("Mobile", result.mobile);
-                    editor.putString("Email", result.email);
-                    editor.putString("Pass", result.pass);
+                    editor.putInt("UserId", result.id);
+                    editor.putString("UserName", result.name);
+                    editor.putString("UserLName", result.lName);
+                    editor.putString("UserMobile", result.mobile);
+                    editor.putString("UserEmail", result.email);
+                    editor.putString("UserPass", result.pass);
                     editor.apply();
 
 //                    Intent i = new Intent(getActivity(), MainActivity.class);
