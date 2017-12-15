@@ -95,4 +95,17 @@ public class app extends Application {
         return date;
     }
 
+    public static String changeDateToString(int intDate){
+
+        String stringDate;
+
+        String year = String.valueOf(intDate).substring(0,4);
+        String month = String.valueOf(intDate).substring(4,6);
+        String day = String.valueOf(intDate).substring(6,8);
+
+        stringDate = year + "/" + month + "/" + day;
+
+        return stringDate;
+    }
+
 }

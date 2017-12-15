@@ -2,6 +2,7 @@ package com.example.arka.arasfreezone1.fragments.categories;
 
 
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -14,16 +15,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
 import com.example.arka.arasfreezone1.adapter.officeListAdapter;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
+import com.example.arka.arasfreezone1.services.WebService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
@@ -35,7 +41,9 @@ public class eventsFragment extends Fragment {
 
     private RelativeLayout relativeBack;
     private RecyclerView recycler;
+    private LinearLayout lytMain, lytEmpty, lytDisconnect;
 
+    private List<EventModel> eventList;
 
     public eventsFragment() {
         // Required empty public constructor
@@ -46,10 +54,19 @@ public class eventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
         initView(view);
 
-        setUpRecyclerView();
+        if (app.isInternetOn()) {
+            WebServiceCallBack webServiceCallBack = new WebServiceCallBack();
+            webServiceCallBack.execute();
+        } else {
+            lytMain.setVisibility(View.GONE);
+            lytEmpty.setVisibility(View.GONE);
+            lytDisconnect.setVisibility(View.VISIBLE);
+        }
+
+        //setUpRecyclerView();
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +81,65 @@ public class eventsFragment extends Fragment {
 
     private void initView(View view) {
         relativeBack = (RelativeLayout) view.findViewById(R.id.relative_back);
-        recycler = (RecyclerView) view.findViewById(R.id.rc);
+        recycler = (RecyclerView) view.findViewById(R.id.recycler);
+        lytMain = view.findViewById(R.id.lytMain);
+        lytDisconnect = view.findViewById(R.id.lytDisconnect);
+        lytEmpty = view.findViewById(R.id.lytEmpty);
     }
 
-    private void setUpRecyclerView(){
+    private void setUpRecyclerView(List<EventModel> list) {
 
-        eventsListAdapter adapter = new eventsListAdapter(getContext());
+        eventsListAdapter adapter = new eventsListAdapter(getContext(), list);
         recycler.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recycler.setLayoutManager(gridLayoutManager);
     }
 
+    private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            eventList = new ArrayList<>();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            eventList = webService.getEvents(app.isInternetOn(), app.getDate());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (eventList != null) {
+
+                if (eventList.size() > 0) {
+                    lytMain.setVisibility(View.VISIBLE);
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                    setUpRecyclerView(eventList);
+                } else {
+                    lytMain.setVisibility(View.GONE);
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                lytMain.setVisibility(View.GONE);
+                lytEmpty.setVisibility(View.GONE);
+                lytDisconnect.setVisibility(View.VISIBLE);
+            }
+
+        }
+
+    }
 
 }

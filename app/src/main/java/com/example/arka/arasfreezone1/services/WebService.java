@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
@@ -1042,6 +1043,53 @@ public class WebService {
             Log.i("LOG", response + "");
 
             return response;
+        } else
+            return null;
+    }
+
+    public List<EventModel> getEvents(boolean isInternetAvailable, String date) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "events/select?date=" + Integer.parseInt(date), "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<EventModel> eventList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        EventModel eventModel = new EventModel();
+                        eventModel.id = Object.getInt("id");
+                        eventModel.startDate = Object.getInt("startDate");
+                        eventModel.endDate = Object.getInt("endDate");
+                        eventModel.lat = Object.getDouble("Lat");
+                        eventModel.lon = Object.getDouble("Long");
+                        eventModel.visibility = Object.getBoolean("Visibility");
+                        eventModel.title = Object.getString("Title");
+                        eventModel.body = Object.getString("Body");
+                        eventModel.startTime = Object.getString("startTime");
+                        eventModel.endTime = Object.getString("endTime");
+                        eventModel.place = Object.getString("Place");
+                        eventModel.address = Object.getString("Address");
+                        eventModel.phone = Object.getString("Phone");
+
+
+                        eventList.add(eventModel);
+
+                    }
+                    return eventList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
         } else
             return null;
     }

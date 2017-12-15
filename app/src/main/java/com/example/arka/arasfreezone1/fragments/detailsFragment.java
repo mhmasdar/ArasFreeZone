@@ -345,17 +345,24 @@ public class detailsFragment extends Fragment {
     View.OnClickListener lytMenuClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_menu);
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
 
-            recyclerMenu = dialog.findViewById(R.id.recycler);
+            if (!tblName.equals("Tbl_Transports")) {
 
-            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
-            webServiceCallBackMenu.execute();
+                Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_menu);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
+
+                recyclerMenu = dialog.findViewById(R.id.recycler);
+
+                WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
+                webServiceCallBackMenu.execute();
+            }
+            else{
+                //todo: goto drivers fragment
+            }
 
         }
     };
@@ -441,6 +448,10 @@ public class detailsFragment extends Fragment {
             if (tblName.equals("Tbl_Tourisms")) {
                 imgMenuAndCost.setImageResource(R.drawable.cost);
                 txtMenuAndCost.setText(placesModel.cost + "ریال");
+            }
+            if (tblName.equals("Tbl_Transports")) {
+                imgMenuAndCost.setImageResource(R.drawable.ic_detail_menu);
+                txtMenuAndCost.setText("راننده ها");
             }
 
 

@@ -61,6 +61,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imgTitle"
             android:layout_width="match_parent"
             android:src="@drawable/test"
             android:layout_weight="0.8"
@@ -78,7 +79,8 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
                 android:padding="7dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
@@ -110,6 +112,7 @@
                 android:layout_height="match_parent">
 
                 <Button
+                    android:id="@+id/btnAddtoCalender"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:background="@color/yellow"
@@ -126,6 +129,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/txtStartDate"
                         android:layout_width="wrap_content"
                         android:text="جمعه 26 آبان 96"
                         android:textColor="@color/mainBarText"
@@ -166,6 +170,7 @@
                 android:layout_height="match_parent">
 
                 <Button
+                    android:id="@+id/btnAddtoGoogle"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:background="@color/yellow"
@@ -182,6 +187,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/txtEndtDate"
                         android:layout_width="wrap_content"
                         android:text="جمعه 26 آبان 96"
                         android:textColor="@color/mainBarText"
@@ -259,6 +265,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/txtAddress"
                         android:layout_width="wrap_content"
                         android:text="جلفا - خیابان اصلی - فلکه بزرگ"
                         android:textColor="@color/mainBarText"

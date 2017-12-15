@@ -1,19 +1,32 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.dateConvert;
+import com.example.arka.arasfreezone1.models.EventModel;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class eventsDetailsFragment extends Fragment {
 
+    TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo;
+    Button btnAddtoGoogle, btnAddtoCalender;
+
+    EventModel currentModel = new EventModel();
 
     public eventsDetailsFragment() {
         // Required empty public constructor
@@ -25,7 +38,93 @@ public class eventsDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
+        initView(view);
+
+        Bundle args = getArguments();
+        currentModel.id = args.getInt("id");
+        currentModel.body = args.getString("body");
+        currentModel.title = args.getString("title");
+        currentModel.startTime = args.getString("startTime");
+        currentModel.startDate = args.getInt("startDate");
+        currentModel.endTime = args.getString("endTime");
+        currentModel.endDate = args.getInt("endDate");
+        currentModel.lat = args.getInt("lat");
+        currentModel.lon = args.getInt("lon");
+        currentModel.place = args.getString("place");
+        currentModel.address = args.getString("address");
+        currentModel.phone = args.getString("phone");
+        currentModel.website = args.getString("website");
+        currentModel.visibility = args.getBoolean("visibility");
+
+        setViews();
+
+        btnAddtoCalender.setOnClickListener(btnCalenderClick);
+        btnAddtoGoogle.setOnClickListener(btnCalenderClick);
+
         return view;
     }
+
+    private void initView(View view){
+
+        txtTitle = view.findViewById(R.id.txtTitle);
+        txtStartDate = view.findViewById(R.id.txtStartDate);
+        txtEndtDate = view.findViewById(R.id.txtEndtDate);
+        txtAddress = view.findViewById(R.id.txtAddress);
+        txtInfo = view.findViewById(R.id.txtInfo);
+        btnAddtoCalender = view.findViewById(R.id.btnAddtoCalender);
+        btnAddtoGoogle = view.findViewById(R.id.btnAddtoGoogle);
+
+    }
+
+    private void setViews(){
+
+        txtTitle.setText(currentModel.title);
+        txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
+        txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
+        txtAddress.setText(currentModel.title);
+        txtInfo.setText(currentModel.title);
+
+    }
+
+    View.OnClickListener btnCalenderClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            String yearStart = String.valueOf(currentModel.startDate).substring(0,4);
+            String monthStart = String.valueOf(currentModel.startDate).substring(4,6);
+            String dayStart = String.valueOf(currentModel.startDate).substring(6,8);
+
+            String yearEnd = String.valueOf(currentModel.endDate).substring(0,4);
+            String monthEnd = String.valueOf(currentModel.endDate).substring(4,6);
+            String dayEnd = String.valueOf(currentModel.endDate).substring(6,8);
+
+            String gregorianDate;
+
+            dateConvert convert = new dateConvert();
+            convert.PersianToGregorian(Integer.parseInt(yearStart), Integer.parseInt(monthStart), Integer.parseInt(dayStart));
+            gregorianDate = convert.toString().replace("/", "");
+
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(Integer.parseInt(gregorianDate.substring(0, 4)), Integer.parseInt(gregorianDate.substring(4, 6)), Integer.parseInt(gregorianDate.substring(6, 8)), Integer.parseInt(currentModel.startTime.substring(0, 2)), Integer.parseInt(currentModel.startTime.substring(3, 5)));
+
+            convert.PersianToGregorian(Integer.parseInt(yearEnd), Integer.parseInt(monthEnd), Integer.parseInt(dayEnd));
+            gregorianDate = convert.toString().replace("/", "");
+
+            Calendar endTime = Calendar.getInstance();
+            endTime.set(Integer.parseInt(gregorianDate.substring(0, 4)), Integer.parseInt(gregorianDate.substring(4, 6)), Integer.parseInt(gregorianDate.substring(6, 8)), Integer.parseInt(currentModel.endTime.substring(0, 2)), Integer.parseInt(currentModel.endTime.substring(3, 5)));
+
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, currentModel.title)
+                    .putExtra(CalendarContract.Events.DESCRIPTION, currentModel.body)
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, currentModel.address)
+                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                    .putExtra(Intent.EXTRA_EMAIL, currentModel.website);
+            startActivity(intent);
+
+        }
+    };
 
 }

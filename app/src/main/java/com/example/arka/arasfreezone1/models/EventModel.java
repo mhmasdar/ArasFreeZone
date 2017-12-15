@@ -9,8 +9,10 @@ public class EventModel {
     public int id;
     public String body;
     public String title;
-    public String time;
-    public String date;
+    public String startTime;
+    public int startDate;
+    public int endDate;
+    public String endTime;
     public String place;
     public double lat;
     public double lon;
