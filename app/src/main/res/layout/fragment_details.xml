@@ -136,7 +136,7 @@
                     android:layout_width="40dp"
                     android:id="@+id/imgBookmark"
                     android:padding="10dp"
-                    android:src="@drawable/ic_bookmark"
+                    android:src="@drawable/ic_bookmark1"
                     android:layout_height="40dp" />
 
                 <com.like.LikeButton

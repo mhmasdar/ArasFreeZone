@@ -1104,4 +1104,35 @@ public class WebService {
             return null;
     }
 
+    public String postFavorite(boolean isInternetAvailable, int idRow, int idUser, int Type) {
+
+        if (isInternetAvailable) {
+
+            String req = "{\"idRow\":" + idRow + ",\"idUser\":" + idUser + ",\"Type\":" + Type + "}";
+            String response = connectToServerByJson(addr + "favorite/add", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+    public String deleteFavorite(boolean isInternetAvailable, int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "favorite/delete?id=" + id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null){
+
+                return response;
+
+            }
+            return null;
+        } else
+            return null;
+    }
+
+
 }
