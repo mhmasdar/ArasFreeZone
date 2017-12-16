@@ -968,6 +968,79 @@ public class WebService {
             return -10;
     }
 
+    public int getEvents(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+            DatabaseHelper helper = new DatabaseHelper(app.context);
+            String maxUpdate = helper.getLastUpdate("Tbl_Events");
+            Log.i("TAG", maxUpdate + "");
+
+            String response = connectToServer(addr + "events/select?lastUpdate=" + maxUpdate, "GET");
+            Log.i("TAG", response + "");
+
+            if (response != null) {
+                List<EventModel> eventList = new ArrayList<>();
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        EventModel eventModel = new EventModel();
+                        eventModel.id = Object.getInt("id");
+                        eventModel.startDate = Object.getInt("startDate");
+                        eventModel.endDate = Object.getInt("endDate");
+                        eventModel.lat = Object.getDouble("Lat");
+                        eventModel.lon = Object.getDouble("Long");
+                        eventModel.visibility = Object.getBoolean("Visibility");
+                        eventModel.title = Object.getString("Title");
+                        eventModel.body = Object.getString("Body");
+                        eventModel.startTime = Object.getString("startTime");
+                        eventModel.endTime = Object.getString("endTime");
+                        eventModel.place = Object.getString("Place");
+                        eventModel.address = Object.getString("Address");
+                        eventModel.phone = Object.getString("Phone");
+                        eventModel.website = Object.getString("webSite");
+                        eventModel.lastUpdate = Object.getString("lastUpdate");
+
+                        eventList.add(eventModel);
+
+                    }
+
+
+                    if (eventList.size() > 0) {
+
+                        EventModel eventModel = new EventModel();
+
+                        for (int i = 0; i < eventList.size(); i++) {
+                            eventModel = eventList.get(i);
+                            List<String> s = helper.selectEventId(eventModel.id + "");
+                            if (s.isEmpty()) {
+                                helper.insertNewEvent(eventModel);
+                            } else {
+                                if (eventModel.id == Integer.parseInt(s.get(0))) {
+                                    List<String> v = helper.selectEventByLastUpdate(eventModel.id + "");
+                                    if (!eventModel.visibility)
+                                        helper.deleteEvent(s.get(0));
+                                    if (eventModel.lastUpdate.compareTo(v.get(0)) > 0) {
+                                        helper.updateEvent(eventModel);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+                    return 1;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return -2;
+        } else
+            return -10;
+    }
+
     public List<MenuModel> getMenu(boolean isInternetAvailable, int id, int idType) {
 
         if (isInternetAvailable) {
@@ -1057,52 +1130,52 @@ public class WebService {
             return null;
     }
 
-    public List<EventModel> getEvents(boolean isInternetAvailable, String date) {
-
-        if (isInternetAvailable) {
-
-            String response = connectToServer(addr + "events/select?date=" + Integer.parseInt(date), "GET");
-            Log.i("LOG", response + "");
-
-            if (response != null) {
-
-                List<EventModel> eventList = new ArrayList<>();
-
-                try {
-
-                    JSONArray Arrey = new JSONArray(response);
-                    for (int i = 0; i < Arrey.length(); i++) {
-                        JSONObject Object = Arrey.getJSONObject(i);
-                        EventModel eventModel = new EventModel();
-                        eventModel.id = Object.getInt("id");
-                        eventModel.startDate = Object.getInt("startDate");
-                        eventModel.endDate = Object.getInt("endDate");
-                        eventModel.lat = Object.getDouble("Lat");
-                        eventModel.lon = Object.getDouble("Long");
-                        eventModel.visibility = Object.getBoolean("Visibility");
-                        eventModel.title = Object.getString("Title");
-                        eventModel.body = Object.getString("Body");
-                        eventModel.startTime = Object.getString("startTime");
-                        eventModel.endTime = Object.getString("endTime");
-                        eventModel.place = Object.getString("Place");
-                        eventModel.address = Object.getString("Address");
-                        eventModel.phone = Object.getString("Phone");
-
-
-                        eventList.add(eventModel);
-
-                    }
-                    return eventList;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            return null;
-
-        } else
-            return null;
-    }
+//    public List<EventModel> getEvents(boolean isInternetAvailable, String date) {
+//
+//        if (isInternetAvailable) {
+//
+//            String response = connectToServer(addr + "events/select?date=" + Integer.parseInt(date), "GET");
+//            Log.i("LOG", response + "");
+//
+//            if (response != null) {
+//
+//                List<EventModel> eventList = new ArrayList<>();
+//
+//                try {
+//
+//                    JSONArray Arrey = new JSONArray(response);
+//                    for (int i = 0; i < Arrey.length(); i++) {
+//                        JSONObject Object = Arrey.getJSONObject(i);
+//                        EventModel eventModel = new EventModel();
+//                        eventModel.id = Object.getInt("id");
+//                        eventModel.startDate = Object.getInt("startDate");
+//                        eventModel.endDate = Object.getInt("endDate");
+//                        eventModel.lat = Object.getDouble("Lat");
+//                        eventModel.lon = Object.getDouble("Long");
+//                        eventModel.visibility = Object.getBoolean("Visibility");
+//                        eventModel.title = Object.getString("Title");
+//                        eventModel.body = Object.getString("Body");
+//                        eventModel.startTime = Object.getString("startTime");
+//                        eventModel.endTime = Object.getString("endTime");
+//                        eventModel.place = Object.getString("Place");
+//                        eventModel.address = Object.getString("Address");
+//                        eventModel.phone = Object.getString("Phone");
+//
+//
+//                        eventList.add(eventModel);
+//
+//                    }
+//                    return eventList;
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//            return null;
+//
+//        } else
+//            return null;
+//    }
 
     public String postFavorite(boolean isInternetAvailable, int idRow, int idUser, int Type) {
 

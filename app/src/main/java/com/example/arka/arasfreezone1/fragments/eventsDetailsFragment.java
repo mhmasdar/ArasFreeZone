@@ -1,8 +1,10 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.dateConvert;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.EventModel;
 
 import java.util.Calendar;
@@ -30,6 +33,10 @@ public class eventsDetailsFragment extends Fragment {
 
     EventModel currentModel = new EventModel();
 
+    private int mainType;
+    private String tblName;
+    private int id;
+
     public eventsDetailsFragment() {
         // Required empty public constructor
     }
@@ -42,23 +49,31 @@ public class eventsDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
         initView(view);
 
-        Bundle args = getArguments();
-        currentModel.id = args.getInt("id");
-        currentModel.body = args.getString("body");
-        currentModel.title = args.getString("title");
-        currentModel.startTime = args.getString("startTime");
-        currentModel.startDate = args.getInt("startDate");
-        currentModel.endTime = args.getString("endTime");
-        currentModel.endDate = args.getInt("endDate");
-        currentModel.lat = args.getInt("lat");
-        currentModel.lon = args.getInt("lon");
-        currentModel.place = args.getString("place");
-        currentModel.address = args.getString("address");
-        currentModel.phone = args.getString("phone");
-        currentModel.website = args.getString("website");
-        currentModel.visibility = args.getBoolean("visibility");
+//        Bundle args = getArguments();
+//        currentModel.id = args.getInt("id");
+//        currentModel.body = args.getString("body");
+//        currentModel.title = args.getString("title");
+//        currentModel.startTime = args.getString("startTime");
+//        currentModel.startDate = args.getInt("startDate");
+//        currentModel.endTime = args.getString("endTime");
+//        currentModel.endDate = args.getInt("endDate");
+//        currentModel.lat = args.getInt("lat");
+//        currentModel.lon = args.getInt("lon");
+//        currentModel.place = args.getString("place");
+//        currentModel.address = args.getString("address");
+//        currentModel.phone = args.getString("phone");
+//        currentModel.website = args.getString("website");
+//        currentModel.visibility = args.getBoolean("visibility");
 
-        setViews();
+        Bundle args = getArguments();
+        id = args.getInt("ID");
+        tblName = args.getString("TBL_NAME");
+        mainType = 10;
+
+        //setViews();
+
+        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
+        databaseCallback.execute();
 
         btnAddtoCalender.setOnClickListener(btnCalenderClick);
 
@@ -144,5 +159,52 @@ public class eventsDetailsFragment extends Fragment {
 
         }
     };
+
+
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int id;
+
+        public DatabaseCallback(Context context, String tblName, int id) {
+            this.context = context;
+            this.tblName = tblName;
+            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            currentModel = new EventModel();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            currentModel = databaseHelper.selectEventsDetail(tblName, id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            txtTitle.setText(currentModel.title);
+            txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
+            txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
+            txtAddress.setText(currentModel.title);
+            txtInfo.setText(currentModel.title);
+
+        }
+
+    }
+
 
 }

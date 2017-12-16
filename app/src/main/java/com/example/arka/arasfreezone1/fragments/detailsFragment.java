@@ -746,6 +746,7 @@ public class detailsFragment extends Fragment {
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
         }
@@ -789,6 +790,7 @@ public class detailsFragment extends Fragment {
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
             }
 
         }

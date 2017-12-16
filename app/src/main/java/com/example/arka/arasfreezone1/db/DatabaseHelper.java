@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
@@ -78,6 +79,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public List<EventModel> selectAllEvents(String tblName) {
+
+        List<EventModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM " + tblName;
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                EventModel pm = new EventModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
     public PlacesModel selectPlacesDetail(String tblName, int id) {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -107,7 +135,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 if (tblName.equals("Tbl_Tourisms"))
                     pm.cost = cursor.getString(cursor.getColumnIndex("cost"));
                 if (tblName.equals("Tbl_Rests"))
-                    pm.starCount = cursor.getInt(cursor.getColumnIndex("starCount"));
+                    pm.placeStar = cursor.getInt(cursor.getColumnIndex("placeStar"));
+//                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
+//                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return pm;
+    }
+
+    public EventModel selectEventsDetail(String tblName, int id) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + id;
+        EventModel pm = new EventModel();
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.body = cursor.getString(cursor.getColumnIndex("body"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.startTime = cursor.getString(cursor.getColumnIndex("startTime"));
+                pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
+                pm.endDate = cursor.getInt(cursor.getColumnIndex("endDate"));
+                pm.endTime = cursor.getString(cursor.getColumnIndex("endTime"));
+                pm.place = cursor.getString(cursor.getColumnIndex("place"));
+                pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+                pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+
 //                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
 //                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
 
@@ -831,6 +895,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql = "UPDATE Tbl_Rests SET type=" + placesModel.type + ",idStartDay=" + placesModel.idStartDay + ",idEndDay=" + placesModel.idEndDay + ",startTime='" + placesModel.startTime + "',endTime='" + placesModel.endTime + "',name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",phone='" + placesModel.phone + "',star=" + placesModel.star + ",starCount=" + placesModel.starCount + ",likeCount=" + placesModel.likeCount + ",info='" + placesModel.info + "',website='" + placesModel.website + "',visibility=" + placesModel.visibility + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',placeStar='" + placesModel.placeStar + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
+    }
+
+
+    public List<String> selectEventId(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_Events WHERE id=" + r;
+        String request = "id";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void insertNewEvent(EventModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "";
+        sql = "INSERT INTO Tbl_Events (id,body,title,startTime,startDate,endDate,endTime,place,lat,lon,address,phone,website,visibility,lastUpdate) VALUES('"
+                + placesModel.id + "','" + placesModel.body + "','" + placesModel.title + "','" + placesModel.startTime + "','" + placesModel.startDate + "','" + placesModel.endDate + "','" + placesModel.endTime + "','" + placesModel.place + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.address + "','" + placesModel.phone + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "')";
+        ArasDB.execSQL(sql);
+
+        ArasDB.close();
+    }
+
+    public List<String> selectEventByLastUpdate(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_Events WHERE id=" + r;
+        String request = "lastUpdate";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void updateEvent(EventModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql;
+        sql = "UPDATE Tbl_Events SET body='" + placesModel.body + "',title='" + placesModel.title + "',startTime='" + placesModel.startTime + "',startDate=" + placesModel.startDate + ",endDate=" + placesModel.endDate + ",endTime='" + placesModel.endTime + "',place='" + placesModel.place + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",address='" + placesModel.address + "',phone='" + placesModel.phone + "',website='" + placesModel.website + "',visibility=" + placesModel.visibility + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+    }
+
+    public void deleteEvent(String id) {
+
+        //Log.i("LOG", "delete city:" + id);
+        SQLiteDatabase ArasDB = getWritableDatabase();
+        String sql = "DELETE FROM Tbl_Events WHERE id=" + id + "";
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+
     }
 
 

@@ -58,21 +58,26 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
             public void onClick(View view) {
                 eventsDetailsFragment fragment = new eventsDetailsFragment();
 
+//                Bundle args = new Bundle();
+//                args.putInt("id", currentObj.id);
+//                args.putString("body", currentObj.body);
+//                args.putString("title", currentObj.title);
+//                args.putString("startTime", currentObj.startTime);
+//                args.putInt("startDate", currentObj.startDate);
+//                args.putString("endTime", currentObj.endTime);
+//                args.putInt("endDate", currentObj.endDate);
+//                args.putDouble("lat", currentObj.lat);
+//                args.putString("place", currentObj.place);
+//                args.putDouble("lon", currentObj.lon);
+//                args.putString("address", currentObj.address);
+//                args.putString("phone", currentObj.phone);
+//                args.putString("website", currentObj.website);
+//                args.putBoolean("visibility", currentObj.visibility);
+//                fragment.setArguments(args);
+
                 Bundle args = new Bundle();
-                args.putInt("id", currentObj.id);
-                args.putString("body", currentObj.body);
-                args.putString("title", currentObj.title);
-                args.putString("startTime", currentObj.startTime);
-                args.putInt("startDate", currentObj.startDate);
-                args.putString("endTime", currentObj.endTime);
-                args.putInt("endDate", currentObj.endDate);
-                args.putDouble("lat", currentObj.lat);
-                args.putString("place", currentObj.place);
-                args.putDouble("lon", currentObj.lon);
-                args.putString("address", currentObj.address);
-                args.putString("phone", currentObj.phone);
-                args.putString("website", currentObj.website);
-                args.putBoolean("visibility", currentObj.visibility);
+                args.putInt("ID", currentObj.id);
+                args.putString("TBL_NAME", "Tbl_Events");
                 fragment.setArguments(args);
 
                 MainActivity activity = (MainActivity) context;

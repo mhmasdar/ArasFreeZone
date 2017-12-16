@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments.categories;
 
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
 import com.example.arka.arasfreezone1.adapter.officeListAdapter;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.services.WebService;
@@ -57,16 +59,19 @@ public class eventsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         initView(view);
 
-        if (app.isInternetOn()) {
-            WebServiceCallBack webServiceCallBack = new WebServiceCallBack();
-            webServiceCallBack.execute();
-        } else {
-            lytMain.setVisibility(View.GONE);
-            lytEmpty.setVisibility(View.GONE);
-            lytDisconnect.setVisibility(View.VISIBLE);
-        }
+//        if (app.isInternetOn()) {
+//            WebServiceCallBack webServiceCallBack = new WebServiceCallBack();
+//            webServiceCallBack.execute();
+//        } else {
+//            lytMain.setVisibility(View.GONE);
+//            lytEmpty.setVisibility(View.GONE);
+//            lytDisconnect.setVisibility(View.VISIBLE);
+//        }
 
         //setUpRecyclerView();
+
+        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), "Tbl_Events");
+        databaseCallback.execute();
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,22 +100,78 @@ public class eventsFragment extends Fragment {
         recycler.setLayoutManager(gridLayoutManager);
     }
 
-    private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
+//    private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
+//
+//        private WebService webService;
+//
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            eventList = new ArrayList<>();
+//            webService = new WebService();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Object... params) {
+//
+//            //eventList = webService.getEvents(app.isInternetOn(), app.getDate());
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//
+//            if (eventList != null) {
+//
+//                if (eventList.size() > 0) {
+//                    lytMain.setVisibility(View.VISIBLE);
+//                    lytDisconnect.setVisibility(View.GONE);
+//                    lytEmpty.setVisibility(View.GONE);
+//                    setUpRecyclerView(eventList);
+//                } else {
+//                    lytMain.setVisibility(View.GONE);
+//                    lytDisconnect.setVisibility(View.GONE);
+//                    lytEmpty.setVisibility(View.VISIBLE);
+//                }
+//
+//            } else {
+//                lytMain.setVisibility(View.GONE);
+//                lytEmpty.setVisibility(View.GONE);
+//                lytDisconnect.setVisibility(View.VISIBLE);
+//            }
+//
+//        }
+//
+//    }
 
-        private WebService webService;
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
+
+        private DatabaseHelper databaseHelper;
+        List<EventModel> eventList;
+        private Context context;
+        private String tblName;
+
+        public DatabaseCallback(Context context, String tblName) {
+            this.context = context;
+            this.tblName = tblName;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             eventList = new ArrayList<>();
-            webService = new WebService();
+            databaseHelper = new DatabaseHelper(context);
         }
 
-        @Override
-        protected Void doInBackground(Object... params) {
 
-            eventList = webService.getEvents(app.isInternetOn(), app.getDate());
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            eventList = databaseHelper.selectAllEvents(tblName);
 
             return null;
         }
@@ -119,24 +180,7 @@ public class eventsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (eventList != null) {
-
-                if (eventList.size() > 0) {
-                    lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
-                    setUpRecyclerView(eventList);
-                } else {
-                    lytMain.setVisibility(View.GONE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.VISIBLE);
-                }
-
-            } else {
-                lytMain.setVisibility(View.GONE);
-                lytEmpty.setVisibility(View.GONE);
-                lytDisconnect.setVisibility(View.VISIBLE);
-            }
+            setUpRecyclerView(eventList);
 
         }
 
