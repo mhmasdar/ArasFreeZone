@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
 
 
-        Glide.with(context).load(images.get(position)).into(imageView);
+        Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
         txtSliderName.setText(names[position]);
         txtSliderDetail.setText(details[position]);
 

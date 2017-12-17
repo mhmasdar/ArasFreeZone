@@ -80,6 +80,15 @@ public class navigationDrawerActivity extends AppCompatActivity {
             }
         });
 
+        lytUserInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), profileActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+            }
+        });
+
 
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override

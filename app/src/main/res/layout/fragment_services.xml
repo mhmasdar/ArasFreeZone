@@ -64,7 +64,7 @@
         app:tabSelectedTextColor="@color/colorPrimary"
         android:backgroundTintMode="src_over"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         android:layout_height="wrap_content"/>
 
 
