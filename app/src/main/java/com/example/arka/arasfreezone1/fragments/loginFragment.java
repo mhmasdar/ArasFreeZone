@@ -24,8 +24,11 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.SplashActivity;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.loginActivity;
+import com.example.arka.arasfreezone1.models.ActionModel;
 import com.example.arka.arasfreezone1.models.UserModel;
 import com.example.arka.arasfreezone1.services.WebService;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,6 +120,9 @@ public class loginFragment extends Fragment {
 //                    Intent i = new Intent(getActivity(), MainActivity.class);
 //                    startActivity(i);
 
+                    WebServiceCallBackFavorite callBackF = new WebServiceCallBackFavorite(result.id);
+                    callBackF.execute();
+
                     getActivity().finish();
 
                 }
@@ -127,6 +133,61 @@ public class loginFragment extends Fragment {
             else{
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private class WebServiceCallBackFavorite extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+//        List<ActionModel> result;
+        int id;
+        int result;
+
+        public WebServiceCallBackFavorite(int id){
+            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.getCulture(app.isInternetOn());
+
+            result = webService.getOffices(app.isInternetOn());
+
+            result = webService.getEatings(app.isInternetOn());
+
+            result = webService.getMedicals(app.isInternetOn());
+
+            result = webService.getServices(app.isInternetOn());
+
+            result = webService.getShoppings(app.isInternetOn());
+
+            result = webService.getTourisms(app.isInternetOn());
+
+            result = webService.getTransports(app.isInternetOn());
+
+            result = webService.getRests(app.isInternetOn());
+
+            result = webService.getEvents(app.isInternetOn());
+
+            result = webService.getImages(app.isInternetOn());
+
+            webService.getFavorites(app.isInternetOn(), id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
         }
     }
 

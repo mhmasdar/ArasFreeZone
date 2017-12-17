@@ -25,14 +25,21 @@ public class navigationDrawerActivity extends AppCompatActivity {
     private ImageView UserImage;
     private ImageView imgBack;
 
+    SharedPreferences prefs;
+    int idUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
         initView();
 
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+        prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
         txtUserEmail.setText(prefs.getString("UserName", "کاربر مهمان"));
+        idUser = prefs.getInt("UserId", -1);
+
+        if (idUser > 0)
+            txtLogin.setText("مشاهده حساب کاربری");
 
         lytSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,5 +119,17 @@ public class navigationDrawerActivity extends AppCompatActivity {
         txtUserEmail = (TextView) findViewById(R.id.txtUserEmail);
         UserImage = (ImageView) findViewById(R.id.UserImage);
         imgBack = (ImageView) findViewById(R.id.imgBack);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        txtUserEmail.setText(prefs.getString("UserName", "کاربر مهمان"));
+        idUser = prefs.getInt("UserId", -1);
+
+        if (idUser > 0)
+            txtLogin.setText("مشاهده حساب کاربری");
+
     }
 }

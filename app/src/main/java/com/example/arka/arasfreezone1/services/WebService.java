@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.ActionModel;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
@@ -1207,5 +1208,103 @@ public class WebService {
             return null;
     }
 
+    public String postLike(boolean isInternetAvailable, int idLR, int idRow, int idUser, int Type, int like, double rate) {
+
+        if (isInternetAvailable) {
+
+            String req = "{\"id\":" + idLR + ",\"idRow\":" + idRow + ",\"idUser\":" + idUser + ",\"Type\":" + Type + ",\"likes\":" + like + ",\"rate\":\"" + rate + "\"}";
+            String response = connectToServerByJson(addr + "like/add", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+    public void getFavorites(boolean isInternetAvailable, int idUser) {
+
+        if (isInternetAvailable) {
+
+            DatabaseHelper helper = new DatabaseHelper(app.context);
+            String response = connectToServer(addr + "favorite/select?idUser=" + idUser, "GET");
+            Log.i("TAG", response + "");
+
+            if (response != null) {
+                List<ActionModel> actionList = new ArrayList<>();
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ActionModel actionModel = new ActionModel();
+                        actionModel.id = Object.getInt("id");
+                        actionModel.idRow = Object.getInt("idRow");
+                        actionModel.type = Object.getInt("Type");
+                        actionModel.idUser = Object.getInt("idUser");
+//                        actionModel.likes = Object.getInt("likes");
+//                        actionModel.rate = Object.getDouble("rate");
+
+                        actionList.add(actionModel);
+
+                    }
+
+
+                    if (actionList.size() > 0) {
+
+                        ActionModel actionModel = new ActionModel();
+
+                        for (int i = 0; i < actionList.size(); i++) {
+
+                            actionModel = actionList.get(i);
+                            String tblName = "";
+
+                            switch (actionModel.type) {
+                                case 1:
+                                    tblName = "Tbl_Eating";
+                                    break;
+                                case 2:
+                                    tblName = "Tbl_Shoppings";
+                                    break;
+                                case 3:
+                                    tblName = "Tbl_Rests";
+                                    break;
+                                case 4:
+                                    tblName = "Tbl_Tourisms";
+                                    break;
+                                case 5:
+                                    tblName = "Tbl_Culturals";
+                                    break;
+                                case 6:
+                                    tblName = "Tbl_Transports";
+                                    break;
+                                case 7:
+                                    tblName = "Tbl_Services";
+                                    break;
+                                case 8:
+                                    tblName = "Tbl_Offices";
+                                    break;
+                                case 9:
+                                    tblName = "Tbl_Medicals";
+                                    break;
+                                case 10:
+                                    tblName = "Tbl_Events";
+                                    break;
+                                default:
+                            }
+
+                            List<String> s = helper.selectAllById(tblName, actionModel.idRow + "");
+                            if (!s.isEmpty())
+                                helper.updateTblByFavorite(tblName, actionModel.idRow, actionModel.id);
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 
 }

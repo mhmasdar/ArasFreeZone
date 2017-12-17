@@ -3,6 +3,7 @@ package com.example.arka.arasfreezone1.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +21,9 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.dateConvert;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.EventModel;
+import com.example.arka.arasfreezone1.services.WebService;
 
 import java.util.Calendar;
 
@@ -30,12 +34,16 @@ public class eventsDetailsFragment extends Fragment {
 
     TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo;
     Button btnCall, btnAddtoCalender;
+    ImageView imgBookmark;
 
     EventModel currentModel = new EventModel();
 
     private int mainType;
     private String tblName;
     private int id;
+
+    private int idUserFavorite = -1;
+    private int idUser;
 
     public eventsDetailsFragment() {
         // Required empty public constructor
@@ -75,6 +83,13 @@ public class eventsDetailsFragment extends Fragment {
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
 
+        SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        idUser = prefs.getInt("UserId", -1);
+        if (idUser > 0) {
+            DatabaseCallFavorite databaseCallFavorite = new DatabaseCallFavorite(getContext(), tblName, id);
+            databaseCallFavorite.execute();
+        }
+
         btnAddtoCalender.setOnClickListener(btnCalenderClick);
 
         btnCall.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +109,8 @@ public class eventsDetailsFragment extends Fragment {
             }
         });
 
+        imgBookmark.setOnClickListener(imgBookmarkClick);
+
         return view;
     }
 
@@ -106,6 +123,7 @@ public class eventsDetailsFragment extends Fragment {
         txtInfo = view.findViewById(R.id.txtInfo);
         btnAddtoCalender = view.findViewById(R.id.btnAddtoCalender);
         btnCall = view.findViewById(R.id.btnCall);
+        imgBookmark = view.findViewById(R.id.imgBookmark);
 
     }
 
@@ -160,6 +178,31 @@ public class eventsDetailsFragment extends Fragment {
         }
     };
 
+    View.OnClickListener imgBookmarkClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (idUser > 0) {
+
+                if (idUserFavorite > 0) {
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                    WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
+                    favoriteDelete.execute();
+
+                } else {
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                    WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
+                    webServiceCallBackFavoriteAdd.execute();
+                }
+            }
+            else{
+                Intent i = new Intent(getActivity(), loginActivity.class);
+                startActivity(i);
+            }
+
+        }
+    };
+
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
@@ -206,5 +249,189 @@ public class eventsDetailsFragment extends Fragment {
 
     }
 
+    private class WebServiceCallBackFavoriteAdd extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        String result;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postFavorite(app.isInternetOn(), id, idUser, mainType);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+                    idUserFavorite = Integer.parseInt(result);
+                    DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, Integer.parseInt(result));
+                    favoriteUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+            }
+
+        }
+
+    }
+
+    private class WebServiceCallBackFavoriteDelete extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.deleteFavorite(app.isInternetOn(), idUserFavorite);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (result.equals("true")) {
+                    idUserFavorite = -1;
+                    DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, -1);
+                    favoriteUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "حذف علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+            }
+
+        }
+
+    }
+
+    public class DatabaseCallUpdateFavorite extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int idRow, idFavorite;
+
+        public DatabaseCallUpdateFavorite(Context context, String tblName, int idRow, int idFavorite) {
+            this.context = context;
+            this.tblName = tblName;
+            this.idRow = idRow;
+            this.idFavorite = idFavorite;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            databaseHelper.updateTblByFavorite(tblName, idRow, idFavorite);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (idUserFavorite > 0){
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+            }
+            else{
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+            }
+
+        }
+
+    }
+
+    public class DatabaseCallFavorite extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int id;
+
+        public DatabaseCallFavorite(Context context, String tblName, int id) {
+            this.context = context;
+            this.tblName = tblName;
+            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            idUserFavorite = databaseHelper.selectFavoriteById(tblName, id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (idUserFavorite > 0){
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+            }
+            else{
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+            }
+
+        }
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        idUser = prefs.getInt("UserId", -1);
+    }
 }

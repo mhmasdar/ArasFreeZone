@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.officeListAdapter;
-import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -214,7 +213,7 @@ public class officesFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            placesList = databaseHelper.selectAllPlaces(tblName);
+            placesList = databaseHelper.selectAllPlacesToList(tblName);
 
             return null;
         }

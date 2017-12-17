@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return lastUpdate;
     }
 
-    public List<PlacesModel> selectAllPlaces(String tblName) {
+    public List<PlacesModel> selectAllPlacesToList(String tblName) {
 
         List<PlacesModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<EventModel> selectAllEvents(String tblName) {
+    public List<EventModel> selectAllEventsToList(String tblName) {
 
         List<EventModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -213,6 +213,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return pm;
     }
 
+    public double selectRateValueById(String tblName, int r) {
+        String userLike = "";
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + r;
+        String request = "userRate";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+
+            userLike = cursor.getString(cursor.getColumnIndex(request));
+
+        }
+        cursor.close();
+        ArasDB.close();
+        if (Double.parseDouble(userLike) > 0)
+            return Double.parseDouble(userLike);
+        else
+            return -1;
+
+    }
+
+    public int selectRateById(String tblName, int r) {
+        String userLike = "";
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + r;
+        String request = "idUserRate";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+
+            userLike = cursor.getString(cursor.getColumnIndex(request));
+
+        }
+        cursor.close();
+        ArasDB.close();
+        if (Integer.parseInt(userLike) > 0)
+            return Integer.parseInt(userLike);
+        else
+            return -1;
+
+    }
+
     public int selectLikeById(String tblName, int r) {
         String userLike = "";
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -275,6 +317,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql = "UPDATE " + tblName + " SET userFavorite=" + idFavorite + " WHERE id=" + idRow;
         ArasDB.execSQL(sql);
         ArasDB.close();
+    }
+
+    public List<String> selectAllById(String tblName, String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE id=" + r;
+        String request = "id";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
     }
 
     public List<String> selectCaltureById(String r) {

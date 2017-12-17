@@ -29,7 +29,6 @@ import com.example.arka.arasfreezone1.models.PlacesModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 
 
@@ -214,7 +213,7 @@ public class restaurantsListFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            placesList = databaseHelper.selectAllPlaces(tblName);
+            placesList = databaseHelper.selectAllPlacesToList(tblName);
 
             return null;
         }

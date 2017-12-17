@@ -48,8 +48,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.arka.arasfreezone1.R.string.Tbl_Eating;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,12 +77,18 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytDrivers;
     private ImageView imgMenuAndCost;
     private TextView txtMenuAndCost;
+    RatingBar rateBar;
+
+    SharedPreferences prefs;
 
     private int mainType;
     private String tblName;
     private int id;
     private PlacesModel placesModel;
     private int idUserFavorite = -1;
+    private int idUserLike = -1;
+    private int idUserRate = -1;
+    private double userRate = -1;
     private int idUser;
 
     //recycler in dialog_menu
@@ -120,11 +124,11 @@ public class detailsFragment extends Fragment {
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
 
-        SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
-            DatabaseCallFavorite databaseCallFavorite = new DatabaseCallFavorite(getContext(), tblName, id);
-            databaseCallFavorite.execute();
+            DatabaseCallFavoriteLikeRate databaseCallFavoriteLikeRate = new DatabaseCallFavoriteLikeRate(getContext(), tblName, id);
+            databaseCallFavoriteLikeRate.execute();
         }
 
         Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
@@ -201,6 +205,8 @@ public class detailsFragment extends Fragment {
         lytOptions.setOnClickListener(lytOptionsClick);
 
         imgBookmark.setOnClickListener(imgBookmarkClick);
+
+        btnLike.setOnClickListener(btnLikeClick);
 
         initSlider(view);
 
@@ -314,6 +320,7 @@ public class detailsFragment extends Fragment {
         txtHour = view.findViewById(R.id.txtHour);
         txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
         imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
+        rateBar = view.findViewById(R.id.rateBar);
     }
 
     private int getMainType(String name) {
@@ -412,6 +419,35 @@ public class detailsFragment extends Fragment {
                     imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
                     WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
                     webServiceCallBackFavoriteAdd.execute();
+                }
+            }
+            else{
+                Intent i = new Intent(getActivity(), loginActivity.class);
+                startActivity(i);
+            }
+
+        }
+    };
+
+    View.OnClickListener btnLikeClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (idUser > 0) {
+
+                if (idUserLike > 0) {
+                    btnLike.setLiked(false);
+                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                    likeDelete.execute();
+
+                } else if (idUserRate > 0 && idUserLike < 1){
+                    btnLike.setLiked(true);
+                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                    webServiceCallLikeAdd.execute();
+                } else if (idUserRate < 1 && idUserLike < 1){
+                    btnLike.setLiked(true);
+                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                    webServiceCallLikeAdd.execute();
                 }
             }
             else{
@@ -543,7 +579,7 @@ public class detailsFragment extends Fragment {
 
     }
 
-    public class DatabaseCallFavorite extends AsyncTask<Object, Void, Void> {
+    public class DatabaseCallFavoriteLikeRate extends AsyncTask<Object, Void, Void> {
 
 
         private DatabaseHelper databaseHelper;
@@ -551,7 +587,7 @@ public class detailsFragment extends Fragment {
         private String tblName;
         int id;
 
-        public DatabaseCallFavorite(Context context, String tblName, int id) {
+        public DatabaseCallFavoriteLikeRate(Context context, String tblName, int id) {
             this.context = context;
             this.tblName = tblName;
             this.id = id;
@@ -569,6 +605,12 @@ public class detailsFragment extends Fragment {
 
             idUserFavorite = databaseHelper.selectFavoriteById(tblName, id);
 
+            idUserLike = databaseHelper.selectLikeById(tblName, id);
+
+            idUserRate = databaseHelper.selectRateById(tblName, id);
+
+            userRate = databaseHelper.selectRateValueById(tblName, id);
+
             return null;
         }
 
@@ -581,6 +623,17 @@ public class detailsFragment extends Fragment {
             }
             else{
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+            }
+            if (idUserLike > 0){
+                btnLike.setLiked(true);
+
+            }
+            else{
+                btnLike.setLiked(false);
+            }
+            if (idUserRate > 0){
+               rateBar.setRating((float) userRate);
+
             }
 
         }
@@ -613,6 +666,51 @@ public class detailsFragment extends Fragment {
         protected Void doInBackground(Object... objects) {
 
             databaseHelper.updateTblByFavorite(tblName, idRow, idFavorite);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (idUserFavorite > 0){
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+            }
+            else{
+                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+            }
+
+        }
+
+    }
+
+    public class DatabaseCallUpdateLike extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int idRow, idLike;
+
+        public DatabaseCallUpdateLike(Context context, String tblName, int idRow, int idLike) {
+            this.context = context;
+            this.tblName = tblName;
+            this.idRow = idRow;
+            this.idLike = idLike;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            databaseHelper.updateTblByLike(tblName, idRow, idLike);
 
             return null;
         }
@@ -797,11 +895,121 @@ public class detailsFragment extends Fragment {
 
     }
 
+    private class WebServiceCallLikeAdd extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            if (idUserLike > 0)
+                idLR = idUserLike;
+            else if (idUserRate > 0 && idUserLike < 1)
+                idLR = idUserRate;
+            else
+                idLR = -1;
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postLike(app.isInternetOn(), idLR, id, idUser, mainType, 1, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+                    idUserLike = Integer.parseInt(result);
+                    DatabaseCallUpdateLike likeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, Integer.parseInt(result));
+                    likeUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                btnLike.setLiked(false);
+            }
+
+        }
+
+    }
+
+    private class WebServiceCallLikeDelete extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+//        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+//            if (idUserLike > 0)
+//                idLR = idUserLike;
+//            else if (idUserRate > 0 && idUserLike < 1)
+//                idLR = idUserRate;
+//            else
+//                idLR = -1;
+
+            // in this condition idUserLike is always > 0
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postLike(app.isInternetOn(), idUserLike, id, idUser, mainType, 0, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (result.equals("true")) {
+                    idUserFavorite = -1;
+                    DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
+                    LikeUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                btnLike.setLiked(true);
+            }
+
+        }
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
 
-        SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
+        if (idUser > 0) {
+            DatabaseCallFavoriteLikeRate databaseCallFavoriteLikeRate = new DatabaseCallFavoriteLikeRate(getContext(), tblName, id);
+            databaseCallFavoriteLikeRate.execute();
+        }
     }
 }

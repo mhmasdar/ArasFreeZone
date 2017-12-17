@@ -207,7 +207,7 @@ public class artFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            placesList = databaseHelper.selectAllPlaces(tblName);
+            placesList = databaseHelper.selectAllPlacesToList(tblName);
 
             return null;
         }

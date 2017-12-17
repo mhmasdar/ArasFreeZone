@@ -2,38 +2,25 @@ package com.example.arka.arasfreezone1.fragments.categories;
 
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
-import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
-import com.example.arka.arasfreezone1.adapter.officeListAdapter;
-import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.EventModel;
-import com.example.arka.arasfreezone1.models.PlacesModel;
-import com.example.arka.arasfreezone1.services.WebService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -171,7 +158,7 @@ public class eventsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            eventList = databaseHelper.selectAllEvents(tblName);
+            eventList = databaseHelper.selectAllEventsToList(tblName);
 
             return null;
         }
