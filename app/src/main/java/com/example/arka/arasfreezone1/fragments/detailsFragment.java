@@ -99,6 +99,10 @@ public class detailsFragment extends Fragment {
     private RecyclerView recyclerFacility;
     List<FacilityModel> facilityList;
 
+// diolog rating content
+    RatingBar rating_dialog;
+    Dialog dialog;
+
     public detailsFragment() {
         // Required empty public constructor
     }
@@ -275,10 +279,10 @@ public class detailsFragment extends Fragment {
     }
 
     private void showRatingDialog() {
-        final Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_rating);
-        RatingBar rating_dialog = (RatingBar) dialog.findViewById(R.id.rating_dialog);
+        rating_dialog = (RatingBar) dialog.findViewById(R.id.rating_dialog);
         Button btnSubmitRating = (Button) dialog.findViewById(R.id.btnSubmitRating);
         Button btnCancelRating = (Button) dialog.findViewById(R.id.btnCancelRating);
         btnCancelRating.setOnClickListener(new View.OnClickListener() {
@@ -290,6 +294,32 @@ public class detailsFragment extends Fragment {
         btnSubmitRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (idUser > 0) {
+
+//                    if (idUserLike > 0) {
+//                        btnLike.setLiked(false);
+//                        WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+//                        likeDelete.execute();
+//
+//                    } else if (idUserRate > 0 && idUserLike < 1){
+//                        btnLike.setLiked(true);
+//                        WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+//                        webServiceCallLikeAdd.execute();
+//                    } else if (idUserRate < 1 && idUserLike < 1){
+//                        btnLike.setLiked(true);
+//                        WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+//                        webServiceCallLikeAdd.execute();
+//                    }
+
+                    WebServiceCallRateAdd webServiceCallRateAdd = new WebServiceCallRateAdd();
+                    webServiceCallRateAdd.execute();
+
+                }
+                else{
+                    Intent i = new Intent(getActivity(), loginActivity.class);
+                    startActivity(i);
+                }
 
             }
         });
@@ -437,15 +467,21 @@ public class detailsFragment extends Fragment {
 
                 if (idUserLike > 0) {
                     btnLike.setLiked(false);
+                    placesModel.likeCount--;
+                    txtLikeCount.setText(placesModel.likeCount + "");
                     WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
                     likeDelete.execute();
 
                 } else if (idUserRate > 0 && idUserLike < 1){
                     btnLike.setLiked(true);
+                    placesModel.likeCount ++;
+                    txtLikeCount.setText(placesModel.likeCount + "");
                     WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
                     webServiceCallLikeAdd.execute();
                 } else if (idUserRate < 1 && idUserLike < 1){
                     btnLike.setLiked(true);
+                    placesModel.likeCount ++;
+                    txtLikeCount.setText(placesModel.likeCount + "");
                     WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
                     webServiceCallLikeAdd.execute();
                 }
@@ -710,7 +746,7 @@ public class detailsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            databaseHelper.updateTblByLike(tblName, idRow, idLike);
+            databaseHelper.updateTblByLike(tblName, idRow, idLike, placesModel.likeCount);
 
             return null;
         }
@@ -719,11 +755,57 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserFavorite > 0){
-                imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+//            if (idUserLike > 0){
+//                btnLike.setLiked(true);
+//            }
+//            else{
+//                btnLike.setLiked(false);
+//            }
+
+        }
+
+    }
+
+    public class DatabaseCallUpdateRate extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int idRow, idRate;
+        double rateValue;
+        public DatabaseCallUpdateRate(Context context, String tblName, int idRow, int idRate, double rateValue) {
+            this.context = context;
+            this.tblName = tblName;
+            this.idRow = idRow;
+            this.idRate = idRate;
+            this.rateValue = rateValue;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            databaseHelper.updateTblByRate(tblName, idRow, idRate, rateValue);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (idUserRate > 0){
+                //rating_dialog.setRating(R.drawable.ic_bookmark1_selected);
             }
             else{
-                imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                rating_dialog.setRating((float) 2.5);
             }
 
         }
@@ -936,11 +1018,15 @@ public class detailsFragment extends Fragment {
                 else {
                     Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(false);
+                    placesModel.likeCount--;
+                    txtLikeCount.setText(placesModel.likeCount + "");
                 }
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 btnLike.setLiked(false);
+                placesModel.likeCount--;
+                txtLikeCount.setText(placesModel.likeCount + "");
             }
 
         }
@@ -982,19 +1068,81 @@ public class detailsFragment extends Fragment {
 
             if (result != null) {
 
-                if (result.equals("true")) {
-                    idUserFavorite = -1;
+                if (Integer.parseInt(result) > 0) {
+                    idUserLike = -1;
                     DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
                     LikeUpdate.execute();
                 }
                 else {
                     Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(true);
+                    placesModel.likeCount ++;
+                    txtLikeCount.setText(placesModel.likeCount + "");
                 }
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 btnLike.setLiked(true);
+                placesModel.likeCount ++;
+                txtLikeCount.setText(placesModel.likeCount + "");
+            }
+
+        }
+
+    }
+
+    private class WebServiceCallRateAdd extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        double rate;
+        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            if (idUserRate> 0)
+                idLR = idUserRate;
+            else if (idUserRate < 1 && idUserLike > 0)
+                idLR = idUserLike;
+            else
+                idLR = -1;
+
+            rate = rating_dialog.getRating();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postLike(app.isInternetOn(), idLR, id, idUser, mainType, -1, rate);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+                    idUserRate = Integer.parseInt(result);
+                    DatabaseCallUpdateRate rateUpdate = new DatabaseCallUpdateRate(getContext(), tblName, id, Integer.parseInt(result), rate);
+                    rateUpdate.execute();
+                    rateBar.setRating((float) rate);
+                    dialog.dismiss();
+
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت امتیاز نا موفق", Toast.LENGTH_LONG).show();
+                    //btnLike.setLiked(false);
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                //btnLike.setLiked(false);
             }
 
         }

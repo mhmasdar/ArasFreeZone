@@ -180,6 +180,8 @@ public class loginFragment extends Fragment {
 
             webService.getFavorites(app.isInternetOn(), id);
 
+            webService.getLikesAndRates(app.isInternetOn(), id);
+
             return null;
         }
 

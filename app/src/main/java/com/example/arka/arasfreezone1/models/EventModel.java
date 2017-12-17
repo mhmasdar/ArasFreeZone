@@ -21,5 +21,6 @@ public class EventModel {
     public String website;
     public boolean visibility;
     public String lastUpdate;
+    public String image;
 
 }

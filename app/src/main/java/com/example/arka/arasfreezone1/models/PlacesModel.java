@@ -28,5 +28,6 @@ public class PlacesModel {
     public int placeStar;
     public String cost;
     public String tel;
+    public String image;
 
 }

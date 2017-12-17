@@ -213,6 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return pm;
     }
 
+
     public double selectRateValueById(String tblName, int r) {
         String userLike = "";
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -227,9 +228,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         ArasDB.close();
-        if (Double.parseDouble(userLike) > 0)
-            return Double.parseDouble(userLike);
-        else
+
+        if (userLike != null) {
+            if (Double.parseDouble(userLike) > 0)
+                return Double.parseDouble(userLike);
+            else
+                return -1;
+        } else
             return -1;
 
     }
@@ -248,9 +253,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         ArasDB.close();
-        if (Integer.parseInt(userLike) > 0)
-            return Integer.parseInt(userLike);
-        else
+        if (userLike != null) {
+            if (Integer.parseInt(userLike) > 0)
+                return Integer.parseInt(userLike);
+            else
+                return -1;
+        } else
             return -1;
 
     }
@@ -265,22 +273,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (!cursor.isAfterLast()) {
 
             userLike = cursor.getString(cursor.getColumnIndex(request));
-
         }
         cursor.close();
         ArasDB.close();
-        if (Integer.parseInt(userLike) > 0)
-            return Integer.parseInt(userLike);
-        else
-            return -1;
+        if (userLike != null) {
+            if (Integer.parseInt(userLike) > 0)
+                return Integer.parseInt(userLike);
+            else
+                return -1;
+        } else return -1;
 
     }
 
-    public void updateTblByLike(String tblName, int idRow, int idLike) {
+    public void updateTblByLike(String tblName, int idRow, int idLike, int likeCount) {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE " + tblName + " SET userLike=" + idLike + " WHERE id=" + idRow;
+        sql = "UPDATE " + tblName + " SET userLike=" + idLike + ",likeCount=" + likeCount + " WHERE id=" + idRow;
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+    }
+
+    public void updateTblByRate(String tblName, int idRow, int idRate, double rateValue) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql;
+        sql = "UPDATE " + tblName + " SET userRate=" + rateValue + ",idUserRate=" + idRate + " WHERE id=" + idRow;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -304,8 +322,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return Integer.parseInt(userFavorite);
             else
                 return -1;
-        }
-        else
+        } else
             return -1;
 
     }
@@ -315,6 +332,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
         sql = "UPDATE " + tblName + " SET userFavorite=" + idFavorite + " WHERE id=" + idRow;
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+    }
+
+    public void updateTblByLikeAndRate(String tblName, int idRow, int idLR, double rate, int like) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql;
+        sql = "UPDATE " + tblName + " SET userLike=" + ((like == 0) ? 0 : idLR) + ",idUserRate=" + ((rate == -1) ? 0 : idLR) + ",userRate=" + rate + " WHERE id=" + idRow;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
