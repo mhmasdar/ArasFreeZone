@@ -59,5 +59,6 @@
     <string name="Tbl_Services">Tbl_Services</string>
     <string name="Tbl_Offices">Tbl_Offices</string>
     <string name="Tbl_Medicals">Tbl_Medicals</string>
+    <string name="Tbl_Events">Tbl_Medicals</string>
 
 </resources>

@@ -1068,7 +1068,7 @@ public class detailsFragment extends Fragment {
 
             if (result != null) {
 
-                if (Integer.parseInt(result) > 0) {
+                if (Integer.parseInt(result) >= 0) {
                     idUserLike = -1;
                     DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
                     LikeUpdate.execute();

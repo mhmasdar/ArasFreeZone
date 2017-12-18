@@ -52,10 +52,13 @@
 
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:id="@+id/imgBack"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="8dp"
                                 android:layout_alignParentRight="true"
-                                android:src="@drawable/ic_back" />
+                                android:src="@drawable/ic_back"
+                                android:background="?attr/selectableItemBackground"/>
 
                         </RelativeLayout>
 
@@ -162,7 +165,6 @@
                                 android:id="@+id/edtFName"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="نام"
-                                android:text="محمد حسن"
                                 android:textColorHint="@color/colorPrimary"
                                 android:textColor="@color/dark"
                                 android:background="@drawable/edit_text_back_login"
@@ -205,7 +207,7 @@
                                 android:id="@+id/edtLName"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="نام خانوادگی"
-                                android:text="مصدر"
+
                                 android:textColor="@color/dark"
                                 android:background="@drawable/edit_text_back_login"
                                 android:padding="5dp"
@@ -248,7 +250,7 @@
                                 android:id="@+id/edtMobile"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="شماره همراه"
-                                android:text="09141190073"
+
                                 android:textColor="@color/dark"
                                 android:background="@drawable/edit_text_back_login"
                                 android:padding="5dp"
@@ -291,7 +293,6 @@
                                 android:id="@+id/edtEmail"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="ایمیل"
-                                android:text="prbit.microlab@yahoo.com"
                                 android:textColor="@color/dark"
                                 android:background="@drawable/edit_text_back_login"
                                 android:padding="5dp"

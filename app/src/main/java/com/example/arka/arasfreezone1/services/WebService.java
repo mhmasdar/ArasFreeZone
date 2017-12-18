@@ -215,6 +215,33 @@ public class WebService {
             return null;
     }
 
+    public String editProfile(boolean isInternetAvailable, int id, String name, String lName, String mobile, String email, String pass) {
+
+        if (isInternetAvailable) {
+
+            String req = "{\"id\":" + id + ",\"Name\":\"" + name + "\",\"LName\":\"" + lName + "\",\"Mobile\":\"" + mobile + "\",\"Email\":\"" + email + "\",\"Pass\":\"" + pass + "\",\"Visibility\":1,\"lastUpdate\":1}";
+            String response = connectToServerByJson(addr + "login/editProfile", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+    public String changePass(boolean isInternetAvailable, int idUser, String lastPass, String newPass) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/changePassword?iduser=" + idUser + "&lastPass=" + lastPass + "&newpass=" + newPass, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+
+
     public int getCulture(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {

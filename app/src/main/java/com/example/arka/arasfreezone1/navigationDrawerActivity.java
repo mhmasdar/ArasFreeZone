@@ -35,11 +35,13 @@ public class navigationDrawerActivity extends AppCompatActivity {
         initView();
 
         prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
-        txtUserEmail.setText(prefs.getString("UserName", "کاربر مهمان"));
+        txtUserEmail.setText(prefs.getString("UserEmail", "کاربر مهمان"));
         idUser = prefs.getInt("UserId", -1);
 
         if (idUser > 0)
             txtLogin.setText("مشاهده حساب کاربری");
+        else
+            txtLogin.setText("ورود / ثبت نام");
 
         lytSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +85,20 @@ public class navigationDrawerActivity extends AppCompatActivity {
         lytUserInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), profileActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+                prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+                idUser = prefs.getInt("UserId", -1);
+
+                if (idUser > 0) {
+
+                    Intent intentProfile = new Intent(getApplicationContext(), profileActivity.class);
+                    startActivity(intentProfile);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
+                } else {
+                    Intent intentLogin = new Intent(getApplicationContext(), loginActivity.class);
+                    startActivity(intentLogin);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+                }
             }
         });
 
@@ -93,9 +106,21 @@ public class navigationDrawerActivity extends AppCompatActivity {
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), loginActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
+                prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+                idUser = prefs.getInt("UserId", -1);
+
+                if (idUser > 0) {
+
+                    Intent intentProfile = new Intent(getApplicationContext(), profileActivity.class);
+                    startActivity(intentProfile);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
+                } else {
+                    Intent intentLogin = new Intent(getApplicationContext(), loginActivity.class);
+                    startActivity(intentLogin);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+                }
             }
         });
 
@@ -134,11 +159,15 @@ public class navigationDrawerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        txtUserEmail.setText(prefs.getString("UserName", "کاربر مهمان"));
+        txtUserEmail.setText(prefs.getString("UserEmail", "کاربر مهمان"));
         idUser = prefs.getInt("UserId", -1);
 
-        if (idUser > 0)
+        if (idUser > 0) {
             txtLogin.setText("مشاهده حساب کاربری");
+        }
+        else{
+            txtLogin.setText("ورود / ثبت نام");
+        }
 
     }
 }
