@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class categorySeatchFragment extends Fragment {
     private LinearLayout lytSort;
     private LinearLayout lytFilter;
     private Dialog dialog;
+    private RecyclerView recycle;
 
 
     public categorySeatchFragment() {
@@ -126,6 +128,7 @@ public class categorySeatchFragment extends Fragment {
         lytSort = (LinearLayout) view.findViewById(R.id.lytSort);
         lytFilter = (LinearLayout) view.findViewById(R.id.lytFilter);
         lytSeperate = (LinearLayout) view.findViewById(R.id.lytSeperate);
+        recycle = (RecyclerView) view.findViewById(R.id.recycle);
     }
 
 
