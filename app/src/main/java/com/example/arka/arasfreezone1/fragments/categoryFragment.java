@@ -31,6 +31,7 @@ public class categoryFragment extends Fragment {
 
 
     private RelativeLayout lytMenu;
+    private RelativeLayout lytSearch;
     private LinearLayout lytStay;
     private LinearLayout lytShopping;
     private LinearLayout lytRestaurant;
@@ -59,6 +60,18 @@ public class categoryFragment extends Fragment {
 
 
 //        Glide.with(this).load(R.drawable.category_back).into(imgCategory);
+
+        lytSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                categorySeatchFragment fragment = new categorySeatchFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
 
         lytRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +223,7 @@ public class categoryFragment extends Fragment {
 
     private void initView(View view) {
         lytMenu = (RelativeLayout) view.findViewById(R.id.lytMenu);
+        lytSearch = (RelativeLayout) view.findViewById(R.id.lytSearch);
         lytStay = (LinearLayout) view.findViewById(R.id.lytStay);
         lytShopping = (LinearLayout) view.findViewById(R.id.lytShopping);
         lytRestaurant = (LinearLayout) view.findViewById(R.id.lytRestaurant);
