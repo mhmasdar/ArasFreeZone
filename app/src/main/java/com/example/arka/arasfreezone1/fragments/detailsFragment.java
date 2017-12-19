@@ -172,7 +172,10 @@ public class detailsFragment extends Fragment {
         lytComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(getContext(), commentsActivity.class);
+                i.putExtra("IdRow", id);
+                i.putExtra("MainType", mainType);
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
             }

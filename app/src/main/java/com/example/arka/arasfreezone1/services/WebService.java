@@ -6,10 +6,12 @@ import android.util.Log;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.ActionModel;
+import com.example.arka.arasfreezone1.models.CommentModel;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
+import com.example.arka.arasfreezone1.models.NewsModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
 import com.example.arka.arasfreezone1.models.UserModel;
@@ -17,6 +19,7 @@ import com.example.arka.arasfreezone1.models.UserModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Comment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -1038,7 +1041,7 @@ public class WebService {
                         eventModel.phone = Object.getString("Phone");
                         eventModel.website = Object.getString("webSite");
                         eventModel.lastUpdate = Object.getString("lastUpdate");
-                        eventModel.image = Object.getString("image");
+                        eventModel.image = Object.getString("img");
 
                         eventList.add(eventModel);
 
@@ -1431,5 +1434,116 @@ public class WebService {
 
     }
 
+
+
+    public List<CommentModel> getComments(boolean isInternetAvailable, int id, int idType) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "comment/select?type=" + idType + "&idRow=" + id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<CommentModel> commentList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        CommentModel model = new CommentModel();
+                        model.answers = new ArrayList<>();
+                        model.id = Object.getInt("id");
+                        model.likeCount = Object.getInt("likeCount");
+                        model.date = Object.getInt("date");
+                        model.name = Object.getString("name");
+                        model.body = Object.getString("body");
+                        String answers = Object.getString("answers");
+
+                        JSONArray ArreyAnswer = new JSONArray(answers);
+                        for (int j = 0; j < ArreyAnswer.length(); j++){
+                            JSONObject ObjectAnswer = Arrey.getJSONObject(i);
+                            CommentModel modelAnswer = new CommentModel();
+                            modelAnswer.id = ObjectAnswer.getInt("id");
+                            modelAnswer.name = ObjectAnswer.getString("name");
+                            modelAnswer.body = ObjectAnswer.getString("body");
+
+                            model.answers.add(modelAnswer);
+                        }
+
+
+
+                        commentList.add(model);
+
+                    }
+                    return commentList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+
+    public String postComment(boolean isInternetAvailable, int idRow, int idUser, int idParent, int Type, int likeCount, String Body, int date) {
+
+        if (isInternetAvailable) {
+
+
+            String req = "{\"idRow\":" + idRow + ",\"idUser\":" + idUser + ",\"idParent\":" + idParent + ",\"Type\":" + Type + ",\"likeCount\":" + 0 + ",\"Body\":\"" + Body + "\",\"Date\":" + date + ", \"isActive\":0}";
+            String response = connectToServerByJson(addr + "comment/add", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+
+
+    public List<NewsModel> getNews(boolean isInternetAvailable, int count) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "news/select?num=" + count, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<NewsModel> newsList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        NewsModel model = new NewsModel();
+
+                        model.id = Object.getInt("id");
+                        model.likeCount = Object.getInt("likeCount");
+                        model.Type = Object.getInt("Type");
+                        model.Date = Object.getInt("Date");
+                        model.Title = Object.getString("Title");
+                        model.Body = Object.getString("Body");
+                        model.Img = Object.getString("Img");
+
+                        newsList.add(model);
+
+                    }
+                    return newsList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
 
 }

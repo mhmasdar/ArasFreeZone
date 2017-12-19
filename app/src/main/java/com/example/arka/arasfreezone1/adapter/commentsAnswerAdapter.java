@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.models.CommentModel;
+
+import java.util.List;
 
 /**
  * Created by mohamadHasan on 30/11/2017.
@@ -16,11 +19,12 @@ public class commentsAnswerAdapter extends RecyclerView.Adapter<commentsAnswerAd
 
     private Context context;
     private LayoutInflater mInflater;
+    private List<CommentModel> commentList;
 
-
-    public commentsAnswerAdapter(Context context) {
+    public commentsAnswerAdapter(Context context, List<CommentModel> commentList) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        this.commentList = commentList;
     }
 
     @Override
@@ -34,12 +38,14 @@ public class commentsAnswerAdapter extends RecyclerView.Adapter<commentsAnswerAd
     @Override
     public void onBindViewHolder(commentsAnswerAdapter.myViewHolder holder, int position) {
 
+        final CommentModel currentObj = commentList.get(position);
+        holder.setData(currentObj, position);
 
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return commentList.size();
     }
 
 
@@ -49,12 +55,25 @@ public class commentsAnswerAdapter extends RecyclerView.Adapter<commentsAnswerAd
         private TextView txtName;
         private TextView txtCommentBody;
 
+        int position;
+        public CommentModel current;
 
         myViewHolder(View itemView) {
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtCommentBody = (TextView) itemView.findViewById(R.id.txtCommentBody);
         }
+
+        private void setData(CommentModel current, int position) {
+
+            this.txtName.setText(current.name);
+            this.txtCommentBody.setText(current.body);
+
+            this.position = position;
+            this.current = current;
+
+        }
+
     }
 
 }

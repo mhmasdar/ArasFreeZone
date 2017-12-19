@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +15,12 @@ import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.newsDetailsFragment;
+import com.example.arka.arasfreezone1.models.NewsModel;
 import com.like.LikeButton;
+
+import java.util.List;
 
 /**
  * Created by mohamadHasan on 23/11/2017.
@@ -26,11 +31,12 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     private Context context;
     private LayoutInflater mInflater;
     private int lastPosition = -1;
+    private List<NewsModel> newsList;
 
-
-    public newsListAdapter(Context context) {
+    public newsListAdapter(Context context, List<NewsModel> newsList) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        this.newsList = newsList;
     }
 
     @Override
@@ -45,6 +51,9 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
 
         setAnimation(holder.itemView, position);
 
+        final NewsModel currentObj = newsList.get(position);
+        holder.setData(currentObj, position);
+
         holder.imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,12 +61,21 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             }
         });
 
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 newsDetailsFragment fragment = new newsDetailsFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("ID", currentObj.id);
+                args.putInt("Type", currentObj.Type);
+                args.putInt("likeCount", currentObj.likeCount);
+                args.putInt("Date", currentObj.Date);
+                args.putString("Img", currentObj.Img);
+                args.putString("Body", currentObj.Body);
+                args.putString("Title", currentObj.Title);
+                fragment.setArguments(args);
+
                 MainActivity activity = (MainActivity) context;
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
@@ -70,7 +88,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
 
     @Override
     public int getItemCount() {
-        return 5;
+        return newsList.size();
     }
 
 
@@ -85,6 +103,9 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         private TextView txtDate;
         private TextView txtLikeCount;
 
+        int position;
+        public NewsModel current;
+
         myViewHolder(View itemView) {
             super(itemView);
             imgShare = (ImageView) itemView.findViewById(R.id.imgShare);
@@ -96,6 +117,20 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
         }
+
+        private void setData(NewsModel current, int position) {
+
+            this.txtNewsTitle.setText(current.Title);
+            this.txtNewsBody.setText(current.Body);
+            this.txtLikeCount.setText(current.likeCount + "");
+            txtDate.setText(app.changeDateToString(current.Date));
+
+
+            this.position = position;
+            this.current = current;
+
+        }
+
     }
 
     private void setAnimation(View viewToAnimate, int position)

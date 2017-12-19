@@ -11,8 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
+import com.example.arka.arasfreezone1.models.CommentModel;
 import com.like.LikeButton;
+
+import java.util.List;
 
 /**
  * Created by mohamadHasan on 27/11/2017.
@@ -25,11 +29,18 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.myView
     private RecyclerView answerRecycler;
     private LinearLayout lytReplyPreview;
     private ImageView btnCloseReply;
+    private TextView txtReplyName, txtReplyBody;
+    private List<CommentModel> commentList;
 
-    public commentsAdapter(Context context, LinearLayout lytReplyPreview, ImageView btnCloseReply) {
+    public static int idAnswer = -1;
+
+    public commentsAdapter(Context context, LinearLayout lytReplyPreview, ImageView btnCloseReply, TextView txtReplyBody, TextView txtReplyName, List<CommentModel> commentList) {
         this.context = context;
         this.lytReplyPreview = lytReplyPreview;
         this.btnCloseReply = btnCloseReply;
+        this.txtReplyBody = txtReplyBody;
+        this.txtReplyName = txtReplyName;
+        this.commentList = commentList;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -44,10 +55,14 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.myView
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
 
+        final CommentModel currentObj = commentList.get(position);
+        holder.setData(currentObj, position);
+
         btnCloseReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lytReplyPreview.setVisibility(View.GONE);
+                idAnswer = -1;
             }
         });
 
@@ -55,24 +70,37 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.myView
             @Override
             public void onClick(View view) {
                 lytReplyPreview.setVisibility(View.VISIBLE);
+                txtReplyName.setText(currentObj.name);
+                txtReplyBody.setText(currentObj.body);
+                idAnswer = currentObj.id;
+            }
+        });
+
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return commentList.size();
     }
 
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtName;
+        private TextView txtName, txtDate;
         private TextView txtCommentBody;
         private LinearLayout lytReply;
         private LinearLayout lytCommentHeight;
         private LikeButton btnLike;
         private TextView txtLikeCount;
+
+        int position;
+        public CommentModel current;
 
         myViewHolder(View itemView) {
             super(itemView);
@@ -83,14 +111,30 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.myView
             lytCommentHeight = (LinearLayout) itemView.findViewById(R.id.lytCommentHeight);
             btnLike = (LikeButton) itemView.findViewById(R.id.btnLike);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
+            txtDate = itemView.findViewById(R.id.txtDate);
 
-            setUpRecyclerView();
         }
+
+        private void setData(CommentModel current, int position) {
+
+            this.txtName.setText(current.name);
+            this.txtCommentBody.setText(current.body);
+            this.txtLikeCount.setText(current.likeCount + "");
+            txtDate.setText(app.changeDateToString(current.date));
+
+            if (current.answers.size() > 0)
+                setUpRecyclerView(current.answers);
+
+            this.position = position;
+            this.current = current;
+
+        }
+
     }
 
-    private void setUpRecyclerView() {
+    private void setUpRecyclerView(List<CommentModel> answerList) {
 
-        commentsAnswerAdapter adapter = new commentsAnswerAdapter(context);
+        commentsAnswerAdapter adapter = new commentsAnswerAdapter(context, answerList);
         answerRecycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(context);

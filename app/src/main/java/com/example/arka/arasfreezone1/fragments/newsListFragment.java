@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -16,12 +17,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.newsListAdapter;
+import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.models.NewsModel;
 import com.example.arka.arasfreezone1.navigationDrawerActivity;
+import com.example.arka.arasfreezone1.services.WebService;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,6 +50,9 @@ public class newsListFragment extends Fragment {
     private LinearLayout lytDisconnect;
     private ExpandableLayout expandable_layout;
 
+    private List<NewsModel> newsList = new ArrayList<>();
+    private int count = 0;
+
     public newsListFragment() {
         // Required empty public constructor
     }
@@ -53,6 +64,20 @@ public class newsListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         initView(view);
+
+        WebServiceCallBackList callBackList = new WebServiceCallBackList();
+        callBackList.execute();
+
+        rc.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(1)) {
+                    Toast.makeText(getContext(),"Last",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
 
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
@@ -97,7 +122,7 @@ public class newsListFragment extends Fragment {
 
         changeTabsFont();
 
-        setUpRecyclerView();
+        //setUpRecyclerView();
 
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
@@ -121,7 +146,6 @@ public class newsListFragment extends Fragment {
                 expandable_layout.toggle();
             }
         });
-
 
 
         lytMenu.setOnClickListener(new View.OnClickListener() {
@@ -167,13 +191,76 @@ public class newsListFragment extends Fragment {
 
     }
 
-    private void setUpRecyclerView() {
+    private void setUpRecyclerView(List<NewsModel> list) {
 
-        newsListAdapter adapter = new newsListAdapter(getContext());
+        newsListAdapter adapter = new newsListAdapter(getContext(), list);
         rc.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         rc.setLayoutManager(mLinearLayoutManagerVertical);
+    }
+
+    private class WebServiceCallBackList extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        private List<NewsModel> tmpList;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            tmpList = new ArrayList<>();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            tmpList = webService.getNews(app.isInternetOn(), count);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (tmpList != null) {
+
+                if (tmpList.size() > 0) {
+                    lytMain.setVisibility(View.VISIBLE);
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                    newsList.addAll(tmpList);
+                    setUpRecyclerView(newsList);
+                    count++;
+                } else {
+                    //Toast.makeText(getApplicationContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
+                    if (newsList.size() < 1) {
+                        lytMain.setVisibility(View.GONE);
+                        lytDisconnect.setVisibility(View.GONE);
+                        lytEmpty.setVisibility(View.VISIBLE);
+                    }
+                }
+
+            } else {
+                //Toast.makeText(getApplicationContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                if (newsList.size() < 1) {
+                    lytMain.setVisibility(View.GONE);
+                    lytDisconnect.setVisibility(View.VISIBLE);
+                    lytEmpty.setVisibility(View.GONE);
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        WebServiceCallBackList callBackList = new WebServiceCallBackList();
+//        callBackList.execute();
+        setUpRecyclerView(newsList);
     }
 }
