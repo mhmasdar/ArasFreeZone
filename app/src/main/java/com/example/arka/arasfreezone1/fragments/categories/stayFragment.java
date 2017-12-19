@@ -81,6 +81,7 @@ public class stayFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("خوابگاه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("مسافرخانه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("هتل"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class stayFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 

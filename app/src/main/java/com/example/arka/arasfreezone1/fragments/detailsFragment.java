@@ -151,6 +151,18 @@ public class detailsFragment extends Fragment {
             }
         });
 
+        lytDrivers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                driversFragment fragment = new driversFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                ft.replace(R.id.container2, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -65,6 +65,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/txtType"
                 android:layout_alignParentBottom="true"
                 android:background="#b8f7f7f7"
                 android:text="فرهنگی"

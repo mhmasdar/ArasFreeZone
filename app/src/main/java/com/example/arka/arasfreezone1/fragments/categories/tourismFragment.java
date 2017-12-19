@@ -81,6 +81,7 @@ public class tourismFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("پارک"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("میراث فرهنگی"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("تفریحی"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class tourismFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(3).select();
+                catListTabLayout.getTabAt(4).select();
             }
         }, 2);
 

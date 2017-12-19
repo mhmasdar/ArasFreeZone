@@ -79,6 +79,7 @@ public class artFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("جشنواره و فستیوال"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("تئاتر و سینما"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("موزه"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -112,7 +113,7 @@ public class artFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 

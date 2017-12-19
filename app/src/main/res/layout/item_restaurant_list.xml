@@ -103,12 +103,32 @@
 
         </LinearLayout>
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="110dp"
-            android:id="@+id/imgNews"
-            android:src="@drawable/test2"
-            android:scaleType="fitXY"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/imgNews"
+                android:src="@drawable/test2"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/txtType"
+                android:layout_alignParentBottom="true"
+                android:background="#b8f7f7f7"
+                android:text="فست فود"
+                style="@style/AudioFileInfoOverlayText2"
+                android:textSize="10sp"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:textColor="@color/dark"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

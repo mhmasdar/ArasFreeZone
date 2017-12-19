@@ -82,6 +82,7 @@ public class transportFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه قطار"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه اتوبوس"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("ایستگاه تاکسی"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -115,7 +116,7 @@ public class transportFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(3).select();
+                catListTabLayout.getTabAt(4).select();
             }
         }, 2);
 

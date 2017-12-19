@@ -83,6 +83,7 @@ public class restaurantsListFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("کافی شاپ"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("فست فود"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("رستوران"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -116,7 +117,7 @@ public class restaurantsListFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(4).select();
+                catListTabLayout.getTabAt(5).select();
             }
         }, 2);
 

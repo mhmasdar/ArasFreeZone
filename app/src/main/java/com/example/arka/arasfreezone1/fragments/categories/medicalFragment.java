@@ -81,6 +81,7 @@ public class medicalFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("داروخانه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("درمانگاه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("بیمارستان"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class medicalFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(3).select();
+                catListTabLayout.getTabAt(4).select();
             }
         }, 2);
 

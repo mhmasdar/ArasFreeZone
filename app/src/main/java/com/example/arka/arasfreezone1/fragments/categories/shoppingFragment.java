@@ -81,6 +81,7 @@ public class shoppingFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("بازارچه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("فروشگاه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("مرکز خرید"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class shoppingFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(2).select();
+                catListTabLayout.getTabAt(3).select();
             }
         }, 2);
 

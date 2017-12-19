@@ -30,7 +30,6 @@
             android:textSize="15sp"
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:inputType="textEmailAddress"/>
 
         <LinearLayout
@@ -64,8 +63,7 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:singleLine="true"/>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

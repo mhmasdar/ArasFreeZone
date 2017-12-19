@@ -92,6 +92,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         private TextView txtName;
         private TextView txtRank;
         private TextView txtAddress;
+        private TextView txtType;
         private RatingBar rating;
         private ImageView imgNews;
 
@@ -105,6 +106,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtRank = (TextView) itemView.findViewById(R.id.txtRank);
             txtAddress = (TextView) itemView.findViewById(R.id.txtAddress);
+            txtType = (TextView) itemView.findViewById(R.id.txtType);
             rating = (RatingBar) itemView.findViewById(R.id.rating);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
             Drawable drawable = rating.getProgressDrawable();
