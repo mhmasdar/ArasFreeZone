@@ -26,6 +26,7 @@ public class newsDetailsFragment extends Fragment {
 
     private RelativeLayout relativeBack;
     private TextView txtNewsTitle;
+    private TextView txtLikeCount;
     private ImageView imgShare;
     private LikeButton imgLike;
     private TextView txtDate;
@@ -70,6 +71,7 @@ public class newsDetailsFragment extends Fragment {
     private void initView(View view) {
         relativeBack = (RelativeLayout) view.findViewById(R.id.relativeBack);
         txtNewsTitle = (TextView) view.findViewById(R.id.txtNewsTitle);
+        txtLikeCount = (TextView) view.findViewById(R.id.txtLikeCount);
         imgShare = (ImageView) view.findViewById(R.id.imgShare);
         imgLike = (LikeButton) view.findViewById(R.id.btnLike);
         txtDate = (TextView) view.findViewById(R.id.txtDate);

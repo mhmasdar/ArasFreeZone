@@ -101,9 +101,20 @@
                 <com.like.LikeButton
                     android:layout_width="30dp"
                     android:id="@+id/btnLike"
-                    app:icon_size="21dp"
+                    app:icon_size="20dp"
                     app:icon_type="heart"
+                    app:unlike_drawable="@drawable/ic_love"
+                    app:like_drawable="@drawable/ic_like1"
                     android:layout_height="30dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="23"
+                        android:id="@+id/txtLikeCount"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="3dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_height="wrap_content" />
 
 
             </LinearLayout>

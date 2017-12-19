@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import com.example.arka.arasfreezone1.fragments.categories.shoppingFragment;
 import com.example.arka.arasfreezone1.fragments.categories.stayFragment;
 import com.example.arka.arasfreezone1.fragments.categories.tourismFragment;
 import com.example.arka.arasfreezone1.fragments.categories.transportFragment;
+import com.example.arka.arasfreezone1.navigationDrawerActivity;
 
 
 /**
@@ -215,6 +217,16 @@ public class categoryFragment extends Fragment {
                 ft.replace(R.id.container2, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
+            }
+        });
+
+
+        lytMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mapIntent = new Intent(getActivity(), navigationDrawerActivity.class);
+                startActivity(mapIntent);
+                getActivity().overridePendingTransition(R.anim.bottom_to_top, R.anim.stay);
             }
         });
 

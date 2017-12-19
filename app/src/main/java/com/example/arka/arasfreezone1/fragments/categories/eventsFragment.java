@@ -19,6 +19,8 @@ import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.EventModel;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,10 @@ public class eventsFragment extends Fragment {
 
 
     private RelativeLayout relativeBack;
+    private RelativeLayout lytSearch;
+    private RelativeLayout lytSearchCancel;
     private RecyclerView recycler;
+    private ExpandableLayout expandable_layout;
     private LinearLayout lytMain, lytEmpty, lytDisconnect;
 
     private List<EventModel> eventList;
@@ -68,12 +73,31 @@ public class eventsFragment extends Fragment {
             }
         });
 
+
+        lytSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandable_layout.expand();
+            }
+        });
+
+
+        lytSearchCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandable_layout.toggle();
+            }
+        });
+
         return view;
     }
 
     private void initView(View view) {
         relativeBack = (RelativeLayout) view.findViewById(R.id.relative_back);
+        lytSearch = (RelativeLayout) view.findViewById(R.id.lytSearch);
+        lytSearchCancel = (RelativeLayout) view.findViewById(R.id.lytSearchCancel);
         recycler = (RecyclerView) view.findViewById(R.id.recycler);
+        expandable_layout = (ExpandableLayout) view.findViewById(R.id.expandable_layout);
         lytMain = view.findViewById(R.id.lytMain);
         lytDisconnect = view.findViewById(R.id.lytDisconnect);
         lytEmpty = view.findViewById(R.id.lytEmpty);

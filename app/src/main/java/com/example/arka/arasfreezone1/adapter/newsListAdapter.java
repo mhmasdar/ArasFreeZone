@@ -48,7 +48,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         holder.imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "imgShare", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -83,6 +83,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         private LikeButton imgLike;
         private TextView txtCommentCount;
         private TextView txtDate;
+        private TextView txtLikeCount;
 
         myViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +93,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtNewsTitle = (TextView) itemView.findViewById(R.id.txtNewsTitle);
             txtNewsBody = (TextView) itemView.findViewById(R.id.txtNewsBody);
+            txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
         }
     }

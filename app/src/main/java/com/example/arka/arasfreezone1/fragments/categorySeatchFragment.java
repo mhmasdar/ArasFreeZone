@@ -39,6 +39,7 @@ public class categorySeatchFragment extends Fragment {
     private RecyclerView recycle;
 
 
+
     public categorySeatchFragment() {
         // Required empty public constructor
     }

@@ -106,9 +106,20 @@
             <com.like.LikeButton
                 android:layout_width="30dp"
                 android:id="@+id/btnLike"
-                app:icon_size="21dp"
+                app:unlike_drawable="@drawable/ic_love"
+                app:like_drawable="@drawable/ic_like1"
+                app:icon_size="20dp"
                 app:icon_type="heart"
                 android:layout_height="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="23"
+                android:id="@+id/txtLikeCount"
+                android:textSize="12sp"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>
@@ -117,13 +128,20 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:src="@drawable/ic_comments"
+                android:layout_height="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="تعداد نظرات : 26"
+                android:text="12"
                 android:id="@+id/txtCommentCount"
                 android:textSize="13sp"
+                android:layout_marginLeft="3dp"
                 android:textColor="@color/colorPrimary"
                 android:layout_height="wrap_content" />
 

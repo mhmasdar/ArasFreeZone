@@ -81,7 +81,9 @@
                     <com.like.LikeButton
                         android:layout_width="30dp"
                         android:id="@+id/btnLike"
-                        app:icon_size="23dp"
+                        app:icon_size="20dp"
+                        app:unlike_drawable="@drawable/ic_love"
+                        app:like_drawable="@drawable/ic_like1"
                         app:icon_type="heart"
                         android:layout_height="30dp" />
 
@@ -89,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/txtLikeCount"
                         android:text="15"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="3dp"
                         android:textColor="@color/colorPrimary"
                         android:textSize="13sp"
                         android:layout_height="wrap_content" />

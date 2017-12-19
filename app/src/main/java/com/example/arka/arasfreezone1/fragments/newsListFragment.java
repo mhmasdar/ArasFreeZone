@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.newsListAdapter;
+import com.example.arka.arasfreezone1.navigationDrawerActivity;
+
+import net.cachapa.expandablelayout.ExpandableLayout;
 
 
 /**
@@ -27,6 +31,8 @@ public class newsListFragment extends Fragment {
 
 
     private RelativeLayout lytSearch;
+    private RelativeLayout lytSearchCancel;
+    private RelativeLayout lytSearchSubmit;
     private RelativeLayout lytMenu;
     private TabLayout newsTabLayout;
     private RecyclerView rc;
@@ -34,6 +40,7 @@ public class newsListFragment extends Fragment {
     private LinearLayout lytMain;
     private LinearLayout lytEmpty;
     private LinearLayout lytDisconnect;
+    private ExpandableLayout expandable_layout;
 
     public newsListFragment() {
         // Required empty public constructor
@@ -98,17 +105,48 @@ public class newsListFragment extends Fragment {
                 newsTabLayout.getTabAt(4).select();
             }
         }, 2);
+
+
+        lytSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandable_layout.expand();
+            }
+        });
+
+
+        lytSearchCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandable_layout.toggle();
+            }
+        });
+
+
+
+        lytMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mapIntent = new Intent(getActivity(), navigationDrawerActivity.class);
+                startActivity(mapIntent);
+                getActivity().overridePendingTransition(R.anim.bottom_to_top, R.anim.stay);
+            }
+        });
+
         return view;
     }
 
     private void initView(View view) {
         lytSearch = (RelativeLayout) view.findViewById(R.id.lytSearch);
         lytMenu = (RelativeLayout) view.findViewById(R.id.lytMenu);
+        lytSearchCancel = (RelativeLayout) view.findViewById(R.id.lytSearchCancel);
+        lytSearchSubmit = (RelativeLayout) view.findViewById(R.id.lytSearchSubmit);
         newsTabLayout = (TabLayout) view.findViewById(R.id.newsTabLayout);
         rc = (RecyclerView) view.findViewById(R.id.rc);
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
+        expandable_layout = (ExpandableLayout) view.findViewById(R.id.expandable_layout);
     }
 
     private void changeTabsFont() {
