@@ -77,6 +77,7 @@ public class servicesFragment extends Fragment {
         });
 
 
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("مراکز صدور پلاک"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("پمپ بنزین"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("پارکینگ"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("تعمیرگاه"));
@@ -115,7 +116,7 @@ public class servicesFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(4).select();
+                catListTabLayout.getTabAt(5).select();
             }
         }, 2);
 

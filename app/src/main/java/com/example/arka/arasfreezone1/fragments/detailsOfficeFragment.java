@@ -41,23 +41,13 @@ public class detailsOfficeFragment extends Fragment {
     private int currentPage = 0;
     private boolean detailsSlider = false;
     public Timer swipeTimer = new Timer();
-    private LinearLayout lytRating;
-    private LinearLayout lytGallery;
-    private TextView txtName;
-    private ImageView imgShare;
-    private ImageView imgBookmark;
-    private ImageView imgBack;
-    private LikeButton btnLike;
-    private TextView txtLikeCount;
     private LinearLayout lytCall;
-    private LinearLayout lytMenu;
+    private TextView txtName;
+    private ImageView imgBack;
     private LinearLayout lytLocation;
     private TextView txtAddress;
-    private TextView txtInfo, txtHour, txtDay;
+    private TextView txtInfo;
     private LinearLayout lytWebsite;
-    private LinearLayout lytOptions;
-    private LinearLayout lytComments;
-    private LinearLayout lytDrivers;
     ImageView imgMenuAndCost;
     TextView txtMenuAndCost;
 
@@ -85,20 +75,6 @@ public class detailsOfficeFragment extends Fragment {
         DatabaseCallbackOffice databaseCallbackOffice = new DatabaseCallbackOffice(getContext(), tblName, id);
         databaseCallbackOffice.execute();
 
-        Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
-        lytGallery.startAnimation(fade_in);
-
-        lytGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                galleryFragment fragment = new galleryFragment();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
 
 
         imgBack.setOnClickListener(new View.OnClickListener() {
@@ -203,13 +179,8 @@ public class detailsOfficeFragment extends Fragment {
 
     private void initView(View view) {
 
-        lytGallery = (LinearLayout) view.findViewById(R.id.lytGallery);
         txtName = (TextView) view.findViewById(R.id.txtName);
-        imgShare = (ImageView) view.findViewById(R.id.imgShare);
-        imgBookmark = (ImageView) view.findViewById(R.id.imgBookmark);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);
-        btnLike = (LikeButton) view.findViewById(R.id.btnLike);
-        txtLikeCount = (TextView) view.findViewById(R.id.txtLikeCount);
         lytCall = (LinearLayout) view.findViewById(R.id.lytCall);
         lytLocation = (LinearLayout) view.findViewById(R.id.lytLocation);
         txtAddress = (TextView) view.findViewById(R.id.txtAddress);

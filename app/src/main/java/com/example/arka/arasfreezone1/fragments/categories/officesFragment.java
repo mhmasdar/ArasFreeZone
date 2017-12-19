@@ -79,7 +79,7 @@ public class officesFragment extends Fragment {
         });
 
 
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("مراکز صدور پلاک"));
+
         catListTabLayout.addTab(catListTabLayout.newTab().setText("بانک"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("کلانتری"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("ادارات"));
@@ -118,7 +118,7 @@ public class officesFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(5).select();
+                catListTabLayout.getTabAt(4).select();
             }
         }, 2);
 
