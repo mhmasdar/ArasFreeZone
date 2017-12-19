@@ -353,7 +353,7 @@ public class WebService {
                         placesModel.visibility = Object.getBoolean("Visibility");
                         placesModel.lastUpdate = Object.getString("lastUpdate");
                         placesModel.address = Object.getString("Address");
-                        placesModel.tel = Object.getString("Tell");
+                        placesModel.tel = Object.getString("tell");
                         placesModel.image = Object.getString("image");
 
                         placeslList.add(placesModel);

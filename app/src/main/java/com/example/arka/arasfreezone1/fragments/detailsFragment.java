@@ -121,12 +121,19 @@ public class detailsFragment extends Fragment {
 
         initView(view);
 
-        lytMenu.setVisibility(View.GONE);
-        if (tblName.equals("Tbl_Tourisms") || tblName.equals("Tbl_Rests") || tblName.equals("Tbl_Transports") || tblName.equals("Tbl_Eating"))
-            lytMenu.setVisibility(View.VISIBLE);
-
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
+
+        lytMenu.setVisibility(View.GONE);
+        lytDrivers.setVisibility(View.GONE);
+        if (tblName.equals("Tbl_Tourisms") || tblName.equals("Tbl_Rests") || tblName.equals("Tbl_Eating")) {
+            lytDrivers.setVisibility(View.GONE);
+            lytMenu.setVisibility(View.VISIBLE);
+        }
+        if (tblName.equals("Tbl_Transports") && placesModel.type == 1){
+            lytMenu.setVisibility(View.GONE);
+            lytDrivers.setVisibility(View.VISIBLE);
+        }
 
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
@@ -220,6 +227,8 @@ public class detailsFragment extends Fragment {
         });
 
         lytMenu.setOnClickListener(lytMenuClick);
+
+        lytDrivers.setOnClickListener(lytDriversClick);
 
         lytOptions.setOnClickListener(lytOptionsClick);
 
@@ -407,11 +416,28 @@ public class detailsFragment extends Fragment {
 
     }
 
-    View.OnClickListener lytMenuClick = new View.OnClickListener() {
+    View.OnClickListener lytDriversClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            if (!tblName.equals("Tbl_Transports")) {
+//            Dialog dialog = new Dialog(getActivity());
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog.setContentView(R.layout.dialog_menu);
+//            dialog.setCancelable(true);
+//            dialog.setCanceledOnTouchOutside(true);
+//            dialog.show();
+//
+//            recyclerMenu = dialog.findViewById(R.id.recycler);
+//
+//            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
+//            webServiceCallBackMenu.execute();
+
+        }
+    };
+
+    View.OnClickListener lytMenuClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
                 Dialog dialog = new Dialog(getActivity());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -424,9 +450,6 @@ public class detailsFragment extends Fragment {
 
                 WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
                 webServiceCallBackMenu.execute();
-            } else {
-                //todo: goto drivers fragment
-            }
 
         }
     };

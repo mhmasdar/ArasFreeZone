@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
 import com.like.LikeButton;
 
@@ -34,6 +35,9 @@ public class newsDetailsFragment extends Fragment {
     private TextView txtNewsBody;
     private LinearLayout lytNewsComments;
 
+    private int id, type, likeCount, date;
+    private String img, title, body;
+
     public newsDetailsFragment() {
         // Required empty public constructor
     }
@@ -44,12 +48,25 @@ public class newsDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_details, container, false);
+
+        Bundle args = getArguments();
+        id = args.getInt("ID");
+        type = args.getInt("Type");
+        likeCount = args.getInt("LikeCount");
+        date = args.getInt("Date");
+        img = args.getString("Img");
+        title = args.getString("Title");
+        body = args.getString("Body");
+
         initView(view);
+        setViews();
 
         lytNewsComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), commentsActivity.class);
+                i.putExtra("IdRow", id);
+                i.putExtra("MainType", 11);
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
             }
@@ -78,5 +95,12 @@ public class newsDetailsFragment extends Fragment {
         imgNews = (ImageView) view.findViewById(R.id.imgNews);
         txtNewsBody = (TextView) view.findViewById(R.id.txtNewsBody);
         lytNewsComments = (LinearLayout) view.findViewById(R.id.lytNewsComments);
+    }
+
+    private void setViews(){
+        txtNewsTitle.setText(title);
+        txtDate.setText(app.changeDateToString(date));
+        txtNewsBody.setText(body);
+        txtLikeCount.setText(likeCount + "");
     }
 }

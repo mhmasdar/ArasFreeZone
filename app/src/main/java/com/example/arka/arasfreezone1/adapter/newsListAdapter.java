@@ -69,7 +69,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
                 args.putInt("Type", currentObj.Type);
-                args.putInt("likeCount", currentObj.likeCount);
+                args.putInt("LikeCount", currentObj.likeCount);
                 args.putInt("Date", currentObj.Date);
                 args.putString("Img", currentObj.Img);
                 args.putString("Body", currentObj.Body);
