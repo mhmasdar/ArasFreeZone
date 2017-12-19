@@ -70,6 +70,7 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytMenu;
     private LinearLayout lytLocation;
     private TextView txtAddress;
+    private TextView txtHotelStars;
     private TextView txtInfo, txtHour, txtDay;
     private LinearLayout lytWebsite;
     private LinearLayout lytOptions;
@@ -357,6 +358,7 @@ public class detailsFragment extends Fragment {
         lytGallery = (LinearLayout) view.findViewById(R.id.lytGallery);
         lytDrivers = (LinearLayout) view.findViewById(R.id.lytDrivers);
         txtName = (TextView) view.findViewById(R.id.txtName);
+        txtHotelStars = (TextView) view.findViewById(R.id.txtHotelStars);
         imgShare = (ImageView) view.findViewById(R.id.imgShare);
         imgBookmark = (ImageView) view.findViewById(R.id.imgBookmark);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);
