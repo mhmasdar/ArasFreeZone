@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".suggestionActivity" />
         <activity android:name=".commentsActivity" />
         <activity android:name=".referendumActivity" />
@@ -31,7 +31,8 @@
         <activity android:name=".introduceActivity" />
         <activity android:name=".favoriteActivity" />
         <activity android:name=".loginActivity" />
-        <activity android:name=".profileActivity"></activity>
+        <activity android:name=".profileActivity" />
+        <activity android:name=".imageActivity" android:theme="@android:style/Theme.Holo.Dialog"></activity>
     </application>
 
 </manifest>
