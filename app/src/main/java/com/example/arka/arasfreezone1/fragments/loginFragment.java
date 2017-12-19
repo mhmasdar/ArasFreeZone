@@ -2,6 +2,7 @@ package com.example.arka.arasfreezone1.fragments;
 
 
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.SplashActivity;
@@ -38,6 +41,8 @@ public class loginFragment extends Fragment {
 
     private Button btnUserLogin;
     private EditText edtUserName, edtUserPass;
+    private TextView txtForgetPass;
+    private Dialog dialog;
 
     public loginFragment() {
         // Required empty public constructor
@@ -66,6 +71,13 @@ public class loginFragment extends Fragment {
         });
 
 
+        txtForgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showdialog();
+            }
+        });
+
         return view;
     }
 
@@ -74,6 +86,7 @@ public class loginFragment extends Fragment {
         edtUserName = view.findViewById(R.id.edtUserName);
         edtUserPass = view.findViewById(R.id.edtUserPass);
         btnUserLogin = view.findViewById(R.id.btnUserLogin);
+        txtForgetPass = view.findViewById(R.id.txtForgetPass);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
@@ -191,6 +204,26 @@ public class loginFragment extends Fragment {
 
 
         }
+    }
+
+
+    private void showdialog() {
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_forget_pass);
+        Button btnSendEmail = (Button) dialog.findViewById(R.id.btnSendEmail);
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
     }
 
 }
