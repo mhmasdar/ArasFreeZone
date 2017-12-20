@@ -69,15 +69,24 @@
                 android:src="@drawable/ic_aras"
                 android:layout_height="100dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/txtSplash"
+
+            <ImageView
+                android:layout_width="110dp"
+                android:src="@drawable/logo"
+                android:scaleType="fitXY"
                 android:layout_marginTop="10dp"
-                android:text="برنامه گردشگری منطقه آزاد ارس"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content" />
+                android:id="@+id/txtSplash"
+                android:layout_height="50dp" />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:id="@+id/txtSplash"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="برنامه گردشگری منطقه آزاد ارس"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_height="wrap_content" />-->
 
         </LinearLayout>
 

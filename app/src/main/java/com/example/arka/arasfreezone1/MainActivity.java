@@ -1,7 +1,9 @@
 package com.example.arka.arasfreezone1;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.fragments.categoryFragment;
 import com.example.arka.arasfreezone1.fragments.newsListFragment;
@@ -39,12 +42,14 @@ public class MainActivity extends AppCompatActivity {
     private boolean frgCreateCheck2 = false, frgCreateCheck3 = false, frgCreateCheck4 = false; // این متغیر ها برای تشخیص اینکه اولین بار بر روی هر یک از آیتم های پایینی کلیک شده است ، تعریف شده اند
     // اولین بار که روی آیتم های پایینی کلیک می شود، فرگمنت ایجاد و مقداردهی شده و نمایش داده می شود. در دفعات بعدی هنگام کلیک بر روی آیتم های پایین، فقط فرگمنت ها visible و gone  می شوند
 
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
 
         //display home fragment as default
         ft = getSupportFragmentManager().beginTransaction();
@@ -238,4 +243,22 @@ public class MainActivity extends AppCompatActivity {
         check=0;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finish();
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج مجددا کلید برگشت را بزنید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 }

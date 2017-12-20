@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.ChangeBounds;
 import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView imgSp1, imgSp2, imgSp3;
     private LinearLayout splashBack;
     private ImageView imgAras;
-    private TextView txtSplash;
+    private ImageView txtSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
         imgSp3 = (ImageView) findViewById(R.id.imgSp3);
         splashBack = (LinearLayout) findViewById(R.id.splashBack);
         imgAras = (ImageView) findViewById(R.id.imgAras);
-        txtSplash = (TextView) findViewById(R.id.txtSplash);
+        txtSplash = (ImageView) findViewById(R.id.txtSplash);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
@@ -140,11 +141,16 @@ public class SplashActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
 
-                Pair[] pairs = new Pair[1];
+                Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
+                pairs[1] = new Pair<View, String>(txtSplash, "App_text");
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                ChangeBounds bounds = new ChangeBounds();
+                bounds.setDuration(2000);
+                getWindow().setSharedElementEnterTransition(bounds);
+                getWindow().setSharedElementExitTransition(bounds);
                 startActivity(i, options.toBundle());
                 finish();
             }
