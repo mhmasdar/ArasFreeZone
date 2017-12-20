@@ -1526,6 +1526,7 @@ public class WebService {
                         model.id = Object.getInt("id");
                         model.likeCount = Object.getInt("likeCount");
                         model.Type = Object.getInt("Type");
+                        model.commentCount = Object.getInt("commentCount");
                         model.Date = Object.getInt("Date");
                         model.Title = Object.getString("Title");
                         model.Body = Object.getString("Body");

@@ -151,7 +151,7 @@ public class restaurantsListFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
     }
 
-    private void setUpRecyclerView(List<PlacesModel> placesList){
+    private void setUpRecyclerView(List<PlacesModel> placesList) {
 
         restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "Tbl_Eating");
         recycler.setAdapter(adapter);
@@ -223,7 +223,9 @@ public class restaurantsListFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            setUpRecyclerView(placesList);
+            if (placesList != null)
+                if (placesList.size() > 0)
+                    setUpRecyclerView(placesList);
 
         }
 

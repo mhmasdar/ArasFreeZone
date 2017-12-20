@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.adapter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,10 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.newsDetailsFragment;
 import com.example.arka.arasfreezone1.models.NewsModel;
+import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,11 +35,14 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     private LayoutInflater mInflater;
     private int lastPosition = -1;
     private List<NewsModel> newsList;
+    private static int count = 1;
+    private boolean searchFlag;
 
-    public newsListAdapter(Context context, List<NewsModel> newsList) {
+    public newsListAdapter(Context context, List<NewsModel> newsList, boolean searchFlag) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.newsList = newsList;
+        this.searchFlag = searchFlag;
     }
 
     @Override
@@ -84,6 +90,16 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
                 ft.commit();
             }
         });
+
+
+        if (holder.position == newsList.size() - 1){
+            if (!searchFlag) {
+                Toast.makeText(context, "Last " + position, Toast.LENGTH_LONG).show();
+                WebServiceCallBackList callBackList = new WebServiceCallBackList();
+                callBackList.execute();
+            }
+        }
+
     }
 
     @Override
@@ -116,6 +132,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             txtNewsBody = (TextView) itemView.findViewById(R.id.txtNewsBody);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
+
         }
 
         private void setData(NewsModel current, int position) {
@@ -123,7 +140,8 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             this.txtNewsTitle.setText(current.Title);
             this.txtNewsBody.setText(current.Body);
             this.txtLikeCount.setText(current.likeCount + "");
-            txtDate.setText(app.changeDateToString(current.Date));
+            this.txtCommentCount.setText(current.commentCount + "");
+            this.txtDate.setText(app.changeDateToString(current.Date));
 
 
             this.position = position;
@@ -142,6 +160,49 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    private class WebServiceCallBackList extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        private List<NewsModel> tmpList;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            tmpList = new ArrayList<>();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            tmpList = webService.getNews(app.isInternetOn(), count);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (tmpList != null) {
+
+                if (tmpList.size() > 0) {
+                    newsList.addAll(tmpList);
+                    notifyDataSetChanged();
+                    count++;
+                } else {
+                    //Toast.makeText(getApplicationContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                //Toast.makeText(getApplicationContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+
     }
 
 }

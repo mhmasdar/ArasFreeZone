@@ -191,7 +191,9 @@ public class eventsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            setUpRecyclerView(eventList);
+            if (eventList != null)
+                if (eventList.size() > 0)
+                    setUpRecyclerView(eventList);
 
         }
 

@@ -9,6 +9,7 @@ public class NewsModel {
     public int id;
     public int Type;
     public int likeCount;
+    public int commentCount;
     public int Date;
     public String Img;
     public String Body;

@@ -11,9 +11,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,9 +52,11 @@ public class newsListFragment extends Fragment {
     private LinearLayout lytEmpty;
     private LinearLayout lytDisconnect;
     private ExpandableLayout expandable_layout;
+    private EditText edtSearch;
+    private List<NewsModel> searchList = new ArrayList<>();
 
     private List<NewsModel> newsList = new ArrayList<>();
-    private int count = 0;
+    //private int count = 0;
 
     public newsListFragment() {
         // Required empty public constructor
@@ -65,15 +70,21 @@ public class newsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         initView(view);
 
-        WebServiceCallBackList callBackList = new WebServiceCallBackList();
-        callBackList.execute();
+        if (newsList.size() < 1) {
+            WebServiceCallBackList callBackList = new WebServiceCallBackList();
+            callBackList.execute();
+        }
 
         rc.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!recyclerView.canScrollVertically(1)) {
-                    Toast.makeText(getContext(),"Last",Toast.LENGTH_LONG).show();
+                    if (edtSearch.getText().toString().equals("")) {
+                        //Toast.makeText(getContext(), "Last", Toast.LENGTH_LONG).show();
+//                        WebServiceCallBackList callBackList = new WebServiceCallBackList();
+//                        callBackList.execute();
+                    }
 
                 }
             }
@@ -132,10 +143,24 @@ public class newsListFragment extends Fragment {
         }, 2);
 
 
+//        lytSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                expandable_layout.expand();
+//            }
+//        });
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                expandable_layout.expand();
+            public void onClick(View v) {
+                //opens search layout
+                expandable_layout.toggle();
+                if (!expandable_layout.isExpanded()) {
+                    edtSearch.setText("");
+                    if (newsList != null)
+                        setUpRecyclerView(newsList, false);
+                }
+
+                edtSearch.setText("");
             }
         });
 
@@ -144,6 +169,50 @@ public class newsListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 expandable_layout.toggle();
+                edtSearch.setText("");
+                if (newsList != null)
+                    setUpRecyclerView(newsList, false);
+            }
+        });
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.length() == 0)
+                    searchList.clear();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    if (newsList != null)
+                        setUpRecyclerView(newsList, false);
+                    else
+                        Toast.makeText(getContext(), "هیچ موردی موجود نمی باشد", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (newsList != null) {
+                        searchList.clear();
+                        for (int i = 0; i < newsList.size(); i++) {
+                            if (newsList.get(i).Title.contains(s)) {
+                                searchList.add(newsList.get(i));
+                            }
+                        }
+                        if (searchList.size() > 0)
+                            setUpRecyclerView(searchList, true);
+                        else {
+                            Toast.makeText(getContext(), "هیچ موردی یافت نشد", Toast.LENGTH_SHORT).show();
+                            setUpRecyclerView(searchList, true);
+                        }
+                    } else // homeworkList is empty
+                        Toast.makeText(getContext(), "هیچ موردی موجود نمی باشد", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -171,6 +240,7 @@ public class newsListFragment extends Fragment {
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         expandable_layout = (ExpandableLayout) view.findViewById(R.id.expandable_layout);
+        edtSearch = view.findViewById(R.id.edt_search);
     }
 
     private void changeTabsFont() {
@@ -191,9 +261,9 @@ public class newsListFragment extends Fragment {
 
     }
 
-    private void setUpRecyclerView(List<NewsModel> list) {
+    private void setUpRecyclerView(List<NewsModel> list, boolean searchFlag) {
 
-        newsListAdapter adapter = new newsListAdapter(getContext(), list);
+        newsListAdapter adapter = new newsListAdapter(getContext(), list, searchFlag);
         rc.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -216,7 +286,7 @@ public class newsListFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            tmpList = webService.getNews(app.isInternetOn(), count);
+            tmpList = webService.getNews(app.isInternetOn(), 0);
 
             return null;
         }
@@ -232,8 +302,7 @@ public class newsListFragment extends Fragment {
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
                     newsList.addAll(tmpList);
-                    setUpRecyclerView(newsList);
-                    count++;
+                    setUpRecyclerView(newsList, false);
                 } else {
                     //Toast.makeText(getApplicationContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
                     if (newsList.size() < 1) {
@@ -261,6 +330,6 @@ public class newsListFragment extends Fragment {
         super.onResume();
 //        WebServiceCallBackList callBackList = new WebServiceCallBackList();
 //        callBackList.execute();
-        setUpRecyclerView(newsList);
+        //setUpRecyclerView(newsList);
     }
 }

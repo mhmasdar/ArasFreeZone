@@ -65,7 +65,6 @@
                 android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:text="5 ستاره"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="14sp"

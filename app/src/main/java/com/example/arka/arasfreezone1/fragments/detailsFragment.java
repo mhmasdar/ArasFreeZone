@@ -136,6 +136,7 @@ public class detailsFragment extends Fragment {
             lytDrivers.setVisibility(View.VISIBLE);
         }
 
+
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
@@ -601,6 +602,10 @@ public class detailsFragment extends Fragment {
             if (tblName.equals("Tbl_Transports")) {
                 imgMenuAndCost.setImageResource(R.drawable.ic_detail_menu);
                 txtMenuAndCost.setText("راننده ها");
+            }
+            if(tblName.equals("Tbl_Rests")){
+                txtHotelStars.setVisibility(View.VISIBLE);
+                txtHotelStars.setText(placesModel.placeStar + " ستاره");
             }
 
 

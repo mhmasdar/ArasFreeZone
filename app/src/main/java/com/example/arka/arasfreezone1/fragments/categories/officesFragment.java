@@ -222,7 +222,9 @@ public class officesFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            setUpRecyclerView(placesList);
+            if (placesList != null)
+                if (placesList.size() > 0)
+                    setUpRecyclerView(placesList);
 
         }
 
