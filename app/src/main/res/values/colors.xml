@@ -14,4 +14,12 @@
     <color name="dark">#262626</color>
     <color name="yellow">#FFC400</color>
     <color name="detailsTitle">#3c5b7a</color>
+
+    <array name="arr">
+
+        <item>@color/red</item>
+        <item>@color/yellow</item>
+        <item>@color/colorPrimary</item>
+    </array>
+
 </resources>

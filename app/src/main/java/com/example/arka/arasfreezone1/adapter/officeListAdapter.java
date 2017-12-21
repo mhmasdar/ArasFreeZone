@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
 import com.example.arka.arasfreezone1.fragments.detailsOfficeFragment;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -60,11 +61,12 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
             @Override
             public void onClick(View view) {
                 detailsOfficeFragment fragment = new detailsOfficeFragment();
-
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
                 args.putString("TBL_NAME", tblName);
                 fragment.setArguments(args);
+
+
 
                 MainActivity activity = (MainActivity) context;
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();

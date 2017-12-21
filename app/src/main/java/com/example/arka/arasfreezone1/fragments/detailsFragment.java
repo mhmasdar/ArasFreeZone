@@ -69,6 +69,8 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytCall;
     private LinearLayout lytMenu;
     private LinearLayout lytLocation;
+    private LinearLayout lytLoading;
+    private LinearLayout lytEmpty;
     private TextView txtAddress;
     private TextView txtHotelStars;
     private TextView txtInfo, txtHour, txtDay;
@@ -450,6 +452,8 @@ public class detailsFragment extends Fragment {
                 dialog.show();
 
                 recyclerMenu = dialog.findViewById(R.id.recycler);
+                lytLoading = dialog.findViewById(R.id.lytLoading);
+                lytEmpty = dialog.findViewById(R.id.lytEmpty);
 
                 WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
                 webServiceCallBackMenu.execute();

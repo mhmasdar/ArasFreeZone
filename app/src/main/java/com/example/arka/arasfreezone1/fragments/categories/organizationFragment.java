@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
+import com.example.arka.arasfreezone1.app;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import net.cachapa.expandablelayout.ExpandableLayout;

@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="spbStyle">@style/GNowProgressBar</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/font</item>
@@ -41,6 +42,21 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="android:fontFamily">@font/font</item>
+    </style>
+
+
+
+    <style name="GNowProgressBar" parent="SmoothProgressBar">
+        <item name="spb_stroke_separator_length">0dp</item>
+        <item name="spb_sections_count">4</item>
+        <item name="spb_speed">1.2</item>
+        <item name="spb_progressiveStart_speed">1</item>
+        <item name="spb_progressiveStop_speed">2.4</item>
+        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
+        <item name="spb_mirror_mode">true</item>
+        <item name="spb_reversed">true</item>
+        <item name="spb_colors">@array/arr</item>
+        <item name="spb_progressiveStart_activated">true</item>
     </style>
 
 </resources>

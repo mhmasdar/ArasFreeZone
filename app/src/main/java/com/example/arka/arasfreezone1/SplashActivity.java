@@ -17,15 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.arka.arasfreezone1.introPage.IntroActivity;
 import com.example.arka.arasfreezone1.services.WebService;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 1000;
+    private static int SPLASH_TIME_OUT = 5000;
     private ImageView imgSp1, imgSp2, imgSp3;
     private LinearLayout splashBack;
     private ImageView imgAras;
     private ImageView txtSplash;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class SplashActivity extends AppCompatActivity {
         txtSplash.startAnimation(text);
 
         setUpTimer();
+
+
+        prefs = getApplicationContext().getSharedPreferences("login", 0);
 
 
     }
@@ -138,25 +143,34 @@ public class SplashActivity extends AppCompatActivity {
 //            }
 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            if (prefs.getBoolean("firstTime", false) == true)
             {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
+                    pairs[1] = new Pair<View, String>(txtSplash, "App_text");
 
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
-                pairs[1] = new Pair<View, String>(txtSplash, "App_text");
-
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                ChangeBounds bounds = new ChangeBounds();
-                bounds.setDuration(2000);
-                getWindow().setSharedElementEnterTransition(bounds);
-                getWindow().setSharedElementExitTransition(bounds);
-                startActivity(i, options.toBundle());
-                finish();
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    ChangeBounds bounds = new ChangeBounds();
+                    bounds.setDuration(2000);
+                    getWindow().setSharedElementEnterTransition(bounds);
+                    getWindow().setSharedElementExitTransition(bounds);
+                    startActivity(i, options.toBundle());
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
             }
+
             else
             {
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, IntroActivity.class);
                 startActivity(i);
                 finish();
             }

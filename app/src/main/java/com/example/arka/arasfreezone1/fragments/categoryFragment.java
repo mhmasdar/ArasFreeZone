@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.categories.artFragment;
 import com.example.arka.arasfreezone1.fragments.categories.eventsFragment;
 import com.example.arka.arasfreezone1.fragments.categories.medicalFragment;
@@ -59,13 +60,14 @@ public class categoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         initView(view);
-
+        app.check = 1;
 
 //        Glide.with(this).load(R.drawable.category_back).into(imgCategory);
 
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 categorySeatchFragment fragment = new categorySeatchFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
@@ -78,6 +80,7 @@ public class categoryFragment extends Fragment {
         lytRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 1;
                 restaurantsListFragment fragment = new restaurantsListFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -91,6 +94,7 @@ public class categoryFragment extends Fragment {
         lytShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 2;
                 shoppingFragment fragment = new shoppingFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -104,6 +108,7 @@ public class categoryFragment extends Fragment {
         lytStay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 3;
                 stayFragment fragment = new stayFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -117,6 +122,7 @@ public class categoryFragment extends Fragment {
         lytTourism.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 4;
                 tourismFragment fragment = new tourismFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -130,6 +136,7 @@ public class categoryFragment extends Fragment {
         lytArt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 5;
                 artFragment fragment = new artFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -143,6 +150,7 @@ public class categoryFragment extends Fragment {
         lytTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 6;
                 transportFragment fragment = new transportFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -155,6 +163,7 @@ public class categoryFragment extends Fragment {
         lytUtilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 7;
                 servicesFragment fragment = new servicesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -167,6 +176,7 @@ public class categoryFragment extends Fragment {
         lytOffices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 8;
                 officesFragment fragment = new officesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -180,6 +190,7 @@ public class categoryFragment extends Fragment {
         lytMedical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 9;
 
                 medicalFragment fragment = new medicalFragment();
@@ -196,6 +207,7 @@ public class categoryFragment extends Fragment {
         lytEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 idCategory = 10;
 
                 eventsFragment fragment = new eventsFragment();
@@ -211,6 +223,7 @@ public class categoryFragment extends Fragment {
         lytOrganization.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                app.check = 4;
                 organizationFragment fragment = new organizationFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);

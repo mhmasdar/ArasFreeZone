@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         container2.setVisibility(View.VISIBLE);
 
         check=1;
+        app.check = 1;
     }
 
     private void setLytEvants(){
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         container2.setVisibility(View.GONE);
 
         check=2;
+        app.check = 2;
     }
 
     private void setLytSupport(){
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         container2.setVisibility(View.GONE);
 
         check=3;
+        app.check = 3;
     }
 
     private void setLytHome(){
@@ -241,24 +244,34 @@ public class MainActivity extends AppCompatActivity {
         container2.setVisibility(View.GONE);
 
         check=0;
+        app.check = 0;
     }
 
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            finish();
+
+        if (app.check == 0){
+            if (doubleBackToExitPressedOnce) {
+                finish();
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "برای خروج مجددا کلید برگشت را بزنید", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "برای خروج مجددا کلید برگشت را بزنید", Toast.LENGTH_SHORT).show();
+        else if (app.check == 1 || app.check == 2 || app.check == 3)
+            setLytHome();
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+        else
+            super.onBackPressed();
     }
 }

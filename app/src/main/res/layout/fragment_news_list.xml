@@ -74,6 +74,12 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            style="@style/GNowProgressBar"
+            android:layout_height="15dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"

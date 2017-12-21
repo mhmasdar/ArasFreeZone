@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 
 
 /**
@@ -26,6 +27,7 @@ public class supportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_support, container, false);
+        app.check = 3;
         return view;
     }
 

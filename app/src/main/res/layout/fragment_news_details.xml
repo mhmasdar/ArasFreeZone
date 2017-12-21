@@ -170,6 +170,7 @@
                         android:id="@+id/txtNewsBody"
                         android:textColor="@color/itmesText"
                         android:layout_marginTop="15dp"
+                        android:gravity="right"
                         android:lineSpacingMultiplier="1.3"
                         android:text="@string/s1"
                         android:layout_height="wrap_content" />

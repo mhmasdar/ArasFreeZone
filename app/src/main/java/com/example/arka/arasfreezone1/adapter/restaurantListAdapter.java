@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
@@ -64,11 +65,12 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             @Override
             public void onClick(View view) {
                 detailsFragment fragment = new detailsFragment();
-
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
                 args.putString("TBL_NAME", tblName);
                 fragment.setArguments(args);
+
+
 
                 MainActivity activity = (MainActivity) context;
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
