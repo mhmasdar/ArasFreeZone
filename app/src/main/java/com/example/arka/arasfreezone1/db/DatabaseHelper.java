@@ -398,8 +398,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Culturals (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Culturals (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 5 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -467,8 +467,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Offices (id,type,name,lat,lon,info,website,visibility,lastUpdate,address,tel,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.tel + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Offices (id,type,name,lat,lon,info,website,visibility,lastUpdate,address,tel,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.tel + "','" + placesModel.image + "','" + 8 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -536,8 +536,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Eating (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Eating (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 1 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -605,8 +605,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Medicals (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Medicals (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 9 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -674,8 +674,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Services (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Services (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 7 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -743,8 +743,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Shoppings (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Shoppings (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 2 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -812,8 +812,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Tourisms (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,cost,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.cost + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Tourisms (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,cost,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.cost + "','" + placesModel.image + "','" + 4 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -881,8 +881,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Transports (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Transports (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.image + "','" + 6 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -950,8 +950,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Rests (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,placeStar,image) VALUES('"
-                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.placeStar + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Rests (id,type,idStartDay,idEndDay,startTime,endTime,name,lat,lon,phone,star,starCount,likeCount,info,website,visibility,lastUpdate,address,placeStar,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.type + "','" + placesModel.idStartDay + "','" + placesModel.idEndDay + "','" + placesModel.startTime + "','" + placesModel.endTime + "','" + placesModel.name + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.phone + "','" + placesModel.star + "','" + placesModel.starCount + "','" + placesModel.likeCount + "','" + placesModel.info + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.address + "','" + placesModel.placeStar + "','" + placesModel.image + "','" + 35 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -1019,8 +1019,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Events (id,body,title,startTime,startDate,endDate,endTime,place,lat,lon,address,phone,website,visibility,lastUpdate,image) VALUES('"
-                + placesModel.id + "','" + placesModel.body + "','" + placesModel.title + "','" + placesModel.startTime + "','" + placesModel.startDate + "','" + placesModel.endDate + "','" + placesModel.endTime + "','" + placesModel.place + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.address + "','" + placesModel.phone + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.image + "')";
+        sql = "INSERT INTO Tbl_Events (id,body,title,startTime,startDate,endDate,endTime,place,lat,lon,address,phone,website,visibility,lastUpdate,image,mainType) VALUES('"
+                + placesModel.id + "','" + placesModel.body + "','" + placesModel.title + "','" + placesModel.startTime + "','" + placesModel.startDate + "','" + placesModel.endDate + "','" + placesModel.endTime + "','" + placesModel.place + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.address + "','" + placesModel.phone + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.image + "','" + 10 + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -1129,10 +1129,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<PlacesModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
         //String order = "orderb";
-        String sql = "SELECT id,type,name,address,star,likeCount FROM " + tblNames.get(0) + " WHERE name LIKE '%" + searchValue + "%'";
+        String sql = "SELECT id,type,name,address,star,likeCount,mainType FROM " + tblNames.get(0) + " WHERE name LIKE '%" + searchValue + "%'";
 
         for (int i = 1; i < tblNames.size(); i++) {
-            sql += " UNION SELECT id,type,name,address,star,likeCount FROM " + tblNames.get(i) + " WHERE name LIKE '%" + searchValue + "%'";
+            sql += " UNION SELECT id,type,name,address,star,likeCount,mainType FROM " + tblNames.get(i) + " WHERE name LIKE '%" + searchValue + "%'";
         }
 
         sql += "order by " + sort + " DESC";
@@ -1148,6 +1148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
 //                if (!tblNames.equals("Tbl_Offices"))
                 pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
 

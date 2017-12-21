@@ -43,6 +43,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         this.placesList = placesList;
         mInflater = LayoutInflater.from(context);
         this.tblName = tblName;
+
     }
 
     @Override
@@ -64,6 +65,11 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (tblName.equals("")){
+                    getTblName(currentObj.mainType);
+                }
+
                 detailsFragment fragment = new detailsFragment();
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
@@ -86,6 +92,44 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     @Override
     public int getItemCount() {
         return placesList.size();
+    }
+
+    public void getTblName(int type){
+
+        switch (type) {
+            case 1:
+                tblName = "Tbl_Eating";
+                break;
+            case 2:
+                tblName = "Tbl_Shoppings";
+                break;
+            case 3:
+                tblName = "Tbl_Rests";
+                break;
+            case 4:
+                tblName = "Tbl_Tourisms";
+                break;
+            case 5:
+                tblName = "Tbl_Culturals";
+                break;
+            case 6:
+                tblName = "Tbl_Transports";
+                break;
+            case 7:
+                tblName = "Tbl_Services";
+                break;
+            case 8:
+                tblName = "Tbl_Offices";
+                break;
+            case 9:
+                tblName = "Tbl_Medicals";
+                break;
+            case 10:
+                tblName = "Tbl_Events";
+                break;
+            default:
+                tblName = "";
+        }
     }
 
 

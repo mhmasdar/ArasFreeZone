@@ -434,7 +434,7 @@ public class categorySeatchFragment extends Fragment {
 
     private void setUpRecyclerView(List<PlacesModel> placesList) {
 
-        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "Tbl_Eating");
+        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "");
         recycle.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
