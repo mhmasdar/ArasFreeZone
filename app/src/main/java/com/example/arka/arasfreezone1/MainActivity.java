@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
             }, 2000);
         }
 
-        else if (app.check == 1 || app.check == 2 || app.check == 3)
+        else if ((app.check == 1 && app.inside1 == false) || (app.check == 2 && app.inside2 == false ) || app.check == 3)
             setLytHome();
 
         else

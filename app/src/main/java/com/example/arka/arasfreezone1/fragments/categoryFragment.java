@@ -61,6 +61,7 @@ public class categoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         initView(view);
         app.check = 1;
+        app.inside1 = false;
 
 //        Glide.with(this).load(R.drawable.category_back).into(imgCategory);
 
@@ -68,6 +69,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 categorySeatchFragment fragment = new categorySeatchFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
@@ -81,6 +84,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 1;
                 restaurantsListFragment fragment = new restaurantsListFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -95,6 +100,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 2;
                 shoppingFragment fragment = new shoppingFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -109,6 +116,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 3;
                 stayFragment fragment = new stayFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -123,6 +132,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 4;
                 tourismFragment fragment = new tourismFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -137,6 +148,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 5;
                 artFragment fragment = new artFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -151,6 +164,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 6;
                 transportFragment fragment = new transportFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -164,6 +179,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 7;
                 servicesFragment fragment = new servicesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -177,6 +194,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 idCategory = 8;
                 officesFragment fragment = new officesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -191,6 +210,7 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
                 idCategory = 9;
 
                 medicalFragment fragment = new medicalFragment();
@@ -208,8 +228,9 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
-                idCategory = 10;
+                app.inside1 = true;
 
+                idCategory = 10;
                 eventsFragment fragment = new eventsFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
@@ -224,6 +245,8 @@ public class categoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 app.check = 4;
+                app.inside1 = true;
+
                 organizationFragment fragment = new organizationFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);

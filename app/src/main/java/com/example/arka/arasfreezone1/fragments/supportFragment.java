@@ -28,6 +28,8 @@ public class supportFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_support, container, false);
         app.check = 3;
+        app.inside3 = false;
+
         return view;
     }
 
