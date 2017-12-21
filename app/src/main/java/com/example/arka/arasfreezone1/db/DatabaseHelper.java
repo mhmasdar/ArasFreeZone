@@ -214,7 +214,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public double selectRateValueById(String tblName, int r) {
         String userLike = "";
         SQLiteDatabase ArasDB = getReadableDatabase();
@@ -354,8 +353,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
-
-
 
 
     public List<String> selectAllById(String tblName, String r) {
@@ -569,7 +566,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Eating SET type=" + placesModel.type + ",idStartDay=" + placesModel.idStartDay + ",idEndDay=" + placesModel.idEndDay + ",startTime='" + placesModel.startTime + "',endTime='" + placesModel.endTime + "',name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",phone='" + placesModel.phone + "',star=" + placesModel.star + ",starCount=" + placesModel.starCount + ",likeCount=" + placesModel.likeCount + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0)+ ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',image='" + placesModel.image + "' WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_Eating SET type=" + placesModel.type + ",idStartDay=" + placesModel.idStartDay + ",idEndDay=" + placesModel.idEndDay + ",startTime='" + placesModel.startTime + "',endTime='" + placesModel.endTime + "',name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",phone='" + placesModel.phone + "',star=" + placesModel.star + ",starCount=" + placesModel.starCount + ",likeCount=" + placesModel.likeCount + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',image='" + placesModel.image + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1127,12 +1124,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<PlacesModel> selectAllPlacesbySearch(String tblName, String searchValue, String sort) {
+    public List<PlacesModel> selectAllPlacesbySearch(List<String> tblNames, String searchValue, String sort) {
 
         List<PlacesModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
         //String order = "orderb";
-        String sql = "SELECT * FROM " + tblName + " WHERE name LIKE '%" + searchValue + "%'  order by " + sort;
+        String sql = "SELECT id,type,name,address,star,likeCount FROM " + tblNames.get(0) + " WHERE name LIKE '%" + searchValue + "%'";
+
+        for (int i = 1; i < tblNames.size(); i++) {
+            sql += " UNION SELECT id,type,name,address,star,likeCount FROM " + tblNames.get(i) + " WHERE name LIKE '%" + searchValue + "%'";
+        }
+
+        sql += "order by " + sort + " DESC";
+
         Cursor cursor = ArasDB.rawQuery(sql, null);
         cursor.moveToFirst();
         if (!cursor.isAfterLast()) {
@@ -1142,8 +1146,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.type = cursor.getInt(cursor.getColumnIndex("type"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
-                if (!tblName.equals("Tbl_Offices"))
-                    pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+//                if (!tblNames.equals("Tbl_Offices"))
+                pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
 

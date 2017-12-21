@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.services;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.arka.arasfreezone1.app;
@@ -1352,6 +1353,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
+            SharedPreferences prefs = app.context.getSharedPreferences("MYPREFS", 0);
             DatabaseHelper helper = new DatabaseHelper(app.context);
             String response = connectToServer(addr + "like/userLikes?idUser=" + idUser, "GET");
             Log.i("TAG", response + "");
@@ -1417,11 +1419,21 @@ public class WebService {
                                     tblName = "Tbl_Events";
                                     break;
                                 default:
+                                    tblName = "";
                             }
 
-                            List<String> s = helper.selectAllById(tblName, actionModel.idRow + "");
-                            if (!s.isEmpty())
-                                helper.updateTblByLikeAndRate(tblName, actionModel.idRow, actionModel.id, actionModel.rate, actionModel.likes);
+                            if (tblName.equals("")) {
+
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putBoolean("NewsLike" + actionModel.idRow, true);
+                                editor.putInt("IdUserLike" +  actionModel.idRow,  actionModel.id);
+                                editor.apply();
+
+                            } else {
+                                List<String> s = helper.selectAllById(tblName, actionModel.idRow + "");
+                                if (!s.isEmpty())
+                                    helper.updateTblByLikeAndRate(tblName, actionModel.idRow, actionModel.id, actionModel.rate, actionModel.likes);
+                            }
                         }
                     }
 
@@ -1503,6 +1515,22 @@ public class WebService {
             return null;
     }
 
+    public String postCommentLikeDisLike(boolean isInternetAvailable, int id, boolean isliKe) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "comment/like?idComment=" + id + "&status=" + isliKe , "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null){
+
+                return response;
+
+            }
+            return null;
+        } else
+            return null;
+    }
 
 
     public List<NewsModel> getNews(boolean isInternetAvailable, int count) {

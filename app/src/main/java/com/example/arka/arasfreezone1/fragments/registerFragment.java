@@ -114,8 +114,11 @@ public class registerFragment extends Fragment {
                     getActivity().finish();
 
                 }
-                else{
+                else if (Integer.parseInt(result) == 0){
                     Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
+                }
+                else if (Integer.parseInt(result) == -1){
+                    Toast.makeText(getContext(), "ایمیل تکراری است", Toast.LENGTH_LONG).show();
                 }
             }
             else{

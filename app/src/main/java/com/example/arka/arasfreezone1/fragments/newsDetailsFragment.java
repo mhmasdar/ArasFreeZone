@@ -2,6 +2,8 @@ package com.example.arka.arasfreezone1.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,10 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
+import com.example.arka.arasfreezone1.loginActivity;
+import com.example.arka.arasfreezone1.profileActivity;
+import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
 
 
@@ -37,6 +43,9 @@ public class newsDetailsFragment extends Fragment {
 
     private int id, type, likeCount, date;
     private String img, title, body;
+
+    private SharedPreferences prefs;
+    int idUser;
 
     public newsDetailsFragment() {
         // Required empty public constructor
@@ -62,6 +71,17 @@ public class newsDetailsFragment extends Fragment {
         initView(view);
         setViews();
 
+        prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        idUser = prefs.getInt("UserId", -1);
+        if (idUser > 0){
+            if (prefs.getBoolean("NewsLike" + id, false))
+                imgLike.setLiked(true);
+            else
+                imgLike.setLiked(false);
+        }
+
+
+
         lytNewsComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +102,12 @@ public class newsDetailsFragment extends Fragment {
             }
         });
 
+        imgLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manageLike(v);
+            }
+        });
 
         return view;
     }
@@ -104,4 +130,155 @@ public class newsDetailsFragment extends Fragment {
         txtNewsBody.setText(body);
         txtLikeCount.setText(likeCount + "");
     }
+
+    private void manageLike(View view){
+
+        if (idUser > 0) {
+
+            if (prefs.getBoolean("NewsLike" + id, false)){
+                imgLike.setLiked(false);
+                likeCount--;
+                txtLikeCount.setText(likeCount + "");
+                WebServiceCallLikeDelete callDelete = new WebServiceCallLikeDelete();
+                callDelete.execute();
+            }
+            else{
+                imgLike.setLiked(true);
+                likeCount++;
+                txtLikeCount.setText(likeCount + "");
+                WebServiceCallLikeAdd callAdd = new WebServiceCallLikeAdd();
+                callAdd.execute();
+            }
+
+        }
+        else{
+            Intent i = new Intent(getContext(), loginActivity.class);
+            startActivity(i);
+        }
+
+    }
+
+
+    private class WebServiceCallLikeAdd extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        int idUserLike;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            idUserLike = -1;
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postLike(app.isInternetOn(), idUserLike, id, idUser, 11, 1, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+                    idUserLike = Integer.parseInt(result);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("NewsLike" + id, true);
+                    editor.putInt("IdUserLike" + id, idUserLike);
+                    editor.apply();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    imgLike.setLiked(false);
+                    likeCount--;
+                    txtLikeCount.setText(likeCount + "");
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgLike.setLiked(false);
+                likeCount--;
+                txtLikeCount.setText(likeCount + "");
+            }
+
+        }
+
+    }
+
+    private class WebServiceCallLikeDelete extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        int idUserLike;
+//        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            idUserLike = prefs.getInt("IdUserLike" + id, -1);
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postLike(app.isInternetOn(), idUserLike, id, idUser, 11, 0, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) >= 0) {
+                    idUserLike = -1;
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("NewsLike" + id, false);
+                    editor.putInt("IdUserLike" + id, -1);
+                    editor.apply();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    imgLike.setLiked(true);
+                    likeCount++;
+                    txtLikeCount.setText(likeCount + "");
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                imgLike.setLiked(true);
+                likeCount++;
+                txtLikeCount.setText(likeCount + "");
+            }
+
+        }
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        idUser = prefs.getInt("UserId", -1);
+        if (id > 0){
+            if (prefs.getBoolean("NewsLike" + id, false))
+                imgLike.setLiked(true);
+            else
+                imgLike.setLiked(false);
+        }
+    }
+
 }

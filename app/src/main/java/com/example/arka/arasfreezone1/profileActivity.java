@@ -101,6 +101,8 @@ public class profileActivity extends AppCompatActivity {
                         editor.putString("UserPass", null);
                         editor.apply();
 
+                        prefs.edit().clear().apply();
+
                         DataBaseCallExit callBack = new DataBaseCallExit();
                         callBack.execute();
 
@@ -189,7 +191,7 @@ public class profileActivity extends AppCompatActivity {
     }
 
     public void setViews(){
-        prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+        prefs = getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
         edtFName.setText(prefs.getString("UserName", ""));
         edtLName.setText(prefs.getString("UserLName", ""));

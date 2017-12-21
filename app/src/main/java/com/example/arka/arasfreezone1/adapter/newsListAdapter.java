@@ -1,10 +1,13 @@
 package com.example.arka.arasfreezone1.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,15 @@ import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.newsDetailsFragment;
+import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.NewsModel;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by mohamadHasan on 23/11/2017.
@@ -37,6 +43,8 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     private List<NewsModel> newsList;
     private static int count = 1;
     private boolean searchFlag;
+    private SharedPreferences prefs;
+    private int idUser;
 
     public newsListAdapter(Context context, List<NewsModel> newsList, boolean searchFlag) {
         this.context = context;
@@ -55,6 +63,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
 
+        holder.setListeners();
         setAnimation(holder.itemView, position);
 
         final NewsModel currentObj = newsList.get(position);
@@ -92,6 +101,14 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         });
 
 
+//        holder.imgLike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+
         if (holder.position == newsList.size() - 1){
             if (!searchFlag) {
                 Toast.makeText(context, "Last " + position, Toast.LENGTH_LONG).show();
@@ -108,16 +125,16 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     }
 
 
-    class myViewHolder extends RecyclerView.ViewHolder {
+    class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView txtNewsTitle;
         private TextView txtNewsBody;
         private ImageView imgNews;
-        private ImageView imgShare;
-        private LikeButton imgLike;
         private TextView txtCommentCount;
         private TextView txtDate;
         private TextView txtLikeCount;
+        private ImageView imgShare;
+        private LikeButton imgLike;
 
         int position;
         public NewsModel current;
@@ -125,7 +142,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         myViewHolder(View itemView) {
             super(itemView);
             imgShare = (ImageView) itemView.findViewById(R.id.imgShare);
-            imgLike = (LikeButton) itemView.findViewById(R.id.btnLike);
+            //imgLike = (LikeButton) itemView.findViewById(R.id.btnLike);
             txtCommentCount = (TextView) itemView.findViewById(R.id.txtCommentCount);
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtNewsTitle = (TextView) itemView.findViewById(R.id.txtNewsTitle);
@@ -139,15 +156,32 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
 
             this.txtNewsTitle.setText(current.Title);
             this.txtNewsBody.setText(current.Body);
-            this.txtLikeCount.setText(current.likeCount + "");
+            //this.txtLikeCount.setText(current.likeCount + "");
             this.txtCommentCount.setText(current.commentCount + "");
             this.txtDate.setText(app.changeDateToString(current.Date));
-
 
             this.position = position;
             this.current = current;
 
         }
+
+        public void setListeners() {
+            Log.i("TAG", "onSetListeners" + position);
+            //imgLike.setOnClickListener(this);
+            imgShare.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btnLike:
+                    break;
+                case R.id.imgShare:
+                    //editItem(position, current);
+                    break;
+            }
+        }
+
 
     }
 
