@@ -24,6 +24,7 @@ import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.services.WebService;
+import com.like.LikeButton;
 
 import java.util.Calendar;
 
@@ -32,9 +33,10 @@ import java.util.Calendar;
  */
 public class eventsDetailsFragment extends Fragment {
 
-    TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo;
+    TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo, txtLikeCount;
     Button btnCall, btnAddtoCalender;
     ImageView imgBookmark;
+    private LikeButton btnLike;
 
     EventModel currentModel = new EventModel();
 
@@ -43,7 +45,9 @@ public class eventsDetailsFragment extends Fragment {
     private int id;
 
     private int idUserFavorite = -1;
+    private int idUserLike = -1;
     private int idUser;
+    private SharedPreferences prefs;
 
     public eventsDetailsFragment() {
         // Required empty public constructor
@@ -83,11 +87,11 @@ public class eventsDetailsFragment extends Fragment {
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
 
-        SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
+        prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
-            DatabaseCallFavorite databaseCallFavorite = new DatabaseCallFavorite(getContext(), tblName, id);
-            databaseCallFavorite.execute();
+            DatabaseCallFavoriteLike databaseCallFavoriteLike = new DatabaseCallFavoriteLike(getContext(), tblName, id);
+            databaseCallFavoriteLike.execute();
         }
 
         btnAddtoCalender.setOnClickListener(btnCalenderClick);
@@ -111,6 +115,8 @@ public class eventsDetailsFragment extends Fragment {
 
         imgBookmark.setOnClickListener(imgBookmarkClick);
 
+        btnLike.setOnClickListener(btnLikeClick);
+
         return view;
     }
 
@@ -124,6 +130,8 @@ public class eventsDetailsFragment extends Fragment {
         btnAddtoCalender = view.findViewById(R.id.btnAddtoCalender);
         btnCall = view.findViewById(R.id.btnCall);
         imgBookmark = view.findViewById(R.id.imgBookmark);
+        btnLike = view.findViewById(R.id.btnLike);
+        txtLikeCount = view.findViewById(R.id.txtLikeCount);
 
     }
 
@@ -203,6 +211,35 @@ public class eventsDetailsFragment extends Fragment {
         }
     };
 
+    View.OnClickListener btnLikeClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (idUser > 0) {
+
+                if (idUserLike > 0) {
+                    btnLike.setLiked(false);
+                    currentModel.likeCount--;
+                    txtLikeCount.setText(currentModel.likeCount + "");
+                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                    likeDelete.execute();
+
+                } else if (idUserLike < 1){
+                    btnLike.setLiked(true);
+                    currentModel.likeCount ++;
+                    txtLikeCount.setText(currentModel.likeCount + "");
+                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                    webServiceCallLikeAdd.execute();
+                }
+            }
+            else{
+                Intent i = new Intent(getActivity(), loginActivity.class);
+                startActivity(i);
+            }
+
+        }
+    };
+
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
@@ -244,6 +281,7 @@ public class eventsDetailsFragment extends Fragment {
             txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
             txtAddress.setText(currentModel.title);
             txtInfo.setText(currentModel.title);
+            txtLikeCount.setText(currentModel.likeCount+ "");
 
         }
 
@@ -382,7 +420,7 @@ public class eventsDetailsFragment extends Fragment {
 
     }
 
-    public class DatabaseCallFavorite extends AsyncTask<Object, Void, Void> {
+    public class DatabaseCallFavoriteLike extends AsyncTask<Object, Void, Void> {
 
 
         private DatabaseHelper databaseHelper;
@@ -390,7 +428,7 @@ public class eventsDetailsFragment extends Fragment {
         private String tblName;
         int id;
 
-        public DatabaseCallFavorite(Context context, String tblName, int id) {
+        public DatabaseCallFavoriteLike(Context context, String tblName, int id) {
             this.context = context;
             this.tblName = tblName;
             this.id = id;
@@ -408,6 +446,9 @@ public class eventsDetailsFragment extends Fragment {
 
             idUserFavorite = databaseHelper.selectFavoriteById(tblName, id);
 
+            idUserLike = databaseHelper.selectLikeById(tblName, id);
+
+
             return null;
         }
 
@@ -422,6 +463,167 @@ public class eventsDetailsFragment extends Fragment {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
+            if (idUserLike > 0){
+                btnLike.setLiked(true);
+
+            }
+            else{
+                btnLike.setLiked(false);
+            }
+
+        }
+
+    }
+
+    private class WebServiceCallLikeDelete extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+//        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+//            if (idUserLike > 0)
+//                idLR = idUserLike;
+//            else if (idUserRate > 0 && idUserLike < 1)
+//                idLR = idUserRate;
+//            else
+//                idLR = -1;
+
+            // in this condition idUserLike is always > 0
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postLike(app.isInternetOn(), idUserLike, id, idUser, mainType, 0, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) >= 0) {
+                    idUserLike = -1;
+                    DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
+                    LikeUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                    currentModel.likeCount ++;
+                    txtLikeCount.setText(currentModel.likeCount + "");
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                btnLike.setLiked(true);
+                currentModel.likeCount ++;
+                txtLikeCount.setText(currentModel.likeCount + "");
+            }
+
+        }
+
+    }
+
+    public class DatabaseCallUpdateLike extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+        private String tblName;
+        int idRow, idLike;
+
+        public DatabaseCallUpdateLike(Context context, String tblName, int idRow, int idLike) {
+            this.context = context;
+            this.tblName = tblName;
+            this.idRow = idRow;
+            this.idLike = idLike;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            databaseHelper.updateTblByLike(tblName, idRow, idLike, currentModel.likeCount);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+//            if (idUserLike > 0){
+//                btnLike.setLiked(true);
+//            }
+//            else{
+//                btnLike.setLiked(false);
+//            }
+
+        }
+
+    }
+
+    private class WebServiceCallLikeAdd extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        int idLR = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postLike(app.isInternetOn(), idLR, id, idUser, mainType, 1, -1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+                    idUserLike = Integer.parseInt(result);
+                    DatabaseCallUpdateLike likeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, Integer.parseInt(result));
+                    likeUpdate.execute();
+                }
+                else {
+                    Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                    currentModel.likeCount--;
+                    txtLikeCount.setText(currentModel.likeCount + "");
+                }
+
+            } else {
+                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                btnLike.setLiked(false);
+                currentModel.likeCount--;
+                txtLikeCount.setText(currentModel.likeCount + "");
+            }
+
         }
 
     }
@@ -433,5 +635,9 @@ public class eventsDetailsFragment extends Fragment {
 
         SharedPreferences prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
+        if (idUser > 0) {
+            DatabaseCallFavoriteLike databaseCallFavoriteLike = new DatabaseCallFavoriteLike(getContext(), tblName, id);
+            databaseCallFavoriteLike.execute();
+        }
     }
 }

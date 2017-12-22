@@ -1032,6 +1032,7 @@ public class WebService {
                         eventModel.id = Object.getInt("id");
                         eventModel.startDate = Object.getInt("startDate");
                         eventModel.endDate = Object.getInt("endDate");
+                        eventModel.likeCount = Object.getInt("likeCount");
                         eventModel.lat = Object.getDouble("Lat");
                         eventModel.lon = Object.getDouble("Long");
                         eventModel.visibility = Object.getBoolean("Visibility");

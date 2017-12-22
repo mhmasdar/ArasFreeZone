@@ -22,5 +22,6 @@ public class EventModel {
     public boolean visibility;
     public String lastUpdate;
     public String image;
+    public int likeCount;
 
 }
