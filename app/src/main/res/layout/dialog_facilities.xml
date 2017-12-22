@@ -27,6 +27,8 @@
         android:id="@+id/lytEmpty"
         android:gravity="center"
         android:visibility="gone"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
         android:orientation="vertical"
