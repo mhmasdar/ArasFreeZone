@@ -120,9 +120,8 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.myView
 
                 }
                 else{
-                    commentsActivity activity = (commentsActivity) context;
                     Intent i = new Intent(context, loginActivity.class);
-                    activity.startActivity(i);
+                    context.startActivity(i);
                 }
 
             }

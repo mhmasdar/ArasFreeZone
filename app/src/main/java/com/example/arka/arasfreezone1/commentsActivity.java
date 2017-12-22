@@ -114,7 +114,7 @@ public class commentsActivity extends AppCompatActivity {
 
     private void setUpRecyclerView(List<CommentModel> list) {
 
-        commentsAdapter adapter = new commentsAdapter(getApplicationContext(), lytCommentReply, btnCloseReply, txtReplyBody, txtReplyName, list);
+        commentsAdapter adapter = new commentsAdapter(commentsActivity.this, lytCommentReply, btnCloseReply, txtReplyBody, txtReplyName, list);
         commentsRecycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());

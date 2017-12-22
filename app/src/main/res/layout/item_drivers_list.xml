@@ -52,6 +52,7 @@
                        android:id="@+id/txtPlate"
                        android:layout_width="wrap_content"
                        android:text="885 الف 85"
+                       android:gravity="left"
                        android:paddingLeft="10dp"
                        android:paddingRight="10dp"
                        android:paddingTop="5dp"
