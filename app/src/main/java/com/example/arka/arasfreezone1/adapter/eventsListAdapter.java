@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.favoriteActivity;
 import com.example.arka.arasfreezone1.fragments.eventsDetailsFragment;
 import com.example.arka.arasfreezone1.fragments.newsDetailsFragment;
 import com.example.arka.arasfreezone1.models.EventModel;
@@ -30,13 +31,14 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
     private Context context;
     private LayoutInflater mInflater;
     private List<EventModel> eventList;
+    private boolean isMainActivity;
 
 
-
-    public eventsListAdapter(Context context, List<EventModel> eventList) {
+    public eventsListAdapter(Context context, List<EventModel> eventList, boolean isMainActivity) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.eventList = eventList;
+        this.isMainActivity = isMainActivity;
     }
 
     @Override
@@ -80,12 +82,23 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
                 args.putString("TBL_NAME", "Tbl_Events");
                 fragment.setArguments(args);
 
-                MainActivity activity = (MainActivity) context;
-                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
+                if (context instanceof MainActivity) {
+                    // We can get the fragment manager
+                    MainActivity mainActivity = (MainActivity) context;
+                    FragmentTransaction ft = mainActivity.getSupportFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                    ft.replace(R.id.container2, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+                else{
+                    favoriteActivity favoriteActivity = (favoriteActivity) context;
+                    FragmentTransaction ft = favoriteActivity.getSupportFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                    ft.replace(R.id.container2, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }
         });
 
@@ -119,7 +132,6 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
         private void setData(EventModel current, int position) {
 
             this.txvTitle.setText(current.title);
-
 
 
             this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));

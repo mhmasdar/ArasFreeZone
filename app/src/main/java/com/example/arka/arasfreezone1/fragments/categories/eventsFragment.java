@@ -167,7 +167,7 @@ public class eventsFragment extends Fragment {
 
     private void setUpRecyclerView(List<EventModel> list) {
 
-        eventsListAdapter adapter = new eventsListAdapter(getContext(), list);
+        eventsListAdapter adapter = new eventsListAdapter(getContext(), list, true);
         recycler.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recycler.setLayoutManager(gridLayoutManager);

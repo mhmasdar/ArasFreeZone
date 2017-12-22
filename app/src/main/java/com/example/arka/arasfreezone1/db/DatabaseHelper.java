@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 PlacesModel pm = new PlacesModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 if (!tblName.equals("Tbl_Offices"))
@@ -1150,6 +1151,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                if (!tblNames.equals("Tbl_Offices"))
                 pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
+                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public List<PlacesModel> selectAllPlacesByFavorite(String tblName) {
+
+        List<PlacesModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM " + tblName + " WHERE userFavorite > 0";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                PlacesModel pm = new PlacesModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                if (!tblName.equals("Tbl_Offices"))
+                    pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public List<EventModel> selectAllEventsByFavorite(String tblName) {
+
+        List<EventModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM " + tblName + " WHERE userFavorite > 0";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                EventModel pm = new EventModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
 

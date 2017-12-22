@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
@@ -85,10 +86,13 @@ public class officesFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("ادارات"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("دانشگاه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("مسجد و امامزاده"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                Toast.makeText(getContext(), " " + tab.getPosition() , Toast.LENGTH_LONG).show();
 
             }
 
@@ -118,7 +122,7 @@ public class officesFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(4).select();
+                catListTabLayout.getTabAt(5).select();
             }
         }, 2);
 

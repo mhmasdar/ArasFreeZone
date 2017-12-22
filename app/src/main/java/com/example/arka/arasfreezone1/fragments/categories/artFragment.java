@@ -46,6 +46,8 @@ public class artFragment extends Fragment {
     private int totalSlides = 3;
     private ViewPager mPager;
 
+    List<PlacesModel> filteredList = new ArrayList<>();
+
     public artFragment() {
         // Required empty public constructor
     }
