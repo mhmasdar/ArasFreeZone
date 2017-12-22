@@ -33,6 +33,8 @@ import com.example.arka.arasfreezone1.services.WebService;
 
 import java.util.List;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,6 +45,7 @@ public class loginFragment extends Fragment {
     private EditText edtUserName, edtUserPass;
     private TextView txtForgetPass;
     private Dialog dialog;
+    LinearLayout lytLoading;
 
     public loginFragment() {
         // Required empty public constructor
@@ -87,6 +90,7 @@ public class loginFragment extends Fragment {
         edtUserPass = view.findViewById(R.id.edtUserPass);
         btnUserLogin = view.findViewById(R.id.btnUserLogin);
         txtForgetPass = view.findViewById(R.id.txtForgetPass);
+
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
@@ -141,6 +145,54 @@ public class loginFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), "اشتباه است", Toast.LENGTH_LONG).show();
+                }
+            }
+            else{
+                Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class WebServiceCallBackForget extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        String email;
+
+        public WebServiceCallBackForget(String email){
+            this.email = email;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            lytLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.recoverPass(app.isInternetOn(), email);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            lytLoading.setVisibility(View.INVISIBLE);
+
+            if (result != null) {
+
+                if (result.equals("true")) {
+
+                    Toast.makeText(getContext(), "کلمه عبور به ایمیل ارسال شد", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+                else{
+                    Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
                 }
             }
             else{
@@ -213,6 +265,7 @@ public class loginFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_forget_pass);
         Button btnSendEmail = (Button) dialog.findViewById(R.id.btnSendEmail);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        lytLoading = dialog.findViewById(R.id.lytLoading);
 
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +275,18 @@ public class loginFragment extends Fragment {
             }
         });
 
+        btnSendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!txtForgetPass.getText().equals("")){
+                    WebServiceCallBackForget callBackForget = new WebServiceCallBackForget(txtForgetPass.getText().toString());
+                    callBackForget.execute();
+                }
+                else{
+                    Toast.makeText(getContext(), "لطفا ایمیل را وارد کنید" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         dialog.show();
     }

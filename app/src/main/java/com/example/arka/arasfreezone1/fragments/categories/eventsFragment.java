@@ -8,11 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
@@ -36,6 +40,9 @@ public class eventsFragment extends Fragment {
     private RecyclerView recycler;
     private ExpandableLayout expandable_layout;
     private LinearLayout lytMain, lytEmpty, lytDisconnect;
+    private EditText edt_search;
+
+    List<EventModel> searchList = new ArrayList<>();
 
     private List<EventModel> eventList;
 
@@ -77,7 +84,15 @@ public class eventsFragment extends Fragment {
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expandable_layout.expand();
+                //opens search layout
+                expandable_layout.toggle();
+                if (!expandable_layout.isExpanded()) {
+                    edt_search.setText("");
+                    if (eventList != null)
+                        setUpRecyclerView(eventList);
+                }
+
+                edt_search.setText("");
             }
         });
 
@@ -86,8 +101,54 @@ public class eventsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 expandable_layout.toggle();
+                edt_search.setText("");
+                if (eventList != null)
+                    setUpRecyclerView(eventList);
             }
         });
+
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.length() == 0)
+                    searchList.clear();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    if (eventList != null)
+                        setUpRecyclerView(eventList);
+                    else
+                        Toast.makeText(getContext(), "هیچ موردی موجود نمی باشد", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (eventList != null) {
+                        searchList.clear();
+                        for (int i = 0; i < eventList.size(); i++) {
+                            if (eventList.get(i).title.contains(s)) {
+                                searchList.add(eventList.get(i));
+                            }
+                        }
+                        if (searchList.size() > 0)
+                            setUpRecyclerView(searchList);
+                        else {
+                            Toast.makeText(getContext(), "هیچ موردی یافت نشد", Toast.LENGTH_SHORT).show();
+                            setUpRecyclerView(searchList);
+                        }
+                    } else
+                        Toast.makeText(getContext(), "هیچ موردی موجود نمی باشد", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         return view;
     }
@@ -101,6 +162,7 @@ public class eventsFragment extends Fragment {
         lytMain = view.findViewById(R.id.lytMain);
         lytDisconnect = view.findViewById(R.id.lytDisconnect);
         lytEmpty = view.findViewById(R.id.lytEmpty);
+        edt_search = view.findViewById(R.id.edt_search);
     }
 
     private void setUpRecyclerView(List<EventModel> list) {
@@ -162,7 +224,6 @@ public class eventsFragment extends Fragment {
 
 
         private DatabaseHelper databaseHelper;
-        List<EventModel> eventList;
         private Context context;
         private String tblName;
 

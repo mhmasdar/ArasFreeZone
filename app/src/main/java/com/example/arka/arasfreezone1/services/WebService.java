@@ -246,6 +246,18 @@ public class WebService {
             return null;
     }
 
+    public String recoverPass(boolean isInternetAvailable, String email) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/forgetPass?email=" + email, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
 
 
     public int getCulture(boolean isInternetAvailable) {
