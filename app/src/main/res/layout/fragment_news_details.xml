@@ -166,7 +166,7 @@
                         android:layout_height="0dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:id="@+id/txtNewsBody"
                         android:textColor="@color/itmesText"
                         android:layout_marginTop="15dp"

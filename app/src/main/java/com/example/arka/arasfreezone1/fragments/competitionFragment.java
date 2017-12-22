@@ -27,12 +27,15 @@ import com.example.arka.arasfreezone1.services.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class competitionFragment extends Fragment {
 
+    private SmoothProgressBar lytLoading;
     private RecyclerView recycle;
     private LinearLayout lytQuestionSend;
     private LinearLayout lytMain;
@@ -104,6 +107,7 @@ public class competitionFragment extends Fragment {
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         txtCompetitionTitle = view.findViewById(R.id.txtCompetitionTitle);
         txtSend = view.findViewById(R.id.txtSend);
+        lytLoading = view.findViewById(R.id.lytLoading);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {

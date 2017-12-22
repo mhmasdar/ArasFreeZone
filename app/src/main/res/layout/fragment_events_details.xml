@@ -6,70 +6,92 @@
     android:orientation="vertical"
     tools:context="com.example.arka.arasfreezone1.fragments.newsDetailsFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content">
-
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/txtCatTitle"
-                    android:text="جزئیات رویداد"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_centerInParent="true"
-                    android:layout_height="wrap_content" />
-
-
-                <RelativeLayout
-                    android:id="@+id/relativeBack"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back"
-                        android:layout_height="22dp" />
-
-                </RelativeLayout>
-
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:src="@drawable/test"
-            android:layout_weight="0.85"
-            android:layout_marginTop="10dp"
+            android:layout_weight="0.82"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgTitle"
+                android:layout_width="match_parent"
+                android:src="@drawable/test"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/test7"
+                android:layout_alignParentTop="true"
+                android:layout_height="25dp"></RelativeLayout>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:id="@+id/imgBack"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_back"
+                android:padding="8dp"
+                android:layout_height="35dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:scaleType="fitXY"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:id="@+id/imgShare"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@drawable/ic_share1"
+                    android:padding="8dp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="35dp" />
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:id="@+id/imgBookmark"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@drawable/ic_bookmark1"
+                    android:padding="8dp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="35dp" />
+
+                <com.like.LikeButton
+                    android:layout_width="30dp"
+                    android:id="@+id/btnLike"
+                    app:unlike_drawable="@drawable/ic_love"
+                    app:like_drawable="@drawable/ic_like1"
+                    app:icon_size="20dp"
+                    app:icon_type="heart"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="23"
+                    android:id="@+id/txtLikeCount"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,7 +114,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.95"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:orientation="vertical"
@@ -149,7 +171,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.95"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
@@ -215,69 +237,24 @@
             android:gravity="right"
             android:layout_height="match_parent">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:gravity="right|center_vertical"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="wrap_content"
+                    android:text="جلفا - خیابان اصلی - فلکه بزرگ"
+                    android:textColor="@color/mainBarText"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:id="@+id/imgShare"
-                        android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_share1"
-                        android:padding="8dp"
-                        android:layout_centerInParent="true"
-                        android:layout_height="35dp" />
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:id="@+id/imgBookmark"
-                        android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_bookmark1"
-                        android:padding="8dp"
-                        android:layout_centerInParent="true"
-                        android:layout_height="35dp" />
-
-                    <com.like.LikeButton
-                        android:layout_width="30dp"
-                        android:id="@+id/btnLike"
-                        app:unlike_drawable="@drawable/ic_love"
-                        app:like_drawable="@drawable/ic_like1"
-                        app:icon_size="20dp"
-                        app:icon_type="heart"
-                        android:layout_height="30dp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_weight="0.5"
-                    android:orientation="horizontal"
-                    android:gravity="right|center_vertical"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtAddress"
-                        android:layout_width="wrap_content"
-                        android:text="جلفا - خیابان اصلی - فلکه بزرگ"
-                        android:textColor="@color/mainBarText"
-                        android:layout_marginRight="5dp"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:src="@drawable/ic_location"
-                        android:layout_height="20dp" />
-
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:src="@drawable/ic_location"
+                    android:layout_height="20dp" />
 
             </LinearLayout>
 

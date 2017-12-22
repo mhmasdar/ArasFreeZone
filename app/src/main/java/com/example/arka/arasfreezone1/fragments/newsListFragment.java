@@ -34,6 +34,8 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +54,7 @@ public class newsListFragment extends Fragment {
     private LinearLayout lytEmpty;
     private LinearLayout lytDisconnect;
     private ExpandableLayout expandable_layout;
+    private SmoothProgressBar lytLoading;
     private EditText edtSearch;
     private List<NewsModel> searchList = new ArrayList<>();
 
@@ -243,6 +246,7 @@ public class newsListFragment extends Fragment {
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         expandable_layout = (ExpandableLayout) view.findViewById(R.id.expandable_layout);
         edtSearch = view.findViewById(R.id.edt_search);
+        lytLoading = view.findViewById(R.id.lytLoading);
     }
 
     private void changeTabsFont() {

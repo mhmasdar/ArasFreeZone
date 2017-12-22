@@ -30,21 +30,6 @@
                     android:textSize="15sp"
                     android:layout_height="wrap_content" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/lytSearch"
-                    android:layout_alignParentLeft="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="23dp"
-                        android:src="@drawable/ic_search"
-                        android:layout_height="23dp" />
-
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/lytBack"

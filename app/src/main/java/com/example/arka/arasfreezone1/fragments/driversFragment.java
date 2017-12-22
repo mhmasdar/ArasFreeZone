@@ -26,6 +26,8 @@ import com.example.arka.arasfreezone1.services.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,6 +39,7 @@ public class driversFragment extends Fragment {
     private RecyclerView recycler;
     private LinearLayout lytEmpty;
     private LinearLayout lytDisconnect;
+    private SmoothProgressBar lytLoading;
 
     private List<DriverModel> driversList;
     int idRow;
@@ -78,6 +81,7 @@ public class driversFragment extends Fragment {
         recycler = (RecyclerView) view.findViewById(R.id.recycler);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
+        lytLoading = view.findViewById(R.id.lytLoading);
     }
 
 

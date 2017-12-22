@@ -22,6 +22,8 @@ import com.example.arka.arasfreezone1.services.WebService;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 public class commentsActivity extends AppCompatActivity {
 
     private RelativeLayout relativeBack;
@@ -36,6 +38,7 @@ public class commentsActivity extends AppCompatActivity {
     private LinearLayout lytCommentReply;
     private ImageView btnCloseReply;
     private TextView txtReplyName, txtReplyBody;
+    private SmoothProgressBar lytLoading;
 
     private List<CommentModel> commentList;
     private int mainType;
@@ -106,6 +109,7 @@ public class commentsActivity extends AppCompatActivity {
         btnCloseReply = (ImageView) findViewById(R.id.btnCloseReply);
         txtReplyName = findViewById(R.id.txtReplyName);
         txtReplyBody = findViewById(R.id.txtReplyBody);
+        lytLoading = findViewById(R.id.lytLoading);
     }
 
     private void setUpRecyclerView(List<CommentModel> list) {
