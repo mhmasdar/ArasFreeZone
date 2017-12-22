@@ -133,10 +133,7 @@ public class detailsFragment extends Fragment {
             lytDrivers.setVisibility(View.GONE);
             lytMenu.setVisibility(View.VISIBLE);
         }
-        if (tblName.equals("Tbl_Transports") && placesModel.type == 1){
-            lytMenu.setVisibility(View.GONE);
-            lytDrivers.setVisibility(View.VISIBLE);
-        }
+
 
 
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
@@ -166,6 +163,11 @@ public class detailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 driversFragment fragment = new driversFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("IdRow", id);
+                fragment.setArguments(args);
+
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                 ft.replace(R.id.container2, fragment);
@@ -231,8 +233,6 @@ public class detailsFragment extends Fragment {
         });
 
         lytMenu.setOnClickListener(lytMenuClick);
-
-        lytDrivers.setOnClickListener(lytDriversClick);
 
         lytOptions.setOnClickListener(lytOptionsClick);
 
@@ -421,25 +421,6 @@ public class detailsFragment extends Fragment {
 
     }
 
-    View.OnClickListener lytDriversClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-//            Dialog dialog = new Dialog(getActivity());
-//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog.setContentView(R.layout.dialog_menu);
-//            dialog.setCancelable(true);
-//            dialog.setCanceledOnTouchOutside(true);
-//            dialog.show();
-//
-//            recyclerMenu = dialog.findViewById(R.id.recycler);
-//
-//            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
-//            webServiceCallBackMenu.execute();
-
-        }
-    };
-
     View.OnClickListener lytMenuClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -593,6 +574,10 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            if (tblName.equals("Tbl_Transports") && placesModel.type == 1){
+                lytMenu.setVisibility(View.GONE);
+                lytDrivers.setVisibility(View.VISIBLE);
+            }
 
             txtLikeCount.setText(placesModel.likeCount + "");
             txtAddress.setText("آدرس: " + placesModel.address);

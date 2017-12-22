@@ -49,6 +49,7 @@
                     android:layout_height="match_parent">
 
                    <TextView
+                       android:id="@+id/txtPlate"
                        android:layout_width="wrap_content"
                        android:text="885 الف 85"
                        android:paddingLeft="10dp"
@@ -77,7 +78,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:id="@+id/txtAddress"
+                            android:id="@+id/txtCarModel"
                             android:textColor="@color/itmesText"
                             android:textSize="12sp"
                             android:layout_marginRight="5dp"
@@ -121,7 +122,7 @@
 
         <ImageView
             android:layout_width="100dp"
-            android:id="@+id/imgNews"
+            android:id="@+id/imgTitle"
             android:src="@drawable/test2"
             android:scaleType="fitXY"
             android:layout_height="match_parent" />

@@ -17,8 +17,10 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
+import com.example.arka.arasfreezone1.models.DriverModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,11 +31,12 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
 
     private Context context;
     private LayoutInflater mInflater;
+    private List<DriverModel> driversList = new ArrayList<>();
 
-
-    public driversAdapter(Context context) {
+    public driversAdapter(Context context, List<DriverModel> driversList ) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        this.driversList = driversList;
     }
 
     @Override
@@ -47,18 +50,49 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
     @Override
     public void onBindViewHolder(driversAdapter.myViewHolder holder, int position) {
 
+        final DriverModel currentObj = driversList.get(position);
+        holder.setData(currentObj, position);
+
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return driversList.size();
     }
 
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView txtName;
+        private TextView txtCarModel;
+        private TextView txtCarColor;
+        private TextView txtPlate;
+        private ImageView imgTitle;
+
+        int position;
+        public DriverModel current;
+
         myViewHolder(View itemView) {
             super(itemView);
+
+            txtName = (TextView) itemView.findViewById(R.id.txtName);
+            txtCarModel = (TextView) itemView.findViewById(R.id.txtCarModel);
+            txtCarColor = (TextView) itemView.findViewById(R.id.txtCarColor);
+            txtPlate = (TextView) itemView.findViewById(R.id.txtPlate);
+            imgTitle = (ImageView) itemView.findViewById(R.id.imgTitle);
+
+        }
+
+        private void setData(DriverModel current, int position) {
+
+            this.txtName.setText(current.Name + " " + current.LName);
+            this.txtCarModel.setText(current.Model);
+            //this.imgNews.setImageResource();
+            this.txtCarColor.setText("رنگ: " + current.Color);
+            this.txtPlate.setText(current.Plate);
+
+            this.position = position;
+            this.current = current;
 
         }
     }

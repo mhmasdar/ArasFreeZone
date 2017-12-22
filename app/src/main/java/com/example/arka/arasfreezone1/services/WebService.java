@@ -8,6 +8,7 @@ import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.ActionModel;
 import com.example.arka.arasfreezone1.models.CommentModel;
+import com.example.arka.arasfreezone1.models.DriverModel;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
@@ -1564,6 +1565,53 @@ public class WebService {
 
                     }
                     return newsList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+
+
+
+    public List<DriverModel> getDrivers(boolean isInternetAvailable, int idRow) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "taxi/select?id=" + idRow, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<DriverModel> driversList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        DriverModel model = new DriverModel();
+
+                        model.id = Object.getInt("id");
+                        model.idRow = Object.getInt("idRow");
+                        model.isMarried = Object.getBoolean("isMarried");
+                        model.LName = Object.getString("LName");
+                        model.Name = Object.getString("Name");
+                        model.Img = Object.getString("Img");
+                        model.Mobile = Object.getString("Mobile");
+                        model.natCode = Object.getString("natCode");
+                        model.Plate = Object.getString("Plate");
+                        model.Model = Object.getString("Model");
+                        model.Color = Object.getString("Color");
+
+                        driversList.add(model);
+
+                    }
+                    return driversList;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

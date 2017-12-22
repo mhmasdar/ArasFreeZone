@@ -305,22 +305,22 @@ public class newsListFragment extends Fragment {
                     lytEmpty.setVisibility(View.GONE);
                     newsList.addAll(tmpList);
                     setUpRecyclerView(newsList, false);
-                } else {
+                } else if (newsList.size() < 1) {
                     //Toast.makeText(getApplicationContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
-                    if (newsList.size() < 1) {
-                        lytMain.setVisibility(View.GONE);
-                        lytDisconnect.setVisibility(View.GONE);
-                        lytEmpty.setVisibility(View.VISIBLE);
-                    }
+
+                    lytMain.setVisibility(View.GONE);
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.VISIBLE);
+
                 }
 
             } else {
                 //Toast.makeText(getApplicationContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
-                if (newsList.size() < 1) {
-                    lytMain.setVisibility(View.GONE);
-                    lytDisconnect.setVisibility(View.VISIBLE);
-                    lytEmpty.setVisibility(View.GONE);
-                }
+
+                lytMain.setVisibility(View.GONE);
+                lytDisconnect.setVisibility(View.VISIBLE);
+                lytEmpty.setVisibility(View.GONE);
+
             }
 
         }
