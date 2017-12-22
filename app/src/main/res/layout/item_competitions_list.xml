@@ -31,28 +31,24 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="گزینه اول"
                 android:id="@+id/txtOption1"
                 android:gravity="center"
                 android:layout_height="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="گزینه دوم"
                 android:id="@+id/txtOption2"
                 android:gravity="center"
                 android:layout_height="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="گزینه سوم"
                 android:id="@+id/txtOption3"
                 android:gravity="center"
                 android:layout_height="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="گزینه چهارم"
                 android:id="@+id/txtOption4"
                 android:gravity="center"
                 android:layout_height="40dp" />

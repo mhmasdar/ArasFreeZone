@@ -15,6 +15,7 @@ import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.NewsModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
+import com.example.arka.arasfreezone1.models.ReferendumModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
 import com.example.arka.arasfreezone1.models.UserModel;
 
@@ -1476,9 +1477,9 @@ public class WebService {
 
                         JSONArray ArreyAnswer = new JSONArray(answers);
                         for (int j = 0; j < ArreyAnswer.length(); j++){
-                            JSONObject ObjectAnswer = Arrey.getJSONObject(i);
+                            JSONObject ObjectAnswer = ArreyAnswer.getJSONObject(j);
                             CommentModel modelAnswer = new CommentModel();
-                            modelAnswer.id = ObjectAnswer.getInt("id");
+                           // modelAnswer.id = ObjectAnswer.getInt("id");
                             modelAnswer.name = ObjectAnswer.getString("name");
                             modelAnswer.body = ObjectAnswer.getString("body");
 
@@ -1622,5 +1623,87 @@ public class WebService {
         } else
             return null;
     }
+
+
+
+    public List<ReferendumModel> getComptitions(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "referendum/select?date=" + app.getDate(), "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<ReferendumModel> referendumList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ReferendumModel model = new ReferendumModel();
+                        model.options = new ArrayList<>();
+                        model.id = Object.getInt("id");
+                        model.title = Object.getString("title");
+                        model.question = Object.getString("question");
+                        String options = Object.getString("options");
+
+                        JSONArray ArreyOptions = new JSONArray(options);
+                        for (int j = 0; j < ArreyOptions.length(); j++){
+                            JSONObject ObjectOptions = ArreyOptions.getJSONObject(j);
+                            String op1 = "" , op2 = "", op3 = "", op4 = "";
+                            op1 = ObjectOptions.getString("op1");
+                            model.options.add(op1);
+                            op2 = ObjectOptions.getString("op2");
+                            model.options.add(op2);
+                            op3 = ObjectOptions.getString("op3");
+                            model.options.add(op3);
+                            op4 = ObjectOptions.getString("op4");
+                            model.options.add(op4);
+
+
+                        }
+
+
+
+                        referendumList.add(model);
+
+                    }
+                    return referendumList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+
+    public String postCompetitionAnswers(boolean isInternetAvailable, int idRef, int idUser, List<Integer> userAnswers) {
+
+        if (isInternetAvailable) {
+
+            String req = "[";
+
+            for (int i = 0; i < userAnswers.size(); i++){
+                req += "{\"idRef\":" + idRef + ",\"idUser\":" + idUser + ",\"userAnswer\":" + userAnswers.get(i) + "}";
+                if (i != userAnswers.size() - 1)
+                    req += ",";
+            }
+
+            req += "]";
+
+            String response = connectToServerByJson(addr + "referendum/answer", "POST", req);
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+
+
 
 }
