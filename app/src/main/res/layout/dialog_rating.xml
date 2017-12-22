@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -25,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <RatingBar
@@ -39,8 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
 
@@ -66,6 +68,28 @@
             android:singleLine="true"
             android:textColor="@color/white"
             android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="30dp"
+        android:visibility="invisible"
+        android:id="@+id/lytLoading"
+        android:layout_height="wrap_content">
+
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:layout_width="35dp"
+            android:indeterminate="true"
+            app:cpb_colors="@array/arr"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_sweep_speed="1.0"
+            app:cpb_stroke_width="5dp"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_max_sweep_angle="300"
+            android:layout_height="35dp" />
 
 
     </LinearLayout>

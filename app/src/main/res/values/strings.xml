@@ -78,6 +78,9 @@
 
     </string>
 
+
+    <string name="txtLoading"> در حال انجام عملیات </string>
+
     <string name="Tbl_Eating">Tbl_Eating</string>
     <string name="Tbl_Shoppings">Tbl_Shoppings</string>
     <string name="Tbl_Rests">Tbl_Rests</string>

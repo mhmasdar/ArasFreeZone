@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="right"
     android:layout_height="match_parent">
@@ -41,8 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingBottom="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -75,6 +74,28 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="13sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:padding="30dp"
+        android:id="@+id/lytLoading"
+        android:layout_height="wrap_content">
+
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:layout_width="35dp"
+            android:indeterminate="true"
+            app:cpb_colors="@array/arr"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_sweep_speed="1.0"
+            app:cpb_stroke_width="5dp"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_max_sweep_angle="300"
+            android:layout_height="35dp" />
 
 
     </LinearLayout>
