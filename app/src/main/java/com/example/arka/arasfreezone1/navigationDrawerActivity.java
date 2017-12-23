@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.arka.arasfreezone1.fragments.favoriteFragment;
+
 public class navigationDrawerActivity extends AppCompatActivity {
 
     private TextView txtLogin;
@@ -59,6 +61,7 @@ public class navigationDrawerActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), referendumActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
             }
         });
 

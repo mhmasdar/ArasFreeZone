@@ -8,16 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.favoriteActivity;
+import com.example.arka.arasfreezone1.fragments.favoriteFragment;
 import com.example.arka.arasfreezone1.fragments.eventsDetailsFragment;
-import com.example.arka.arasfreezone1.fragments.newsDetailsFragment;
 import com.example.arka.arasfreezone1.models.EventModel;
 
 import java.util.List;
