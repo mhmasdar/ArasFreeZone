@@ -47,7 +47,7 @@ public class competitionFragment extends Fragment {
 
     private SharedPreferences prefs;
     int idUser, idCompetition;
-    boolean isAnswered;
+    boolean isAnsweredCompt;
 
     public competitionFragment() {
         // Required empty public constructor
@@ -77,6 +77,9 @@ public class competitionFragment extends Fragment {
                     if (!prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                         WebServiceCallAnswers callBackAnswer = new WebServiceCallAnswers();
                         callBackAnswer.execute();
+                    }
+                    else{
+                        Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Intent intent = new Intent(getContext(), loginActivity.class);
@@ -147,7 +150,7 @@ public class competitionFragment extends Fragment {
                     idCompetition = referendumList.get(0).id;
                     for (int i = 0; i < referendumList.size(); i++)
                         idQuestions.add(referendumList.get(i).idQuestion);
-                    isAnswered = prefs.getBoolean("IsAnswered" + idCompetition, false);
+                    isAnsweredCompt = prefs.getBoolean("IsAnswered" + idCompetition, false);
 
                     if (idUser > 0) {
                         if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
@@ -227,6 +230,10 @@ public class competitionFragment extends Fragment {
 
                     Toast.makeText(getContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کرده اید");
+                    lytRepetitive.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.VISIBLE);
+                    lytEmpty.setVisibility(View.GONE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("IsAnswered" + idCompetition, true);
                     editor.apply();
@@ -236,6 +243,11 @@ public class competitionFragment extends Fragment {
                 } else if (Integer.parseInt(result) == -1) {
                     Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کرده اید");
+                    repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                    lytRepetitive.setVisibility(View.VISIBLE);
+                    lytLoading.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("IsAnswered" + idCompetition, true);
                     editor.apply();
@@ -255,6 +267,9 @@ public class competitionFragment extends Fragment {
         super.onResume();
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
+
+//        if (referendumList != null)
+//            setUpRecyclerView(referendumList);
 
         if (idUser > 0) {
             if (idCompetition > 0) {

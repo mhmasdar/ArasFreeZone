@@ -1,152 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:paddingRight="15dp"
-    android:paddingLeft="15dp"
-    android:paddingBottom="25dp"
+    android:layout_height="wrap_content"
     android:gravity="right"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/txtQuestion"
-        android:text="گزینه ها"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="به نظر شما ایران از گروه خودش صعود می کند؟" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="right"
-        android:visibility="gone"
-        android:id="@+id/lytRefList"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/lytOption1"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:layout_marginRight="3dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:gravity="right">
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/txtOption1"
-                    android:gravity="center"
-                    android:layout_height="40dp" />
-
-                <TextView
                     android:layout_width="wrap_content"
-                    android:id="@+id/txtOption2"
-                    android:gravity="center"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:gravity="center" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/txtOption3"
-                    android:gravity="center"
-                    android:layout_height="40dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/txtOption4"
-                    android:gravity="center"
-                    android:layout_height="40dp" />
+                    <TextView
+                        android:id="@+id/txtPercent1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="65%"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ProgressBar
+                        android:id="@+id/progress1"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/progress_back"
+                        android:max="100"
+                        android:progress="65"
+                        android:progressDrawable="@drawable/progress_bar"
+                        android:scaleY="3.0" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:id="@+id/lytOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="right">
 
-                <RadioGroup
+                <TextView
+                    android:id="@+id/txtOption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:gravity="right"
-                    android:id="@+id/radioGroup"
-                    android:layout_height="match_parent">
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:id="@+id/radio1"
-                        android:buttonTint="@color/colorPrimary"
-                        android:layout_height="40dp" />
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="65%"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/txtPercent2"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:id="@+id/radio2"
-                        android:buttonTint="@color/colorPrimary"
-                        android:layout_height="40dp" />
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/progress2"
+                        android:max="100"
+                        android:progress="65"
+                        android:scaleY="3.0"
+                        android:background="@drawable/progress_back"
+                        android:progressDrawable="@drawable/progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_height="wrap_content" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:id="@+id/radio3"
-                        android:buttonTint="@color/colorPrimary"
-                        android:layout_height="40dp" />
+                </LinearLayout>
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:id="@+id/radio4"
-                        android:buttonTint="@color/colorPrimary"
-                        android:layout_height="40dp" />
+            </LinearLayout>
 
-                </RadioGroup>
+            <LinearLayout
+                android:id="@+id/lytOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/txtOption3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="65%"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/txtPercent3"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/progress3"
+                        android:max="100"
+                        android:progress="65"
+                        android:scaleY="3.0"
+                        android:background="@drawable/progress_back"
+                        android:progressDrawable="@drawable/progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/txtOption4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="65%"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/txtPercent4"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/progress4"
+                        android:max="100"
+                        android:progress="65"
+                        android:scaleY="3.0"
+                        android:background="@drawable/progress_back"
+                        android:progressDrawable="@drawable/progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:background="@color/itmesShadow"
-            android:layout_height="0.5dp"></LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="right"
+        android:layout_height="0.5dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/lytRefResults"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="65%"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/txtPercent"
-            android:layout_marginRight="10dp"
-            android:layout_height="wrap_content" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/progress"
-            android:max="100"
-            android:progress="65"
-            android:scaleY="3.0"
-            android:background="@drawable/progress_back"
-            android:progressDrawable="@drawable/progress_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
-    </LinearLayout>
+        android:background="@color/itmesShadow"></LinearLayout>
 
 </LinearLayout>

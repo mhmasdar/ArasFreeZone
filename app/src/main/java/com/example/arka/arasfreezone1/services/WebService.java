@@ -1679,8 +1679,6 @@ public class WebService {
 
                         }
 
-
-
                         referendumList.add(model);
 
                     }
@@ -1718,6 +1716,64 @@ public class WebService {
             return null;
     }
 
+    public List<ReferendumModel> getReferendoms(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "referendum/referendum?date=" + app.getDate(), "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<ReferendumModel> referendumList = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ReferendumModel model = new ReferendumModel();
+                        model.options = new ArrayList<>();
+                        model.id = Object.getInt("idPackage");
+                        model.idQuestion = Object.getInt("id");
+                        model.title = Object.getString("title");
+                        model.question = Object.getString("question");
+                        model.res1 = Object.getInt("res1");
+                        model.res2 = Object.getInt("res2");
+                        model.res3 = Object.getInt("res3");
+                        model.res4 = Object.getInt("res4");
+                        String options = Object.getString("options");
+
+                        JSONArray ArreyOptions = new JSONArray(options);
+                        for (int j = 0; j < ArreyOptions.length(); j++){
+                            JSONObject ObjectOptions = ArreyOptions.getJSONObject(j);
+                            String op1 = "" , op2 = "", op3 = "", op4 = "";
+                            op1 = ObjectOptions.getString("op1");
+                            model.options.add(op1);
+                            op2 = ObjectOptions.getString("op2");
+                            model.options.add(op2);
+                            op3 = ObjectOptions.getString("op3");
+                            model.options.add(op3);
+                            op4 = ObjectOptions.getString("op4");
+                            model.options.add(op4);
+
+
+                        }
+
+                        referendumList.add(model);
+
+                    }
+                    return referendumList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
 
 
 }
