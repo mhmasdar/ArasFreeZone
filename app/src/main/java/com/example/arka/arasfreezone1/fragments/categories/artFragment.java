@@ -46,7 +46,10 @@ public class artFragment extends Fragment {
     private int totalSlides = 3;
     private ViewPager mPager;
 
+    List<PlacesModel> placesList;
+
     List<PlacesModel> filteredList = new ArrayList<>();
+    private int totalTabsCount;
 
     public artFragment() {
         // Required empty public constructor
@@ -83,9 +86,25 @@ public class artFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("موزه"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
+        totalTabsCount = catListTabLayout.getTabCount();
+
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                filteredList = new ArrayList<>();
+
+                if (tab.getPosition() == totalTabsCount - 1){
+                    setUpRecyclerView(placesList);
+                }
+                else {
+
+                    for (int i = 0; i < placesList.size(); i++) {
+                        if (placesList.get(i).type == totalTabsCount - (tab.getPosition() + 1))
+                            filteredList.add(placesList.get(i));
+                    }
+                    setUpRecyclerView(filteredList);
+                }
 
             }
 
@@ -118,7 +137,6 @@ public class artFragment extends Fragment {
                 catListTabLayout.getTabAt(3).select();
             }
         }, 2);
-
 
 
         return view;
@@ -176,7 +194,7 @@ public class artFragment extends Fragment {
 
     }
 
-    private void setUpRecyclerView(List<PlacesModel> placesList){
+    private void setUpRecyclerView(List<PlacesModel> placesList) {
 
         restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "Tbl_Culturals");
         recycler.setAdapter(adapter);
@@ -190,7 +208,6 @@ public class artFragment extends Fragment {
 
 
         private DatabaseHelper databaseHelper;
-        List<PlacesModel> placesList;
         private Context context;
         private String tblName;
 

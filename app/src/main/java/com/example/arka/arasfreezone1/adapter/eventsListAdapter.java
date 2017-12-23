@@ -84,16 +84,16 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
 
                 if (context instanceof MainActivity) {
                     // We can get the fragment manager
-                    MainActivity mainActivity = (MainActivity) context;
-                    FragmentTransaction ft = mainActivity.getSupportFragmentManager().beginTransaction();
+//                    MainActivity mainActivity = (MainActivity) context;
+                    FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container2, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
                 else{
-                    favoriteActivity favoriteActivity = (favoriteActivity) context;
-                    FragmentTransaction ft = favoriteActivity.getSupportFragmentManager().beginTransaction();
+//                    favoriteActivity favoriteActivity = (favoriteActivity) context;
+                    FragmentTransaction ft = ((favoriteActivity)context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container2, fragment);
                     ft.addToBackStack(null);

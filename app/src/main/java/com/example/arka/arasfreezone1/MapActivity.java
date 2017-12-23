@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.*;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class MapActivity extends AppCompatActivity {
 
 
+    
     public MapView map;
     public MyLocationNewOverlay mLocationOverlay;
     public CompassOverlay mCompassOverlay;

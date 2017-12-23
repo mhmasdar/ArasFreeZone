@@ -50,6 +50,10 @@ public class restaurantsListFragment extends Fragment {
     private int totalSlides = 3;
     private ViewPager mPager;
 
+    List<PlacesModel> placesList;
+    List<PlacesModel> filteredList = new ArrayList<>();
+    private int totalTabsCount;
+
     public restaurantsListFragment() {
         // Required empty public constructor
     }
@@ -85,10 +89,24 @@ public class restaurantsListFragment extends Fragment {
         catListTabLayout.addTab(catListTabLayout.newTab().setText("رستوران"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
+        totalTabsCount = catListTabLayout.getTabCount();
+
         catListTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                filteredList = new ArrayList<>();
 
+                if (tab.getPosition() == totalTabsCount - 1){
+                    setUpRecyclerView(placesList);
+                }
+                else {
+
+                    for (int i = 0; i < placesList.size(); i++) {
+                        if (placesList.get(i).type == totalTabsCount - (tab.getPosition() + 1))
+                            filteredList.add(placesList.get(i));
+                    }
+                    setUpRecyclerView(filteredList);
+                }
             }
 
             @Override
@@ -194,7 +212,7 @@ public class restaurantsListFragment extends Fragment {
 
 
         private DatabaseHelper databaseHelper;
-        List<PlacesModel> placesList;
+
         private Context context;
         private String tblName;
 

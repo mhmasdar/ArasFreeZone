@@ -84,10 +84,10 @@ public class favoriteActivity extends AppCompatActivity {
 
     private void setUpRecyclerViewPlaces(List<PlacesModel> placesList) {
 
-        restaurantListAdapter adapter = new restaurantListAdapter(favoriteActivity.this, placesList, "Tbl_Eating");
+        restaurantListAdapter adapter = new restaurantListAdapter(getApplicationContext(), placesList, "Tbl_Eating");
         recyclePlaces.setAdapter(adapter);
 
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(favoriteActivity.this);
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclePlaces.setLayoutManager(mLinearLayoutManagerVertical);
     }

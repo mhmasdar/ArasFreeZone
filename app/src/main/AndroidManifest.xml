@@ -32,11 +32,11 @@
         <activity android:name=".favoriteActivity" />
         <activity android:name=".loginActivity" />
         <activity android:name=".profileActivity" />
-        <activity android:name=".imageActivity" android:theme="@android:style/Theme.Holo.Dialog"></activity>
-
-        <activity android:name=".introPage.IntroActivity">
-
-        </activity>
+        <activity
+            android:name=".imageActivity"
+            android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity android:name=".introPage.IntroActivity"></activity>
+        <activity android:name=".RoutingActivity"></activity>
     </application>
 
 </manifest>
