@@ -12,7 +12,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/txtQuestion"
-        android:text="به نظر شما ایران از گروه خودش صعود می کند؟"
         android:layout_height="wrap_content" />
 
     <LinearLayout

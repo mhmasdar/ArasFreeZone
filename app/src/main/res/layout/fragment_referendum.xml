@@ -24,7 +24,6 @@
         <TextView
             android:id="@+id/txtCompetitionTitle"
             android:layout_width="wrap_content"
-            android:text="نظرسنجی دهه فجر"
             android:padding="15dp"
             android:textSize="15sp"
             android:textColor="@color/colorPrimaryDark"

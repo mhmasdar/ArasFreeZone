@@ -14,6 +14,8 @@
     <color name="dark">#262626</color>
     <color name="yellow">#FFC400</color>
     <color name="detailsTitle">#3c5b7a</color>
+    <color name="introBack">#7FCAC3</color>
+    <color name="introPrimaryDark">#55938d</color>
 
     <array name="arr">
 

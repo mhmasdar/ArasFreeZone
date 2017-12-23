@@ -12,6 +12,10 @@
     </style>
 
 
+    <style name="introActivityTheme" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/introPrimaryDark</item>
+    </style>
+
     <!-- change tabLayout font size -->
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>

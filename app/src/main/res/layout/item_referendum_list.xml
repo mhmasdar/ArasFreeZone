@@ -11,8 +11,7 @@
     <TextView
         android:id="@+id/txtQuestion"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="به نظر شما ایران از گروه خودش صعود می کند؟" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +51,6 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="65%"
                         android:textColor="@color/colorPrimary" />
 
                     <ProgressBar
@@ -63,7 +61,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/progress_back"
                         android:max="100"
-                        android:progress="65"
                         android:progressDrawable="@drawable/progress_bar"
                         android:scaleY="3.0" />
 
@@ -92,7 +89,6 @@
 
                     <TextView
                         android:layout_width="50dp"
-                        android:text="65%"
                         android:textColor="@color/colorPrimary"
                         android:id="@+id/txtPercent2"
                         android:layout_marginRight="10dp"
@@ -103,7 +99,6 @@
                         android:layout_weight="1"
                         android:id="@+id/progress2"
                         android:max="100"
-                        android:progress="65"
                         android:scaleY="3.0"
                         android:background="@drawable/progress_back"
                         android:progressDrawable="@drawable/progress_bar"
@@ -135,7 +130,6 @@
 
                     <TextView
                         android:layout_width="50dp"
-                        android:text="65%"
                         android:textColor="@color/colorPrimary"
                         android:id="@+id/txtPercent3"
                         android:layout_marginRight="10dp"
@@ -146,7 +140,6 @@
                         android:layout_weight="1"
                         android:id="@+id/progress3"
                         android:max="100"
-                        android:progress="65"
                         android:scaleY="3.0"
                         android:background="@drawable/progress_back"
                         android:progressDrawable="@drawable/progress_bar"
@@ -178,7 +171,6 @@
 
                     <TextView
                         android:layout_width="50dp"
-                        android:text="65%"
                         android:textColor="@color/colorPrimary"
                         android:id="@+id/txtPercent4"
                         android:layout_marginRight="10dp"
@@ -189,7 +181,6 @@
                         android:layout_weight="1"
                         android:id="@+id/progress4"
                         android:max="100"
-                        android:progress="65"
                         android:scaleY="3.0"
                         android:background="@drawable/progress_back"
                         android:progressDrawable="@drawable/progress_bar"

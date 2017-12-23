@@ -98,6 +98,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/yellow"
+                style="@style/AudioFileInfoOverlayText2"
                 android:textSize="50sp"
                 android:gravity="center"
                 android:fontFamily="@font/weatherfont"
@@ -113,6 +114,7 @@
                    android:id="@+id/current_temperature_field"
                    android:layout_width="wrap_content"
                    android:textSize="22sp"
+                   style="@style/AudioFileInfoOverlayText2"
                    android:textStyle="bold"
                    android:textColor="@color/white"
                    android:layout_height="wrap_content"
@@ -123,6 +125,7 @@
                    android:id="@+id/humidity_field"
                    android:layout_width="wrap_content"
                    android:textSize="19sp"
+                   style="@style/AudioFileInfoOverlayText2"
                    android:textColor="@color/white"
                    android:layout_height="wrap_content"
                    android:textAppearance="?android:attr/textAppearanceMedium"/>

@@ -25,6 +25,10 @@ public class IntroAdapter extends FragmentPagerAdapter {
                 return IntroFragment.newInstance(position);
             case 2:
                 return IntroFragment.newInstance(position);
+            case 3:
+                return IntroFragment.newInstance(position);
+            case 4:
+                return IntroFragment.newInstance(position);
             default:
                 return IntroFragment.newInstance(position);
         }
@@ -32,7 +36,7 @@ public class IntroAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 6;
     }
 
 }
