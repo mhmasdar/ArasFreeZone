@@ -77,18 +77,18 @@ public class favoriteFragment extends Fragment {
 
     private void setUpRecyclerViewEvent(List<EventModel> list) {
 
-        eventsListAdapter adapter = new eventsListAdapter(app.context, list, false);
+        eventsListAdapter adapter = new eventsListAdapter(getContext(), list, false);
         recycleEvents.setAdapter(adapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(app.context, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recycleEvents.setLayoutManager(gridLayoutManager);
     }
 
     private void setUpRecyclerViewPlaces(List<PlacesModel> placesList) {
 
-        restaurantListAdapter adapter = new restaurantListAdapter(getActivity(), placesList, "Tbl_Eating");
+        restaurantListAdapter adapter = new restaurantListAdapter(getContext(), placesList, "");
         recyclePlaces.setAdapter(adapter);
 
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getActivity());
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclePlaces.setLayoutManager(mLinearLayoutManagerVertical);
     }

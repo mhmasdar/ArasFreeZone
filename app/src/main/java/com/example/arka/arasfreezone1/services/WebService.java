@@ -1657,7 +1657,8 @@ public class WebService {
                         JSONObject Object = Arrey.getJSONObject(i);
                         ReferendumModel model = new ReferendumModel();
                         model.options = new ArrayList<>();
-                        model.id = Object.getInt("id");
+                        model.id = Object.getInt("idPackage");
+                        model.idQuestion = Object.getInt("id");
                         model.title = Object.getString("title");
                         model.question = Object.getString("question");
                         String options = Object.getString("options");
@@ -1695,14 +1696,14 @@ public class WebService {
             return null;
     }
 
-    public String postCompetitionAnswers(boolean isInternetAvailable, int idRef, int idUser, List<Integer> userAnswers) {
+    public String postCompetitionAnswers(boolean isInternetAvailable, List<Integer> idQ, int idUser, List<Integer> userAnswers) {
 
         if (isInternetAvailable) {
 
             String req = "[";
 
             for (int i = 0; i < userAnswers.size(); i++){
-                req += "{\"idRef\":" + idRef + ",\"idUser\":" + idUser + ",\"userAnswer\":" + userAnswers.get(i) + "}";
+                req += "{\"idRef\":" + idQ.get(i) + ",\"idUser\":" + idUser + ",\"userAnswer\":" + userAnswers.get(i) + "}";
                 if (i != userAnswers.size() - 1)
                     req += ",";
             }

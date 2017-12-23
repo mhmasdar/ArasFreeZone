@@ -61,6 +61,11 @@ public class newsListFragment extends Fragment {
     private List<NewsModel> newsList = new ArrayList<>();
     //private int count = 0;
 
+    List<NewsModel> filteredList = new ArrayList<>();
+    private int totalTabsCount;
+
+    public boolean firstTimeCheck = true;
+
     public newsListFragment() {
         // Required empty public constructor
     }
@@ -103,7 +108,7 @@ public class newsListFragment extends Fragment {
         newsTabLayout.addTab(newsTabLayout.newTab().setText("اقتصادی"));
         newsTabLayout.addTab(newsTabLayout.newTab().setText("همه اخبار"));
 
-
+        totalTabsCount = newsTabLayout.getTabCount();
 //        referendimViewPager adapter = new referendimViewPager (getActivity().getSupportFragmentManager());
 //        newsPager.setAdapter(adapter);
 //        newsPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(newsTabLayout));
@@ -113,6 +118,19 @@ public class newsListFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 //                newsPager.setCurrentItem(tab.getPosition());
+                filteredList = new ArrayList<>();
+
+                if (tab.getPosition() == totalTabsCount - 1){
+                    setUpRecyclerView(newsList,false);
+                }
+                else {
+
+                    for (int i = 0; i < newsList.size(); i++) {
+                        if (newsList.get(i).Type == totalTabsCount - (tab.getPosition() + 1))
+                            filteredList.add(newsList.get(i));
+                    }
+                    setUpRecyclerView(filteredList,true);
+                }
             }
 
             @Override
@@ -157,6 +175,14 @@ public class newsListFragment extends Fragment {
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                boolean handler = new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        newsTabLayout.getTabAt(4).select();
+                    }
+                }, 2);
+
                 //opens search layout
                 expandable_layout.toggle();
                 if (!expandable_layout.isExpanded()) {
@@ -287,6 +313,7 @@ public class newsListFragment extends Fragment {
             super.onPreExecute();
             webService = new WebService();
             tmpList = new ArrayList<>();
+            lytLoading.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -300,6 +327,8 @@ public class newsListFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            lytLoading.setVisibility(View.GONE);
 
             if (tmpList != null) {
 
@@ -315,6 +344,7 @@ public class newsListFragment extends Fragment {
                     lytMain.setVisibility(View.GONE);
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
+
 
                 }
 
@@ -337,5 +367,12 @@ public class newsListFragment extends Fragment {
 //        WebServiceCallBackList callBackList = new WebServiceCallBackList();
 //        callBackList.execute();
         //setUpRecyclerView(newsList);
+        if (!firstTimeCheck) {
+            lytLoading.setVisibility(View.GONE);
+            lytMain.setVisibility(View.VISIBLE);
+        }
+        else{
+            firstTimeCheck = false;
+        }
     }
 }

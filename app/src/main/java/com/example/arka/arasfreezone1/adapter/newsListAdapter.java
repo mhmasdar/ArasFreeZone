@@ -111,7 +111,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
 
         if (holder.position == newsList.size() - 1){
             if (!searchFlag) {
-                Toast.makeText(context, "Last " + position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "Last " + position, Toast.LENGTH_LONG).show();
                 WebServiceCallBackList callBackList = new WebServiceCallBackList();
                 callBackList.execute();
             }
@@ -130,7 +130,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         private TextView txtNewsTitle;
         private TextView txtNewsBody;
         private ImageView imgNews;
-        private TextView txtCommentCount;
+        private TextView txtCommentCount, txtType;
         private TextView txtDate;
         private TextView txtLikeCount;
         private ImageView imgShare;
@@ -149,6 +149,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             txtNewsBody = (TextView) itemView.findViewById(R.id.txtNewsBody);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
+            txtType = (TextView) itemView.findViewById(R.id.txtType);
 
         }
 
@@ -159,6 +160,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             //this.txtLikeCount.setText(current.likeCount + "");
             this.txtCommentCount.setText(current.commentCount + "");
             this.txtDate.setText(app.changeDateToString(current.Date));
+            this.txtType.setText(getPlaceType(current.Type));
 
             this.position = position;
             this.current = current;
@@ -194,6 +196,28 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    private String getPlaceType(int Type){
+
+        String returnType = "";
+        switch (Type){
+            case 1:
+                returnType = "اقتصادی";
+                break;
+            case 2:
+                returnType = "عمرانی";
+                break;
+            case 3:
+                returnType = "گردشگری";
+                break;
+            case 4:
+                returnType = "فرهنگ و جامعه";
+                break;
+            default:
+        }
+
+        return returnType;
     }
 
     private class WebServiceCallBackList extends AsyncTask<Object, Void, Void> {

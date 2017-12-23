@@ -36,6 +36,7 @@
             android:theme="@android:style/Theme.Holo.Dialog" />
         <activity android:name=".introPage.IntroActivity"></activity>
         <activity android:name=".RoutingActivity"></activity>
+        <activity android:name=".favoriteActivity"></activity>
     </application>
 
 </manifest>

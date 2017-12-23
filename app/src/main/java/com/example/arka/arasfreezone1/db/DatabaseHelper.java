@@ -1176,6 +1176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 PlacesModel pm = new PlacesModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 if (!tblName.equals("Tbl_Offices"))

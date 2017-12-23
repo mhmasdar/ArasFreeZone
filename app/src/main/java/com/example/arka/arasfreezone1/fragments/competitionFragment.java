@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,13 +38,15 @@ public class competitionFragment extends Fragment {
     private LinearLayout lytQuestionSend;
     private LinearLayout lytMain;
     private LinearLayout lytEmpty;
-    private LinearLayout lytDisconnect;
+    private LinearLayout lytDisconnect, lytRepetitive;
     private TextView txtCompetitionTitle, txtSend;
+    private TextView repetitiveTitle;
 
     private List<ReferendumModel> referendumList;
+    private List<Integer> idQuestions;
 
     private SharedPreferences prefs;
-    int idUser, idRef;
+    int idUser, idCompetition;
     boolean isAnswered;
 
     public competitionFragment() {
@@ -74,7 +74,7 @@ public class competitionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (idUser > 0) {
-                    if (!prefs.getBoolean("IsAnswered" + idRef, false)) {
+                    if (!prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                         WebServiceCallAnswers callBackAnswer = new WebServiceCallAnswers();
                         callBackAnswer.execute();
                     }
@@ -108,6 +108,8 @@ public class competitionFragment extends Fragment {
         txtCompetitionTitle = view.findViewById(R.id.txtCompetitionTitle);
         txtSend = view.findViewById(R.id.txtSend);
         lytLoading = view.findViewById(R.id.lytLoading);
+        lytRepetitive = view.findViewById(R.id.lytRepetitive);
+        repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
@@ -119,7 +121,9 @@ public class competitionFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             referendumList = new ArrayList<>();
+            idQuestions = new ArrayList<>();
             webService = new WebService();
+            lytLoading.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -134,35 +138,55 @@ public class competitionFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoading.setVisibility(View.GONE);
+
             if (referendumList != null) {
 
                 if (referendumList.size() > 0) {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
-                    idRef = referendumList.get(0).id;
-                    isAnswered = prefs.getBoolean("IsAnswered" + idRef, false);
+                    idCompetition = referendumList.get(0).id;
+                    for (int i = 0; i < referendumList.size(); i++)
+                        idQuestions.add(referendumList.get(i).idQuestion);
+                    isAnswered = prefs.getBoolean("IsAnswered" + idCompetition, false);
 
                     if (idUser > 0) {
-                        if (prefs.getBoolean("IsAnswered" + idRef, false))
+                        if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                             txtSend.setText("قبلا شرکت کرده اید");
-                        else
+                            repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                            lytRepetitive.setVisibility(View.VISIBLE);
+                            lytLoading.setVisibility(View.GONE);
+                            lytMain.setVisibility(View.GONE);
+                            lytEmpty.setVisibility(View.GONE);
+                        }
+                        else {
                             txtSend.setText("ثبت پاسخ ها");
+                            setUpRecyclerView(referendumList);
+                            lytMain.setVisibility(View.VISIBLE);
+                            lytDisconnect.setVisibility(View.GONE);
+                            lytEmpty.setVisibility(View.GONE);
+                            lytRepetitive.setVisibility(View.GONE);
+                        }
                     } else {
                         txtSend.setText("ثبت نام/ورود");
+                        setUpRecyclerView(referendumList);
+                        lytMain.setVisibility(View.VISIBLE);
+                        lytDisconnect.setVisibility(View.GONE);
+                        lytEmpty.setVisibility(View.GONE);
+                        lytRepetitive.setVisibility(View.GONE);
                     }
 
 
-                    setUpRecyclerView(referendumList);
-                    lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
+
 
                 } else if (referendumList.size() < 1) {
+                    lytRepetitive.setVisibility(View.GONE);
                     lytMain.setVisibility(View.GONE);
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
                 }
 
             } else {
+                lytRepetitive.setVisibility(View.GONE);
                 lytMain.setVisibility(View.GONE);
                 lytDisconnect.setVisibility(View.VISIBLE);
                 lytEmpty.setVisibility(View.GONE);
@@ -188,7 +212,7 @@ public class competitionFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.postCompetitionAnswers(app.isInternetOn(), idRef, idUser, answers);
+            result = webService.postCompetitionAnswers(app.isInternetOn(), idQuestions, idUser, answers);
 
             return null;
         }
@@ -204,7 +228,7 @@ public class competitionFragment extends Fragment {
                     Toast.makeText(getContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کرده اید");
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("IsAnswered" + idRef, true);
+                    editor.putBoolean("IsAnswered" + idCompetition, true);
                     editor.apply();
 
                 } else if (Integer.parseInt(result) == 0) {
@@ -213,7 +237,7 @@ public class competitionFragment extends Fragment {
                     Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کرده اید");
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("IsAnswered" + idRef, true);
+                    editor.putBoolean("IsAnswered" + idCompetition, true);
                     editor.apply();
                 }
 
@@ -233,14 +257,29 @@ public class competitionFragment extends Fragment {
         idUser = prefs.getInt("UserId", -1);
 
         if (idUser > 0) {
-            if (idRef > 0) {
-                if (prefs.getBoolean("IsAnswered" + idRef, false))
+            if (idCompetition > 0) {
+                if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                     txtSend.setText("قبلا شرکت کرده اید");
-                else
+                    repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                    lytRepetitive.setVisibility(View.VISIBLE);
+                    lytLoading.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                }
+                else {
                     txtSend.setText("ثبت پاسخ ها");
+                    lytMain.setVisibility(View.VISIBLE);
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                    lytRepetitive.setVisibility(View.GONE);
+                }
             }
         } else {
             txtSend.setText("ثبت نام/ورود");
+            lytMain.setVisibility(View.VISIBLE);
+            lytDisconnect.setVisibility(View.GONE);
+            lytEmpty.setVisibility(View.GONE);
+            lytRepetitive.setVisibility(View.GONE);
         }
     }
 }

@@ -83,7 +83,7 @@ public class referendumAdapter extends RecyclerView.Adapter<referendumAdapter.my
             txtPercent = (TextView) itemView.findViewById(R.id.txtPercent);
             progress = (ProgressBar) itemView.findViewById(R.id.progress);
 
-
+            //progress.setProgress(65);
             progress.setRotation(180);
         }
 

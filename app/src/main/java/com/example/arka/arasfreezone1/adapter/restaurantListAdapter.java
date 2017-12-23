@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.favoriteActivity;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
@@ -78,12 +79,21 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
 
 
-                MainActivity activity = (MainActivity) context;
-                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
+                if (context instanceof MainActivity) {
+//                    MainActivity activity = (MainActivity) context;
+                    FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                    ft.replace(R.id.container2, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+                else{
+                    FragmentTransaction ft = ((favoriteActivity)context).getSupportFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                    ft.replace(R.id.container, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }
         });
 
