@@ -67,6 +67,8 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
         private TextView txtCarModel;
         private TextView txtCarColor;
         private TextView txtPlate;
+        private TextView txtCall;
+        private TextView txtPath;
         private ImageView imgTitle;
 
         int position;
@@ -79,6 +81,8 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
             txtCarModel = (TextView) itemView.findViewById(R.id.txtCarModel);
             txtCarColor = (TextView) itemView.findViewById(R.id.txtCarColor);
             txtPlate = (TextView) itemView.findViewById(R.id.txtPlate);
+            txtCall = (TextView) itemView.findViewById(R.id.txtCall);
+            txtPath = (TextView) itemView.findViewById(R.id.txtPath);
             imgTitle = (ImageView) itemView.findViewById(R.id.imgTitle);
 
         }

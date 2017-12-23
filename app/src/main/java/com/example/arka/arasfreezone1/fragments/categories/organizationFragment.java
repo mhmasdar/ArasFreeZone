@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.adapter.organizationAdapter;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
+import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,17 +45,16 @@ public class organizationFragment extends Fragment {
     private LinearLayout lytOrgAddress;
     private LinearLayout lytOrgPhone;
     private LinearLayout lytOrgWeb;
-    private ExpandableLayout expanableLayout1, expanableLayout2, expanableLayout3, expanableLayout4;
-    private boolean openCheck1 = false, openCheck2 = false, openCheck3 = false, openCheck4 = false;
+    private ExpandableLayout expanableLayout1, expanableLayout2, expanableLayout3;
+    private boolean openCheck1 = false, openCheck2 = false, openCheck3 = false;
     private int height;
     private boolean OrganiztionSlider = false;
     private ViewPager pager;
     private TextView txtOrgintroduce;
     private TextView txtOrgAddress;
-    private TextView txtOrgPhone;
-    private TextView txtOrgWeb;
     private static Timer swipeTimer = new Timer();
     private ImageView imgBack;
+    private RecyclerView Recycler;
 
     public organizationFragment() {
         // Required empty public constructor
@@ -64,6 +69,8 @@ public class organizationFragment extends Fragment {
         initView(view);
         initSlider(view);
 
+
+        setUpRecyclerView();
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,17 +135,7 @@ public class organizationFragment extends Fragment {
         lytOrgWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (!openCheck4) {
-                    height = lytOrgWeb.getHeight(); // get height of layout
-                    setLayoutsHeight();
-                    expanableLayout4.expand();
-
-                    openCheck4 = true;
-                } else {
-                    expanableLayout4.setExpanded(false);
-                    openCheck4 = false;
-                }
+                // open website in explorer
             }
         });
 
@@ -218,13 +215,21 @@ public class organizationFragment extends Fragment {
         expanableLayout1 = (ExpandableLayout) view.findViewById(R.id.expanableLayout1);
         expanableLayout2 = (ExpandableLayout) view.findViewById(R.id.expanableLayout2);
         expanableLayout3 = (ExpandableLayout) view.findViewById(R.id.expanableLayout3);
-        expanableLayout4 = (ExpandableLayout) view.findViewById(R.id.expanableLayout4);
         pager = (ViewPager) view.findViewById(R.id.pager);
         txtOrgintroduce = (TextView) view.findViewById(R.id.txtOrgintroduce);
         txtOrgAddress = (TextView) view.findViewById(R.id.txtOrgAddress);
-        txtOrgPhone = (TextView) view.findViewById(R.id.txtOrgPhone);
-        txtOrgWeb = (TextView) view.findViewById(R.id.txtOrgWeb);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);
+        Recycler = (RecyclerView) view.findViewById(R.id.Recycler);
+    }
+
+    private void setUpRecyclerView() {
+
+        organizationAdapter adapter = new organizationAdapter(getContext());
+        Recycler.setAdapter(adapter);
+
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        Recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
 
     private void setLayoutsHeight() {

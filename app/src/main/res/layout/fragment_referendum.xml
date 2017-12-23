@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="right"
     tools:context="com.example.arka.arasfreezone1.fragments.competitionFragment">
 
     <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
@@ -14,15 +15,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:gravity="right"
         android:id="@+id/lytMain"
+
         android:orientation="vertical"
+        android:gravity="right"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/txtCompetitionTitle"
             android:layout_width="wrap_content"
-            android:text="مسابقه هفته دفاع مقدس"
+            android:text="نظرسنجی دهه فجر"
             android:padding="15dp"
             android:textSize="15sp"
             android:textColor="@color/colorPrimaryDark"
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/txtSend"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:paddingTop="10dp"
@@ -62,14 +65,13 @@
 
         </RelativeLayout>
 
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/lytEmpty"
-        android:gravity="center"
         android:visibility="gone"
+        android:gravity="center"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
         android:orientation="vertical"
@@ -119,6 +121,31 @@
             android:textSize="15sp"
             android:textColor="@color/itmesText"
             android:text="اتصال به اینترنت را بررسی کرده و دوباره تلاش کنید"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytRepetitive"
+        android:visibility="gone"
+        android:gravity="center"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_repetitve"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="شما قبلا در این نظرسنجی شرکت کرده اید"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

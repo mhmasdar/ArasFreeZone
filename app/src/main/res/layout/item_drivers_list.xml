@@ -24,15 +24,55 @@
             android:paddingLeft="5dp"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/txtName"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                android:text="اکبر شوفر"
-                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/txtName"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginTop="8dp"
+                    android:text="اکبر شوفر"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/txtCall"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:text="تماس"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="right|center_vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/txtPath"
+                    android:textColor="@color/itmesText"
+                    android:textSize="12sp"
+                    android:layout_marginRight="5dp"
+                    android:text="محدوده پل آبرسان تا چهارراه نصف راه"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:src="@drawable/ic_path"
+                    android:layout_height="15dp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +162,7 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:id="@+id/imgTitle"
             android:src="@drawable/test2"
             android:scaleType="fitXY"

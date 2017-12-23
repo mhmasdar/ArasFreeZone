@@ -48,7 +48,7 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_weight="0.7"
         android:fillViewport="true"
@@ -249,19 +249,56 @@
                     android:layout_width="match_parent"
                     android:background="#e26b6d92"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="20dp"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/txtOrgPhone"
-                        android:text="@string/s1"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:textColor="@color/white"
-                        android:lineSpacingMultiplier="1.4"
-                        android:textSize="15sp"
-                        android:layout_height="wrap_content" />
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TableRow   android:gravity="center_horizontal"
+                            android:layout_gravity="center_horizontal">
+
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:text="تماس"
+                                android:background="@drawable/progress_back"
+                                android:gravity="center"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="110dp"
+                                android:layout_height="40dp"
+                                android:text="شماره تلفن"
+                                android:background="@drawable/progress_back"
+                                android:gravity="center"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="110dp"
+                                android:layout_height="40dp"
+                                android:text="نام بخش"
+                                android:background="@drawable/progress_back"
+                                android:gravity="center"
+                                android:textColor="@color/white" />
+
+
+                        </TableRow>
+
+
+                    </TableLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/Recycler"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
 
                 </LinearLayout>
 
@@ -305,39 +342,10 @@
 
             </LinearLayout>
 
-            <net.cachapa.expandablelayout.ExpandableLayout
-                android:layout_width="match_parent"
-                android:id="@+id/expanableLayout4"
-                app:el_duration="1000"
-                app:el_expanded="false"
-                app:el_parallax="0.5"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:background="#e2748ea7"
-                    android:gravity="center"
-                    android:padding="20dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/txtOrgWeb"
-                        android:text="@string/s1"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:textColor="@color/white"
-                        android:lineSpacingMultiplier="1.4"
-                        android:textSize="15sp"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </net.cachapa.expandablelayout.ExpandableLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>
