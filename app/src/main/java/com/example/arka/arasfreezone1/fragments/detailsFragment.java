@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.GnssClock;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.example.arka.arasfreezone1.commentsActivity;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.FacilityModel;
+import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.services.WebService;
@@ -47,6 +49,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 
 /**
@@ -69,8 +73,10 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytCall;
     private LinearLayout lytMenu;
     private LinearLayout lytLocation;
-    private LinearLayout lytLoading;
-    private LinearLayout lytEmpty;
+    private LinearLayout lytLoadingM;
+    private LinearLayout lytEmptyM, lytDisconnectM;
+    private LinearLayout lytLoadingF;
+    private LinearLayout lytEmptyF, lytDisconnectF;
     private TextView txtAddress;
     private TextView txtHotelStars;
     private TextView txtInfo, txtHour, txtDay;
@@ -88,6 +94,7 @@ public class detailsFragment extends Fragment {
     private String tblName;
     private int id;
     private PlacesModel placesModel;
+    private List<ImgModel> imgList;
     private int idUserFavorite = -1;
     private int idUserLike = -1;
     private int idUserRate = -1;
@@ -102,9 +109,10 @@ public class detailsFragment extends Fragment {
     private RecyclerView recyclerFacility;
     List<FacilityModel> facilityList;
 
-// diolog rating content
+    // diolog rating content
     RatingBar rating_dialog;
     Dialog dialog;
+    CircularProgressBar progressBar;
 
     public detailsFragment() {
         // Required empty public constructor
@@ -133,7 +141,6 @@ public class detailsFragment extends Fragment {
             lytDrivers.setVisibility(View.GONE);
             lytMenu.setVisibility(View.VISIBLE);
         }
-
 
 
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
@@ -210,7 +217,7 @@ public class detailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                intentCall.setData(Uri.fromParts("tel", placesModel.phone, null));
+                intentCall.setData(Uri.fromParts("tel", "0" + placesModel.phone, null));
                 startActivity(intentCall);
             }
         });
@@ -313,6 +320,7 @@ public class detailsFragment extends Fragment {
         rating_dialog = (RatingBar) dialog.findViewById(R.id.rating_dialog);
         Button btnSubmitRating = (Button) dialog.findViewById(R.id.btnSubmitRating);
         Button btnCancelRating = (Button) dialog.findViewById(R.id.btnCancelRating);
+        progressBar = dialog.findViewById(R.id.progressBar);
         btnCancelRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -343,8 +351,7 @@ public class detailsFragment extends Fragment {
                     WebServiceCallRateAdd webServiceCallRateAdd = new WebServiceCallRateAdd();
                     webServiceCallRateAdd.execute();
 
-                }
-                else{
+                } else {
                     Intent i = new Intent(getActivity(), loginActivity.class);
                     startActivity(i);
                 }
@@ -381,6 +388,108 @@ public class detailsFragment extends Fragment {
         imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
         rateBar = view.findViewById(R.id.rateBar);
     }
+
+    View.OnClickListener lytMenuClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_menu);
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+
+            recyclerMenu = dialog.findViewById(R.id.recycler);
+            lytLoadingM = dialog.findViewById(R.id.lytLoading);
+            lytEmptyM = dialog.findViewById(R.id.lytEmpty);
+            lytDisconnectM = dialog.findViewById(R.id.lytDisconnect);
+
+            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
+            webServiceCallBackMenu.execute();
+
+        }
+    };
+
+    View.OnClickListener lytOptionsClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_facilities);
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+
+            recyclerFacility = dialog.findViewById(R.id.recycler);
+            lytLoadingF = dialog.findViewById(R.id.lytLoading);
+            lytEmptyF = dialog.findViewById(R.id.lytEmpty);
+            lytDisconnectF = dialog.findViewById(R.id.lytDisconnect);
+
+            WebServiceCallBackFacilities webServiceCallBackFacilities = new WebServiceCallBackFacilities();
+            webServiceCallBackFacilities.execute();
+
+        }
+    };
+
+    View.OnClickListener imgBookmarkClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (idUser > 0) {
+
+                if (idUserFavorite > 0) {
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                    WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
+                    favoriteDelete.execute();
+
+                } else {
+                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                    WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
+                    webServiceCallBackFavoriteAdd.execute();
+                }
+            } else {
+                Intent i = new Intent(getActivity(), loginActivity.class);
+                startActivity(i);
+            }
+
+        }
+    };
+
+    View.OnClickListener btnLikeClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (idUser > 0) {
+
+                if (idUserLike > 0) {
+                    btnLike.setLiked(false);
+                    placesModel.likeCount--;
+                    txtLikeCount.setText(placesModel.likeCount + "");
+                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                    likeDelete.execute();
+
+                } else if (idUserRate > 0 && idUserLike < 1) {
+                    btnLike.setLiked(true);
+                    placesModel.likeCount++;
+                    txtLikeCount.setText(placesModel.likeCount + "");
+                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                    webServiceCallLikeAdd.execute();
+                } else if (idUserRate < 1 && idUserLike < 1) {
+                    btnLike.setLiked(true);
+                    placesModel.likeCount++;
+                    txtLikeCount.setText(placesModel.likeCount + "");
+                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                    webServiceCallLikeAdd.execute();
+                }
+            } else {
+                Intent i = new Intent(getActivity(), loginActivity.class);
+                startActivity(i);
+            }
+
+        }
+    };
+
 
     private int getMainType(String name) {
         int type = 0;
@@ -421,105 +530,6 @@ public class detailsFragment extends Fragment {
 
     }
 
-    View.OnClickListener lytMenuClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-                Dialog dialog = new Dialog(getActivity());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_menu);
-                dialog.setCancelable(true);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.show();
-
-                recyclerMenu = dialog.findViewById(R.id.recycler);
-                lytLoading = dialog.findViewById(R.id.lytLoading);
-                lytEmpty = dialog.findViewById(R.id.lytEmpty);
-
-                WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
-                webServiceCallBackMenu.execute();
-
-        }
-    };
-
-    View.OnClickListener lytOptionsClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_facilities);
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-
-            recyclerFacility = dialog.findViewById(R.id.recycler);
-
-            WebServiceCallBackFacilities webServiceCallBackFacilities = new WebServiceCallBackFacilities();
-            webServiceCallBackFacilities.execute();
-
-        }
-    };
-
-    View.OnClickListener imgBookmarkClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            if (idUser > 0) {
-
-                if (idUserFavorite > 0) {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
-                    WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
-                    favoriteDelete.execute();
-
-                } else {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-                    WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
-                    webServiceCallBackFavoriteAdd.execute();
-                }
-            }
-            else{
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
-            }
-
-        }
-    };
-
-    View.OnClickListener btnLikeClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            if (idUser > 0) {
-
-                if (idUserLike > 0) {
-                    btnLike.setLiked(false);
-                    placesModel.likeCount--;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
-                    likeDelete.execute();
-
-                } else if (idUserRate > 0 && idUserLike < 1){
-                    btnLike.setLiked(true);
-                    placesModel.likeCount ++;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
-                    webServiceCallLikeAdd.execute();
-                } else if (idUserRate < 1 && idUserLike < 1){
-                    btnLike.setLiked(true);
-                    placesModel.likeCount ++;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
-                    webServiceCallLikeAdd.execute();
-                }
-            }
-            else{
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
-            }
-
-        }
-    };
-
     private void setUpRecyclerViewMenu(List<MenuModel> menuList) {
 
         menuDialogAdapter adapter = new menuDialogAdapter(getContext(), menuList);
@@ -558,6 +568,7 @@ public class detailsFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             placesModel = new PlacesModel();
+            imgList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
         }
 
@@ -567,6 +578,8 @@ public class detailsFragment extends Fragment {
 
             placesModel = databaseHelper.selectPlacesDetail(tblName, id);
 
+            imgList = databaseHelper.selectPlacesImages(mainType, id);
+
             return null;
         }
 
@@ -574,7 +587,7 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (tblName.equals("Tbl_Transports") && placesModel.type == 1){
+            if (tblName.equals("Tbl_Transports") && placesModel.type == 1) {
                 lytMenu.setVisibility(View.GONE);
                 lytDrivers.setVisibility(View.VISIBLE);
             }
@@ -592,7 +605,7 @@ public class detailsFragment extends Fragment {
                 imgMenuAndCost.setImageResource(R.drawable.ic_detail_menu);
                 txtMenuAndCost.setText("راننده ها");
             }
-            if(tblName.equals("Tbl_Rests")){
+            if (tblName.equals("Tbl_Rests")) {
                 txtHotelStars.setVisibility(View.VISIBLE);
                 txtHotelStars.setText(placesModel.placeStar + " ستاره");
             }
@@ -688,21 +701,19 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserFavorite > 0){
+            if (idUserFavorite > 0) {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-            }
-            else{
+            } else {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
-            if (idUserLike > 0){
+            if (idUserLike > 0) {
                 btnLike.setLiked(true);
 
-            }
-            else{
+            } else {
                 btnLike.setLiked(false);
             }
-            if (idUserRate > 0){
-               rateBar.setRating((float) userRate);
+            if (idUserRate > 0) {
+                rateBar.setRating((float) userRate);
 
             }
 
@@ -744,10 +755,9 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserFavorite > 0){
+            if (idUserFavorite > 0) {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-            }
-            else{
+            } else {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
@@ -808,6 +818,7 @@ public class detailsFragment extends Fragment {
         private String tblName;
         int idRow, idRate;
         double rateValue;
+
         public DatabaseCallUpdateRate(Context context, String tblName, int idRow, int idRate, double rateValue) {
             this.context = context;
             this.tblName = tblName;
@@ -835,10 +846,9 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserRate > 0){
+            if (idUserRate > 0) {
                 //rating_dialog.setRating(R.drawable.ic_bookmark1_selected);
-            }
-            else{
+            } else {
                 rating_dialog.setRating((float) 2.5);
             }
 
@@ -856,6 +866,10 @@ public class detailsFragment extends Fragment {
             super.onPreExecute();
             menuList = new ArrayList<>();
             webService = new WebService();
+            lytLoadingM.setVisibility(View.VISIBLE);
+            lytDisconnectM.setVisibility(View.GONE);
+            lytEmptyM.setVisibility(View.GONE);
+            recyclerMenu.setVisibility(View.GONE);
         }
 
         @Override
@@ -870,15 +884,21 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoadingM.setVisibility(View.GONE);
+
             if (menuList != null) {
 
-                if (menuList.size() > 0)
+                if (menuList.size() > 0) {
+                    recyclerMenu.setVisibility(View.VISIBLE);
                     setUpRecyclerViewMenu(menuList);
-                else
-                    Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
+                } else {
+                    lytEmptyM.setVisibility(View.VISIBLE);
+                    //Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
+                }
 
             } else {
-                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                lytDisconnectM.setVisibility(View.VISIBLE);
             }
 
         }
@@ -894,6 +914,10 @@ public class detailsFragment extends Fragment {
             super.onPreExecute();
             facilityList = new ArrayList<>();
             webService = new WebService();
+            lytLoadingF.setVisibility(View.VISIBLE);
+            lytDisconnectF.setVisibility(View.GONE);
+            lytEmptyF.setVisibility(View.GONE);
+            recyclerFacility.setVisibility(View.GONE);
         }
 
         @Override
@@ -908,15 +932,21 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoadingF.setVisibility(View.GONE);
+
             if (facilityList != null) {
 
-                if (facilityList.size() > 0)
+                if (facilityList.size() > 0) {
                     setUpRecyclerViewFacilities(facilityList);
-                else
-                    Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
-
+                    recyclerFacility.setVisibility(View.VISIBLE);
+                }
+                else {
+                    //Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
+                    lytEmptyF.setVisibility(View.VISIBLE);
+                }
             } else {
-                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                lytDisconnectF.setVisibility(View.VISIBLE);
             }
 
         }
@@ -952,8 +982,7 @@ public class detailsFragment extends Fragment {
                     idUserFavorite = Integer.parseInt(result);
                     DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, Integer.parseInt(result));
                     favoriteUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
                     imgBookmark.setImageResource(R.drawable.ic_bookmark1);
                 }
@@ -996,8 +1025,7 @@ public class detailsFragment extends Fragment {
                     idUserFavorite = -1;
                     DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, -1);
                     favoriteUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "حذف علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
                     imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
                 }
@@ -1048,8 +1076,7 @@ public class detailsFragment extends Fragment {
                     idUserLike = Integer.parseInt(result);
                     DatabaseCallUpdateLike likeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, Integer.parseInt(result));
                     likeUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(false);
                     placesModel.likeCount--;
@@ -1106,18 +1133,17 @@ public class detailsFragment extends Fragment {
                     idUserLike = -1;
                     DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
                     LikeUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(true);
-                    placesModel.likeCount ++;
+                    placesModel.likeCount++;
                     txtLikeCount.setText(placesModel.likeCount + "");
                 }
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 btnLike.setLiked(true);
-                placesModel.likeCount ++;
+                placesModel.likeCount++;
                 txtLikeCount.setText(placesModel.likeCount + "");
             }
 
@@ -1136,7 +1162,8 @@ public class detailsFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-            if (idUserRate> 0)
+            progressBar.setVisibility(View.VISIBLE);
+            if (idUserRate > 0)
                 idLR = idUserRate;
             else if (idUserRate < 1 && idUserLike > 0)
                 idLR = idUserLike;
@@ -1159,6 +1186,8 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            progressBar.setVisibility(View.INVISIBLE);
+
             if (result != null) {
 
                 if (Integer.parseInt(result) > 0) {
@@ -1168,8 +1197,7 @@ public class detailsFragment extends Fragment {
                     rateBar.setRating((float) rate);
                     dialog.dismiss();
 
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت امتیاز نا موفق", Toast.LENGTH_LONG).show();
                     //btnLike.setLiked(false);
                 }

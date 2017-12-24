@@ -27,6 +27,7 @@ import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.PhoneModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -66,6 +67,7 @@ public class organizationFragment extends Fragment {
 
     PlacesModel placesModel;
     List<PhoneModel> phoneList;
+    private List<ImgModel> imgList;
 
     public organizationFragment() {
         // Required empty public constructor
@@ -287,6 +289,7 @@ public class organizationFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             placesModel = new PlacesModel();
+            imgList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
         }
 
@@ -295,6 +298,8 @@ public class organizationFragment extends Fragment {
         protected Void doInBackground(Object... objects) {
 
             placesModel = databaseHelper.selectOrgDetail("Tbl_Offices", 6);
+
+            imgList = databaseHelper.selectPlacesImages(8, placesModel.id);
 
             return null;
         }

@@ -104,6 +104,10 @@ public class driversFragment extends Fragment {
             super.onPreExecute();
             driversList = new ArrayList<>();
             webService = new WebService();
+            lytLoading.setVisibility(View.VISIBLE);
+            lytDisconnect.setVisibility(View.GONE);
+            lytEmpty.setVisibility(View.GONE);
+            lytMain.setVisibility(View.GONE);
         }
 
         @Override
@@ -118,26 +122,24 @@ public class driversFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoading.setVisibility(View.INVISIBLE);
+
             if (driversList != null) {
 
                 if (driversList.size() > 0){
                     setUpRecyclerView(driversList);
                     lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
 
                 }
 
                 else if (driversList.size() < 1) {
-                    lytMain.setVisibility(View.GONE);
-                    lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
                 }
 
             } else {
-                lytMain.setVisibility(View.GONE);
+
                 lytDisconnect.setVisibility(View.VISIBLE);
-                lytEmpty.setVisibility(View.GONE);
+
             }
 
         }

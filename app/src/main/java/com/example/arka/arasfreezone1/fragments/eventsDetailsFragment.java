@@ -23,10 +23,13 @@ import com.example.arka.arasfreezone1.dateConvert;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.EventModel;
+import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +42,7 @@ public class eventsDetailsFragment extends Fragment {
     private LikeButton btnLike;
 
     EventModel currentModel = new EventModel();
+    private List<ImgModel> imgList;
 
     private int mainType;
     private String tblName;
@@ -259,6 +263,7 @@ public class eventsDetailsFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             currentModel = new EventModel();
+            imgList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
         }
 
@@ -267,6 +272,8 @@ public class eventsDetailsFragment extends Fragment {
         protected Void doInBackground(Object... objects) {
 
             currentModel = databaseHelper.selectEventsDetail(tblName, id);
+
+            imgList = databaseHelper.selectPlacesImages(10, id);
 
             return null;
         }

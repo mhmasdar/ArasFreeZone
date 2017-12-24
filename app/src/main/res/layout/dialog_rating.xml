@@ -81,6 +81,7 @@
         android:layout_height="wrap_content">
 
         <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="35dp"
             android:indeterminate="true"
             app:cpb_colors="@array/arr"

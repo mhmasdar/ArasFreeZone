@@ -248,54 +248,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return pm;
     }
 
-    public List<PhoneModel> selectAllPhones() {
 
-        List<PhoneModel> list = new ArrayList<>();
-        SQLiteDatabase ArasDB = getReadableDatabase();
-        //String order = "orderb";
-        String sql = "SELECT * FROM Tbl_OfficePhone";
-        Cursor cursor = ArasDB.rawQuery(sql, null);
-        cursor.moveToFirst();
-        if (!cursor.isAfterLast()) {
-            do {
-                PhoneModel pm = new PhoneModel();
-                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
-                pm.name = cursor.getString(cursor.getColumnIndex("name"));
-                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
 
-                list.add(pm);
-            } while (cursor.moveToNext());
-
-        }
-        cursor.close();
-        ArasDB.close();
-        return list;
-    }
-
-    public List<HomePageModel> selectAllHomePages() {
-
-        List<HomePageModel> list = new ArrayList<>();
-        SQLiteDatabase ArasDB = getReadableDatabase();
-        //String order = "orderb";
-        String sql = "SELECT * FROM Tbl_HomePage";
-        Cursor cursor = ArasDB.rawQuery(sql, null);
-        cursor.moveToFirst();
-        if (!cursor.isAfterLast()) {
-            do {
-                HomePageModel pm = new HomePageModel();
-                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
-                pm.title = cursor.getString(cursor.getColumnIndex("title"));
-                pm.des = cursor.getString(cursor.getColumnIndex("des"));
-                pm.image = cursor.getString(cursor.getColumnIndex("image"));
-
-                list.add(pm);
-            } while (cursor.moveToNext());
-
-        }
-        cursor.close();
-        ArasDB.close();
-        return list;
-    }
 
 
     public double selectRateValueById(String tblName, int r) {
@@ -1217,6 +1171,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public List<HomePageModel> selectAllHomePages() {
+
+        List<HomePageModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM Tbl_HomePage";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                HomePageModel pm = new HomePageModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.des = cursor.getString(cursor.getColumnIndex("des"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
 
     public List<String> selectOfficePhoneById(String r) {
         List<String> list = new ArrayList<>();
@@ -1286,6 +1265,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public List<PhoneModel> selectAllPhones() {
+
+        List<PhoneModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM Tbl_OfficePhone";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                PhoneModel pm = new PhoneModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
 
     public List<String> selectImageId(String r) {
         List<String> list = new ArrayList<>();
@@ -1343,6 +1346,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql = "UPDATE Tbl_Images SET type=" + imgModel.type + ",name='" + imgModel.name + "',lastUpdate='" + imgModel.lastUpdate + "',idRow=" + imgModel.idRow + " WHERE id=" + imgModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
+    }
+
+    public List<ImgModel> selectPlacesImages(int mainType, int idRow) {
+
+        List<ImgModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM Tbl_Images WHERE type=" + mainType + " AND idRow=" + idRow;
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                ImgModel pm = new ImgModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.idRow = cursor.getInt(cursor.getColumnIndex("idRow"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
     }
 
 

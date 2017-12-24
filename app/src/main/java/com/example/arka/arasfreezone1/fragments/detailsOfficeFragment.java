@@ -25,10 +25,13 @@ import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.like.LikeButton;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,6 +57,7 @@ public class detailsOfficeFragment extends Fragment {
     String tblName;
     int id;
     PlacesModel placesModel;
+    private List<ImgModel> imgList;
 
     public detailsOfficeFragment() {
         // Required empty public constructor
@@ -207,6 +211,7 @@ public class detailsOfficeFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             placesModel = new PlacesModel();
+            imgList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
         }
 
@@ -215,6 +220,8 @@ public class detailsOfficeFragment extends Fragment {
         protected Void doInBackground(Object... objects) {
 
             placesModel = databaseHelper.selectOfficesDetail(tblName, id);
+
+            imgList = databaseHelper.selectPlacesImages(8, id);
 
             return null;
         }

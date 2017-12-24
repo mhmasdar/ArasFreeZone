@@ -132,6 +132,10 @@ public class commentsActivity extends AppCompatActivity {
             super.onPreExecute();
             commentList = new ArrayList<>();
             webService = new WebService();
+            lytLoading.setVisibility(View.VISIBLE);
+            lytDisconnect.setVisibility(View.GONE);
+            lytEmpty.setVisibility(View.GONE);
+            lytMain.setVisibility(View.GONE);
         }
 
         @Override
@@ -146,26 +150,23 @@ public class commentsActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoading.setVisibility(View.INVISIBLE);
+
             if (commentList != null) {
 
                 if (commentList.size() > 0) {
                     lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
                     setUpRecyclerView(commentList);
                 }
                 else {
                     //Toast.makeText(getApplicationContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
-                    lytMain.setVisibility(View.GONE);
-                    lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
                 }
 
             } else {
                 //Toast.makeText(getApplicationContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
-                lytMain.setVisibility(View.GONE);
                 lytDisconnect.setVisibility(View.VISIBLE);
-                lytEmpty.setVisibility(View.GONE);
+
             }
 
         }
@@ -188,6 +189,7 @@ public class commentsActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
             commentBody = edtComment.getText().toString();
+            lytLoading.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -201,6 +203,8 @@ public class commentsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 
