@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -15,16 +16,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.arka.arasfreezone1.fragments.categorySeatchFragment;
+
 import org.osmdroid.api.IMapController;
-import org.osmdroid.*;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -59,6 +66,8 @@ public class MapActivity extends AppCompatActivity {
     private LinearLayout lytDetails;
     private TextView txtName, txtAddress;
     private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort;
+    private Dialog filterDialog, sortDialog;
+    private Animation mp, mp2, mp3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,10 @@ public class MapActivity extends AppCompatActivity {
         imgSort = (ImageView) findViewById(R.id.imgSort);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
+
+        mp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool);
+        mp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool2);
+        mp3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash0);
 
         lytBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +124,21 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+
+        imgFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFiltersDialog();
+            }
+        });
+
+        imgSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSortDialog();
             }
         });
 
@@ -163,6 +191,7 @@ public class MapActivity extends AppCompatActivity {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
 
                         lytDetails.setVisibility(View.VISIBLE);
+                        lytDetails.startAnimation(mp3);
                         txtName.setText("نام مکان");
                         txtAddress.setText("آدرس مکان");
                         return true;
@@ -198,8 +227,7 @@ public class MapActivity extends AppCompatActivity {
             }
         }
 
-        Animation mp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool);
-        Animation mp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool2);
+
         lytMapTools.startAnimation(mp);
         imgFilter.startAnimation(mp2);
         imgSort.startAnimation(mp2);
@@ -325,5 +353,137 @@ public class MapActivity extends AppCompatActivity {
         finish();
     }
 
+    private void showFiltersDialog() {
+
+        filterDialog = new Dialog(this);
+        filterDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        filterDialog.setContentView(R.layout.dialog_filters);
+        Button btnFilter = (Button) filterDialog.findViewById(R.id.btnFilter);
+        Button btn_cancel = (Button) filterDialog.findViewById(R.id.btn_cancel);
+        final CheckBox checkAll = filterDialog.findViewById(R.id.checkAll);
+        final CheckBox checkEating = filterDialog.findViewById(R.id.checkEating);
+        final CheckBox checkShopping = filterDialog.findViewById(R.id.checkShopping);
+        final CheckBox checkStay = filterDialog.findViewById(R.id.checkStay);
+        final CheckBox checkTourism = filterDialog.findViewById(R.id.checkTourism);
+        final CheckBox checkArt = filterDialog.findViewById(R.id.checkArt);
+        final CheckBox checkTransport = filterDialog.findViewById(R.id.checkTransport);
+        final CheckBox checkServices = filterDialog.findViewById(R.id.checkServices);
+        //final CheckBox checkOffices = filterDialog.findViewById(R.id.checkOffices);
+        final CheckBox checkMedical = filterDialog.findViewById(R.id.checkMedical);
+
+
+
+        checkEating.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkShopping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkStay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkTourism.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkTransport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkServices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+//        checkOffices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//                    checkAll.setChecked(false);
+//            }
+//        });
+        checkMedical.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
+        checkAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkEating.setChecked(false);
+                    checkShopping.setChecked(false);
+                    checkStay.setChecked(false);
+                    checkTourism.setChecked(false);
+                    checkArt.setChecked(false);
+                    checkTransport.setChecked(false);
+                    checkServices.setChecked(false);
+                    //checkOffices.setChecked(false);
+                    checkMedical.setChecked(false);
+
+                }
+            }
+        });
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterDialog.dismiss();
+            }
+        });
+
+
+        filterDialog.setCancelable(true);
+        filterDialog.setCanceledOnTouchOutside(true);
+        filterDialog.show();
+    }
+
+    private void showSortDialog() {
+
+        sortDialog = new Dialog(this);
+        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        sortDialog.setContentView(R.layout.dialog_sort_map);
+        Button btnSort = (Button) sortDialog.findViewById(R.id.btnSort);
+        Button btn_cancel = (Button) sortDialog.findViewById(R.id.btn_cancel);
+        final RadioButton radioRare = sortDialog.findViewById(R.id.radio1);
+        final RadioButton radioNear = sortDialog.findViewById(R.id.radio2);
+        final RadioButton radioNew = sortDialog.findViewById(R.id.radio3);
+
+        radioRare.setChecked(true);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortDialog.dismiss();
+            }
+        });
+
+        sortDialog.setCancelable(true);
+        sortDialog.setCanceledOnTouchOutside(true);
+        sortDialog.show();
+    }
 
 }
