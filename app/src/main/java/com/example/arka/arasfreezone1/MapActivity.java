@@ -15,7 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -48,8 +53,12 @@ public class MapActivity extends AppCompatActivity {
     public boolean flagPermission = false;
     private static final String TAG = MainActivity.class.getSimpleName();
     private RelativeLayout lytBack;
+    private LinearLayout lytMapTools;
     ArrayList<OverlayItem> items;
     ArrayList<OverlayItem> currentItems;
+    private LinearLayout lytDetails;
+    private TextView txtName, txtAddress;
+    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,16 @@ public class MapActivity extends AppCompatActivity {
 
         map = (MapView) findViewById(R.id.map);
         lytBack = (RelativeLayout) findViewById(R.id.lytBack);
+        lytMapTools = (LinearLayout) findViewById(R.id.lytMapTools);
+        lytDetails = (LinearLayout) findViewById(R.id.lytDetails);
+        txtName = (TextView) findViewById(R.id.txtName);
+        txtAddress = (TextView) findViewById(R.id.txtAddress);
+        imgDetails = (ImageView) findViewById(R.id.imgDetails);
+        imgMyLocation = (ImageView) findViewById(R.id.imgMyLocation);
+        imgZoomOut = (ImageView) findViewById(R.id.imgZoomOut);
+        imgZoomIn = (ImageView) findViewById(R.id.imgZoomIn);
+        imgFilter = (ImageView) findViewById(R.id.imgFilter);
+        imgSort = (ImageView) findViewById(R.id.imgSort);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
 
@@ -69,6 +88,29 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+
+        imgZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        imgZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+        imgMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -120,7 +162,7 @@ public class MapActivity extends AppCompatActivity {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
 
-                        Toast.makeText(getBaseContext(), item.getTitle(), Toast.LENGTH_LONG).show();
+                        lytDetails.setVisibility(View.VISIBLE);
                         return true;
                     }
 
@@ -152,10 +194,13 @@ public class MapActivity extends AppCompatActivity {
                 currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                 markCurrentLocatin();
             }
-        } else
-            Toast.makeText(getApplicationContext(), "no permission", Toast.LENGTH_LONG).show();
+        }
 
-
+        Animation mp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool);
+        Animation mp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.map_tool2);
+        lytMapTools.startAnimation(mp);
+        imgFilter.startAnimation(mp2);
+        imgSort.startAnimation(mp2);
 
     }
 
@@ -231,8 +276,7 @@ public class MapActivity extends AppCompatActivity {
         currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-
-                        Toast.makeText(getBaseContext(), item.getTitle(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext() , "موقعیت من" , Toast.LENGTH_LONG).show();
                         return true;
                     }
 
