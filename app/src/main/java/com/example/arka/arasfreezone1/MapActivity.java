@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.fragments.categorySeatchFragment;
 
 import org.osmdroid.api.IMapController;
@@ -68,6 +69,8 @@ public class MapActivity extends AppCompatActivity {
     private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort;
     private Dialog filterDialog, sortDialog;
     private Animation mp, mp2, mp3;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,6 +193,7 @@ public class MapActivity extends AppCompatActivity {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
 
+                        Glide.with(getApplicationContext()).load(R.drawable.test2).into(imgDetails);
                         lytDetails.setVisibility(View.VISIBLE);
                         lytDetails.startAnimation(mp3);
                         txtName.setText("نام مکان");

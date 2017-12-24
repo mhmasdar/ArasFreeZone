@@ -181,7 +181,6 @@
 
             <ImageView
                 android:layout_width="60dp"
-                android:src="@drawable/test2"
                 android:scaleType="fitXY"
                 android:id="@+id/imgDetails"
                 android:layout_height="match_parent" />
