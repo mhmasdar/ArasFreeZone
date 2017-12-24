@@ -163,6 +163,8 @@ public class MapActivity extends AppCompatActivity {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
 
                         lytDetails.setVisibility(View.VISIBLE);
+                        txtName.setText("نام مکان");
+                        txtAddress.setText("آدرس مکان");
                         return true;
                     }
 

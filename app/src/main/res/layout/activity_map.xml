@@ -145,7 +145,6 @@
                     android:id="@+id/txtName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="رستوران ظفر"
                     android:textColor="@color/mainBarText"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -167,7 +166,6 @@
                         android:ellipsize="end"
                         android:gravity="right"
                         android:layout_gravity="right"
-                        android:text="انتهای خیابان طالقانی- نرسیده به پمپ بنزین- نبش خیابان آخونی- پلاک 11"
                         android:textColor="@color/mainBarText"
                         android:textSize="13sp"
                         />
