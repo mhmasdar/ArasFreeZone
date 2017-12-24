@@ -21,9 +21,11 @@ import android.widget.Toast;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.services.WebService;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+
 public class profileActivity extends AppCompatActivity {
 
-    private Dialog dialog;
+    private Dialog dialog, dialog2;
     private LinearLayout header;
     private RelativeLayout relativeBack;
     private LinearLayout lytChangePassword;
@@ -34,6 +36,7 @@ public class profileActivity extends AppCompatActivity {
     private EditText edtEmail;
     private LinearLayout lytEditInformation;
     private ImageView imgBack;
+    private CircularProgressBar progressBar;
     SharedPreferences prefs;
     int idUser;
 
@@ -144,6 +147,7 @@ public class profileActivity extends AppCompatActivity {
         final EditText edtNewPass = (EditText) dialog.findViewById(R.id.edtNewPass);
         Button btnPassSend = (Button) dialog.findViewById(R.id.btnPassSend);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        progressBar = dialog.findViewById(R.id.progressBar);
 
 
         btnPassSend.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +214,14 @@ public class profileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            dialog2 = new Dialog(profileActivity.this);
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_waiting);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
+
             id = prefs.getInt("UserId", 0);
             name = edtFName.getText().toString();
             lName = edtLName.getText().toString();
@@ -229,6 +241,8 @@ public class profileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            dialog2.dismiss();
 
             if (result != null) {
 
@@ -274,6 +288,9 @@ public class profileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            progressBar.setVisibility(View.VISIBLE);
+
             idUser = prefs.getInt("UserId", 0);
         }
 
@@ -288,6 +305,8 @@ public class profileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            progressBar.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 

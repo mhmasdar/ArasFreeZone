@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ public class registerFragment extends Fragment {
 
     private Button btnRegister;
     private EditText edtName, edtLName, edtMobile, edtEmail, edtPass;
+    Dialog dialog2;
 
     public registerFragment() {
         // Required empty public constructor
@@ -43,8 +46,18 @@ public class registerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!edtName.getText().toString().equals("") && !edtLName.getText().toString().equals("") && !edtMobile.getText().toString().equals("") && !edtEmail.getText().toString().equals("") && !edtPass.getText().toString().equals("")) {
-                    WebServiceCallBack callBack = new WebServiceCallBack();
-                    callBack.execute();
+                    if (edtEmail.getText().toString().contains("@") && edtEmail.getText().toString().contains(".")) {
+                        if (edtMobile.getText().toString().length() == 11) {
+                            WebServiceCallBack callBack = new WebServiceCallBack();
+                            callBack.execute();
+                        }
+                        else{
+                            Toast.makeText(getContext(), "شماره تلفن نا معتبر است", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(getContext(), "ایمیل نا معتبر است", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                     Toast.makeText(getContext(), "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
@@ -75,9 +88,18 @@ public class registerFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            dialog2 = new Dialog(getContext());
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_waiting);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
+
             name = edtName.getText().toString();
             lName = edtLName.getText().toString();
             mobile = edtMobile.getText().toString();
+            mobile = mobile.substring(1);
             email = edtEmail.getText().toString();
             pass = edtPass.getText().toString();
         }
@@ -93,6 +115,8 @@ public class registerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            dialog2.dismiss();
 
             if (result != null) {
 
