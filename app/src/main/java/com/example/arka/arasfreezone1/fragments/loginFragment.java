@@ -44,7 +44,7 @@ public class loginFragment extends Fragment {
     private Button btnUserLogin;
     private EditText edtUserName, edtUserPass;
     private TextView txtForgetPass;
-    private Dialog dialog;
+    private Dialog dialog, dialog2;
     LinearLayout lytLoading;
 
     public loginFragment() {
@@ -64,8 +64,13 @@ public class loginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!edtUserName.getText().toString().equals("") && !edtUserPass.getText().toString().equals("")) {
-                    WebServiceCallBack callBack = new WebServiceCallBack();
-                    callBack.execute();
+                    if (edtUserName.getText().toString().contains("@") && edtUserName.getText().toString().contains(".")) {
+                        WebServiceCallBack callBack = new WebServiceCallBack();
+                        callBack.execute();
+                    }
+                    else{
+                        Toast.makeText(getContext(), "ایمیل نا معتبر است", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                     Toast.makeText(getContext(), "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
@@ -103,6 +108,14 @@ public class loginFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            dialog2 = new Dialog(getContext());
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_waiting);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
+
             user = edtUserName.getText().toString();
             pass = edtUserPass.getText().toString();
         }
@@ -118,6 +131,8 @@ public class loginFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            dialog2.dismiss();
 
             if (result != null) {
 
