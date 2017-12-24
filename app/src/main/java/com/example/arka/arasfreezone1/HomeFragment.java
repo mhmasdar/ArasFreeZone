@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,12 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.adapter.SlidingImage_Adapter;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.HomePageModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
 import com.example.arka.arasfreezone1.models.WeatherModel;
 import com.example.arka.arasfreezone1.services.WeatherService;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimerTask;
 
 
@@ -35,6 +41,8 @@ public class HomeFragment extends Fragment {
     TextView cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     private boolean checkWeather = true;
     private CirclePageIndicator indicator;
+
+    private List<HomePageModel> homePageModelList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,7 +61,10 @@ public class HomeFragment extends Fragment {
         mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
-        initSlider();
+        DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
+        databaseCallback.execute();
+
+        //initSlider();
 
 
         if (checkWeather && app.isInternetOn()) {
@@ -120,7 +131,7 @@ public class HomeFragment extends Fragment {
     private void initSlider(){
 
 
-        mPager.setAdapter(new SlidingImage_Adapter(getContext()));
+        mPager.setAdapter(new SlidingImage_Adapter(getContext(), homePageModelList));
         indicator.setViewPager(mPager);
         final float density = getResources().getDisplayMetrics().density;
 
@@ -167,4 +178,48 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+//        private String tblName;
+//        int id;
+
+        public DatabaseCallback(Context context) {
+            this.context = context;
+//            this.tblName = tblName;
+//            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            homePageModelList = new ArrayList<>();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            homePageModelList = databaseHelper.selectAllHomePages();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+//            if (homePageModelList != null) {
+
+                initSlider();
+//            }
+
+        }
+
+    }
+
 }

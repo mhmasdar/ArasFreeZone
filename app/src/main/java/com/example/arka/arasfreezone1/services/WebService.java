@@ -11,9 +11,11 @@ import com.example.arka.arasfreezone1.models.CommentModel;
 import com.example.arka.arasfreezone1.models.DriverModel;
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
+import com.example.arka.arasfreezone1.models.HomePageModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.NewsModel;
+import com.example.arka.arasfreezone1.models.PhoneModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.example.arka.arasfreezone1.models.ReferendumModel;
 import com.example.arka.arasfreezone1.models.ReligiousTimesModel;
@@ -1098,6 +1100,139 @@ public class WebService {
             return -10;
     }
 
+    public int getHomePage(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+            DatabaseHelper helper = new DatabaseHelper(app.context);
+            String maxUpdate = helper.getLastUpdate("Tbl_HomePage");
+            Log.i("TAG", maxUpdate + "");
+
+            String response = connectToServer(addr + "mainPage/select?lastUpdate=" + maxUpdate, "GET");
+            Log.i("TAG", response + "");
+
+            if (response != null) {
+                List<HomePageModel> homeList = new ArrayList<>();
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        HomePageModel homeModel = new HomePageModel();
+                        homeModel.id = Object.getInt("id");
+                        homeModel.title = Object.getString("title");
+                        homeModel.des = Object.getString("des");
+                        homeModel.image = Object.getString("image");
+                        homeModel.visibility = Object.getBoolean("Visibility");
+                        homeModel.lastUpdate = Object.getString("lastUpdate");
+
+                        homeList.add(homeModel);
+
+                    }
+
+
+                    if (homeList.size() > 0) {
+
+                        HomePageModel homeModel = new HomePageModel();
+
+                        for (int i = 0; i < homeList.size(); i++) {
+                            homeModel = homeList.get(i);
+                            List<String> s = helper.selectHomePageById(homeModel.id + "");
+                            //List<String> s1 = helper.selectCity("name");
+                            //Log.i("MAH", s1 + "");
+                            if (s.isEmpty()) {
+                                if (homeModel.visibility)
+                                    helper.insertNewHomePage(homeModel);
+                            } else {
+                                if (homeModel.id == Integer.parseInt(s.get(0))) {
+                                    List<String> v = helper.selectHomePageByLastUpdate(homeModel.id + "");
+                                    if (!homeModel.visibility)
+                                        helper.deleteHomePage(s.get(0));
+                                    else if (homeModel.lastUpdate.compareTo(v.get(0)) > 0) {
+                                        helper.updateHomePage(homeModel);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+                    return 1;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return -2;
+        } else
+            return -10;
+    }
+
+    public int getOfficePhone(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+            DatabaseHelper helper = new DatabaseHelper(app.context);
+            String maxUpdate = helper.getLastUpdate("Tbl_OfficePhone");
+            Log.i("TAG", maxUpdate + "");
+
+            String response = connectToServer(addr + "office/organization?lastUpdate=" + maxUpdate, "GET");
+            Log.i("TAG", response + "");
+
+            if (response != null) {
+                List<PhoneModel> phoneList = new ArrayList<>();
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        PhoneModel phoneModel = new PhoneModel();
+                        phoneModel.id = Object.getInt("id");
+                        phoneModel.name = Object.getString("Name");
+                        phoneModel.phone = Object.getString("Phone");
+                        phoneModel.visibility = Object.getBoolean("Visibility");
+                        phoneModel.lastUpdate = Object.getString("LastUpdate");
+
+                        phoneList.add(phoneModel);
+
+                    }
+
+
+                    if (phoneList.size() > 0) {
+
+                        PhoneModel phoneModel = new PhoneModel();
+
+                        for (int i = 0; i < phoneList.size(); i++) {
+                            phoneModel = phoneList.get(i);
+                            List<String> s = helper.selectOfficePhoneById(phoneModel.id + "");
+                            //List<String> s1 = helper.selectCity("name");
+                            //Log.i("MAH", s1 + "");
+                            if (s.isEmpty()) {
+                                if (phoneModel.visibility)
+                                    helper.insertNewOfficePhone(phoneModel);
+                            } else {
+                                if (phoneModel.id == Integer.parseInt(s.get(0))) {
+                                    List<String> v = helper.selectOfficePhoneByLastUpdate(phoneModel.id + "");
+                                    if (!phoneModel.visibility)
+                                        helper.deleteOfficePhone(s.get(0));
+                                    else if (phoneModel.lastUpdate.compareTo(v.get(0)) > 0) {
+                                        helper.updateOfficePhone(phoneModel);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+                    return 1;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return -2;
+        } else
+            return -10;
+    }
+
     public List<MenuModel> getMenu(boolean isInternetAvailable, int id, int idType) {
 
         if (isInternetAvailable) {
@@ -1774,6 +1909,9 @@ public class WebService {
         } else
             return null;
     }
+
+
+
 
 
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.models.HomePageModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,12 @@ public class SlidingImage_Adapter extends PagerAdapter {
     private List<Integer> images = new ArrayList<>();
     private String[] names = {"حمام تاریخی کردشت" , "کلیسای سنت استپانوس" , "آسیاب خرابه"};
     private String[] details = {"حمامی قدیمی در شهر جلفا" , "واقع در اطراف شهر" , "منطقه ای بسیار زیبا در شهر جلفا"};
+    List<HomePageModel> pageList;
 
-
-    public SlidingImage_Adapter(Context context) {
+    public SlidingImage_Adapter(Context context, List<HomePageModel> pageList) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+        this.pageList = pageList;
         images.add(R.drawable.back1);
         images.add(R.drawable.back2);
         images.add(R.drawable.back3);

@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.arka.arasfreezone1.models.EventModel;
+import com.example.arka.arasfreezone1.models.HomePageModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
+import com.example.arka.arasfreezone1.models.PhoneModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
 import java.util.ArrayList;
@@ -213,6 +215,86 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         ArasDB.close();
         return pm;
+    }
+
+    public PlacesModel selectOrgDetail(String tblName, int type) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM " + tblName + " WHERE type=" + type;
+        PlacesModel pm = new PlacesModel();
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+                pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+                pm.info = cursor.getString(cursor.getColumnIndex("Info"));
+                pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
+//                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
+//                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return pm;
+    }
+
+    public List<PhoneModel> selectAllPhones() {
+
+        List<PhoneModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM Tbl_OfficePhone";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                PhoneModel pm = new PhoneModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public List<HomePageModel> selectAllHomePages() {
+
+        List<HomePageModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM Tbl_HomePage";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                HomePageModel pm = new HomePageModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.des = cursor.getString(cursor.getColumnIndex("des"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
     }
 
 
@@ -1061,6 +1143,144 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Log.i("LOG", "delete city:" + id);
         SQLiteDatabase ArasDB = getWritableDatabase();
         String sql = "DELETE FROM Tbl_Events WHERE id=" + id + "";
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+
+    }
+
+
+    public List<String> selectHomePageById(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_HomePage WHERE id=" + r;
+        String request = "id";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void insertNewHomePage(HomePageModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "";
+        sql = "INSERT INTO Tbl_HomePage (id,title,des,image,visibility,lastUpdate) VALUES('"
+                + placesModel.id + "','" + placesModel.title + "','" + placesModel.des + "','" + placesModel.image + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "')";
+        ArasDB.execSQL(sql);
+
+        ArasDB.close();
+    }
+
+    public List<String> selectHomePageByLastUpdate(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_HomePage WHERE id=" + r;
+        String request = "lastUpdate";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void updateHomePage(HomePageModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql;
+        sql = "UPDATE Tbl_HomePage SET title='" + placesModel.title + "',des='" + placesModel.des + "',image='" + placesModel.image + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+    }
+
+    public void deleteHomePage(String id) {
+
+        //Log.i("LOG", "delete city:" + id);
+        SQLiteDatabase ArasDB = getWritableDatabase();
+        String sql = "DELETE FROM Tbl_HomePage WHERE id=" + id + "";
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+
+    }
+
+
+    public List<String> selectOfficePhoneById(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_OfficePhone WHERE id=" + r;
+        String request = "id";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void insertNewOfficePhone(PhoneModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "";
+        sql = "INSERT INTO Tbl_OfficePhone (id,name,phone,visibility,lastUpdate) VALUES('"
+                + placesModel.id + "','" + placesModel.name + "','" + placesModel.phone + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "')";
+        ArasDB.execSQL(sql);
+
+        ArasDB.close();
+    }
+
+    public List<String> selectOfficePhoneByLastUpdate(String r) {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql = "SELECT * FROM Tbl_OfficePhone WHERE id=" + r;
+        String request = "lastUpdate";
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                String s = cursor.getString(cursor.getColumnIndex(request));
+                list.add(s);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
+    }
+
+    public void updateOfficePhone(PhoneModel placesModel) {
+
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        String sql;
+        sql = "UPDATE Tbl_OfficePhone SET name='" + placesModel.name + "',phone='" + placesModel.phone + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+    }
+
+    public void deleteOfficePhone(String id) {
+
+        //Log.i("LOG", "delete city:" + id);
+        SQLiteDatabase ArasDB = getWritableDatabase();
+        String sql = "DELETE FROM Tbl_OfficePhone WHERE id=" + id + "";
         ArasDB.execSQL(sql);
         ArasDB.close();
 

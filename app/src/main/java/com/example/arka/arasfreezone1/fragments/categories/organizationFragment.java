@@ -1,6 +1,10 @@
 package com.example.arka.arasfreezone1.fragments.categories;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,17 +19,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.organizationAdapter;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
+import com.example.arka.arasfreezone1.models.PhoneModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,6 +64,9 @@ public class organizationFragment extends Fragment {
     private ImageView imgBack;
     private RecyclerView Recycler;
 
+    PlacesModel placesModel;
+    List<PhoneModel> phoneList;
+
     public organizationFragment() {
         // Required empty public constructor
     }
@@ -69,8 +80,13 @@ public class organizationFragment extends Fragment {
         initView(view);
         initSlider(view);
 
+        DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
+        databaseCallback.execute();
 
-        setUpRecyclerView();
+        DatabaseCallbackPhones CallbackPhones = new DatabaseCallbackPhones(getContext());
+        CallbackPhones.execute();
+
+        //setUpRecyclerView();
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +152,17 @@ public class organizationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // open website in explorer
+                String url = "";
+                if (placesModel.website != null && !placesModel.website.equals("")) {
+                    url = placesModel.website;
+
+                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                        url = "http://" + url;
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                } else {
+                    Toast.makeText(getContext(), "وب سایت موجود نمی باشد", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -222,9 +249,9 @@ public class organizationFragment extends Fragment {
         Recycler = (RecyclerView) view.findViewById(R.id.Recycler);
     }
 
-    private void setUpRecyclerView() {
+    private void setUpRecyclerView(List<PhoneModel> list) {
 
-        organizationAdapter adapter = new organizationAdapter(getContext());
+        organizationAdapter adapter = new organizationAdapter(getContext(), list);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -240,4 +267,94 @@ public class organizationFragment extends Fragment {
         lytOrgPhone.setLayoutParams(p);
         lytOrgWeb.setLayoutParams(p);
     }
+
+
+    public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+//        private String tblName;
+//        int id;
+
+        public DatabaseCallback(Context context) {
+            this.context = context;
+//            this.tblName = tblName;
+//            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            placesModel = new PlacesModel();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            placesModel = databaseHelper.selectOrgDetail("Tbl_Offices", 6);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (placesModel != null) {
+
+                txtOrgAddress.setText(placesModel.address);
+                txtOrgintroduce.setText(placesModel.info);
+            }
+
+        }
+
+    }
+
+
+    public class DatabaseCallbackPhones extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+//        private String tblName;
+//        int id;
+
+        public DatabaseCallbackPhones(Context context) {
+            this.context = context;
+//            this.tblName = tblName;
+//            this.id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            phoneList = new ArrayList<>();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            phoneList = databaseHelper.selectAllPhones();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (phoneList != null) {
+
+               setUpRecyclerView(phoneList);
+            }
+
+        }
+
+    }
+
 }
