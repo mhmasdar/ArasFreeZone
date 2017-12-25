@@ -4,11 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.HomePageModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
+import com.example.arka.arasfreezone1.models.MapModel;
 import com.example.arka.arasfreezone1.models.PhoneModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
@@ -50,6 +50,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return "0";
         else
             return lastUpdate;
+    }
+
+    public List<MapModel> selectAllPlacesToMap(String tblName) {
+
+        List<MapModel> list = new ArrayList<>();
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        //String order = "orderb";
+        String sql = "SELECT * FROM " + tblName;
+        Cursor cursor = ArasDB.rawQuery(sql, null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            do {
+                MapModel pm = new MapModel();
+                pm.id = cursor.getInt(cursor.getColumnIndex("id"));
+                if (!tblName.equals("Tbl_Events"))
+                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
+                pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
+                pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+                pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+                if (!tblName.equals("Tbl_Offices") && !tblName.equals("Tbl_Events"))
+                    pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                else
+                    pm.star = 0;
+                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+
+
+                list.add(pm);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        ArasDB.close();
+        return list;
     }
 
     public List<PlacesModel> selectAllPlacesToList(String tblName) {
@@ -95,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 EventModel pm = new EventModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
-                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
@@ -163,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 pm.body = cursor.getString(cursor.getColumnIndex("body"));
-                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.startTime = cursor.getString(cursor.getColumnIndex("startTime"));
                 pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
                 pm.endDate = cursor.getInt(cursor.getColumnIndex("endDate"));
@@ -1057,8 +1093,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Events (id,body,title,startTime,startDate,endDate,endTime,place,lat,lon,address,phone,website,visibility,lastUpdate,image,mainType,likeCount) VALUES('"
-                + placesModel.id + "','" + placesModel.body + "','" + placesModel.title + "','" + placesModel.startTime + "','" + placesModel.startDate + "','" + placesModel.endDate + "','" + placesModel.endTime + "','" + placesModel.place + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.address + "','" + placesModel.phone + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.image + "','" + 10 + "','" + placesModel.likeCount + "')";
+        sql = "INSERT INTO Tbl_Events (id,body,name,startTime,startDate,endDate,endTime,place,lat,lon,address,phone,website,visibility,lastUpdate,image,mainType,likeCount) VALUES('"
+                + placesModel.id + "','" + placesModel.body + "','" + placesModel.name + "','" + placesModel.startTime + "','" + placesModel.startDate + "','" + placesModel.endDate + "','" + placesModel.endTime + "','" + placesModel.place + "','" + placesModel.lat + "','" + placesModel.lon + "','" + placesModel.address + "','" + placesModel.phone + "','" + placesModel.website + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "','" + placesModel.image + "','" + 10 + "','" + placesModel.likeCount + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -1087,7 +1123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Events SET body='" + placesModel.body + "',title='" + placesModel.title + "',startTime='" + placesModel.startTime + "',startDate=" + placesModel.startDate + ",endDate=" + placesModel.endDate + ",endTime='" + placesModel.endTime + "',place='" + placesModel.place + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",address='" + placesModel.address + "',phone='" + placesModel.phone + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',image='" + placesModel.image + "',likeCount=" + placesModel.likeCount + " WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_Events SET body='" + placesModel.body + "',name='" + placesModel.name + "',startTime='" + placesModel.startTime + "',startDate=" + placesModel.startDate + ",endDate=" + placesModel.endDate + ",endTime='" + placesModel.endTime + "',place='" + placesModel.place + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",address='" + placesModel.address + "',phone='" + placesModel.phone + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',image='" + placesModel.image + "',likeCount=" + placesModel.likeCount + " WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1126,7 +1162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_HomePage (id,title,des,image,visibility,lastUpdate) VALUES('"
+        sql = "INSERT INTO Tbl_HomePage (id,name,des,image,visibility,lastUpdate) VALUES('"
                 + placesModel.id + "','" + placesModel.title + "','" + placesModel.des + "','" + placesModel.image + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "')";
         ArasDB.execSQL(sql);
 
@@ -1156,7 +1192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_HomePage SET title='" + placesModel.title + "',des='" + placesModel.des + "',image='" + placesModel.image + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_HomePage SET name='" + placesModel.title + "',des='" + placesModel.des + "',image='" + placesModel.image + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1183,7 +1219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 HomePageModel pm = new HomePageModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
-                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.title = cursor.getString(cursor.getColumnIndex("name"));
                 pm.des = cursor.getString(cursor.getColumnIndex("des"));
                 pm.image = cursor.getString(cursor.getColumnIndex("image"));
 
@@ -1454,7 +1490,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 EventModel pm = new EventModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
-                pm.title = cursor.getString(cursor.getColumnIndex("title"));
+                pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 

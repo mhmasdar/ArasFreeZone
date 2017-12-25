@@ -68,7 +68,7 @@ public class eventsDetailsFragment extends Fragment {
 //        Bundle args = getArguments();
 //        currentModel.id = args.getInt("id");
 //        currentModel.body = args.getString("body");
-//        currentModel.title = args.getString("title");
+//        currentModel.name = args.getString("name");
 //        currentModel.startTime = args.getString("startTime");
 //        currentModel.startDate = args.getInt("startDate");
 //        currentModel.endTime = args.getString("endTime");
@@ -141,11 +141,11 @@ public class eventsDetailsFragment extends Fragment {
 
     private void setViews(){
 
-        txtTitle.setText(currentModel.title);
+        txtTitle.setText(currentModel.name);
         txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
         txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
-        txtAddress.setText(currentModel.title);
-        txtInfo.setText(currentModel.title);
+        txtAddress.setText(currentModel.name);
+        txtInfo.setText(currentModel.name);
 
     }
 
@@ -180,7 +180,7 @@ public class eventsDetailsFragment extends Fragment {
                     .setData(CalendarContract.Events.CONTENT_URI)
                     .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
                     .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                    .putExtra(CalendarContract.Events.TITLE, currentModel.title)
+                    .putExtra(CalendarContract.Events.TITLE, currentModel.name)
                     .putExtra(CalendarContract.Events.DESCRIPTION, currentModel.body)
                     .putExtra(CalendarContract.Events.EVENT_LOCATION, currentModel.address)
                     .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
@@ -283,11 +283,11 @@ public class eventsDetailsFragment extends Fragment {
             super.onPostExecute(aVoid);
 
 
-            txtTitle.setText(currentModel.title);
+            txtTitle.setText(currentModel.name);
             txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
             txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
-            txtAddress.setText(currentModel.title);
-            txtInfo.setText(currentModel.title);
+            txtAddress.setText(currentModel.name);
+            txtInfo.setText(currentModel.name);
             txtLikeCount.setText(currentModel.likeCount+ "");
 
         }

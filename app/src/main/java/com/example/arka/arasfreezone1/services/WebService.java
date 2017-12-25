@@ -1,6 +1,5 @@
 package com.example.arka.arasfreezone1.services;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -24,7 +23,6 @@ import com.example.arka.arasfreezone1.models.UserModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Comment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -1050,7 +1048,7 @@ public class WebService {
                         eventModel.lat = Object.getDouble("Lat");
                         eventModel.lon = Object.getDouble("Long");
                         eventModel.visibility = Object.getBoolean("Visibility");
-                        eventModel.title = Object.getString("Title");
+                        eventModel.name = Object.getString("Title");
                         eventModel.body = Object.getString("Body");
                         eventModel.startTime = Object.getString("startTime");
                         eventModel.endTime = Object.getString("endTime");
@@ -1119,7 +1117,7 @@ public class WebService {
                         JSONObject Object = Arrey.getJSONObject(i);
                         HomePageModel homeModel = new HomePageModel();
                         homeModel.id = Object.getInt("id");
-                        homeModel.title = Object.getString("title");
+                        homeModel.title = Object.getString("name");
                         homeModel.des = Object.getString("des");
                         homeModel.image = Object.getString("image");
                         homeModel.visibility = Object.getBoolean("Visibility");
@@ -1313,7 +1311,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
+            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"name\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
             String response = connectToServerByJson(addr + "suggestion/add", "POST", req);
             Log.i("LOG", response + "");
 
@@ -1345,7 +1343,7 @@ public class WebService {
 //                        eventModel.lat = Object.getDouble("Lat");
 //                        eventModel.lon = Object.getDouble("Long");
 //                        eventModel.visibility = Object.getBoolean("Visibility");
-//                        eventModel.title = Object.getString("Title");
+//                        eventModel.name = Object.getString("Title");
 //                        eventModel.body = Object.getString("Body");
 //                        eventModel.startTime = Object.getString("startTime");
 //                        eventModel.endTime = Object.getString("endTime");
@@ -1794,7 +1792,7 @@ public class WebService {
                         model.options = new ArrayList<>();
                         model.id = Object.getInt("idPackage");
                         model.idQuestion = Object.getInt("id");
-                        model.title = Object.getString("title");
+                        model.title = Object.getString("name");
                         model.question = Object.getString("question");
                         String options = Object.getString("options");
 
@@ -1871,7 +1869,7 @@ public class WebService {
                         model.options = new ArrayList<>();
                         model.id = Object.getInt("idPackage");
                         model.idQuestion = Object.getInt("id");
-                        model.title = Object.getString("title");
+                        model.title = Object.getString("name");
                         model.question = Object.getString("question");
                         model.res1 = Object.getInt("res1");
                         model.res2 = Object.getInt("res2");

@@ -8,7 +8,7 @@ public class EventModel {
 
     public int id;
     public String body;
-    public String title;
+    public String name;
     public String startTime;
     public int startDate;
     public int endDate;

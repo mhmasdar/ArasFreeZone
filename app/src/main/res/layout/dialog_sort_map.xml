@@ -39,7 +39,14 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="بالاترین امتیاز"
+                    android:text="هیچ کدام"
+                    android:id="@+id/txtOption"
+                    android:gravity="center"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="بیشترین امتیاز"
                     android:id="@+id/txtOption1"
                     android:gravity="center"
                     android:layout_height="40dp" />
@@ -53,7 +60,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="جدیدترین"
+                    android:text="علاقه مندی های من"
                     android:id="@+id/txtOption3"
                     android:gravity="center"
                     android:layout_height="40dp" />
@@ -70,6 +77,12 @@
                     android:gravity="right"
                     android:id="@+id/radioGroup"
                     android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:id="@+id/radio"
+                        android:buttonTint="@color/colorPrimary"
+                        android:layout_height="40dp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"

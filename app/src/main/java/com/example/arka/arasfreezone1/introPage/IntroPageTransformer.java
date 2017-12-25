@@ -65,7 +65,7 @@ public class IntroPageTransformer implements ViewPager.PageTransformer {
             // a good place to show animations that react to the user's
             // swiping as it provides a good user experience.
 
-            // Let's start by animating the title.
+            // Let's start by animating the name.
             // We want it to fade as it scrolls out
 
 

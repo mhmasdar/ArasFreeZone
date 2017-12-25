@@ -121,6 +121,7 @@ public class favoriteFragment extends Fragment {
 
             placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Eating"));
             placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Shoppings"));
+            placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Rests"));
             placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Tourisms"));
             placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Culturals"));
             placesList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Transports"));

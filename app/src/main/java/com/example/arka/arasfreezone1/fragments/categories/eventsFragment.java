@@ -133,7 +133,7 @@ public class eventsFragment extends Fragment {
                     if (eventList != null) {
                         searchList.clear();
                         for (int i = 0; i < eventList.size(); i++) {
-                            if (eventList.get(i).title.contains(s)) {
+                            if (eventList.get(i).name.contains(s)) {
                                 searchList.add(eventList.get(i));
                             }
                         }

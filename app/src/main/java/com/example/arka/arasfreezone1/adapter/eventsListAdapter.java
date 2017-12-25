@@ -14,7 +14,6 @@ import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.favoriteActivity;
-import com.example.arka.arasfreezone1.fragments.favoriteFragment;
 import com.example.arka.arasfreezone1.fragments.eventsDetailsFragment;
 import com.example.arka.arasfreezone1.models.EventModel;
 
@@ -61,7 +60,7 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
 //                Bundle args = new Bundle();
 //                args.putInt("id", currentObj.id);
 //                args.putString("body", currentObj.body);
-//                args.putString("title", currentObj.title);
+//                args.putString("name", currentObj.name);
 //                args.putString("startTime", currentObj.startTime);
 //                args.putInt("startDate", currentObj.startDate);
 //                args.putString("endTime", currentObj.endTime);
@@ -129,7 +128,7 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
 
         private void setData(EventModel current, int position) {
 
-            this.txvTitle.setText(current.title);
+            this.txvTitle.setText(current.name);
 
 
             this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));

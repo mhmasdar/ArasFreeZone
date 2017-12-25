@@ -121,6 +121,10 @@ public class SplashActivity extends AppCompatActivity {
 
             result = webService.getImages(app.isInternetOn());
 
+            result = webService.getHomePage(app.isInternetOn());
+
+            result = webService.getOfficePhone(app.isInternetOn());
+
             return null;
         }
 

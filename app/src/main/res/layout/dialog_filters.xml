@@ -192,26 +192,26 @@
 
         </LinearLayout>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:gravity="right"-->
-            <!--android:layout_height="wrap_content">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_height="wrap_content">
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:text="اماکن و ادارات"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:layout_height="wrap_content" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="اماکن و ادارات"
+                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content" />
 
-            <!--<CheckBox-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:id="@+id/checkOffices"-->
-                <!--android:buttonTint="@color/colorPrimary"-->
-                <!--app:buttonTint="@color/colorPrimary"-->
-                <!--android:layout_height="wrap_content" />-->
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:id="@+id/checkOffices"
+                android:buttonTint="@color/colorPrimary"
+                app:buttonTint="@color/colorPrimary"
+                android:layout_height="wrap_content" />
 
-        <!--</LinearLayout>-->
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -228,6 +228,27 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:id="@+id/checkMedical"
+                android:buttonTint="@color/colorPrimary"
+                app:buttonTint="@color/colorPrimary"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="رویداد ها"
+                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:id="@+id/checkEvents"
                 android:buttonTint="@color/colorPrimary"
                 app:buttonTint="@color/colorPrimary"
                 android:layout_height="wrap_content" />
