@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.ViewPagerCustomDuration;
 import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
 import com.example.arka.arasfreezone1.adapter.categoriesSliderAdapter;
 import com.example.arka.arasfreezone1.app;
@@ -29,6 +30,7 @@ import com.example.arka.arasfreezone1.models.PlacesModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.TimerTask;
 
 
@@ -48,7 +50,7 @@ public class restaurantsListFragment extends Fragment {
 
     private int currentPage = 0;
     private int totalSlides = 3;
-    private ViewPager mPager;
+    private ViewPagerCustomDuration mPager;
 
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
@@ -166,7 +168,7 @@ public class restaurantsListFragment extends Fragment {
         relativeBack = (RelativeLayout) view.findViewById(R.id.relative_back);
         catListTabLayout = (TabLayout) view.findViewById(R.id.catListTabLayout);
         recycler = (RecyclerView) view.findViewById(R.id.recycler);
-        mPager = (ViewPager) view.findViewById(R.id.pager);
+        mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
     }
 
     private void setUpRecyclerView(List<PlacesModel> placesList) {
@@ -195,13 +197,13 @@ public class restaurantsListFragment extends Fragment {
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
-        if (!app.isScheduled) {
+        if (app.isScheduled) {
             app.swipeTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     handler.post(Update);
                 }
-            }, 2000, 2000);
+            }, 2000, 7000);
             app.isScheduled = true;
         }
 

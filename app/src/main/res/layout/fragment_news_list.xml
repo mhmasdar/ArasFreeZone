@@ -97,7 +97,7 @@
                 app:tabTextColor="@color/colorPrimary"
                 app:tabSelectedTextColor="@color/colorPrimary"
                 android:backgroundTintMode="src_over"
-                app:tabIndicatorColor="@color/yellow"
+                app:tabIndicatorColor="@color/colorPrimary"
                 app:tabMode="scrollable"
                 android:layout_height="wrap_content"/>
 

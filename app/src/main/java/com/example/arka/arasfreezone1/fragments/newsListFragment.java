@@ -108,6 +108,9 @@ public class newsListFragment extends Fragment {
         newsTabLayout.addTab(newsTabLayout.newTab().setText("اقتصادی"));
         newsTabLayout.addTab(newsTabLayout.newTab().setText("همه اخبار"));
 
+
+
+
         totalTabsCount = newsTabLayout.getTabCount();
 //        referendimViewPager adapter = new referendimViewPager (getActivity().getSupportFragmentManager());
 //        newsPager.setAdapter(adapter);
@@ -157,13 +160,6 @@ public class newsListFragment extends Fragment {
         changeTabsFont();
 
         //setUpRecyclerView();
-
-        boolean handler = new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                newsTabLayout.getTabAt(4).select();
-            }
-        }, 2);
 
 
 //        lytSearch.setOnClickListener(new View.OnClickListener() {
@@ -331,6 +327,13 @@ public class newsListFragment extends Fragment {
             lytLoading.setVisibility(View.GONE);
 
             if (tmpList != null) {
+
+                boolean handler = new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        newsTabLayout.getTabAt(4).select();
+                    }
+                }, 2);
 
                 if (tmpList.size() > 0) {
                     lytMain.setVisibility(View.VISIBLE);

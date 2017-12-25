@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class eventsDetailsFragment extends Fragment {
 
     TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo, txtLikeCount;
     Button btnCall, btnAddtoCalender;
-    ImageView imgBookmark;
+    ImageView imgBookmark, imgTitle;
     private LikeButton btnLike;
 
     EventModel currentModel = new EventModel();
@@ -64,6 +65,11 @@ public class eventsDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
         initView(view);
+
+
+        //set image dark
+        imgTitle.setColorFilter(Color.rgb(170, 170, 170), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 
 //        Bundle args = getArguments();
 //        currentModel.id = args.getInt("id");
@@ -134,6 +140,7 @@ public class eventsDetailsFragment extends Fragment {
         btnAddtoCalender = view.findViewById(R.id.btnAddtoCalender);
         btnCall = view.findViewById(R.id.btnCall);
         imgBookmark = view.findViewById(R.id.imgBookmark);
+        imgTitle = view.findViewById(R.id.imgTitle);
         btnLike = view.findViewById(R.id.btnLike);
         txtLikeCount = view.findViewById(R.id.txtLikeCount);
 

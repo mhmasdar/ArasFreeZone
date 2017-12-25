@@ -19,9 +19,10 @@
 
     <array name="arr">
 
-        <item>@color/red</item>
-        <item>@color/yellow</item>
         <item>@color/colorPrimary</item>
+        <item>@color/yellow</item>
+        <item>@color/mainBarText</item>
+
     </array>
 
 </resources>

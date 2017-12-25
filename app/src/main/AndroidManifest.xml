@@ -34,10 +34,12 @@
         <activity
             android:name=".imageActivity"
             android:theme="@android:style/Theme.Holo.Dialog" />
-        <activity android:name=".introPage.IntroActivity" android:theme="@style/introActivityTheme"></activity>
-        <activity android:name=".RoutingActivity"></activity>
-
-        <activity android:name=".favoriteActivity"></activity>
+        <activity
+            android:name=".introPage.IntroActivity"
+            android:theme="@style/introActivityTheme" />
+        <activity android:name=".RoutingActivity" />
+        <activity android:name=".favoriteActivity" />
+        <activity android:name=".aboutActivity"></activity>
     </application>
 
 </manifest>

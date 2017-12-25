@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.ViewPagerCustomDuration;
 import com.example.arka.arasfreezone1.adapter.organizationAdapter;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.restaurantListAdapter;
@@ -58,7 +59,7 @@ public class organizationFragment extends Fragment {
     private boolean openCheck1 = false, openCheck2 = false, openCheck3 = false;
     private int height;
     private boolean OrganiztionSlider = false;
-    private ViewPager pager;
+    private ViewPagerCustomDuration pager;
     private TextView txtOrgintroduce;
     private TextView txtOrgAddress;
     private static Timer swipeTimer = new Timer();
@@ -244,7 +245,7 @@ public class organizationFragment extends Fragment {
         expanableLayout1 = (ExpandableLayout) view.findViewById(R.id.expanableLayout1);
         expanableLayout2 = (ExpandableLayout) view.findViewById(R.id.expanableLayout2);
         expanableLayout3 = (ExpandableLayout) view.findViewById(R.id.expanableLayout3);
-        pager = (ViewPager) view.findViewById(R.id.pager);
+        pager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         txtOrgintroduce = (TextView) view.findViewById(R.id.txtOrgintroduce);
         txtOrgAddress = (TextView) view.findViewById(R.id.txtOrgAddress);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);

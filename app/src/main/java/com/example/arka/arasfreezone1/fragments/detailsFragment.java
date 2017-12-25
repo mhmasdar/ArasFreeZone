@@ -84,11 +84,12 @@ public class detailsFragment extends Fragment {
     private LinearLayout lytOptions;
     private LinearLayout lytComments;
     private LinearLayout lytDrivers;
+    private LinearLayout lytRouting;
     private ImageView imgMenuAndCost;
     private TextView txtMenuAndCost;
-    RatingBar rateBar;
+    private RatingBar rateBar;
 
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
 
     private int mainType;
     private String tblName;
@@ -219,6 +220,17 @@ public class detailsFragment extends Fragment {
                 Intent intentCall = new Intent(Intent.ACTION_DIAL);
                 intentCall.setData(Uri.fromParts("tel", "0" + placesModel.phone, null));
                 startActivity(intentCall);
+            }
+        });
+
+
+        imgShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, placesModel.name + " را در همراه ارس ببین\n" + "http://arkatech.ir/");
+                startActivity(Intent.createChooser(share, "به اشتراک گذاری از طریق..."));
             }
         });
 
@@ -382,6 +394,7 @@ public class detailsFragment extends Fragment {
         lytWebsite = (LinearLayout) view.findViewById(R.id.lytWebsite);
         lytOptions = (LinearLayout) view.findViewById(R.id.lytOptions);
         lytComments = (LinearLayout) view.findViewById(R.id.lytComments);
+        lytRouting = (LinearLayout) view.findViewById(R.id.lytRouting);
         txtDay = view.findViewById(R.id.txtDay);
         txtHour = view.findViewById(R.id.txtHour);
         txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
@@ -594,9 +607,17 @@ public class detailsFragment extends Fragment {
 
             txtLikeCount.setText(placesModel.likeCount + "");
             txtAddress.setText("آدرس: " + placesModel.address);
-            txtInfo.setText(placesModel.info);
+
+            if(!placesModel.info.equals("null"))
+                txtInfo.setText(placesModel.info);
             txtName.setText(placesModel.name);
-            txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
+
+            if (!placesModel.startTime.equals("00:00") && !placesModel.endTime.equals("00:00"))
+                txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
+            else
+                txtHour.setText("24 ساعته");
+
+
             if (tblName.equals("Tbl_Tourisms")) {
                 imgMenuAndCost.setImageResource(R.drawable.cost);
                 txtMenuAndCost.setText(placesModel.cost + "ریال");
@@ -714,7 +735,6 @@ public class detailsFragment extends Fragment {
             }
             if (idUserRate > 0) {
                 rateBar.setRating((float) userRate);
-
             }
 
         }

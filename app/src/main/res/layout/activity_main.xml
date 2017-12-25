@@ -45,6 +45,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:id="@+id/lytMenu"
             android:background="@color/mainBarBack"
             android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"

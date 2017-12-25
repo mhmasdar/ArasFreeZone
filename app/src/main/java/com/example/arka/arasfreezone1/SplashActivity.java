@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.ChangeBounds;
@@ -16,9 +17,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.introPage.IntroActivity;
 import com.example.arka.arasfreezone1.services.WebService;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -28,6 +34,7 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView imgAras;
     private ImageView txtSplash;
     private SharedPreferences prefs;
+    private WebServiceCallBack callBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,8 @@ public class SplashActivity extends AppCompatActivity {
 
     // timer of splash
     public void setUpTimer() {
+
+
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -69,8 +78,9 @@ public class SplashActivity extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
 
-                WebServiceCallBack callBack = new WebServiceCallBack();
+                callBack = new WebServiceCallBack();
                 callBack.execute();
+
 
             }
         }, SPLASH_TIME_OUT);
@@ -88,6 +98,7 @@ public class SplashActivity extends AppCompatActivity {
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
+
         int result;
 
         @Override
@@ -179,6 +190,7 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }
+
     }
 
 

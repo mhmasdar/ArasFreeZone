@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private LinearLayout container, container2, container3, container4;
-    private LinearLayout lytSupport;
+    private LinearLayout lytSupport, lytMenu;
     private ImageView imgSupport;
     private TextView txtSupport;
     private LinearLayout lytEvents;
@@ -151,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         container3 = (LinearLayout) findViewById(R.id.container3);
         container4 = (LinearLayout) findViewById(R.id.container4);
         lytSupport = (LinearLayout) findViewById(R.id.lytSupport);
+        lytMenu = (LinearLayout) findViewById(R.id.lytMenu);
         imgSupport = (ImageView) findViewById(R.id.imgSupport);
         txtSupport = (TextView) findViewById(R.id.txtSupport);
         lytEvents = (LinearLayout) findViewById(R.id.lytEvents);
