@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.dateConvert;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
@@ -133,6 +134,21 @@ public class eventsDetailsFragment extends Fragment {
                     Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
         });
+
+//        lytLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+//                iRouting.putExtra("PlaceName", placesModel.name);
+//                iRouting.putExtra("PlaceLat", placesModel.lat);
+//                iRouting.putExtra("PlaceLon", placesModel.lon);
+//                iRouting.putExtra("PlaceType", placesModel.type);
+//                iRouting.putExtra("PlaceMainType", mainType);
+//                startActivity(iRouting);
+//
+//            }
+//        });
 
         imgBookmark.setOnClickListener(imgBookmarkClick);
 

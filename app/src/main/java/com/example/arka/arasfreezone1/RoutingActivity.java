@@ -1,13 +1,451 @@
 package com.example.arka.arasfreezone1;
 
+import android.Manifest;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.example.arka.arasfreezone1.fragments.mapFragment;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.bonuspack.routing.RoadNode;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
+import java.util.ArrayList;
 
 public class RoutingActivity extends AppCompatActivity {
+
+
+    public MapView map;
+    public MyLocationNewOverlay mLocationOverlay;
+    public CompassOverlay mCompassOverlay;
+    public ItemizedIconOverlay locationOverlay;
+    public ItemizedIconOverlay currentLocationOverlay;
+    public GeoPoint currentLocation;
+    public MyLocationListener locationListener;
+    public LocationManager locationManager;
+    public boolean flagPermission = false;
+    private static final String TAG = MapActivity.class.getSimpleName();
+    private RelativeLayout lytBack;
+    private LinearLayout lytMapTools;
+    ArrayList<OverlayItem> items = new ArrayList<>();
+    ArrayList<OverlayItem> currentItems;
+    private LinearLayout lytDetails;
+    private TextView txtName, txtAddress;
+    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort;
+    private Dialog filterDialog, sortDialog;
+    private Animation mp, mp2, mp3;
+    RatingBar rating;
+
+
+    IMapController mapController;
+    OverlayItem myLocationOverlayItem;
+    Drawable myCurrentLocationMarker;
+
+    private double placeLat, placeLon;
+    private String placeName = "";
+    private int placeType, placeMainType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context ctx = getApplicationContext();
+        //important! set your user agent to prevent getting banned from the osm servers
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_routing);
+
+        placeLat = getIntent().getDoubleExtra("PlaceLat", 0);
+        placeLon = getIntent().getDoubleExtra("PlaceLon", 0);
+        placeName = getIntent().getStringExtra("PlaceName");
+        placeType = getIntent().getIntExtra("PlaceType", 0);
+        placeMainType = getIntent().getIntExtra("PlaceMainType", 0);
+
+        initView();
+
+        mp = AnimationUtils.loadAnimation(ctx, R.anim.map_tool);
+
+        lytBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        map.setMultiTouchControls(true);
+
+        mapController = map.getController();
+        mapController.setZoom(15);
+        GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
+
+        GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
+        mapController.setCenter(startPoint);
+
+        this.mLocationOverlay = new MyLocationNewOverlay(myLocation, map);
+        this.mLocationOverlay.enableMyLocation();
+        //map.getOverlays().add(this.mLocationOverlay);
+        //mapController.setCenter(mLocationOverlay.getMyLocation());
+
+        this.mCompassOverlay = new CompassOverlay(ctx, new InternalCompassOrientationProvider(ctx), map);
+        this.mCompassOverlay.enableCompass();
+        map.getOverlays().add(this.mCompassOverlay);
+
+
+        if (placeLon != 0 && placeLat != 0) {
+            addPlaceMarker(placeLat, placeLon);
+        } else {
+            Toast.makeText(getApplicationContext(), "محل مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
+        }
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            } else {
+                flagPermission = true;
+            }
+        } else {
+            flagPermission = true;
+        }
+
+        if (flagPermission == true) {
+            locationListener = new MyLocationListener();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            Location location;
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null){
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+            if (location != null) {
+                currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                markCurrentLocatin();
+                if (currentLocation != null) {
+                    if (app.isInternetOn())
+                        drawRoute();
+                    else
+                        Toast.makeText(getApplicationContext(), "اتصال شما با اینترنت برقرار نیست", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+
+        imgZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (map.getZoomLevel() < 19) {
+                    mapController.zoomIn();
+                }
+
+            }
+        });
+
+        imgZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (map.getZoomLevel() > 4) {
+                    mapController.zoomOut();
+                }
+            }
+        });
+
+
+        imgMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentLocation != null) {
+                    mapController.setZoom(15);
+                    mapController.setCenter(currentLocation);
+                } else {
+                    Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        lytMapTools.startAnimation(mp);
+
     }
+
+    private void initView() {
+        map = (MapView) findViewById(R.id.map);
+        lytBack = (RelativeLayout) findViewById(R.id.lytBack);
+        lytMapTools = (LinearLayout) findViewById(R.id.lytMapTools);
+//        lytDetails = (LinearLayout) findViewById(R.id.lytDetails);
+//        txtName = (TextView) findViewById(R.id.txtName);
+//        txtAddress = (TextView) findViewById(R.id.txtAddress);
+//        imgDetails = (ImageView) findViewById(R.id.imgDetails);
+        imgMyLocation = (ImageView) findViewById(R.id.imgMyLocation);
+        imgZoomOut = (ImageView) findViewById(R.id.imgZoomOut);
+        imgZoomIn = (ImageView) findViewById(R.id.imgZoomIn);
+//        imgFilter = (ImageView) findViewById(R.id.imgFilter);
+//        imgSort = (ImageView) findViewById(R.id.imgSort);
+//        rating = findViewById(R.id.rating);
+    }
+
+    private void addPlaceMarker(double lat, double lon) {
+
+        items = new ArrayList<OverlayItem>();
+
+        GeoPoint placeLoc = new GeoPoint(lat, lon);
+        myLocationOverlayItem = new OverlayItem("" + placeName, "", placeLoc);
+
+        switch (placeMainType) {
+            case 1:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.restaurants);
+                break;
+            case 2:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.shopping);
+                break;
+            case 3:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.hotels);
+                break;
+            case 4:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.tourism);
+                break;
+            case 5:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.museums);
+                break;
+            case 6:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.transport);
+                break;
+            case 7:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.services);
+                break;
+            case 8:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.government);
+                break;
+            case 9:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.medical);
+                break;
+            case 10:
+                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.event);
+                break;
+        }
+
+
+        myLocationOverlayItem.setMarker(myCurrentLocationMarker);
+        items.add(myLocationOverlayItem);
+
+        locationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+
+
+                        return true;
+                    }
+
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                }, getApplicationContext());
+        map.getOverlays().add(this.locationOverlay);
+
+    }
+
+
+    public class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            currentLocation = new GeoPoint(location);
+
+            markCurrentLocatin();
+
+            if (currentLocation != null) {
+                drawRoute();
+            } else {
+                Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
+            }
+
+//            new Handler().postDelayed(new Runnable() {
+//
+//            /*
+//             * Showing splash screen with a timer. This will be useful when you
+//             * want to show case your app logo / company
+//             */
+//
+//                @Override
+//                public void run() {
+//
+//                    markCurrentLocatin();
+//
+//                }
+//            }, 1000);
+
+
+            //displayMyCurrentLocationOverlay();
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+    }
+
+    private void markCurrentLocatin() {
+
+
+        currentItems = new ArrayList<>();
+
+        try {
+            if (currentLocationOverlay != null)
+                if (currentLocationOverlay.size() > 0)
+                    currentLocationOverlay.removeAllItems();
+        } catch (Exception e) {
+
+        }
+
+
+        OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
+        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
+        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
+
+        currentItems.add(myLocationOverlayItemCurrent);
+
+        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(getApplicationContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                }, getApplicationContext());
+        map.getOverlays().add(this.currentLocationOverlay);
+
+
+    }
+
+    public void drawRoute() {
+
+
+        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+        GeoPoint startPoint = new GeoPoint(currentLocation.getLatitude(), currentLocation.getLongitude());
+        waypoints.add(startPoint);
+        GeoPoint endPoint = new GeoPoint(placeLat, placeLon);
+        waypoints.add(endPoint);
+
+
+        WebServiceCallBackRoute callBackRoute = new WebServiceCallBackRoute(getApplicationContext(), waypoints);
+        callBackRoute.execute();
+    }
+
+    private class WebServiceCallBackRoute extends AsyncTask<Object, Void, Void> {
+
+        RoadManager roadManager;
+        Road road;
+        Context context;
+        ArrayList<GeoPoint> waypoints;
+
+        public WebServiceCallBackRoute(Context context, ArrayList<GeoPoint> waypoints) {
+            this.context = context;
+            this.waypoints = waypoints;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            roadManager = new OSRMRoadManager(context);
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            road = roadManager.getRoad(waypoints);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+            map.getOverlays().add(roadOverlay);
+
+            Drawable nodeIcon = getResources().getDrawable(R.drawable.marker_node);
+            for (int i=0; i<road.mNodes.size(); i++){
+                RoadNode node = road.mNodes.get(i);
+                Marker nodeMarker = new Marker(map);
+                nodeMarker.setPosition(node.mLocation);
+                nodeMarker.setIcon(nodeIcon);
+                nodeMarker.setTitle("قدم "+i);
+                //nodeMarker.setSnippet(node.mInstructions);
+                nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
+                map.getOverlays().add(nodeMarker);
+            }
+
+            map.invalidate();
+
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+        } else
+            flagPermission = false;
+
+    }
+
+    public void onResume() {
+        super.onResume();
+        //this will refresh the osmdroid configuration on resuming.
+        //if you make changes to the configuration, use
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Configuration.getInstance().save(this, prefs);
+        Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+    }
+
 }

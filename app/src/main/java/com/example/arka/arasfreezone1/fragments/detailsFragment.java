@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.adapter.detailsSliderAdapter;
 import com.example.arka.arasfreezone1.adapter.facilityDialogAdapter;
 import com.example.arka.arasfreezone1.adapter.menuDialogAdapter;
@@ -164,6 +165,21 @@ public class detailsFragment extends Fragment {
                 ft.replace(R.id.container2, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
+            }
+        });
+
+        lytLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", placesModel.name);
+                iRouting.putExtra("PlaceLat", placesModel.lat);
+                iRouting.putExtra("PlaceLon", placesModel.lon);
+                iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceMainType", mainType);
+                startActivity(iRouting);
+
             }
         });
 

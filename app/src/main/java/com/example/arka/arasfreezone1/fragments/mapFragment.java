@@ -76,7 +76,7 @@ public class mapFragment extends Fragment {
     public MyLocationListener locationListener;
     public LocationManager locationManager;
     public boolean flagPermission = false;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MapActivity.class.getSimpleName();
     private RelativeLayout lytBack;
     private LinearLayout lytMapTools;
     ArrayList<OverlayItem> items = new ArrayList<>();
@@ -210,23 +210,23 @@ public class mapFragment extends Fragment {
 //
 //        items.add(myLocationOverlayItem);
 
-        locationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-
-                        Glide.with(getContext()).load(R.drawable.test2).into(imgDetails);
-                        lytDetails.setVisibility(View.VISIBLE);
-                        lytDetails.startAnimation(mp3);
-                        txtName.setText("نام مکان");
-                        txtAddress.setText("آدرس مکان");
-                        return true;
-                    }
-
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        return true;
-                    }
-                }, getContext());
-        map.getOverlays().add(this.locationOverlay);
+//        locationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
+//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+//
+//                        Glide.with(getContext()).load(R.drawable.test2).into(imgDetails);
+//                        lytDetails.setVisibility(View.VISIBLE);
+//                        lytDetails.startAnimation(mp3);
+//                        txtName.setText("نام مکان");
+//                        txtAddress.setText("آدرس مکان");
+//                        return true;
+//                    }
+//
+//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+//                        return true;
+//                    }
+//                }, getContext());
+//        map.getOverlays().add(this.locationOverlay);
 
 
         // current location ***********************************************************************************
@@ -245,7 +245,11 @@ public class mapFragment extends Fragment {
             locationListener = new MyLocationListener();
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location location;
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null){
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
             if (location != null) {
                 currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                 markCurrentLocatin();
@@ -281,8 +285,10 @@ public class mapFragment extends Fragment {
                 if (currentLocation != null) {
                     zoomLevel = 15;
                     mapController.setZoom(zoomLevel);
-                    mapController.zoomIn();
                     mapController.setCenter(currentLocation);
+                }
+                else {
+                    Toast.makeText(getContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -358,6 +364,10 @@ public class mapFragment extends Fragment {
         imgSort.startAnimation(mp2);
 
 
+        return view;
+    }
+
+    public void addEventListener(){
         //detect tap on map ********************************************************************************
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
@@ -376,9 +386,6 @@ public class mapFragment extends Fragment {
         };
         MapEventsOverlay OverlayEvents = new MapEventsOverlay(getContext(), mReceive);
         map.getOverlays().add(OverlayEvents);
-
-
-        return view;
     }
 
     public String getTblName(int type) {
@@ -507,7 +514,7 @@ public class mapFragment extends Fragment {
         currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(getContext(), "موقعیت من", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
                         return true;
                     }
 
@@ -877,6 +884,10 @@ public class mapFragment extends Fragment {
                             }
                         }
                     }
+                    else{
+                        Toast.makeText(getContext(), "لیست علاقه مندی ها خالی می باشد", Toast.LENGTH_LONG).show();
+                    }
+
 
                 }
 
@@ -965,6 +976,10 @@ public class mapFragment extends Fragment {
                     }
                 }, getContext());
         map.getOverlays().add(this.locationOverlay);
+
+
+        //detect tap on map
+        addEventListener();
 
     }
 

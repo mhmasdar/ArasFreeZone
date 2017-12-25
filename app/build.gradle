@@ -38,4 +38,5 @@ dependencies {
     compile 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
+    compile 'com.github.MKergall:osmbonuspack:6.4'
 }

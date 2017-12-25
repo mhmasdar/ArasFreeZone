@@ -1,9 +1,11 @@
 package com.example.arka.arasfreezone1;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -19,6 +21,8 @@ public class suggestionActivity extends AppCompatActivity {
     private EditText edtTitle;
     private EditText edtBody;
     private Button btnSendSuggestion;
+
+    Dialog dialog2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,13 @@ public class suggestionActivity extends AppCompatActivity {
 
             webService = new WebService();
 
+            dialog2 = new Dialog(suggestionActivity.this);
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_waiting);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
+
             name = edtName.getText().toString();
             title = edtTitle.getText().toString();
             body = edtBody.getText().toString();
@@ -88,6 +99,8 @@ public class suggestionActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            dialog2.dismiss();
 
             if (result != null) {
 

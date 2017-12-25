@@ -1311,7 +1311,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"name\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
+            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
             String response = connectToServerByJson(addr + "suggestion/add", "POST", req);
             Log.i("LOG", response + "");
 
@@ -1792,7 +1792,7 @@ public class WebService {
                         model.options = new ArrayList<>();
                         model.id = Object.getInt("idPackage");
                         model.idQuestion = Object.getInt("id");
-                        model.title = Object.getString("name");
+                        model.title = Object.getString("title");
                         model.question = Object.getString("question");
                         String options = Object.getString("options");
 
@@ -1869,7 +1869,7 @@ public class WebService {
                         model.options = new ArrayList<>();
                         model.id = Object.getInt("idPackage");
                         model.idQuestion = Object.getInt("id");
-                        model.title = Object.getString("name");
+                        model.title = Object.getString("title");
                         model.question = Object.getString("question");
                         model.res1 = Object.getInt("res1");
                         model.res2 = Object.getInt("res2");
