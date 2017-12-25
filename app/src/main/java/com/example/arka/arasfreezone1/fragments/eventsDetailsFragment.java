@@ -39,7 +39,7 @@ public class eventsDetailsFragment extends Fragment {
 
     TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo, txtLikeCount;
     Button btnCall, btnAddtoCalender;
-    ImageView imgBookmark, imgTitle;
+    ImageView imgBookmark, imgTitle, imgShare;
     private LikeButton btnLike;
 
     EventModel currentModel = new EventModel();
@@ -106,6 +106,17 @@ public class eventsDetailsFragment extends Fragment {
 
         btnAddtoCalender.setOnClickListener(btnCalenderClick);
 
+
+        imgShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, currentModel.name + "\n" + "http://arkatech.ir/");
+                startActivity(Intent.createChooser(share, "به اشتراک گذاری از طریق..."));
+            }
+        });
+
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +152,7 @@ public class eventsDetailsFragment extends Fragment {
         btnCall = view.findViewById(R.id.btnCall);
         imgBookmark = view.findViewById(R.id.imgBookmark);
         imgTitle = view.findViewById(R.id.imgTitle);
+        imgShare = view.findViewById(R.id.imgShare);
         btnLike = view.findViewById(R.id.btnLike);
         txtLikeCount = view.findViewById(R.id.txtLikeCount);
 

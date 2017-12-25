@@ -81,6 +81,15 @@ public class newsDetailsFragment extends Fragment {
         }
 
 
+        imgShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, title + "\n" + "http://arkatech.ir/");
+                startActivity(Intent.createChooser(share, "به اشتراک گذاری از طریق..."));
+            }
+        });
 
         lytNewsComments.setOnClickListener(new View.OnClickListener() {
             @Override

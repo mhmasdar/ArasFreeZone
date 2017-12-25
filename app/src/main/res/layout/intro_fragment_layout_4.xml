@@ -43,6 +43,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:text="هر کجا که خواستی بری، نزدیک ترین و آسون ترین مسیر بین خودت و مقصد رو پیدا کن و از رفتن به اونجا لذت ببر"

@@ -170,9 +170,6 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             txtType = (TextView) itemView.findViewById(R.id.txtType);
             rating = (RatingBar) itemView.findViewById(R.id.rating);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
-            Drawable drawable = rating.getProgressDrawable();
-            drawable.setColorFilter(Color.parseColor("#16a086"), PorterDuff.Mode.SRC_ATOP);
-
 
         }
 

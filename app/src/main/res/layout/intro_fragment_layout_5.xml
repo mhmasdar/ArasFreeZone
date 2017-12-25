@@ -43,6 +43,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:text="اگه به اینترنت دسترسی نداشته باشی مشکلی نیست! ما بدون اینترنت هم تا جایی که ممکنه همراهت هستیم تا از سفر تو منطقه آزاد ارس لذت ببری"

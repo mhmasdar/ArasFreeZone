@@ -43,6 +43,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:text="تمام مکان های دیدنی و گردشگری این منطقه به شما معرفی میشن. جاهایی که حداقل یک بار ارزش دیدن دارن :)"

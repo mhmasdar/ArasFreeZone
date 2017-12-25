@@ -370,6 +370,14 @@ public class newsListFragment extends Fragment {
 //        WebServiceCallBackList callBackList = new WebServiceCallBackList();
 //        callBackList.execute();
         //setUpRecyclerView(newsList);
+
+        boolean handler = new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                newsTabLayout.getTabAt(4).select();
+            }
+        }, 2);
+
         if (!firstTimeCheck) {
             lytLoading.setVisibility(View.GONE);
             lytMain.setVisibility(View.VISIBLE);

@@ -43,6 +43,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:text="میتونی بر اساس تجربیات دیگران، بهترین رستوران ها و هتل های منطقه رو پیدا کنی و یا تجربه خودت رو با دیگران به اشتراک بذاری"

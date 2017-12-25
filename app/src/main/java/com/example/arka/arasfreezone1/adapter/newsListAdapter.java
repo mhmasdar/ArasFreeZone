@@ -61,7 +61,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, final int position) {
 
         holder.setListeners();
         setAnimation(holder.itemView, position);
@@ -72,7 +72,10 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         holder.imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, newsList.get(position).Title + "\n" + "http://arkatech.ir/");
+                context.startActivity(Intent.createChooser(share, "به اشتراک گذاری از طریق..."));
             }
         });
 
