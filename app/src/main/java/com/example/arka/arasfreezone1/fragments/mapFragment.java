@@ -61,6 +61,9 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -104,6 +107,10 @@ public class mapFragment extends Fragment {
     private List<String> selectedFilters;
     private String selectedSort;
     private List<String> allSorts;
+
+    private SmoothProgressBar lytLoading;
+
+    private Dialog dialog2;
 
     public mapFragment() {
         // Required empty public constructor
@@ -185,9 +192,6 @@ public class mapFragment extends Fragment {
 
         DatabaseCallbackListAll databaseCallback = new DatabaseCallbackListAll(getContext());
         databaseCallback.execute();
-
-        DatabaseCallbackFavorite callbackFavorite = new DatabaseCallbackFavorite(getContext());
-        callbackFavorite.execute();
 
         // add marker with custom icon ****************************************************************************************
 
@@ -443,6 +447,7 @@ public class mapFragment extends Fragment {
         imgFilter = (ImageView) view.findViewById(R.id.imgFilter);
         imgSort = (ImageView) view.findViewById(R.id.imgSort);
         rating = view.findViewById(R.id.rating);
+        lytLoading = view.findViewById(R.id.lytLoading);
     }
 
     public void onResume() {
@@ -506,24 +511,27 @@ public class mapFragment extends Fragment {
 
 
         OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
-        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
-        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
 
-        currentItems.add(myLocationOverlayItemCurrent);
+        if (this.getView() != null) {
+            Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
+            myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
 
-        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(getContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
-                        return true;
-                    }
+            currentItems.add(myLocationOverlayItemCurrent);
 
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        return true;
-                    }
-                }, getContext());
-        map.getOverlays().add(this.currentLocationOverlay);
+            currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
+                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                        public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                            Toast.makeText(getContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
+                            return true;
+                        }
 
+                        public boolean onItemLongPress(final int index, final OverlayItem item) {
+                            return true;
+                        }
+                    }, getContext());
+            map.getOverlays().add(this.currentLocationOverlay);
+
+        }
 
     }
 
@@ -1028,7 +1036,18 @@ public class mapFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             placesList = new ArrayList<>();
+            favoriteList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
+
+//            dialog2 = new Dialog(getContext());
+//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog2.setContentView(R.layout.dialog_waiting);
+//            dialog2.setCancelable(false);
+//            dialog2.setCanceledOnTouchOutside(false);
+//            dialog2.show();
+
+            lytLoading.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -1046,46 +1065,7 @@ public class mapFragment extends Fragment {
             placesList.addAll(databaseHelper.selectAllPlacesToMap("Tbl_Medicals"));
             placesList.addAll(databaseHelper.selectAllPlacesToMap("Tbl_Events"));
 
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            if (placesList != null) {
-                filteredList = placesList;
-                if (placesList.size() > 0)
-                    addMarkersToMap(placesList);
-            }
-
-        }
-
-    }
-
-    public class DatabaseCallbackFavorite extends AsyncTask<Object, Void, Void> {
-
-
-        private DatabaseHelper databaseHelper;
-        private Context context;
-        private String tblName;
-
-        public DatabaseCallbackFavorite(Context context) {
-            this.context = context;
-            //this.tblName = tblName;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            favoriteList = new ArrayList<>();
-            databaseHelper = new DatabaseHelper(context);
-        }
-
-
-        @Override
-        protected Void doInBackground(Object... objects) {
 
             favoriteList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Eating"));
             favoriteList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Shoppings"));
@@ -1105,6 +1085,14 @@ public class mapFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            lytLoading.setVisibility(View.GONE);
+//            dialog2.dismiss();
+
+            if (placesList != null) {
+                filteredList = placesList;
+                if (placesList.size() > 0)
+                    addMarkersToMap(placesList);
+            }
 
         }
 

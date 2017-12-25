@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
 
         <android.support.v7.widget.Toolbar
@@ -20,27 +20,27 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="نقشه"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:layout_height="wrap_content" />
+                    android:textSize="15sp" />
 
                 <RelativeLayout
                     android:id="@+id/lytBack"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="?attr/selectableItemBackground"
                     android:padding="10dp">
 
                     <ImageView
                         android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back"
-                        android:layout_height="22dp" />
+                        android:src="@drawable/ic_back" />
 
                 </RelativeLayout>
 
@@ -51,159 +51,173 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <org.osmdroid.views.MapView android:id="@+id/map"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentRight="true"
-            android:layout_height="wrap_content">
+            <org.osmdroid.views.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/lytMapTools"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/map_tool_back"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_marginTop="8dp"
-                    android:padding="10dp"
-                    android:id="@+id/imgZoomIn"
-                    android:src="@drawable/ic_zoom_in"
-                    android:layout_height="40dp" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:id="@+id/imgZoomOut"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_zoom_out"
-                    android:layout_height="40dp" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:id="@+id/imgMyLocation"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_current"
-                    android:layout_height="40dp" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/map_tool_back"
-                android:id="@+id/imgFilter"
-                android:src="@drawable/ic_filter_white"
-                android:layout_height="40dp" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/map_tool_back"
-                android:id="@+id/imgSort"
-                android:src="@drawable/ic_sort_whtie"
-                android:layout_height="40dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:id="@+id/lytDetails"
-            android:visibility="gone"
-            android:background="@drawable/comments_items_back"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RatingBar
-                        android:layout_width="wrap_content"
-                        android:id="@+id/rating"
-                        android:numStars="5"
-                        android:stepSize="0.1"
-                        android:layout_marginRight="5dp"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/txtName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/mainBarText"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:id="@+id/lytMapTools"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="right|center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/txtAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="25dp"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:gravity="right"
-                        android:layout_gravity="right"
-                        android:textColor="@color/mainBarText"
-                        android:textSize="13sp"
-                        />
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/map_tool_back"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_map2" />
+                        android:id="@+id/imgZoomIn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_zoom_in" />
+
+                    <ImageView
+                        android:id="@+id/imgZoomOut"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_zoom_out" />
+
+                    <ImageView
+                        android:id="@+id/imgMyLocation"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_current" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/imgFilter"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/map_tool_back"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_filter_white" />
+
+                <ImageView
+                    android:id="@+id/imgSort"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_tool_back"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_sort_whtie" />
+
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:scaleType="fitXY"
-                android:id="@+id/imgDetails"
-                android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/lytDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/comments_items_back"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:visibility="gone">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
 
-    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:id="@+id/rating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:numStars="5"
+                            android:stepSize="0.1" />
+
+                        <TextView
+                            android:id="@+id/txtName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/mainBarText"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="5dp"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:textColor="@color/mainBarText"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_map2" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgDetails"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:id="@+id/lytLoading"
+            style="@style/GNowProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true"
+            android:visibility="invisible"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

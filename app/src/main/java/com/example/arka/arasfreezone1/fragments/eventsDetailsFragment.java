@@ -9,12 +9,15 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,7 @@ public class eventsDetailsFragment extends Fragment {
     Button btnCall, btnAddtoCalender;
     ImageView imgBookmark, imgTitle, imgShare;
     private LikeButton btnLike;
+    LinearLayout lytLocation;
 
     EventModel currentModel = new EventModel();
     private List<ImgModel> imgList;
@@ -54,6 +58,9 @@ public class eventsDetailsFragment extends Fragment {
     private int idUserLike = -1;
     private int idUser;
     private SharedPreferences prefs;
+
+    private boolean CanAddFavorite = true;
+    private boolean CanLike = true;
 
     public eventsDetailsFragment() {
         // Required empty public constructor
@@ -126,29 +133,27 @@ public class eventsDetailsFragment extends Fragment {
                         Intent intentCall = new Intent(Intent.ACTION_DIAL);
                         intentCall.setData(Uri.fromParts("tel", currentModel.phone, null));
                         startActivity(intentCall);
-                    }
-                    else
+                    } else
                         Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
-                }
-                else
+                } else
                     Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
         });
 
-//        lytLocation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
-//                iRouting.putExtra("PlaceName", placesModel.name);
-//                iRouting.putExtra("PlaceLat", placesModel.lat);
-//                iRouting.putExtra("PlaceLon", placesModel.lon);
-//                iRouting.putExtra("PlaceType", placesModel.type);
-//                iRouting.putExtra("PlaceMainType", mainType);
-//                startActivity(iRouting);
-//
-//            }
-//        });
+        lytLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", currentModel.name);
+                iRouting.putExtra("PlaceLat", currentModel.lat);
+                iRouting.putExtra("PlaceLon", currentModel.lon);
+                iRouting.putExtra("PlaceType", "");
+                iRouting.putExtra("PlaceMainType", 10);
+                startActivity(iRouting);
+
+            }
+        });
 
         imgBookmark.setOnClickListener(imgBookmarkClick);
 
@@ -157,7 +162,7 @@ public class eventsDetailsFragment extends Fragment {
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
 
         txtTitle = view.findViewById(R.id.txtTitle);
         txtStartDate = view.findViewById(R.id.txtStartDate);
@@ -171,14 +176,15 @@ public class eventsDetailsFragment extends Fragment {
         imgShare = view.findViewById(R.id.imgShare);
         btnLike = view.findViewById(R.id.btnLike);
         txtLikeCount = view.findViewById(R.id.txtLikeCount);
+        lytLocation = view.findViewById(R.id.lytLocation);
 
     }
 
-    private void setViews(){
+    private void setViews() {
 
         txtTitle.setText(currentModel.name);
         txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
-        txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
+        txtEndtDate.setText(app.changeDateToString(currentModel.endDate) + " ساعت " + currentModel.endTime);
         txtAddress.setText(currentModel.name);
         txtInfo.setText(currentModel.name);
 
@@ -188,13 +194,13 @@ public class eventsDetailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            String yearStart = String.valueOf(currentModel.startDate).substring(0,4);
-            String monthStart = String.valueOf(currentModel.startDate).substring(4,6);
-            String dayStart = String.valueOf(currentModel.startDate).substring(6,8);
+            String yearStart = String.valueOf(currentModel.startDate).substring(0, 4);
+            String monthStart = String.valueOf(currentModel.startDate).substring(4, 6);
+            String dayStart = String.valueOf(currentModel.startDate).substring(6, 8);
 
-            String yearEnd = String.valueOf(currentModel.endDate).substring(0,4);
-            String monthEnd = String.valueOf(currentModel.endDate).substring(4,6);
-            String dayEnd = String.valueOf(currentModel.endDate).substring(6,8);
+            String yearEnd = String.valueOf(currentModel.endDate).substring(0, 4);
+            String monthEnd = String.valueOf(currentModel.endDate).substring(4, 6);
+            String dayEnd = String.valueOf(currentModel.endDate).substring(6, 8);
 
             String gregorianDate;
 
@@ -229,51 +235,85 @@ public class eventsDetailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            if (idUser > 0) {
+            if (CanAddFavorite) {
 
-                if (idUserFavorite > 0) {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
-                    WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
-                    favoriteDelete.execute();
+                if (idUser > 0) {
 
+                    CanAddFavorite = false;
+
+                    if (idUserFavorite > 0) {
+                        imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                        WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
+                        favoriteDelete.execute();
+
+                    } else {
+                        imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                        WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
+                        webServiceCallBackFavoriteAdd.execute();
+                    }
                 } else {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-                    WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
-                    webServiceCallBackFavoriteAdd.execute();
+                    Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("ثبت نام", new registerAction());
+
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                    snackbar.show();
                 }
-            }
-            else{
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
             }
 
         }
     };
 
+    public class registerAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            Intent i = new Intent(getActivity(), loginActivity.class);
+            startActivity(i);
+        }
+    }
+
     View.OnClickListener btnLikeClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            if (idUser > 0) {
+            if (CanLike) {
 
-                if (idUserLike > 0) {
-                    btnLike.setLiked(false);
-                    currentModel.likeCount--;
-                    txtLikeCount.setText(currentModel.likeCount + "");
-                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
-                    likeDelete.execute();
+                if (idUser > 0) {
 
-                } else if (idUserLike < 1){
-                    btnLike.setLiked(true);
-                    currentModel.likeCount ++;
-                    txtLikeCount.setText(currentModel.likeCount + "");
-                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
-                    webServiceCallLikeAdd.execute();
+                    CanLike = false;
+
+                    if (idUserLike > 0) {
+                        btnLike.setLiked(false);
+                        currentModel.likeCount--;
+                        txtLikeCount.setText(currentModel.likeCount + "");
+                        WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                        likeDelete.execute();
+
+                    } else if (idUserLike < 1) {
+                        btnLike.setLiked(true);
+                        currentModel.likeCount++;
+                        txtLikeCount.setText(currentModel.likeCount + "");
+                        WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                        webServiceCallLikeAdd.execute();
+                    }
+                } else {
+                    Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("ثبت نام", new registerAction());
+
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                    snackbar.show();
                 }
-            }
-            else{
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
             }
 
         }
@@ -320,10 +360,10 @@ public class eventsDetailsFragment extends Fragment {
 
             txtTitle.setText(currentModel.name);
             txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
-            txtEndtDate.setText(app.changeDateToString(currentModel.endDate )+ " ساعت " + currentModel.endTime);
+            txtEndtDate.setText(app.changeDateToString(currentModel.endDate) + " ساعت " + currentModel.endTime);
             txtAddress.setText(currentModel.name);
             txtInfo.setText(currentModel.name);
-            txtLikeCount.setText(currentModel.likeCount+ "");
+            txtLikeCount.setText(currentModel.likeCount + "");
 
         }
 
@@ -358,8 +398,7 @@ public class eventsDetailsFragment extends Fragment {
                     idUserFavorite = Integer.parseInt(result);
                     DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, Integer.parseInt(result));
                     favoriteUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
                     imgBookmark.setImageResource(R.drawable.ic_bookmark1);
                 }
@@ -368,6 +407,8 @@ public class eventsDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
+
+            CanAddFavorite = true;
 
         }
 
@@ -402,8 +443,7 @@ public class eventsDetailsFragment extends Fragment {
                     idUserFavorite = -1;
                     DatabaseCallUpdateFavorite favoriteUpdate = new DatabaseCallUpdateFavorite(getContext(), tblName, id, -1);
                     favoriteUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "حذف علاقه مندی نا موفق", Toast.LENGTH_LONG).show();
                     imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
                 }
@@ -412,6 +452,8 @@ public class eventsDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
             }
+
+            CanAddFavorite = true;
 
         }
 
@@ -451,10 +493,9 @@ public class eventsDetailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserFavorite > 0){
+            if (idUserFavorite > 0) {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-            }
-            else{
+            } else {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
@@ -498,18 +539,16 @@ public class eventsDetailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (idUserFavorite > 0){
+            if (idUserFavorite > 0) {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-            }
-            else{
+            } else {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
-            if (idUserLike > 0){
+            if (idUserLike > 0) {
                 btnLike.setLiked(true);
 
-            }
-            else{
+            } else {
                 btnLike.setLiked(false);
             }
 
@@ -556,20 +595,20 @@ public class eventsDetailsFragment extends Fragment {
                     idUserLike = -1;
                     DatabaseCallUpdateLike LikeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, -1);
                     LikeUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(true);
-                    currentModel.likeCount ++;
+                    currentModel.likeCount++;
                     txtLikeCount.setText(currentModel.likeCount + "");
                 }
 
             } else {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 btnLike.setLiked(true);
-                currentModel.likeCount ++;
+                currentModel.likeCount++;
                 txtLikeCount.setText(currentModel.likeCount + "");
             }
+            CanLike = true;
 
         }
 
@@ -651,8 +690,7 @@ public class eventsDetailsFragment extends Fragment {
                     idUserLike = Integer.parseInt(result);
                     DatabaseCallUpdateLike likeUpdate = new DatabaseCallUpdateLike(getContext(), tblName, id, Integer.parseInt(result));
                     likeUpdate.execute();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     btnLike.setLiked(false);
                     currentModel.likeCount--;
@@ -665,6 +703,8 @@ public class eventsDetailsFragment extends Fragment {
                 currentModel.likeCount--;
                 txtLikeCount.setText(currentModel.likeCount + "");
             }
+
+            CanLike = true;
 
         }
 

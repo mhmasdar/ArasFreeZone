@@ -10,12 +10,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +117,9 @@ public class detailsFragment extends Fragment {
     RatingBar rating_dialog;
     Dialog dialog;
     CircularProgressBar progressBar;
+
+    private boolean CanLike = true;
+    private boolean CanAddFavorite = true;
 
     public detailsFragment() {
         // Required empty public constructor
@@ -380,8 +385,19 @@ public class detailsFragment extends Fragment {
                     webServiceCallRateAdd.execute();
 
                 } else {
-                    Intent i = new Intent(getActivity(), loginActivity.class);
-                    startActivity(i);
+
+                    dialog.dismiss();
+
+                    Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("ثبت نام", new registerAction());
+
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                    snackbar.show();
                 }
 
             }
@@ -389,6 +405,16 @@ public class detailsFragment extends Fragment {
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+    }
+
+    public class registerAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            Intent i = new Intent(getActivity(), loginActivity.class);
+            startActivity(i);
+        }
     }
 
     private void initView(View view) {
@@ -410,7 +436,6 @@ public class detailsFragment extends Fragment {
         lytWebsite = (LinearLayout) view.findViewById(R.id.lytWebsite);
         lytOptions = (LinearLayout) view.findViewById(R.id.lytOptions);
         lytComments = (LinearLayout) view.findViewById(R.id.lytComments);
-        lytRouting = (LinearLayout) view.findViewById(R.id.lytRouting);
         txtDay = view.findViewById(R.id.txtDay);
         txtHour = view.findViewById(R.id.txtHour);
         txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
@@ -465,22 +490,35 @@ public class detailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            if (idUser > 0) {
+           if (CanAddFavorite) {
 
-                if (idUserFavorite > 0) {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1);
-                    WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
-                    favoriteDelete.execute();
+               if (idUser > 0) {
 
-                } else {
-                    imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-                    WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
-                    webServiceCallBackFavoriteAdd.execute();
-                }
-            } else {
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
-            }
+                   CanAddFavorite = false;
+
+                   if (idUserFavorite > 0) {
+                       imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                       WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
+                       favoriteDelete.execute();
+
+                   } else {
+                       imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                       WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
+                       webServiceCallBackFavoriteAdd.execute();
+                   }
+               } else {
+                   Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                   snackbar.setAction("ثبت نام", new registerAction());
+
+                   Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                   TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                   LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                   textView.setLayoutParams(parms);
+                   textView.setGravity(Gravity.LEFT);
+                   snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                   snackbar.show();
+               }
+           }
 
         }
     };
@@ -489,33 +527,45 @@ public class detailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            if (idUser > 0) {
+            if (CanLike) {
 
-                if (idUserLike > 0) {
-                    btnLike.setLiked(false);
-                    placesModel.likeCount--;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
-                    likeDelete.execute();
+                if (idUser > 0) {
 
-                } else if (idUserRate > 0 && idUserLike < 1) {
-                    btnLike.setLiked(true);
-                    placesModel.likeCount++;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
-                    webServiceCallLikeAdd.execute();
-                } else if (idUserRate < 1 && idUserLike < 1) {
-                    btnLike.setLiked(true);
-                    placesModel.likeCount++;
-                    txtLikeCount.setText(placesModel.likeCount + "");
-                    WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
-                    webServiceCallLikeAdd.execute();
+                    CanLike = false;
+
+                    if (idUserLike > 0) {
+                        btnLike.setLiked(false);
+                        placesModel.likeCount--;
+                        txtLikeCount.setText(placesModel.likeCount + "");
+                        WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                        likeDelete.execute();
+
+                    } else if (idUserRate > 0 && idUserLike < 1) {
+                        btnLike.setLiked(true);
+                        placesModel.likeCount++;
+                        txtLikeCount.setText(placesModel.likeCount + "");
+                        WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                        webServiceCallLikeAdd.execute();
+                    } else if (idUserRate < 1 && idUserLike < 1) {
+                        btnLike.setLiked(true);
+                        placesModel.likeCount++;
+                        txtLikeCount.setText(placesModel.likeCount + "");
+                        WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                        webServiceCallLikeAdd.execute();
+                    }
+                } else {
+                    Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("ثبت نام", new registerAction());
+
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                    snackbar.show();
                 }
-            } else {
-                Intent i = new Intent(getActivity(), loginActivity.class);
-                startActivity(i);
             }
-
         }
     };
 
@@ -624,7 +674,7 @@ public class detailsFragment extends Fragment {
             txtLikeCount.setText(placesModel.likeCount + "");
             txtAddress.setText("آدرس: " + placesModel.address);
 
-            if(!placesModel.info.equals("null"))
+            if (!placesModel.info.equals("null"))
                 txtInfo.setText(placesModel.info);
             txtName.setText(placesModel.name);
 
@@ -975,8 +1025,7 @@ public class detailsFragment extends Fragment {
                 if (facilityList.size() > 0) {
                     setUpRecyclerViewFacilities(facilityList);
                     recyclerFacility.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     //Toast.makeText(getContext(), "موردی وجود ندارد", Toast.LENGTH_LONG).show();
                     lytEmptyF.setVisibility(View.VISIBLE);
                 }
@@ -1028,6 +1077,8 @@ public class detailsFragment extends Fragment {
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1);
             }
 
+            CanAddFavorite = true;
+
         }
 
     }
@@ -1070,6 +1121,8 @@ public class detailsFragment extends Fragment {
                 Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
             }
+
+            CanAddFavorite = true;
 
         }
 
@@ -1125,6 +1178,8 @@ public class detailsFragment extends Fragment {
                 placesModel.likeCount--;
                 txtLikeCount.setText(placesModel.likeCount + "");
             }
+
+            CanLike = true;
 
         }
 
@@ -1182,6 +1237,8 @@ public class detailsFragment extends Fragment {
                 placesModel.likeCount++;
                 txtLikeCount.setText(placesModel.likeCount + "");
             }
+
+            CanLike = true;
 
         }
 

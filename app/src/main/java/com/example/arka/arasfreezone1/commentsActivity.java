@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +47,8 @@ public class commentsActivity extends AppCompatActivity {
     private int mainType;
     private int idRow;
 
+    private boolean canSend = true;
+
     SharedPreferences prefs;
 
     @Override
@@ -75,24 +80,46 @@ public class commentsActivity extends AppCompatActivity {
                 prefs = getSharedPreferences("MYPREFS", 0);
                 int idUser = prefs.getInt("UserId", -1);
 
-                if (idUser > 0){
-                    if (!edtComment.getText().toString().equals("")){
-                        WebServiceCallBackAdd callBackAdd = new WebServiceCallBackAdd(idUser);
-                        callBackAdd.execute();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "لطفا متن پیام را وارد کنید", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else{
-                    Intent i = new Intent(commentsActivity.this, loginActivity.class);
-                    startActivity(i);
-                    overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
-                }
+                if (canSend) {
 
+                    if (idUser > 0) {
+                        canSend = false;
+                        if (!edtComment.getText().toString().equals("")) {
+                            WebServiceCallBackAdd callBackAdd = new WebServiceCallBackAdd(idUser);
+                            callBackAdd.execute();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "لطفا متن پیام را وارد کنید", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+
+                        Snackbar snackbar = Snackbar.make(lytMain, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                        snackbar.setAction("ثبت نام", new registerAction());
+
+                        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                        TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                        textView.setLayoutParams(parms);
+                        textView.setGravity(Gravity.LEFT);
+                        snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                        snackbar.show();
+
+                    }
+                }
 
             }
         });
+    }
+
+    public class registerAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            // Code to undo the user's last action
+            Intent i = new Intent(commentsActivity.this, loginActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_exit);
+        }
     }
 
     private void initView() {
@@ -223,6 +250,8 @@ public class commentsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
 
             }
+
+            canSend = true;
 
         }
 

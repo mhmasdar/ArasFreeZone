@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,10 +163,29 @@ public class newsDetailsFragment extends Fragment {
 
         }
         else{
+
+            Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+            snackbar.setAction("ثبت نام", new registerAction());
+
+            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+            TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+            textView.setLayoutParams(parms);
+            textView.setGravity(Gravity.LEFT);
+            snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+            snackbar.show();
+        }
+
+    }
+
+    public class registerAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
             Intent i = new Intent(getContext(), loginActivity.class);
             startActivity(i);
         }
-
     }
 
 

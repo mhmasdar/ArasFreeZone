@@ -48,6 +48,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 public class RoutingActivity extends AppCompatActivity {
 
 
@@ -71,7 +73,7 @@ public class RoutingActivity extends AppCompatActivity {
     private Dialog filterDialog, sortDialog;
     private Animation mp, mp2, mp3;
     RatingBar rating;
-
+    private SmoothProgressBar lytLoading;
 
     IMapController mapController;
     OverlayItem myLocationOverlayItem;
@@ -146,6 +148,9 @@ public class RoutingActivity extends AppCompatActivity {
         if (flagPermission == true) {
             locationListener = new MyLocationListener();
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager == null){
+                Toast.makeText(getApplicationContext(), "GPS" + " دستگاه خاموش است", Toast.LENGTH_LONG).show();
+            }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             Location location;
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -163,6 +168,9 @@ public class RoutingActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
                 }
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -217,6 +225,7 @@ public class RoutingActivity extends AppCompatActivity {
         imgMyLocation = (ImageView) findViewById(R.id.imgMyLocation);
         imgZoomOut = (ImageView) findViewById(R.id.imgZoomOut);
         imgZoomIn = (ImageView) findViewById(R.id.imgZoomIn);
+        lytLoading = findViewById(R.id.lytLoading);
 //        imgFilter = (ImageView) findViewById(R.id.imgFilter);
 //        imgSort = (ImageView) findViewById(R.id.imgSort);
 //        rating = findViewById(R.id.rating);
@@ -390,6 +399,7 @@ public class RoutingActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            lytLoading.setVisibility(View.VISIBLE);
             roadManager = new OSRMRoadManager(context);
         }
 
@@ -421,6 +431,8 @@ public class RoutingActivity extends AppCompatActivity {
             }
 
             map.invalidate();
+
+            lytLoading.setVisibility(View.GONE);
 
         }
 

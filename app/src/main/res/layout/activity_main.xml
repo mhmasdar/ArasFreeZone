@@ -8,6 +8,7 @@
     tools:context="com.example.arka.arasfreezone1.MainActivity">
 
     <LinearLayout
+        android:id="@+id/lytMainMain"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
