@@ -55,6 +55,12 @@ public class HomeFragment extends Fragment {
     private TextView txtNimeShab;
     private Button btnCancel;
 
+
+
+    LinearLayout lytLoading, lytMain, lytDisconnect;
+
+    private ReligiousTimesModel timesModel;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -117,7 +123,6 @@ public class HomeFragment extends Fragment {
         private WeatherService weatherService;
         private WeatherModel weatherModel;
         private WebService webService;
-        private ReligiousTimesModel timesModel;
 
         @Override
         protected void onPreExecute() {
@@ -263,6 +268,26 @@ public class HomeFragment extends Fragment {
         txtMaghreb = (TextView) dialog.findViewById(R.id.txtMaghreb);
         txtNimeShab = (TextView) dialog.findViewById(R.id.txtNimeShab);
         btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+        lytDisconnect = dialog.findViewById(R.id.lytDisconnect);
+        lytMain = dialog.findViewById(R.id.lytMain);
+        lytLoading = dialog.findViewById(R.id.lytLoading);
+
+
+        if (timesModel != null){
+
+            txtSobh.setText(timesModel.Imsaak);
+            txttolo.setText(timesModel.Sunrise);
+            txtZohr.setText(timesModel.Noon);
+            txtGhorob.setText(timesModel.Sunset);
+            txtMaghreb.setText(timesModel.Maghreb);
+            txtNimeShab.setText(timesModel.Midnight);
+
+
+        }
+        else{
+            lytDisconnect.setVisibility(View.VISIBLE);
+            lytMain.setVisibility(View.GONE);
+        }
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

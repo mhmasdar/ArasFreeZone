@@ -269,7 +269,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
                 pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
-                pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+                pm.phone = cursor.getString(cursor.getColumnIndex("tel"));
                 pm.info = cursor.getString(cursor.getColumnIndex("Info"));
                 pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
 //                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));

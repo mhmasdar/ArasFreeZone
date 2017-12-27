@@ -165,7 +165,7 @@ public class mapFragment extends Fragment {
         map.setMultiTouchControls(true);
 
         mapController = map.getController();
-        mapController.setZoom(13);
+        mapController.setZoom(12);
         GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
         GeoPoint startPoint = new GeoPoint(38.937267, 45.627604);
 //        GeoPoint startPoint2 = new GeoPoint(38.9939216, 45.8146334);

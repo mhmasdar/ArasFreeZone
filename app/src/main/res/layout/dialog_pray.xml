@@ -1,150 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="250dp"
+    android:layout_height="match_parent"
     android:background="@color/darkWhite"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:text="اوقات شرعی به افق جلفا"
-        android:gravity="center"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:textColor="@color/white"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:layout_height="wrap_content" />
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="اوقات شرعی به افق جلفا"
+        android:textColor="@color/white" />
 
     <LinearLayout
+        android:id="@+id/lytMain"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:id="@+id/txtSobh"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="اذان صبح "
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtSobh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اذان صبح " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txttolo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="طلوع آفتاب " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txtZohr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اذان ظهر" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txtGhorob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="غروب آفتاب" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txtMaghreb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اذان مغرب" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txtNimeShab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نیمه شب شرعی" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:paddingRight="20dp"
-    android:paddingLeft="20dp"
-    android:gravity="right"
-    android:layout_marginTop="20dp"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginRight="15dp"
-        android:id="@+id/txttolo"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="طلوع آفتاب "
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/lytLoading"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:id="@+id/txtZohr"
-            android:layout_height="wrap_content" />
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:indeterminate="true"
+            app:cpb_colors="@array/arr"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_stroke_width="5dp"
+            app:cpb_sweep_speed="1.0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="اذان ظهر"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lytDisconnect"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="30dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="30dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_sad" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:id="@+id/txtGhorob"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="مشکل در ارتباط با اینترنت"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="غروب آفتاب"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:id="@+id/txtMaghreb"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="اذان مغرب"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:id="@+id/txtNimeShab"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="نیمه شب شرعی"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="اتصال به اینترنت را بررسی کرده و دوباره تلاش کنید"
+            android:textColor="@color/itmesText"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -152,9 +218,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:paddingBottom="20dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
 
         <Button
             android:id="@+id/btnCancel"
@@ -167,11 +233,12 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="بستن"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
+
 
 </LinearLayout>

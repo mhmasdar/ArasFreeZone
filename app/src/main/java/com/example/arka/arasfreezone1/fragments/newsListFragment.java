@@ -1,7 +1,9 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
+import static com.example.arka.arasfreezone1.app.context;
 
 
 /**
@@ -64,6 +69,8 @@ public class newsListFragment extends Fragment {
     List<NewsModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
 
+    LinearLayoutManager mLinearLayoutManagerVertical;
+
     public boolean firstTimeCheck = true;
 
     public newsListFragment() {
@@ -78,6 +85,7 @@ public class newsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         initView(view);
         app.check = 2;
+
 
         if (newsList.size() < 1) {
             WebServiceCallBackList callBackList = new WebServiceCallBackList();
@@ -108,8 +116,6 @@ public class newsListFragment extends Fragment {
         newsTabLayout.addTab(newsTabLayout.newTab().setText("همه اخبار"));
 
 
-
-
         totalTabsCount = newsTabLayout.getTabCount();
 //        referendimViewPager adapter = new referendimViewPager (getActivity().getSupportFragmentManager());
 //        newsPager.setAdapter(adapter);
@@ -120,18 +126,19 @@ public class newsListFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 //                newsPager.setCurrentItem(tab.getPosition());
+
+                //newsListAdapter.selectedPosition = 0;
                 filteredList = new ArrayList<>();
 
-                if (tab.getPosition() == totalTabsCount - 1){
-                    setUpRecyclerView(newsList,false);
-                }
-                else {
+                if (tab.getPosition() == totalTabsCount - 1) {
+                    setUpRecyclerView(newsList, false);
+                } else {
 
                     for (int i = 0; i < newsList.size(); i++) {
                         if (newsList.get(i).Type == totalTabsCount - (tab.getPosition() + 1))
                             filteredList.add(newsList.get(i));
                     }
-                    setUpRecyclerView(filteredList,true);
+                    setUpRecyclerView(filteredList, true);
                 }
             }
 
@@ -252,6 +259,10 @@ public class newsListFragment extends Fragment {
             }
         });
 
+
+
+
+
         return view;
     }
 
@@ -293,9 +304,20 @@ public class newsListFragment extends Fragment {
         newsListAdapter adapter = new newsListAdapter(getContext(), list, searchFlag);
         rc.setAdapter(adapter);
 
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
+        mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         rc.setLayoutManager(mLinearLayoutManagerVertical);
+
+
+//        // Define the Index we wish to scroll to.
+//        final int lIndex = 0;
+//// Assign the RecyclerView's LayoutManager.
+//        this.rc.setLayoutManager(mLinearLayoutManagerVertical);
+//// Scroll the RecyclerView to the Index.
+//        mLinearLayoutManagerVertical.smoothScrollToPosition(this.rc, new RecyclerView.State(), newsListAdapter.selectedPosition);
+//
+
+
     }
 
     private class WebServiceCallBackList extends AsyncTask<Object, Void, Void> {
@@ -380,8 +402,7 @@ public class newsListFragment extends Fragment {
         if (!firstTimeCheck) {
             lytLoading.setVisibility(View.GONE);
             lytMain.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             firstTimeCheck = false;
         }
     }

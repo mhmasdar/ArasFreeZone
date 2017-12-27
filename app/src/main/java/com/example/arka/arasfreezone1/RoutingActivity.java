@@ -84,6 +84,7 @@ public class RoutingActivity extends AppCompatActivity {
     Drawable myCurrentLocationMarker;
     Polyline roadOverlay;
     Marker nodeMarker;
+    RoadNode PreviousNode;
 
     private double placeLat, placeLon;
     private String placeName = "";
@@ -374,24 +375,20 @@ public class RoutingActivity extends AppCompatActivity {
 //        map.getOverlays().add(this.currentLocationOverlay);
 
 
-
-        Drawable userIcon = getResources().getDrawable(R.drawable.marker_user);
-
+        Drawable userIcon = getResources().getDrawable(R.drawable.marker_car);
 
 
         Marker m = new Marker(map);
         m.setPosition(currentLocation);
         m.setIcon(userIcon);
-        //m.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), placeLat, placeLon));
+        if (currentLocation != null && PreviousNode != null)
+            if (PreviousNode.mLocation != null)
+                m.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), PreviousNode.mLocation.getLatitude(), PreviousNode.mLocation.getLongitude()));
 
         map.getOverlays().add(m);
 
 
-
-
     }
-
-
 
 
     private double bearingBetweenLocations(double l1, double o1, double l2, double o2) {
@@ -415,8 +412,6 @@ public class RoutingActivity extends AppCompatActivity {
 
         return brng;
     }
-
-
 
 
     public void drawRoute() {
@@ -450,6 +445,7 @@ public class RoutingActivity extends AppCompatActivity {
             super.onPreExecute();
             lytLoading.setVisibility(View.VISIBLE);
             roadManager = new OSRMRoadManager(context);
+            PreviousNode = new RoadNode();
         }
 
         @Override
@@ -465,17 +461,16 @@ public class RoutingActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-
-
-            if (currentLocation != null){
-                if (placeLon != 0 && placeLat != 0){
-                    if (road != null){
+            if (currentLocation != null) {
+                if (placeLon != 0 && placeLat != 0) {
+                    if (road != null) {
+                        PreviousNode = road.mNodes.get(0);
                         map.getOverlays().clear();
                         markCurrentLocatin();
                         addPlaceMarker(placeLat, placeLon);
 
                         roadOverlay = RoadManager.buildRoadOverlay(road);
-                        roadOverlay.setWidth(10);
+                        roadOverlay.setWidth(12);
                         map.getOverlays().add(roadOverlay);
 
                         Drawable nodeIcon = getResources().getDrawable(R.drawable.marker_node);
@@ -498,9 +493,6 @@ public class RoutingActivity extends AppCompatActivity {
 
                 }
             }
-
-
-
 
 
         }

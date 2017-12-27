@@ -246,10 +246,17 @@ public class officesFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if (placesList != null)
-                if (placesList.size() > 0)
-                    setUpRecyclerView(placesList);
+            if (placesList != null) {
+                if (placesList.size() > 0) {
 
+                    for (int i = 0; i < placesList.size(); i++){
+                        if (placesList.get(i).type == 6)
+                            placesList.remove(i);
+                    }
+
+                    setUpRecyclerView(placesList);
+                }
+            }
         }
 
     }
