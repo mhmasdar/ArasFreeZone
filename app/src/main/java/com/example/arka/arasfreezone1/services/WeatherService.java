@@ -59,7 +59,9 @@ public class WeatherService {
                 DateFormat df = DateFormat.getDateTimeInstance();
                 weatherModel.city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                 weatherModel.description = details.getString("description").toUpperCase(Locale.US);
-                weatherModel.temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
+                weatherModel.temperature = String.format("%.2f", main.getDouble("temp"));
+                int dot = weatherModel.temperature.indexOf(".");
+                weatherModel.temperature = weatherModel.temperature.substring(0 , dot)+ "°";
                 weatherModel.humidity = main.getString("humidity") + "%";
                 weatherModel.pressure = main.getString("pressure") + " hPa";
                 weatherModel.updatedOn = df.format(new Date(json.getLong("dt")*1000));

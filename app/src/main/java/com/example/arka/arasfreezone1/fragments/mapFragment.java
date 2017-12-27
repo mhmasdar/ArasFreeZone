@@ -44,6 +44,7 @@ import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.MapModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
+import com.example.arka.arasfreezone1.navigationDrawerActivity;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -79,7 +80,7 @@ public class mapFragment extends Fragment {
     public LocationManager locationManager;
     public boolean flagPermission = false;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private RelativeLayout lytBack;
+    private RelativeLayout lytMenu;
     private LinearLayout lytMapTools;
     ArrayList<OverlayItem> items = new ArrayList<>();
     ArrayList<OverlayItem> currentItems;
@@ -150,10 +151,12 @@ public class mapFragment extends Fragment {
         mp4 = AnimationUtils.loadAnimation(getContext(), R.anim.map_tool3);
         mp3 = AnimationUtils.loadAnimation(getContext(), R.anim.splash0);
 
-        lytBack.setOnClickListener(new View.OnClickListener() {
+        lytMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
+                Intent mapIntent = new Intent(getActivity(), navigationDrawerActivity.class);
+                startActivity(mapIntent);
+                getActivity().overridePendingTransition(R.anim.bottom_to_top, R.anim.stay);
             }
         });
 
@@ -442,7 +445,7 @@ public class mapFragment extends Fragment {
 
     private void initView(View view) {
         map = (MapView) view.findViewById(R.id.map);
-        lytBack = (RelativeLayout) view.findViewById(R.id.lytBack);
+        lytMenu = (RelativeLayout) view.findViewById(R.id.lytMenu);
         lytMapTools = (LinearLayout) view.findViewById(R.id.lytMapTools);
         lytDetails = (LinearLayout) view.findViewById(R.id.lytDetails);
         txtName = (TextView) view.findViewById(R.id.txtName);

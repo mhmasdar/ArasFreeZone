@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +13,9 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +28,6 @@ import com.example.arka.arasfreezone1.services.WeatherService;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
@@ -38,11 +41,19 @@ public class HomeFragment extends Fragment {
     private ViewPagerCustomDuration mPager;
     private static int currentPage = 0;
     private RelativeLayout relative_Menu;
-    TextView cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
+    private LinearLayout lytWeather;
+    TextView cityField, txtPray, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     private boolean checkWeather = true;
     private CirclePageIndicator indicator;
-
+    private Dialog dialog;
     private List<HomePageModel> homePageModelList;
+    private TextView txtSobh;
+    private TextView txttolo;
+    private TextView txtZohr;
+    private TextView txtGhorob;
+    private TextView txtMaghreb;
+    private TextView txtNimeShab;
+    private Button btnCancel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,10 +65,13 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        currentTemperatureField = (TextView)view.findViewById(R.id.current_temperature_field);
-        humidity_field = (TextView)view.findViewById(R.id.humidity_field);
-        weatherIcon = (TextView)view.findViewById(R.id.weather_icon);
+        initView();
+        currentTemperatureField = (TextView) view.findViewById(R.id.current_temperature_field);
+        humidity_field = (TextView) view.findViewById(R.id.humidity_field);
+        weatherIcon = (TextView) view.findViewById(R.id.weather_icon);
+        txtPray = (TextView) view.findViewById(R.id.txtPray);
         relative_Menu = (RelativeLayout) view.findViewById(R.id.relative_Menu);
+        lytWeather = (LinearLayout) view.findViewById(R.id.lytWeather);
         mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
@@ -66,6 +80,13 @@ public class HomeFragment extends Fragment {
 
         //initSlider();
 
+
+        txtPray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPrayDialog();
+            }
+        });
 
         if (checkWeather && app.isInternetOn()) {
             WeatherServiceCallBack WcallBack = new WeatherServiceCallBack();
@@ -84,6 +105,10 @@ public class HomeFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void initView() {
+
     }
 
 
@@ -116,9 +141,10 @@ public class HomeFragment extends Fragment {
             //set weather
             if (weatherModel != null) {
                 currentTemperatureField.setText(weatherModel.temperature);
-                humidity_field.setText(weatherModel.pressure + " / " + weatherModel.humidity);
+                humidity_field.setText(weatherModel.humidity);
                 weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
                 checkWeather = false;
+                lytWeather.setVisibility(View.VISIBLE);
             }
 
             //set times
@@ -128,7 +154,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void initSlider(){
+    private void initSlider() {
 
 
         mPager.setAdapter(new SlidingImage_Adapter(getContext(), homePageModelList));
@@ -151,7 +177,7 @@ public class HomeFragment extends Fragment {
 
         app.isScheduled = false;
 
-        if (app.isScheduled ==false) {
+        if (app.isScheduled == false) {
             app.swipeTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -218,11 +244,34 @@ public class HomeFragment extends Fragment {
 
 //            if (homePageModelList != null) {
 
-                initSlider();
+            initSlider();
 //            }
 
         }
 
+    }
+
+
+    private void showPrayDialog() {
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_pray);
+        txtSobh = (TextView) dialog.findViewById(R.id.txtSobh);
+        txttolo = (TextView) dialog.findViewById(R.id.txttolo);
+        txtZohr = (TextView) dialog.findViewById(R.id.txtZohr);
+        txtGhorob = (TextView) dialog.findViewById(R.id.txtGhorob);
+        txtMaghreb = (TextView) dialog.findViewById(R.id.txtMaghreb);
+        txtNimeShab = (TextView) dialog.findViewById(R.id.txtNimeShab);
+        btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 }

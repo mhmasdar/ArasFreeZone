@@ -89,48 +89,107 @@
              android:layout_width="match_parent"
              android:layout_marginTop="40dp"
              android:gravity="center"
+             android:id="@+id/lytWeather"
+             android:visibility="gone"
+             android:orientation="vertical"
              android:layout_alignParentTop="true"
              android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/weather_icon"
-                android:layout_width="80dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="match_parent"
-                android:textColor="@color/yellow"
-                style="@style/AudioFileInfoOverlayText2"
-                android:textSize="50sp"
-                android:gravity="center"
-                android:fontFamily="@font/weatherfont"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_height="wrap_content">
 
-               <TextView
-                   android:id="@+id/current_temperature_field"
+               <LinearLayout
                    android:layout_width="wrap_content"
-                   android:textSize="22sp"
-                   style="@style/AudioFileInfoOverlayText2"
-                   android:textStyle="bold"
-                   android:textColor="@color/white"
+                   android:orientation="vertical"
+                   android:gravity="center_vertical|right"
+                   android:layout_height="wrap_content">
+
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+
+                     <TextView
+                         android:id="@+id/current_temperature_field"
+                         android:layout_width="wrap_content"
+                         android:textSize="22sp"
+                         style="@style/AudioFileInfoOverlayText2"
+                         android:textStyle="bold"
+                         android:textColor="@color/white"
+                         android:layout_height="wrap_content"
+                         android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:layout_marginLeft="10dp"
+                         style="@style/AudioFileInfoOverlayText2"
+                         android:textStyle="bold"
+                         android:textColor="@color/white"
+                         android:layout_height="wrap_content"
+                         android:text="دمای هوا"
+                         android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                  </LinearLayout>
+
+
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+                     <!--humidity and pressure-->
+                     <TextView
+                         android:id="@+id/humidity_field"
+                         android:layout_width="wrap_content"
+                         android:textSize="22sp"
+                         style="@style/AudioFileInfoOverlayText2"
+                         android:textColor="@color/white"
+                         android:layout_height="wrap_content"
+                         android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:layout_marginLeft="10dp"
+                         style="@style/AudioFileInfoOverlayText2"
+                         android:textStyle="bold"
+                         android:textColor="@color/white"
+                         android:layout_height="wrap_content"
+                         android:text="میزان رطوبت"
+                         android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                  </LinearLayout>
+
+               </LinearLayout>
+
+               <TextView
+                   android:id="@+id/weather_icon"
+                   android:layout_width="wrap_content"
+                   android:layout_marginLeft="10dp"
                    android:layout_height="wrap_content"
+                   android:textColor="@color/yellow"
+                   style="@style/AudioFileInfoOverlayText2"
+                   android:textSize="70sp"
+                   android:gravity="center"
+                   android:fontFamily="@font/weatherfont"
                    android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-               <!--humidity and pressure-->
-               <TextView
-                   android:id="@+id/humidity_field"
-                   android:layout_width="wrap_content"
-                   android:textSize="19sp"
-                   style="@style/AudioFileInfoOverlayText2"
-                   android:textColor="@color/white"
-                   android:layout_height="wrap_content"
-                   android:textAppearance="?android:attr/textAppearanceMedium"/>
-
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPray"
+                android:padding="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="مشاهده اوقات شرعی"
+                style="@style/AudioFileInfoOverlayText2"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
 
          </LinearLayout>
 
