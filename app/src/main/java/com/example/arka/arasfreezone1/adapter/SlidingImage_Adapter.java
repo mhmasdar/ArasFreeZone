@@ -32,7 +32,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private Context context;
-    private List<Integer> images = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
     private String[] names = {"حمام تاریخی کردشت" , "کلیسای سنت استپانوس" , "آسیاب خرابه"};
     private String[] details = {"حمامی قدیمی در شهر جلفا" , "واقع در اطراف شهر" , "منطقه ای بسیار زیبا در شهر جلفا"};
     List<HomePageModel> pageList;
@@ -41,9 +41,9 @@ public class SlidingImage_Adapter extends PagerAdapter {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.pageList = pageList;
-        images.add(R.drawable.back1);
-        images.add(R.drawable.back2);
-        images.add(R.drawable.back3);
+        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007.png");
+        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007_1.jpg");
+        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007_2.jpg");
     }
 
     @Override

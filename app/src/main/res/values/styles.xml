@@ -63,4 +63,19 @@
         <item name="spb_progressiveStart_activated">true</item>
     </style>
 
+
+    <!-- ripple effect -->
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">@color/mainBarText</item>
+    </style>
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <style name="SelectableItemBackgroundBorderless">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
 </resources>

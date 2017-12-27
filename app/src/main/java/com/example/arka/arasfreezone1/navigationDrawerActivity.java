@@ -228,6 +228,22 @@ public class navigationDrawerActivity extends AppCompatActivity {
             txtLogin.setText("ورود / ثبت نام");
         }
 
+
+        profileCheck = prefs.getInt("profile" , 0);
+        if (profileCheck != 0)
+        {
+            switch (profileCheck)
+            {
+                case 1:
+                    UserImage.setImageResource(R.drawable.ic_man);
+                    break;
+
+                case 2:
+                    UserImage.setImageResource(R.drawable.ic_woman);
+                    break;
+            }
+        }
+
     }
 
 }
