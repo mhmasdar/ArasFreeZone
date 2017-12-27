@@ -74,7 +74,7 @@
                     android:id="@+id/lytMapTools"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="70dp"
                     android:background="@drawable/map_tool_back"
                     android:orientation="vertical">
 
@@ -126,6 +126,17 @@
                     android:src="@drawable/ic_sort_whtie" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgNav"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/map_tool_back2"
+                android:padding="7dp"
+                android:src="@drawable/ic_route"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/lytDetails"

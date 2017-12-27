@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.icu.lang.UCharacter;
@@ -40,6 +41,7 @@ import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.MapActivity;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.MapModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -86,9 +88,9 @@ public class mapFragment extends Fragment {
     ArrayList<OverlayItem> currentItems;
     private LinearLayout lytDetails;
     private TextView txtName, txtAddress;
-    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort;
+    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort, imgNav;
     private Dialog filterDialog, sortDialog;
-    private Animation mp, mp2, mp3;
+    private Animation mp, mp2, mp3, mp4;
     RatingBar rating;
 
 
@@ -157,6 +159,7 @@ public class mapFragment extends Fragment {
 
         mp = AnimationUtils.loadAnimation(getContext(), R.anim.map_tool);
         mp2 = AnimationUtils.loadAnimation(getContext(), R.anim.map_tool2);
+        mp4 = AnimationUtils.loadAnimation(getContext(), R.anim.map_tool3);
         mp3 = AnimationUtils.loadAnimation(getContext(), R.anim.splash0);
 
         lytBack.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +174,7 @@ public class mapFragment extends Fragment {
         map.setMultiTouchControls(true);
 
         mapController = map.getController();
-        mapController.setZoom(zoomLevel);
+        mapController.setZoom(13);
         GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
         GeoPoint startPoint = new GeoPoint(38.937267, 45.627604);
 //        GeoPoint startPoint2 = new GeoPoint(38.9939216, 45.8146334);
@@ -297,6 +300,20 @@ public class mapFragment extends Fragment {
             }
         });
 
+        imgNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", tapedPlace.name);
+                iRouting.putExtra("PlaceLat", tapedPlace.lat);
+                iRouting.putExtra("PlaceLon", tapedPlace.lon);
+                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceMainType", tapedPlace.mainType);
+                startActivity(iRouting);
+                getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+            }
+        });
+
 
         imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -379,6 +396,7 @@ public class mapFragment extends Fragment {
                 //Toast.makeText(getBaseContext(),p.getLatitude() + " - "+p.getLongitude(),Toast.LENGTH_LONG).show();
 
                 lytDetails.setVisibility(View.GONE);
+                imgNav.setVisibility(View.GONE);
 
                 return false;
             }
@@ -446,6 +464,7 @@ public class mapFragment extends Fragment {
         imgZoomIn = (ImageView) view.findViewById(R.id.imgZoomIn);
         imgFilter = (ImageView) view.findViewById(R.id.imgFilter);
         imgSort = (ImageView) view.findViewById(R.id.imgSort);
+        imgNav = (ImageView) view.findViewById(R.id.imgNav);
         rating = view.findViewById(R.id.rating);
         lytLoading = view.findViewById(R.id.lytLoading);
     }
@@ -968,6 +987,8 @@ public class mapFragment extends Fragment {
                         tapedPlace = placesList.get(index);
                         lytDetails.setVisibility(View.VISIBLE);
                         rating.setVisibility(View.VISIBLE);
+                        imgNav.setVisibility(View.VISIBLE);
+                        imgNav.setAnimation(mp4);
                         lytDetails.startAnimation(mp3);
                         txtName.setText(placesList.get(index).name);
                         txtAddress.setText(placesList.get(index).address);

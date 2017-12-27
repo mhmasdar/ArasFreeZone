@@ -181,7 +181,7 @@ public class detailsFragment extends Fragment {
                 iRouting.putExtra("PlaceName", placesModel.name);
                 iRouting.putExtra("PlaceLat", placesModel.lat);
                 iRouting.putExtra("PlaceLon", placesModel.lon);
-                iRouting.putExtra("PlaceType", placesModel.type);
+                //iRouting.putExtra("PlaceType", placesModel.type);
                 iRouting.putExtra("PlaceMainType", mainType);
                 startActivity(iRouting);
 

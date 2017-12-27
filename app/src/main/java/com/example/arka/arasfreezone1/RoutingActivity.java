@@ -4,6 +4,10 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -78,6 +82,8 @@ public class RoutingActivity extends AppCompatActivity {
     IMapController mapController;
     OverlayItem myLocationOverlayItem;
     Drawable myCurrentLocationMarker;
+    Polyline roadOverlay;
+    Marker nodeMarker;
 
     private double placeLat, placeLon;
     private String placeName = "";
@@ -94,7 +100,7 @@ public class RoutingActivity extends AppCompatActivity {
         placeLat = getIntent().getDoubleExtra("PlaceLat", 0);
         placeLon = getIntent().getDoubleExtra("PlaceLon", 0);
         placeName = getIntent().getStringExtra("PlaceName");
-        placeType = getIntent().getIntExtra("PlaceType", 0);
+        //placeType = getIntent().getIntExtra("PlaceType", 0);
         placeMainType = getIntent().getIntExtra("PlaceMainType", 0);
 
         initView();
@@ -105,6 +111,7 @@ public class RoutingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.stay, R.anim.activity_back_enter);
             }
         });
 
@@ -112,7 +119,7 @@ public class RoutingActivity extends AppCompatActivity {
         map.setMultiTouchControls(true);
 
         mapController = map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(13);
         GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
 
         GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
@@ -148,13 +155,13 @@ public class RoutingActivity extends AppCompatActivity {
         if (flagPermission == true) {
             locationListener = new MyLocationListener();
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager == null){
+            if (locationManager == null) {
                 Toast.makeText(getApplicationContext(), "GPS" + " دستگاه خاموش است", Toast.LENGTH_LONG).show();
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             Location location;
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location == null){
+            if (location == null) {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
             if (location != null) {
@@ -168,8 +175,7 @@ public class RoutingActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
             }
         }
@@ -348,27 +354,70 @@ public class RoutingActivity extends AppCompatActivity {
         }
 
 
-        OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
-        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
-        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
+//        OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
+//        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
+//        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
+//
+//        currentItems.add(myLocationOverlayItemCurrent);
+//
+//        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
+//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+//                        Toast.makeText(getApplicationContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
+//                        return true;
+//                    }
+//
+//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+//                        return true;
+//                    }
+//                }, getApplicationContext());
+//        map.getOverlays().add(this.currentLocationOverlay);
 
-        currentItems.add(myLocationOverlayItemCurrent);
 
-        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(getApplicationContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
-                        return true;
-                    }
 
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        return true;
-                    }
-                }, getApplicationContext());
-        map.getOverlays().add(this.currentLocationOverlay);
+        Drawable userIcon = getResources().getDrawable(R.drawable.marker_user);
+
+
+
+        Marker m = new Marker(map);
+        m.setPosition(currentLocation);
+        m.setIcon(userIcon);
+        //m.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), placeLat, placeLon));
+
+        map.getOverlays().add(m);
+
+
 
 
     }
+
+
+
+
+    private double bearingBetweenLocations(double l1, double o1, double l2, double o2) {
+
+        double PI = 3.14159;
+        double lat1 = l1 * PI / 180;
+        double long1 = o1 * PI / 180;
+        double lat2 = l2 * PI / 180;
+        double long2 = o2 * PI / 180;
+
+        double dLon = (long2 - long1);
+
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+                * Math.cos(lat2) * Math.cos(dLon);
+
+        double brng = Math.atan2(y, x);
+
+        brng = Math.toDegrees(brng);
+        brng = (brng + 360) % 360;
+
+        return brng;
+    }
+
+
+
 
     public void drawRoute() {
 
@@ -415,24 +464,44 @@ public class RoutingActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
-            map.getOverlays().add(roadOverlay);
 
-            Drawable nodeIcon = getResources().getDrawable(R.drawable.marker_node);
-            for (int i=0; i<road.mNodes.size(); i++){
-                RoadNode node = road.mNodes.get(i);
-                Marker nodeMarker = new Marker(map);
-                nodeMarker.setPosition(node.mLocation);
-                nodeMarker.setIcon(nodeIcon);
-                nodeMarker.setTitle("قدم "+i);
-                //nodeMarker.setSnippet(node.mInstructions);
-                nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
-                map.getOverlays().add(nodeMarker);
+
+
+            if (currentLocation != null){
+                if (placeLon != 0 && placeLat != 0){
+                    if (road != null){
+                        map.getOverlays().clear();
+                        markCurrentLocatin();
+                        addPlaceMarker(placeLat, placeLon);
+
+                        roadOverlay = RoadManager.buildRoadOverlay(road);
+                        roadOverlay.setWidth(10);
+                        map.getOverlays().add(roadOverlay);
+
+                        Drawable nodeIcon = getResources().getDrawable(R.drawable.marker_node);
+                        for (int i = 0; i < road.mNodes.size(); i++) {
+                            RoadNode node = road.mNodes.get(i);
+                            nodeMarker = new Marker(map);
+                            nodeMarker.setPosition(node.mLocation);
+                            nodeMarker.setIcon(nodeIcon);
+                            nodeMarker.setTitle("قدم " + i);
+                            //nodeMarker.setSnippet(node.mInstructions);
+                            nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
+                            map.getOverlays().add(nodeMarker);
+                        }
+
+                        map.invalidate();
+
+                        lytLoading.setVisibility(View.GONE);
+
+                    }
+
+                }
             }
 
-            map.invalidate();
 
-            lytLoading.setVisibility(View.GONE);
+
+
 
         }
 
@@ -460,4 +529,9 @@ public class RoutingActivity extends AppCompatActivity {
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.stay, R.anim.activity_back_enter);
+    }
 }
