@@ -3,8 +3,11 @@ package com.example.arka.arasfreezone1.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -14,14 +17,19 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.imageActivity;
+import com.example.arka.arasfreezone1.services.WebService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +48,9 @@ public class galleryFragment extends Fragment {
     private ImageView img7;
     private ImageView img8;
     private ImageView img9;
+    private ImageView layout;
+    private LinearLayout lytLoading;
+
 
     public galleryFragment() {
         // Required empty public constructor
@@ -93,9 +104,21 @@ public class galleryFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_gallery_image);
 
-        ImageView layout = (ImageView) dialog.findViewById(R.id.back);
+        layout = (ImageView) dialog.findViewById(R.id.back);
+        lytLoading = (LinearLayout) dialog.findViewById(R.id.lytLoading);
 
-        Glide.with(this).load("http://192.168.1.105/Content/files/students/personal/1.jpg").into(layout);
+
+        Glide.with(getContext()).load("http://gsharing.ir/Content/Upload/img/Home/13961007.png").asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                // you can do something with loaded bitmap here
+
+                // .....
+                layout.setImageBitmap(resource);
+                lytLoading.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
+            }
+        });
 
 
 //        DrawableRequestBuilder<String> a = Glide.with(this).load("http://192.168.1.105/Content/files/students/personal/1.png").diskCacheStrategy(DiskCacheStrategy.NONE);

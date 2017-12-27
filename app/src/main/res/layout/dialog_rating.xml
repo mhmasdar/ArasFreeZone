@@ -25,6 +25,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:layout_marginTop="3dp"
+        android:id="@+id/lytLoading"
+        android:layout_height="wrap_content">
+
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            style="@style/GNowProgressBar"
+            android:layout_height="10dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
@@ -43,6 +60,7 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_marginTop="15dp"
+        android:paddingBottom="20dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
 
@@ -68,29 +86,6 @@
             android:singleLine="true"
             android:textColor="@color/white"
             android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:padding="30dp"
-        android:visibility="invisible"
-        android:id="@+id/lytLoading"
-        android:layout_height="wrap_content">
-
-        <fr.castorflex.android.circularprogressbar.CircularProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="35dp"
-            android:indeterminate="true"
-            app:cpb_colors="@array/arr"
-            app:cpb_rotation_speed="1.0"
-            app:cpb_sweep_speed="1.0"
-            app:cpb_stroke_width="5dp"
-            app:cpb_min_sweep_angle="10"
-            app:cpb_max_sweep_angle="300"
-            android:layout_height="35dp" />
 
 
     </LinearLayout>
