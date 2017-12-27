@@ -39,4 +39,5 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     compile 'com.github.MKergall:osmbonuspack:6.4'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 }

@@ -43,8 +43,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     private List<NewsModel> newsList;
     private static int count = 1;
     private boolean searchFlag;
-    private SharedPreferences prefs;
-    private int idUser;
+
 
     public newsListAdapter(Context context, List<NewsModel> newsList, boolean searchFlag) {
         this.context = context;
@@ -82,6 +81,8 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                app.check = 6;
                 newsDetailsFragment fragment = new newsDetailsFragment();
 
                 Bundle args = new Bundle();
@@ -97,19 +98,12 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
                 MainActivity activity = (MainActivity) context;
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container3, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
         });
 
-
-//        holder.imgLike.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 
 
         if (holder.position == newsList.size() - 1){

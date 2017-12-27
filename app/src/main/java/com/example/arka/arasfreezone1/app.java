@@ -16,6 +16,7 @@ import java.util.Timer;
 public class app extends Application {
 
     public static int check=0;
+    public static int frg;
     public static boolean inside1=false;
     public static boolean inside2=false;
     public static boolean inside3=false;

@@ -190,7 +190,7 @@ public class artFragment extends Fragment {
                 public void run() {
                     handler.post(Update);
                 }
-            }, 2000, 7000);
+            }, 2000, 5000);
             app.isScheduled = true;
         }
 

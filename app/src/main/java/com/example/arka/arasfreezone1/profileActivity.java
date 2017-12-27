@@ -3,6 +3,7 @@ package com.example.arka.arasfreezone1;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -35,21 +36,40 @@ public class profileActivity extends AppCompatActivity {
     private EditText edtMobile;
     private EditText edtEmail;
     private LinearLayout lytEditInformation;
-    private ImageView imgBack;
+    private ImageView imgBack, imgProfile;
     private CircularProgressBar progressBar;
-    SharedPreferences prefs;
-    int idUser;
+    private SharedPreferences prefs;
+    private int idUser, profileSelect=0, profileCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         initView();
-
         setViews();
 
         //code for prevent layout moves when keyboard open
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
+
+        prefs = getApplicationContext().getSharedPreferences("MYPREFS", 0);
+        profileCheck = prefs.getInt("profile" , 0);
+        if (profileCheck != 0)
+        {
+            switch (profileCheck)
+            {
+                case 1:
+                    imgProfile.setImageResource(R.drawable.ic_man);
+                    break;
+
+                case 2:
+                    imgProfile.setImageResource(R.drawable.ic_woman);
+                    break;
+            }
+        }
+
+
 
         lytEditInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +81,13 @@ public class profileActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               showProfileDialog();
             }
         });
 
@@ -181,6 +208,77 @@ public class profileActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void showProfileDialog() {
+        dialog = new Dialog(profileActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_profile);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+        Button btnAccept = (Button) dialog.findViewById(R.id.btnAccept);
+        final RelativeLayout lytMan = (RelativeLayout) dialog.findViewById(R.id.lytMan);
+        final RelativeLayout lytWoman = (RelativeLayout) dialog.findViewById(R.id.lytWoman);
+
+
+
+        lytMan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lytMan.setBackgroundColor(Color.parseColor("#35333333"));
+                lytWoman.setBackgroundResource(0);
+
+                profileSelect = 1;
+            }
+        });
+
+
+
+        lytWoman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lytMan.setBackgroundResource(0);
+                lytWoman.setBackgroundColor(Color.parseColor("#35333333"));
+
+                profileSelect = 2;
+            }
+        });
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences.Editor editor = prefs.edit();
+
+                if (profileSelect != 0)
+                {
+                    switch (profileSelect)
+                    {
+                        case 1:
+                            editor.putInt("profile", 1);
+                            imgProfile.setImageResource(R.drawable.ic_man);
+                        break;
+
+                        case 2:
+                            editor.putInt("profile", 2);
+                            imgProfile.setImageResource(R.drawable.ic_woman);
+                            break;
+                    }
+                    editor.commit();
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     private void initView() {
         header = (LinearLayout) findViewById(R.id.header);
         relativeBack = (RelativeLayout) findViewById(R.id.relative_back);
@@ -192,6 +290,7 @@ public class profileActivity extends AppCompatActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         lytEditInformation = (LinearLayout) findViewById(R.id.lytEditInformation);
         imgBack = findViewById(R.id.imgBack);
+        imgProfile = findViewById(R.id.imgProfile);
     }
 
     public void setViews(){

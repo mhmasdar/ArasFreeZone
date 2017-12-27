@@ -69,7 +69,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .findViewById(R.id.txtSliderDetail);
 
         //set image dark
-        imageView.setColorFilter(Color.rgb(255, 255, 255), android.graphics.PorterDuff.Mode.MULTIPLY);
+        imageView.setColorFilter(Color.rgb(225, 225, 225), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
 

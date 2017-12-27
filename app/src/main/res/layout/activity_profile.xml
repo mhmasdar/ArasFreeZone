@@ -316,8 +316,10 @@
 
             </LinearLayout>
 
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
+                android:id="@+id/imgProfile"
                 android:layout_height="100dp"
                 android:layout_gravity="center|bottom"
                 android:src="@drawable/ic_profile"

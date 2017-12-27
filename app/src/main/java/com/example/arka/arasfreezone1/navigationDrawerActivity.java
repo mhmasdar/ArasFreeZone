@@ -42,7 +42,7 @@ public class navigationDrawerActivity extends AppCompatActivity {
     private ArrayList<Uri> arrayListapkFilepath; // define global
 
     private SharedPreferences prefs;
-    int idUser;
+    int idUser, profileCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,26 @@ public class navigationDrawerActivity extends AppCompatActivity {
             txtLogin.setText("مشاهده حساب کاربری");
         else
             txtLogin.setText("ورود / ثبت نام");
+
+
+
+        profileCheck = prefs.getInt("profile" , 0);
+        if (profileCheck != 0)
+        {
+            switch (profileCheck)
+            {
+                case 1:
+                    UserImage.setImageResource(R.drawable.ic_man);
+                    break;
+
+                case 2:
+                    UserImage.setImageResource(R.drawable.ic_woman);
+                    break;
+            }
+        }
+
+
+
 
         lytSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,17 +114,11 @@ public class navigationDrawerActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                //put this code when you wants to share apk
-                arrayListapkFilepath = new ArrayList<Uri>();
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, "همراه ارس، جامع ترین راهنمای گردشگری منطقه آزاد ارس" + "\n" + "http://arkatech.ir/");
+                startActivity(Intent.createChooser(share, "به اشتراک گذاري از طريق..."));
 
-                shareAPK(getPackageName());
-                // you can pass bundle id of installed app in your device instead of getPackageName()
-                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                intent.setType("application/vnd.android.package-archive");
-                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
-                        arrayListapkFilepath);
-                startActivity(Intent.createChooser(intent, "Share " +
-                        arrayListapkFilepath.size() + " Files Via"));
             }
         });
 
@@ -216,55 +230,4 @@ public class navigationDrawerActivity extends AppCompatActivity {
 
     }
 
-
-
-    private void shareAPK(String bundle_id) {
-        File f1;
-        File f2 = null;
-
-        final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        final List pkgAppsList = getPackageManager().queryIntentActivities(mainIntent, 0);
-        int z = 0;
-        for (Object object : pkgAppsList) {
-
-            ResolveInfo info = (ResolveInfo) object;
-            if (info.activityInfo.packageName.equals(bundle_id)) {
-
-                f1 = new File(info.activityInfo.applicationInfo.publicSourceDir);
-
-                try {
-
-                    String file_name = info.loadLabel(getPackageManager()).toString();
-
-
-                    f2 = new File(Environment.getExternalStorageDirectory().toString() + "/Folder");
-                    f2.mkdirs();
-                    f2 = new File(f2.getPath() + "/" + file_name + ".apk");
-                    f2.createNewFile();
-
-                    InputStream in = new FileInputStream(f1);
-
-                    OutputStream out = new FileOutputStream(f2);
-
-                    // byte[] buf = new byte[1024];
-                    byte[] buf = new byte[4096];
-                    int len;
-                    while ((len = in.read(buf)) > 0) {
-                        out.write(buf, 0, len);
-                    }
-                    in.close();
-                    out.close();
-                    System.out.println("File copied.");
-                } catch (FileNotFoundException ex) {
-                    System.out.println(ex.getMessage() + " in the specified directory.");
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-
-        arrayListapkFilepath.add(Uri.fromFile(new File(f2.getAbsolutePath())));
-
-    }
 }

@@ -124,37 +124,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/lytRepetitive"
-        android:visibility="gone"
-        android:gravity="center"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_repetitve"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="شما قبلا در این نظرسنجی شرکت کرده اید"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/repetitiveTitle"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
 </LinearLayout>

@@ -104,6 +104,7 @@ public class detailsFragment extends Fragment {
     private int idUserRate = -1;
     private double userRate = -1;
     private int idUser;
+    private boolean isFromFavorite;
 
     //recycler in dialog_menu
     private RecyclerView recyclerMenu;
@@ -134,6 +135,7 @@ public class detailsFragment extends Fragment {
 
         Bundle args = getArguments();
         id = args.getInt("ID");
+        isFromFavorite = args.getBoolean("isFromFaavorite");
         tblName = args.getString("TBL_NAME");
         mainType = getMainType(tblName);
 
@@ -167,7 +169,10 @@ public class detailsFragment extends Fragment {
                 galleryFragment fragment = new galleryFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                if (!isFromFavorite)
+                    ft.replace(R.id.container, fragment);
+                else
+                    ft.replace(R.id.container1, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -199,7 +204,10 @@ public class detailsFragment extends Fragment {
 
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                if (!isFromFavorite)
+                    ft.replace(R.id.container, fragment);
+                else
+                    ft.replace(R.id.container1, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }

@@ -20,12 +20,12 @@ public class favoriteActivity extends AppCompatActivity {
 
 
         ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.container, new favoriteFragment());
+        ft.add(R.id.container1, new favoriteFragment());
         ft.commit();
     }
 
     private void initView() {
-        container = (RelativeLayout) findViewById(R.id.container);
+        container = (RelativeLayout) findViewById(R.id.container1);
     }
 
         @Override

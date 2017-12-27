@@ -45,7 +45,6 @@ public class referendumFragment extends Fragment {
     private LinearLayout lytDisconnect;
     private TextView txtCompetitionTitle;
     private TextView txtSend;
-    private LinearLayout lytRepetitive;
     private TextView repetitiveTitle;
 
     private List<ReferendumModel> referendumList;
@@ -84,7 +83,7 @@ public class referendumFragment extends Fragment {
                         WebServiceCallAnswers callBackAnswer = new WebServiceCallAnswers();
                         callBackAnswer.execute();
                     } else {
-                        Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "نظر شما برای این نظرسنجی قبلا ثبت شده", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Intent intent = new Intent(getContext(), loginActivity.class);
@@ -106,7 +105,6 @@ public class referendumFragment extends Fragment {
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         txtCompetitionTitle = (TextView) view.findViewById(R.id.txtCompetitionTitle);
         txtSend = (TextView) view.findViewById(R.id.txtSend);
-        lytRepetitive = (LinearLayout) view.findViewById(R.id.lytRepetitive);
         repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
 
     }
@@ -170,7 +168,7 @@ public class referendumFragment extends Fragment {
 
                     if (idUser > 0) {
                         if (prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
-                            txtSend.setText("قبلا شرکت کرده اید");
+                            txtSend.setText("قبلا شرکت کردین");
                             txtCompetitionTitle.setText(referendumList.get(0).title);
                             repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                             //lytRepetitive.setVisibility(View.VISIBLE);
@@ -184,7 +182,7 @@ public class referendumFragment extends Fragment {
                             lytMain.setVisibility(View.VISIBLE);
                             lytDisconnect.setVisibility(View.GONE);
                             lytEmpty.setVisibility(View.GONE);
-                            lytRepetitive.setVisibility(View.GONE);
+
                         }
                     } else {
                         txtSend.setText("ثبت نام/ورود");
@@ -192,19 +190,19 @@ public class referendumFragment extends Fragment {
                         lytMain.setVisibility(View.VISIBLE);
                         lytDisconnect.setVisibility(View.GONE);
                         lytEmpty.setVisibility(View.GONE);
-                        lytRepetitive.setVisibility(View.GONE);
+
                     }
 
 
                 } else if (referendumList.size() < 1) {
-                    lytRepetitive.setVisibility(View.GONE);
+
                     lytMain.setVisibility(View.GONE);
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
                 }
 
             } else {
-                lytRepetitive.setVisibility(View.GONE);
+
                 lytMain.setVisibility(View.GONE);
                 lytDisconnect.setVisibility(View.VISIBLE);
                 lytEmpty.setVisibility(View.GONE);
@@ -312,7 +310,7 @@ public class referendumFragment extends Fragment {
                     lytMain.setVisibility(View.VISIBLE);
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
-                    lytRepetitive.setVisibility(View.GONE);
+
                 }
             }
         } else {
@@ -320,7 +318,7 @@ public class referendumFragment extends Fragment {
             lytMain.setVisibility(View.VISIBLE);
             lytDisconnect.setVisibility(View.GONE);
             lytEmpty.setVisibility(View.GONE);
-            lytRepetitive.setVisibility(View.GONE);
+
         }
     }
 

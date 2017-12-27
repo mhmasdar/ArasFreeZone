@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class aboutActivity extends AppCompatActivity {
 
     private RelativeLayout relativeBack;
     private ImageView imgArka;
+    private TextView txtArka;
     private String url = "http://arkatech.ir";
 
     @Override
@@ -22,6 +24,14 @@ public class aboutActivity extends AppCompatActivity {
 
 
         imgArka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
+
+        txtArka.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -47,5 +57,6 @@ public class aboutActivity extends AppCompatActivity {
     private void initView() {
         relativeBack = (RelativeLayout) findViewById(R.id.relativeBack);
         imgArka = (ImageView) findViewById(R.id.imgArka);
+        txtArka = (TextView) findViewById(R.id.txtArka);
     }
 }

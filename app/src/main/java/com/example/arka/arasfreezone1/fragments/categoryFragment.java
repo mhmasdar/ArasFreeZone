@@ -61,20 +61,18 @@ public class categoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         initView(view);
         app.check = 1;
-        app.inside1 = false;
 
 //        Glide.with(this).load(R.drawable.category_back).into(imgCategory);
 
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 categorySeatchFragment fragment = new categorySeatchFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -83,14 +81,13 @@ public class categoryFragment extends Fragment {
         lytRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 1;
                 restaurantsListFragment fragment = new restaurantsListFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -99,14 +96,13 @@ public class categoryFragment extends Fragment {
         lytShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 2;
                 shoppingFragment fragment = new shoppingFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -115,14 +111,13 @@ public class categoryFragment extends Fragment {
         lytStay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 3;
                 stayFragment fragment = new stayFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -131,14 +126,13 @@ public class categoryFragment extends Fragment {
         lytTourism.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 4;
                 tourismFragment fragment = new tourismFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -147,14 +141,13 @@ public class categoryFragment extends Fragment {
         lytArt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 5;
                 artFragment fragment = new artFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -163,14 +156,13 @@ public class categoryFragment extends Fragment {
         lytTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 6;
                 transportFragment fragment = new transportFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -178,14 +170,13 @@ public class categoryFragment extends Fragment {
         lytUtilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 7;
                 servicesFragment fragment = new servicesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -193,14 +184,13 @@ public class categoryFragment extends Fragment {
         lytOffices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 8;
                 officesFragment fragment = new officesFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -209,14 +199,13 @@ public class categoryFragment extends Fragment {
         lytMedical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
                 idCategory = 9;
 
                 medicalFragment fragment = new medicalFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
 
@@ -227,14 +216,13 @@ public class categoryFragment extends Fragment {
         lytEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 idCategory = 10;
                 eventsFragment fragment = new eventsFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
 
@@ -244,13 +232,12 @@ public class categoryFragment extends Fragment {
         lytOrganization.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                app.check = 4;
-                app.inside1 = true;
+                app.check = 5;
 
                 organizationFragment fragment = new organizationFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                ft.replace(R.id.container2, fragment);
+                ft.replace(R.id.container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }

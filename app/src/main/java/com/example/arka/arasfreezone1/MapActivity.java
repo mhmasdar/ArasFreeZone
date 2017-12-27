@@ -71,10 +71,6 @@ public class MapActivity extends AppCompatActivity {
 
         initView();
 
-
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.container, new mapFragment());
-        ft.commit();
     }
 
     private void initView() {

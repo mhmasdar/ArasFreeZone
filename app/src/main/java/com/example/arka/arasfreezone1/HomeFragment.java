@@ -148,6 +148,9 @@ public class HomeFragment extends Fragment {
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
+
+        app.isScheduled = false;
+
         if (app.isScheduled ==false) {
             app.swipeTimer.schedule(new TimerTask() {
                 @Override

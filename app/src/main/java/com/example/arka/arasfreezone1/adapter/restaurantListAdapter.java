@@ -80,22 +80,26 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 Bundle args = new Bundle();
                 args.putInt("ID", currentObj.id);
                 args.putString("TBL_NAME", tblName);
-                fragment.setArguments(args);
+
 
 
 
                 if (context instanceof MainActivity) {
 //                    MainActivity activity = (MainActivity) context;
+                    args.putBoolean("isFromFaavorite" , false);
+                    fragment.setArguments(args);
                     FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                    ft.replace(R.id.container2, fragment);
-                    ft.addToBackStack(null);
+                    ft.replace(R.id.container, fragment);
+                    ft.addToBackStack("b");
                     ft.commit();
                 }
                 else{
+                    args.putBoolean("isFromFaavorite" , true);
+                    fragment.setArguments(args);
                     FragmentTransaction ft = ((favoriteActivity)context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
-                    ft.replace(R.id.container, fragment);
+                    ft.replace(R.id.container1, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
                 }

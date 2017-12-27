@@ -78,7 +78,6 @@ public class newsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         initView(view);
         app.check = 2;
-        app.inside2 = false;
 
         if (newsList.size() < 1) {
             WebServiceCallBackList callBackList = new WebServiceCallBackList();

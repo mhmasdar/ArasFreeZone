@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.icu.lang.UCharacter;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,9 +38,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.arka.arasfreezone1.MainActivity;
-import com.example.arka.arasfreezone1.MapActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.RoutingActivity;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.MapModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -62,8 +61,6 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 /**
@@ -81,7 +78,7 @@ public class mapFragment extends Fragment {
     public MyLocationListener locationListener;
     public LocationManager locationManager;
     public boolean flagPermission = false;
-    private static final String TAG = MapActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     private RelativeLayout lytBack;
     private LinearLayout lytMapTools;
     ArrayList<OverlayItem> items = new ArrayList<>();
@@ -126,7 +123,7 @@ public class mapFragment extends Fragment {
         Context ctx = getContext();
         //important! set your user agent to prevent getting banned from the osm servers
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
+        app.check = 4;
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         allFilters = new ArrayList<>();
@@ -142,15 +139,6 @@ public class mapFragment extends Fragment {
         allFilters.add("Tbl_Events");
 
         selectedFilters = allFilters;
-
-
-//        allSorts = new ArrayList<>();
-//        allSorts.add("none");
-//        allSorts.add("rate");
-//        allSorts.add("near");
-//        allSorts.add("favorite");
-//
-//        selectedSort = allSorts.get(0);
 
         initView(view);
 
@@ -334,7 +322,7 @@ public class mapFragment extends Fragment {
             public void onClick(View v) {
 
                 if (tapedPlace.mainType == 10) {
-
+                    app.check = 7;
                     eventsDetailsFragment fragment = new eventsDetailsFragment();
 
                     Bundle args = new Bundle();
@@ -348,7 +336,7 @@ public class mapFragment extends Fragment {
                     ft.addToBackStack(null);
                     ft.commit();
                 } else if (tapedPlace.mainType == 8) {
-
+                    app.check = 7;
                     detailsOfficeFragment fragment = new detailsOfficeFragment();
 
                     Bundle args = new Bundle();
@@ -362,6 +350,7 @@ public class mapFragment extends Fragment {
                     ft.addToBackStack(null);
                     ft.commit();
                 } else {
+                    app.check = 7;
                     detailsFragment fragment = new detailsFragment();
                     Bundle args = new Bundle();
                     args.putInt("ID", tapedPlace.id);

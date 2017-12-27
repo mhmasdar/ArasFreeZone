@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.fragments.categoryFragment;
+import com.example.arka.arasfreezone1.fragments.mapFragment;
 import com.example.arka.arasfreezone1.fragments.newsListFragment;
 import com.example.arka.arasfreezone1.fragments.supportFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private LinearLayout container, container2, container3, container4;
+    private LinearLayout container;
     private LinearLayout lytSupport, lytMenu;
     private ImageView imgSupport;
     private TextView txtSupport;
@@ -39,11 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout lytHome;
     private ImageView imgHome;
     private TextView txtHome;
-    private FragmentTransaction ft, ft2, ft3, ft4 , ft5;
-    private int check=0; // check for which fragment is show
-    private boolean frgCreateCheck2 = false, frgCreateCheck3 = false, frgCreateCheck4 = false; // این متغیر ها برای تشخیص اینکه اولین بار بر روی هر یک از آیتم های پایینی کلیک شده است ، تعریف شده اند
-    // اولین بار که روی آیتم های پایینی کلیک می شود، فرگمنت ایجاد و مقداردهی شده و نمایش داده می شود. در دفعات بعدی هنگام کلیک بر روی آیتم های پایین، فقط فرگمنت ها visible و gone  می شوند
-
+    private FragmentTransaction ft, ft2, ft3, ft4;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -62,21 +63,7 @@ public class MainActivity extends AppCompatActivity {
         lytCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (frgCreateCheck2 == false)
-                {
-                    ft2 = getSupportFragmentManager().beginTransaction();
-                    ft2.add(R.id.container2 , new categoryFragment());
-                    ft2.commit();
-                    frgCreateCheck2=true;
-
-                    setLytCategory();
-                }
-
-                else {
-                    if (check != 1) {
-                        setLytCategory();
-                    }
-                }
+                setLytCategory();
             }
         });
 
@@ -84,21 +71,7 @@ public class MainActivity extends AppCompatActivity {
         lytEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (frgCreateCheck3 == false){
-                    ft3 = getSupportFragmentManager().beginTransaction();
-                    ft3.add(R.id.container3 , new newsListFragment());
-                    ft3.commit();
-                    frgCreateCheck3=true;
-
-                    setLytEvants();
-                }
-
-                else {
-                    if (check != 2) {
-                        setLytEvants();
-                    }
-                }
+                setLytEvants();
             }
         });
 
@@ -106,21 +79,7 @@ public class MainActivity extends AppCompatActivity {
         lytSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (frgCreateCheck4 == false){
-                    ft4 = getSupportFragmentManager().beginTransaction();
-                    ft4.add(R.id.container4 , new supportFragment());
-                    ft4.commit();
-                    frgCreateCheck4=true;
-
-                    setLytSupport();
-                }
-
-                else {
-                    if (check != 3) {
-                        setLytSupport();
-                    }
-                }
+                setLytSupport();
             }
         });
 
@@ -128,9 +87,8 @@ public class MainActivity extends AppCompatActivity {
         lytHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check != 0) {
+                if (app.check != 0)
                     setLytHome();
-                }
             }
         });
 
@@ -138,10 +96,7 @@ public class MainActivity extends AppCompatActivity {
         lytMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(mapIntent);
-
+                setLytMap();
             }
         });
 
@@ -149,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         container = (LinearLayout) findViewById(R.id.container);
-        container2 = (LinearLayout) findViewById(R.id.container2);
-        container3 = (LinearLayout) findViewById(R.id.container3);
-        container4 = (LinearLayout) findViewById(R.id.container4);
         lytSupport = (LinearLayout) findViewById(R.id.lytSupport);
         lytMenu = (LinearLayout) findViewById(R.id.lytMenu);
         imgSupport = (ImageView) findViewById(R.id.imgSupport);
@@ -180,13 +132,10 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
 
+        ft2 = getSupportFragmentManager().beginTransaction();
+        ft2.replace(R.id.container, new categoryFragment());
+        ft2.commit();
 
-        container.setVisibility(View.GONE);
-        container3.setVisibility(View.GONE);
-        container4.setVisibility(View.GONE);
-        container2.setVisibility(View.VISIBLE);
-
-        check=1;
         app.check = 1;
     }
 
@@ -200,13 +149,10 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.colorPrimary));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
 
+        ft3 = getSupportFragmentManager().beginTransaction();
+        ft3.replace(R.id.container, new newsListFragment());
+        ft3.commit();
 
-        container.setVisibility(View.GONE);
-        container3.setVisibility(View.VISIBLE);
-        container4.setVisibility(View.GONE);
-        container2.setVisibility(View.GONE);
-
-        check=2;
         app.check = 2;
     }
 
@@ -220,13 +166,10 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.colorPrimary));
 
+        ft4 = getSupportFragmentManager().beginTransaction();
+        ft4.replace(R.id.container, new supportFragment());
+        ft4.commit();
 
-        container.setVisibility(View.GONE);
-        container3.setVisibility(View.GONE);
-        container4.setVisibility(View.VISIBLE);
-        container2.setVisibility(View.GONE);
-
-        check=3;
         app.check = 3;
     }
 
@@ -240,41 +183,71 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
 
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, new HomeFragment());
+        ft.commit();
 
-        container.setVisibility(View.VISIBLE);
-        container3.setVisibility(View.GONE);
-        container4.setVisibility(View.GONE);
-        container2.setVisibility(View.GONE);
-
-        check=0;
         app.check = 0;
+    }
+
+    private void setLytMap(){
+        imgCategory.setImageResource(R.drawable.ic_category);
+        imgHome.setImageResource(R.drawable.ic_home);
+        imgEvents.setImageResource(R.drawable.ic_event);
+        imgSupport.setImageResource(R.drawable.ic_support);
+        txtCategory.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtHome.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
+
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, new mapFragment());
+        ft.commit();
+
+        app.check = 4;
     }
 
 
     @Override
     public void onBackPressed() {
 
-        if (app.check == 0){
-            if (doubleBackToExitPressedOnce) {
-                finish();
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "برای خروج مجددا کلید برگشت را بزنید", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
+        switch (app.check)
+        {
+            case 0:
+                if (doubleBackToExitPressedOnce) {
+                    finish();
                 }
-            }, 2000);
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "برای خروج مجددا کلید برگشت را بزنید", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce=false;
+                    }
+                }, 2000);
+                break;
+
+            case 1:
+                setLytHome();
+                break;
+
+            case 2:
+                setLytHome();
+                break;
+
+            case 3:
+                setLytHome();
+                break;
+
+            case 4:
+                setLytHome();
+                break;
+
+                default:
+                    super.onBackPressed();
         }
-
-        else if ((app.check == 1 && app.inside1 == false) || (app.check == 2 && app.inside2 == false ) || app.check == 3)
-            setLytHome();
-
-        else
-            super.onBackPressed();
     }
 }
