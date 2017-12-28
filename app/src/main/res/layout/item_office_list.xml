@@ -71,7 +71,7 @@
             android:id="@+id/imgNews"
             android:src="@drawable/test2"
             android:scaleType="fitXY"
-            android:layout_height="match_parent" />
+            android:layout_height="90dp" />
 
     </LinearLayout>
 

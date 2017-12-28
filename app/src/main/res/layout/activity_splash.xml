@@ -66,17 +66,17 @@
             <ImageView
                 android:layout_width="100dp"
                 android:id="@+id/imgAras"
-                android:src="@drawable/ic_aras"
+                android:src="@drawable/aras_logo"
                 android:layout_height="100dp" />
 
 
             <ImageView
                 android:layout_width="110dp"
-                android:src="@drawable/logo"
+                android:src="@drawable/aras_text"
                 android:scaleType="fitXY"
                 android:layout_marginTop="10dp"
                 android:id="@+id/txtSplash"
-                android:layout_height="50dp" />
+                android:layout_height="40dp" />
             
             
             <fr.castorflex.android.circularprogressbar.CircularProgressBar

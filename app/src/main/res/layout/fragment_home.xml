@@ -35,16 +35,17 @@
 
                   <ImageView
                       android:layout_width="120dp"
-                      android:src="@drawable/logo"
+                      android:src="@drawable/aras_text"
                       android:scaleType="fitXY"
+                      android:layout_marginRight="3dp"
                       android:transitionName="App_text"
                       android:layout_height="match_parent" />
 
                   <ImageView
-                      android:layout_width="25dp"
-                      android:src="@drawable/ic_aras"
+                      android:layout_width="30dp"
+                      android:src="@drawable/aras_logo"
                       android:transitionName="App_Logo"
-                      android:layout_height="25dp" />
+                      android:layout_height="30dp" />
 
 
                </LinearLayout>

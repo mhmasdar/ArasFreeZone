@@ -29,7 +29,7 @@ public class imageActivity extends Activity {
         img = (TouchImageView) findViewById(R.id.img);
         lytLoading = (CircularProgressBar) findViewById(R.id.lytLoading);
 
-        Glide.with(this).load("http://gsharing.ir/Content/Upload/img/Home/13961007_1.jpg").asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new SimpleTarget<Bitmap>() {
+        Glide.with(this).load("http://gsharing.ir/Content/Upload/back1.png").asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bm, GlideAnimation<? super Bitmap> glideAnimation) {
                 img.setImageBitmap(bm);

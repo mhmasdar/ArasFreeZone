@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.introPage.IntroActivity;
 import com.example.arka.arasfreezone1.services.WebService;
 
@@ -42,6 +44,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         initView();
 
+
+//        Glide.with(this).load(R.drawable.aras_logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+//        Glide.with(this).load(R.drawable.aras_text).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(txtSplash);
+
         Animation sp0 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash0);
         Animation sp1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash1);
         Animation sp2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash2);
@@ -51,7 +57,9 @@ public class SplashActivity extends AppCompatActivity {
         imgSp1.startAnimation(sp2);
         imgSp3.startAnimation(sp2);
         imgSp2.startAnimation(sp1);
+//        imgAras.setVisibility(View.VISIBLE);
         imgAras.startAnimation(logo);
+//        txtSplash.setVisibility(View.VISIBLE);
         txtSplash.startAnimation(text);
 
         setUpTimer();
