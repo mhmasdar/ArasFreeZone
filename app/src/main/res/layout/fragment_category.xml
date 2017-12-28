@@ -24,7 +24,8 @@
                     android:layout_centerVertical="true"
                     android:id="@+id/lytSearch"
                     android:layout_alignParentLeft="true"
-                    android:background="?attr/selectableItemBackground"
+                    style="@style/SelectableItemBackground"
+
                     android:padding="10dp"
                     android:layout_height="wrap_content">
 
@@ -50,7 +51,8 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:background="?attr/selectableItemBackground"
+                    style="@style/SelectableItemBackground"
+
                     android:padding="10dp">
 
                     <ImageView
@@ -83,12 +85,10 @@
                 android:layout_width="match_parent"
                 android:id="@+id/lytStay"
                 android:layout_weight="1"
+                style="@style/SelectableItemBackground"
                 android:orientation="vertical"
-                android:background="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -113,13 +113,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/lytShopping"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -144,13 +143,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/lytRestaurant"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -181,14 +179,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytTravel"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -212,14 +209,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytArt"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -243,14 +239,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytTourism"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -281,14 +276,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytMedical"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -312,14 +306,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytOffices"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -343,14 +336,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytUtilities"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -376,18 +368,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_weight="1"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytOrganization"
                 android:layout_weight="0.5"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -411,14 +403,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="?attr/selectableItemBackground"
+                style="@style/SelectableItemBackground"
+
                 android:id="@+id/lytEvents"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="30dp"

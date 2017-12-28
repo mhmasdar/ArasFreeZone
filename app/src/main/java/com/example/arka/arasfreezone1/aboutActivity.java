@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,8 +14,9 @@ public class aboutActivity extends AppCompatActivity {
 
     private RelativeLayout relativeBack;
     private ImageView imgArka;
-    private TextView txtArka;
     private String url = "http://arkatech.ir";
+    private LinearLayout lytCall;
+    private TextView txtWebSite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class aboutActivity extends AppCompatActivity {
             }
         });
 
-        txtArka.setOnClickListener(new View.OnClickListener() {
+
+        txtWebSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -40,10 +43,20 @@ public class aboutActivity extends AppCompatActivity {
         });
 
 
+        lytCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                intentCall.setData(Uri.fromParts("tel", "04133303866", null));
+                startActivity(intentCall);
+            }
+        });
+
+
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               onBackPressed();
+                onBackPressed();
             }
         });
     }
@@ -57,6 +70,7 @@ public class aboutActivity extends AppCompatActivity {
     private void initView() {
         relativeBack = (RelativeLayout) findViewById(R.id.relativeBack);
         imgArka = (ImageView) findViewById(R.id.imgArka);
-        txtArka = (TextView) findViewById(R.id.txtArka);
+        lytCall = (LinearLayout) findViewById(R.id.lytCall);
+        txtWebSite = (TextView) findViewById(R.id.txtWebSite);
     }
 }

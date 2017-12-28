@@ -118,7 +118,6 @@
                 android:text="طراحی وب سایت و اپلیکیشن موبایل"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#E96656"
-                android:id="@+id/txtArka"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content" />
 
@@ -167,9 +166,65 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/mainBarBack"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="0.5dp"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="right|center_vertical"
+                android:layout_margin="15dp"
+                android:paddingTop="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="تبریز، دانشگاه تبریز، مرکز رشد، دفتر شماره 37"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:src="@drawable/ic_map2"
+                    android:layout_height="15dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/lytCall"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="04133303866"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:src="@drawable/ic_call"
+                    android:layout_height="15dp" />
+
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:text="arkatech.ir"
+                android:id="@+id/txtWebSite"
                 android:textStyle="bold"
                 android:paddingBottom="40dp"
                 android:textSize="15sp"

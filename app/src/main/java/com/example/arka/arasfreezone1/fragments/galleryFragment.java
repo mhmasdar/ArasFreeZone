@@ -27,6 +27,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.TouchImageView;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.imageActivity;
 import com.example.arka.arasfreezone1.services.WebService;
@@ -48,8 +49,9 @@ public class galleryFragment extends Fragment {
     private ImageView img7;
     private ImageView img8;
     private ImageView img9;
-    private ImageView layout;
+    private TouchImageView layout;
     private LinearLayout lytLoading;
+    private android.app.FragmentManager fm;
 
 
     public galleryFragment() {
@@ -72,13 +74,13 @@ public class galleryFragment extends Fragment {
             }
         });
 
+        fm = getActivity().getFragmentManager();
 
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity() , imageActivity.class);
-//                startActivity(intent);
-                showdialog();
+                Intent intent = new Intent(getActivity() , imageActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -98,17 +100,16 @@ public class galleryFragment extends Fragment {
         img9 = (ImageView) view.findViewById(R.id.img9);
     }
 
-
     private void showdialog() {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_gallery_image);
 
-        layout = (ImageView) dialog.findViewById(R.id.back);
+        layout = (TouchImageView) dialog.findViewById(R.id.back);
         lytLoading = (LinearLayout) dialog.findViewById(R.id.lytLoading);
 
 
-        Glide.with(getContext()).load("http://gsharing.ir/Content/Upload/img/Home/13961007.png").asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(getContext()).load("http://gsharing.ir/Content/Upload/img/Home/back1.png").asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 // you can do something with loaded bitmap here

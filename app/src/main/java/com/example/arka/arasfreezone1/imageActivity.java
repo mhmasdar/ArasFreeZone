@@ -1,29 +1,42 @@
 package com.example.arka.arasfreezone1;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class imageActivity extends Activity {
 
-    private ImageView back;
+    private TouchImageView img;
+    private CircularProgressBar lytLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
-        initView();
 
+        img = (TouchImageView) findViewById(R.id.img);
+        lytLoading = (CircularProgressBar) findViewById(R.id.lytLoading);
 
-        Glide.with(this).load(R.drawable.back1).diskCacheStrategy(DiskCacheStrategy.NONE).into(back);
-
+        Glide.with(this).load("http://gsharing.ir/Content/Upload/img/Home/13961007_1.jpg").asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bm, GlideAnimation<? super Bitmap> glideAnimation) {
+                img.setImageBitmap(bm);
+                lytLoading.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
-    private void initView() {
-        back = (ImageView) findViewById(R.id.back);
-    }
 }

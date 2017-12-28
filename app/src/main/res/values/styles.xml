@@ -65,7 +65,6 @@
 
 
     <!-- ripple effect -->
-
     <style name="SelectableItemTheme">
         <item name="colorControlHighlight">@color/mainBarText</item>
     </style>
@@ -76,6 +75,19 @@
     <style name="SelectableItemBackgroundBorderless">
         <item name="android:theme">@style/SelectableItemTheme</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+
+
+
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@color/imageBack</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

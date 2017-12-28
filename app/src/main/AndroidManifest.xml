@@ -33,7 +33,7 @@
         <activity android:name=".profileActivity" />
         <activity
             android:name=".imageActivity"
-            android:theme="@android:style/Theme.Holo.Dialog" />
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".introPage.IntroActivity"
             android:theme="@style/introActivityTheme" />

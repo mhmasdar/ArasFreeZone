@@ -1,26 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.arka.arasfreezone1.imageActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".imageActivity">
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/lytLoading"
+        android:layout_width="35dp"
+        android:indeterminate="true"
+        app:cpb_colors="@array/arr"
+        app:cpb_rotation_speed="1.0"
+        app:cpb_sweep_speed="1.0"
+        android:layout_centerInParent="true"
+        app:cpb_stroke_width="5dp"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_max_sweep_angle="300"
+        android:layout_height="35dp" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="#0b2d2d2d"
-        android:layout_height="match_parent">
+    <com.example.arka.arasfreezone1.TouchImageView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:id="@+id/img"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:id="@+id/back"
-            android:layout_centerInParent="true"
-            android:scaleType="fitXY"
-            android:layout_height="wrap_content" />
-
-
-    </RelativeLayout>
-
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
