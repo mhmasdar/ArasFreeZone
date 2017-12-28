@@ -90,10 +90,12 @@ public class RoutingActivity extends AppCompatActivity {
     private String placeName = "";
     private int placeType, placeMainType;
 
+    Context ctx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context ctx = getApplicationContext();
+        ctx = getApplicationContext();
         //important! set your user agent to prevent getting banned from the osm servers
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_routing);
@@ -130,10 +132,6 @@ public class RoutingActivity extends AppCompatActivity {
         this.mLocationOverlay.enableMyLocation();
         //map.getOverlays().add(this.mLocationOverlay);
         //mapController.setCenter(mLocationOverlay.getMyLocation());
-
-        this.mCompassOverlay = new CompassOverlay(ctx, new InternalCompassOrientationProvider(ctx), map);
-        this.mCompassOverlay.enableCompass();
-        map.getOverlays().add(this.mCompassOverlay);
 
 
         if (placeLon != 0 && placeLat != 0) {
@@ -236,6 +234,12 @@ public class RoutingActivity extends AppCompatActivity {
 //        imgFilter = (ImageView) findViewById(R.id.imgFilter);
 //        imgSort = (ImageView) findViewById(R.id.imgSort);
 //        rating = findViewById(R.id.rating);
+    }
+
+    private void addCompass(){
+        this.mCompassOverlay = new CompassOverlay(ctx, new InternalCompassOrientationProvider(ctx), map);
+        this.mCompassOverlay.enableCompass();
+        map.getOverlays().add(this.mCompassOverlay);
     }
 
     private void addPlaceMarker(double lat, double lon) {
@@ -464,10 +468,13 @@ public class RoutingActivity extends AppCompatActivity {
             if (currentLocation != null) {
                 if (placeLon != 0 && placeLat != 0) {
                     if (road != null) {
-                        PreviousNode = road.mNodes.get(0);
+                        if (road.mNodes != null)
+                            if (road.mNodes.size() > 0)
+                                PreviousNode = road.mNodes.get(0);
                         map.getOverlays().clear();
                         markCurrentLocatin();
                         addPlaceMarker(placeLat, placeLon);
+                        addCompass();
 
                         roadOverlay = RoadManager.buildRoadOverlay(road);
                         roadOverlay.setWidth(12);

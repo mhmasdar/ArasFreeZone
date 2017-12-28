@@ -140,6 +140,8 @@ public class newsListFragment extends Fragment {
                     }
                     setUpRecyclerView(filteredList, true);
                 }
+
+                newsListAdapter.selectedPosition = 0;
             }
 
             @Override
@@ -309,13 +311,11 @@ public class newsListFragment extends Fragment {
         rc.setLayoutManager(mLinearLayoutManagerVertical);
 
 
-//        // Define the Index we wish to scroll to.
-//        final int lIndex = 0;
-//// Assign the RecyclerView's LayoutManager.
-//        this.rc.setLayoutManager(mLinearLayoutManagerVertical);
-//// Scroll the RecyclerView to the Index.
-//        mLinearLayoutManagerVertical.smoothScrollToPosition(this.rc, new RecyclerView.State(), newsListAdapter.selectedPosition);
-//
+// Assign the RecyclerView's LayoutManager.
+        this.rc.setLayoutManager(mLinearLayoutManagerVertical);
+// Scroll the RecyclerView to the Index.
+        mLinearLayoutManagerVertical.smoothScrollToPosition(this.rc, new RecyclerView.State(), newsListAdapter.selectedPosition);
+
 
 
     }

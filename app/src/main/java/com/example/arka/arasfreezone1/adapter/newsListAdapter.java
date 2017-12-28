@@ -44,7 +44,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
     private static int count = 1;
     private boolean searchFlag;
 
-    //public static int selectedPosition = 0;
+    public static int selectedPosition = 0;
 
     public newsListAdapter(Context context, List<NewsModel> newsList, boolean searchFlag) {
         this.context = context;
@@ -83,7 +83,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             @Override
             public void onClick(View view) {
 
-                //selectedPosition = position;
+                selectedPosition = position;
 
                 app.check = 6;
                 newsDetailsFragment fragment = new newsDetailsFragment();
