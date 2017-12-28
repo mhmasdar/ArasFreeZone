@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
 import com.example.arka.arasfreezone1.models.DriverModel;
 import com.example.arka.arasfreezone1.models.PlacesModel;
@@ -92,6 +95,10 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
             this.txtName.setText(current.Name + " " + current.LName);
             this.txtCarModel.setText(current.Model);
             //this.imgNews.setImageResource();
+            if (current.Img != null)
+                if (!current.Img.equals(""))
+                    Glide.with(context).load(app.imgMainAddr + app.driverImgAddr + current.Img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
+
             this.txtCarColor.setText("رنگ: " + current.Color);
             this.txtPlate.setText(current.Plate);
 

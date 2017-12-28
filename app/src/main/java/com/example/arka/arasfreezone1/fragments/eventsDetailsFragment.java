@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.app;
@@ -364,7 +366,7 @@ public class eventsDetailsFragment extends Fragment {
             txtAddress.setText(currentModel.name);
             txtInfo.setText(currentModel.name);
             txtLikeCount.setText(currentModel.likeCount + "");
-
+            Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + currentModel.image).diskCacheStrategy(DiskCacheStrategy.NONE).into(imgTitle);
         }
 
     }
