@@ -117,6 +117,8 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
             this.txtName.setText(current.name);
             this.txtAddress.setText(current.address);
             //this.imgNews.setImageResource();
+            if (current.image != null)
+                if (!current.image.equals(""))
             Glide.with(context).load(app.imgMainAddr + app.officeImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
             this.position = position;
             this.current = current;

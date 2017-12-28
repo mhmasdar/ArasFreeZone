@@ -1221,7 +1221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 HomePageModel pm = new HomePageModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
-                pm.title = cursor.getString(cursor.getColumnIndex("name"));
+                pm.title = cursor.getString(cursor.getColumnIndex("title"));
                 pm.des = cursor.getString(cursor.getColumnIndex("des"));
                 pm.image = cursor.getString(cursor.getColumnIndex("image"));
 

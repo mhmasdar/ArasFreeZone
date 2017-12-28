@@ -25,7 +25,7 @@ public class app extends Application {
     public static boolean isScheduled = false;
 
 
-    public static String imgMainAddr = "http://test.gsharing.ir/Content/Upload/Img/";
+    public static String imgMainAddr = "http://gsharing.ir/Content/Upload/Img/";
 
     public static String homeImgAddr = "Home/";
     public static String culturalImgAddr = "cultural/";

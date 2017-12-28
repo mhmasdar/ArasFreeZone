@@ -7,8 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.models.ImgModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +25,16 @@ public class detailsSliderAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private Context context;
-    private List<Integer> images = new ArrayList<>();
+    //private List<Integer> images = new ArrayList<>();
+    List<ImgModel> imageList = new ArrayList<>();
 
-    public detailsSliderAdapter(Context context) {
+    public detailsSliderAdapter(Context context, List<ImgModel> imageList) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        images.add(R.drawable.test2);
-        images.add(R.drawable.test2);
-        images.add(R.drawable.test2);
+        this.imageList = imageList;
+//        images.add(R.drawable.test2);
+//        images.add(R.drawable.test2);
+//        images.add(R.drawable.test2);
 
     }
 
@@ -38,7 +45,11 @@ public class detailsSliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+
+        if (imageList.size() > 3)
+            return 3;
+        else
+            return imageList.size();
     }
 
     @Override
@@ -52,7 +63,7 @@ public class detailsSliderAdapter extends PagerAdapter {
 //        //set image dark
         imageView.setColorFilter(Color.rgb(183, 183, 183), android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        Glide.with(context).load(images.get(position)).into(imageView);
+        Glide.with(context).load(app.imgMainAddr + getImgAddr(imageList.get(position).type) + imageList.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
 
 
         view.addView(imageLayout, 0);
@@ -73,4 +84,45 @@ public class detailsSliderAdapter extends PagerAdapter {
         return view.equals(object);
     }
 
+
+    public String getImgAddr(int type) {
+
+        String imgAddress = "";
+
+        switch (type) {
+            case 1:
+                imgAddress = app.eatingImgAddr;
+                break;
+            case 2:
+                imgAddress = app.shoppingImgAddr;
+                break;
+            case 3:
+                imgAddress = app.restImgAddr;
+                break;
+            case 4:
+                imgAddress = app.tourismImgAddr;
+                break;
+            case 5:
+                imgAddress = app.culturalImgAddr;
+                break;
+            case 6:
+                imgAddress = app.transportImgAddr;
+                break;
+            case 7:
+                imgAddress = app.serviceImgAddr;
+                break;
+            case 8:
+                imgAddress = app.officeImgAddr;
+                break;
+            case 9:
+                imgAddress = app.medicalImgAddr;
+                break;
+            case 10:
+                imgAddress = app.eventImgAddr;
+                break;
+            default:
+                imgAddress = "";
+        }
+        return imgAddress;
+    }
 }

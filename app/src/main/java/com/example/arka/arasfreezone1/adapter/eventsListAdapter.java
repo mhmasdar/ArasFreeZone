@@ -84,15 +84,14 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
                 if (context instanceof MainActivity) {
                     // We can get the fragment manager
 //                    MainActivity mainActivity = (MainActivity) context;
-                    FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction ft = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
-                }
-                else{
+                } else {
 //                    favoriteActivity favoriteActivity = (favoriteActivity) context;
-                    FragmentTransaction ft = ((favoriteActivity)context).getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction ft = ((favoriteActivity) context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container1, fragment);
                     ft.addToBackStack(null);
@@ -136,7 +135,9 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
             this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));
             this.txtAddress.setText("مکان: " + current.address);
             //this.imgNews.setImageResource();
-            Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
+            if (current.image != null)
+                if (!current.image.equals(""))
+                    Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
             this.position = position;
             this.current = current;
 

@@ -122,6 +122,7 @@ public class detailsFragment extends Fragment {
     private boolean CanLike = true;
     private boolean CanAddFavorite = true;
 
+
     public detailsFragment() {
         // Required empty public constructor
     }
@@ -298,7 +299,7 @@ public class detailsFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
 
 
-        mPager.setAdapter(new detailsSliderAdapter(app.context));
+        mPager.setAdapter(new detailsSliderAdapter(app.context, imgList));
 
 
         CirclePageIndicator indicator = (CirclePageIndicator)
@@ -627,6 +628,8 @@ public class detailsFragment extends Fragment {
         recyclerMenu.setLayoutManager(mLinearLayoutManagerVertical);
     }
 
+
+
     private void setUpRecyclerViewFacilities(List<FacilityModel> facilityList) {
 
         facilityDialogAdapter adapter = new facilityDialogAdapter(getContext(), facilityList);
@@ -636,6 +639,8 @@ public class detailsFragment extends Fragment {
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerFacility.setLayoutManager(mLinearLayoutManagerVertical);
     }
+
+
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
@@ -673,6 +678,10 @@ public class detailsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            if (imgList != null)
+                if (imgList.size() > 0)
+                    initSlider(getView());
 
             if (tblName.equals("Tbl_Transports") && placesModel.type == 1) {
                 lytMenu.setVisibility(View.GONE);

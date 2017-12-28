@@ -141,7 +141,7 @@ public class detailsOfficeFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
 
 
-        mPager.setAdapter(new detailsSliderAdapter(app.context));
+        mPager.setAdapter(new detailsSliderAdapter(app.context, imgList));
 
 
         CirclePageIndicator indicator = (CirclePageIndicator)

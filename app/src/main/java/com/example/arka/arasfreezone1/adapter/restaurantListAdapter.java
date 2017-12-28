@@ -75,7 +75,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             @Override
             public void onClick(View view) {
 
-                if (tblName.equals("")){
+                if (tblName.equals("")) {
                     getTblName(currentObj.mainType);
                 }
 
@@ -85,22 +85,19 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 args.putString("TBL_NAME", tblName);
 
 
-
-
                 if (context instanceof MainActivity) {
 //                    MainActivity activity = (MainActivity) context;
-                    args.putBoolean("isFromFaavorite" , false);
+                    args.putBoolean("isFromFaavorite", false);
                     fragment.setArguments(args);
-                    FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction ft = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container, fragment);
                     ft.addToBackStack("b");
                     ft.commit();
-                }
-                else{
-                    args.putBoolean("isFromFaavorite" , true);
+                } else {
+                    args.putBoolean("isFromFaavorite", true);
                     fragment.setArguments(args);
-                    FragmentTransaction ft = ((favoriteActivity)context).getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction ft = ((favoriteActivity) context).getSupportFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                     ft.replace(R.id.container1, fragment);
                     ft.addToBackStack(null);
@@ -116,7 +113,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         return placesList.size();
     }
 
-    public void getTblName(int type){
+    public void getTblName(int type) {
 
         switch (type) {
             case 1:
@@ -154,7 +151,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         }
     }
 
-    public String getImgAddr(int type){
+    public String getImgAddr(int type) {
 
         String imgAddress = "";
 
@@ -227,7 +224,9 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             this.txtName.setText(current.name);
             this.txtAddress.setText(current.address);
             //this.imgNews.setImageResource();
-            Glide.with(context).load(app.imgMainAddr + getImgAddr(current.mainType) + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
+            if (current.image != null)
+                if (!current.image.equals(""))
+                    Glide.with(context).load(app.imgMainAddr + getImgAddr(current.mainType) + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
             this.txtRank.setText(current.star + "");
             this.txtType.setText(getPlaceType(current.mainType, current.type));
 
@@ -239,7 +238,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
     }
 
-    public String getPlaceType(int mainType, int type){
+    public String getPlaceType(int mainType, int type) {
 
         String returnType = "";
 
@@ -247,7 +246,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             case 1:
                 tblName = "Tbl_Eating";
 
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "رستوران";
                         break;
@@ -263,13 +262,13 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                     case 5:
                         returnType = "بستنی";
                         break;
-                        default:
+                    default:
                 }
 
                 break;
             case 2:
                 tblName = "Tbl_Shoppings";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "مرکز خرید";
                         break;
@@ -284,7 +283,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 3:
                 tblName = "Tbl_Rests";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "هتل";
                         break;
@@ -299,7 +298,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 4:
                 tblName = "Tbl_Tourisms";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "تفریحی";
                         break;
@@ -317,7 +316,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 5:
                 tblName = "Tbl_Culturals";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "موزه";
                         break;
@@ -332,7 +331,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 6:
                 tblName = "Tbl_Transports";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "تاکسی";
                         break;
@@ -350,7 +349,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 7:
                 tblName = "Tbl_Services";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "سالن ورزشی";
                         break;
@@ -371,7 +370,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 8:
                 tblName = "Tbl_Offices";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "مسجد و امام زاده";
                         break;
@@ -392,7 +391,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                 break;
             case 9:
                 tblName = "Tbl_Medicals";
-                switch (type){
+                switch (type) {
                     case 1:
                         returnType = "بیمارستان";
                         break;
@@ -419,11 +418,9 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     }
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompatSideChannelService;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.models.HomePageModel;
 
 import java.util.ArrayList;
@@ -33,17 +35,18 @@ public class SlidingImage_Adapter extends PagerAdapter {
     private LayoutInflater inflater;
     private Context context;
     private List<String> images = new ArrayList<>();
-    private String[] names = {"حمام تاریخی کردشت" , "کلیسای سنت استپانوس" , "آسیاب خرابه"};
-    private String[] details = {"حمامی قدیمی در شهر جلفا" , "واقع در اطراف شهر" , "منطقه ای بسیار زیبا در شهر جلفا"};
+    private String[] names = {"حمام تاریخی کردشت", "کلیسای سنت استپانوس", "آسیاب خرابه"};
+    private String[] details = {"حمامی قدیمی در شهر جلفا", "واقع در اطراف شهر", "منطقه ای بسیار زیبا در شهر جلفا"};
     List<HomePageModel> pageList;
 
     public SlidingImage_Adapter(Context context, List<HomePageModel> pageList) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.pageList = pageList;
-        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007.png");
-        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007_1.jpg");
-        images.add("http://gsharing.ir/Content/Upload/img/Home/13961007_2.jpg");
+
+        images.add(app.imgMainAddr + app.homeImgAddr + pageList.get(0).image);
+        images.add(app.imgMainAddr + app.homeImgAddr + pageList.get(1).image);
+        images.add(app.imgMainAddr + app.homeImgAddr + pageList.get(2).image);
     }
 
     @Override
@@ -71,9 +74,25 @@ public class SlidingImage_Adapter extends PagerAdapter {
         //set image dark
         imageView.setColorFilter(Color.rgb(225, 225, 225), android.graphics.PorterDuff.Mode.MULTIPLY);
 
+        if (position == 0) {
+            if (pageList.get(position).image.equals("1514498287547.png"))
+                Glide.with(context).load(R.drawable.back1).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            else
+                Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        }
+        else if (position == 1) {
+            if (pageList.get(position).image.equals("1514498425965.jpg"))
+                Glide.with(context).load(R.drawable.back2).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            else
+                Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        }
+        else {
+            if (pageList.get(position).image.equals("1514498484465.jpg"))
+                Glide.with(context).load(R.drawable.back3).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            else
+                Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        }
 
-
-        Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
         txtSliderName.setText(names[position]);
         txtSliderDetail.setText(details[position]);
 
