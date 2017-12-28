@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
@@ -115,7 +117,7 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
             this.txtName.setText(current.name);
             this.txtAddress.setText(current.address);
             //this.imgNews.setImageResource();
-
+            Glide.with(context).load(app.imgMainAddr + app.officeImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
             this.position = position;
             this.current = current;
 

@@ -89,7 +89,6 @@ public class organizationAdapter  extends RecyclerView.Adapter<organizationAdapt
 
             this.txtName.setText(current.name);
             this.txtPhoneNumber.setText("0" + current.phone);
-
             this.position = position;
             this.current = current;
 

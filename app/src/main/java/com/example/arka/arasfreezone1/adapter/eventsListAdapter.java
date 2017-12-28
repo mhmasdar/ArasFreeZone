@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
@@ -134,7 +136,7 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
             this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));
             this.txtAddress.setText("مکان: " + current.address);
             //this.imgNews.setImageResource();
-
+            Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
             this.position = position;
             this.current = current;
 

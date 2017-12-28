@@ -23,7 +23,26 @@ public class app extends Application {
     public static Context context;
     public static Timer swipeTimer = new Timer();
     public static boolean isScheduled = false;
-    @Override
+
+
+    public static String imgMainAddr = "http://test.gsharing.ir/Content/Upload/Img/";
+
+    public static String homeImgAddr = "Home/";
+    public static String culturalImgAddr = "cultural/";
+    public static String driverImgAddr = "driver/";
+    public static String eatingImgAddr = "eating/";
+    public static String eventImgAddr = "event/";
+    public static String medicalImgAddr = "medical/";
+    public static String newsImgAddr = "news/";
+    public static String officeImgAddr = "office/";
+    public static String restImgAddr = "rest/";
+    public static String serviceImgAddr = "service/";
+    public static String shoppingImgAddr = "shopping/";
+    public static String tourismImgAddr = "tourism/";
+    public static String transportImgAddr = "transport/";
+
+
+        @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();

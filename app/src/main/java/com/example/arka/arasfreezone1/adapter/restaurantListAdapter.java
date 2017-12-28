@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
@@ -41,6 +43,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     private List<PlacesModel> placesList;
     private String tblName;
     private int lastPosition = -1;
+
 
     public restaurantListAdapter(Context context, List<PlacesModel> placesList, String tblName) {
         this.context = context;
@@ -151,6 +154,47 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         }
     }
 
+    public String getImgAddr(int type){
+
+        String imgAddress = "";
+
+        switch (type) {
+            case 1:
+                imgAddress = app.eatingImgAddr;
+                break;
+            case 2:
+                imgAddress = app.shoppingImgAddr;
+                break;
+            case 3:
+                imgAddress = app.restImgAddr;
+                break;
+            case 4:
+                imgAddress = app.tourismImgAddr;
+                break;
+            case 5:
+                imgAddress = app.culturalImgAddr;
+                break;
+            case 6:
+                imgAddress = app.transportImgAddr;
+                break;
+            case 7:
+                imgAddress = app.serviceImgAddr;
+                break;
+            case 8:
+                imgAddress = app.officeImgAddr;
+                break;
+            case 9:
+                imgAddress = app.medicalImgAddr;
+                break;
+            case 10:
+                imgAddress = app.eventImgAddr;
+                break;
+            default:
+                imgAddress = "";
+        }
+        return imgAddress;
+    }
+
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
@@ -183,6 +227,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             this.txtName.setText(current.name);
             this.txtAddress.setText(current.address);
             //this.imgNews.setImageResource();
+            Glide.with(context).load(app.imgMainAddr + getImgAddr(current.mainType) + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
             this.txtRank.setText(current.star + "");
             this.txtType.setText(getPlaceType(current.mainType, current.type));
 

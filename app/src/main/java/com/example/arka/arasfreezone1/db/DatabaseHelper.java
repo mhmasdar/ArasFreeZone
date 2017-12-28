@@ -104,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
                 if (!tblName.equals("Tbl_Offices"))
                     pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
@@ -133,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 
 
