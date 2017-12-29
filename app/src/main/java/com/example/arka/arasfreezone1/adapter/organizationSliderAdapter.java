@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.models.ImgModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +26,15 @@ public class organizationSliderAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private Context context;
     private List<Integer> images = new ArrayList<>();
+    List<ImgModel> imageList = new ArrayList<>();
 
-    public organizationSliderAdapter(Context context) {
+    public organizationSliderAdapter(Context context, List<ImgModel> imageList) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        images.add(R.drawable.back1);
-        images.add(R.drawable.back2);
-        images.add(R.drawable.back3);
+//        images.add(R.drawable.back1);
+//        images.add(R.drawable.back2);
+//        images.add(R.drawable.back3);
+        this.imageList = imageList;
     }
 
     @Override
@@ -39,7 +44,10 @@ public class organizationSliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        if (imageList.size() > 3)
+            return 3;
+        else
+            return imageList.size();
     }
 
     @Override
@@ -53,7 +61,9 @@ public class organizationSliderAdapter extends PagerAdapter {
 //        //set image dark
         imageView.setColorFilter(Color.rgb(200, 200, 200), android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        Glide.with(context).load(images.get(position)).into(imageView);
+        if (imageList.get(position).name != null)
+            if (!imageList.get(position).name.equals(""))
+                Glide.with(context).load(app.imgMainAddr + app.officeImgAddr + imageList.get(position).name).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
 
 
         view.addView(imageLayout, 0);

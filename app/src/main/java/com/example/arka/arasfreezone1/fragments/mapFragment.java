@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.RoutingActivity;
@@ -975,7 +976,6 @@ public class mapFragment extends Fragment {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
 
-                        Glide.with(getContext()).load(R.drawable.test2).into(imgDetails);
                         tapedPlace = placesList.get(index);
                         lytDetails.setVisibility(View.VISIBLE);
                         rating.setVisibility(View.VISIBLE);
@@ -984,6 +984,10 @@ public class mapFragment extends Fragment {
                         lytDetails.startAnimation(mp3);
                         txtName.setText(placesList.get(index).name);
                         txtAddress.setText(placesList.get(index).address);
+                        if (placesList.get(index).image != null)
+                            if (!placesList.get(index).image.equals(""))
+                                Glide.with(getContext()).load(app.imgMainAddr + getImgAddr(placesList.get(index).mainType) + placesList.get(index).image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgDetails);
+
                         if (placesList.get(index).mainType != 10 && placesList.get(index).mainType != 8)
                             rating.setRating(Float.parseFloat(placesList.get(index).star + ""));
                         else {
@@ -1002,6 +1006,48 @@ public class mapFragment extends Fragment {
         //detect tap on map
         addEventListener();
 
+    }
+
+
+    public String getImgAddr(int type) {
+
+        String imgAddress = "";
+
+        switch (type) {
+            case 1:
+                imgAddress = app.eatingImgAddr;
+                break;
+            case 2:
+                imgAddress = app.shoppingImgAddr;
+                break;
+            case 3:
+                imgAddress = app.restImgAddr;
+                break;
+            case 4:
+                imgAddress = app.tourismImgAddr;
+                break;
+            case 5:
+                imgAddress = app.culturalImgAddr;
+                break;
+            case 6:
+                imgAddress = app.transportImgAddr;
+                break;
+            case 7:
+                imgAddress = app.serviceImgAddr;
+                break;
+            case 8:
+                imgAddress = app.officeImgAddr;
+                break;
+            case 9:
+                imgAddress = app.medicalImgAddr;
+                break;
+            case 10:
+                imgAddress = app.eventImgAddr;
+                break;
+            default:
+                imgAddress = "";
+        }
+        return imgAddress;
     }
 
     private static double getDistance(double lat1, double lon1, double lat2, double lon2, String unit) {

@@ -350,7 +350,7 @@ public class eventsDetailsFragment extends Fragment {
 
             currentModel = databaseHelper.selectEventsDetail(tblName, id);
 
-            imgList = databaseHelper.selectPlacesImages(10, id);
+            //imgList = databaseHelper.selectPlacesImages(10, id);
 
             return null;
         }

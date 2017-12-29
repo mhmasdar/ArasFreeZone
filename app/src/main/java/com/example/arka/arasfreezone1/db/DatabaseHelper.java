@@ -213,6 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
                 pm.phone = cursor.getString(cursor.getColumnIndex("phone"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
 
 //                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
 //                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
@@ -245,7 +246,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.phone = cursor.getString(cursor.getColumnIndex("tel"));
                 pm.info = cursor.getString(cursor.getColumnIndex("Info"));
                 pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
-
 
             } while (cursor.moveToNext());
 
@@ -1465,6 +1465,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
                 if (!tblName.equals("Tbl_Offices"))
                     pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));

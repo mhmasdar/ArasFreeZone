@@ -81,7 +81,7 @@ public class organizationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_organization, container, false);
         initView(view);
-        initSlider(view);
+        //initSlider(view);
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
         databaseCallback.execute();
@@ -179,7 +179,7 @@ public class organizationFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
 
 
-        mPager.setAdapter(new organizationSliderAdapter(getContext()));
+        mPager.setAdapter(new organizationSliderAdapter(getContext(), imgList));
 
 
         CirclePageIndicator indicator = (CirclePageIndicator)
@@ -308,6 +308,10 @@ public class organizationFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            if (imgList != null)
+                if (imgList.size() > 0)
+                    initSlider(getView());
 
             if (placesModel != null) {
 

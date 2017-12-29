@@ -168,6 +168,12 @@ public class detailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 galleryFragment fragment = new galleryFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("ID", id);
+                args.putInt("MainType", mainType);
+
+                fragment.setArguments(args);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
                 if (!isFromFavorite)

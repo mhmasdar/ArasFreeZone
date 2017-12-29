@@ -63,7 +63,8 @@
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:paddingBottom="10dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +79,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -88,7 +90,8 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -97,7 +100,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginLeft="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
@@ -114,7 +118,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -124,7 +129,8 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -133,7 +139,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginLeft="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
@@ -150,7 +157,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -160,7 +168,8 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -169,7 +178,8 @@
                     android:scaleType="fitXY"
                     android:layout_marginLeft="2dp"
                     android:src="@drawable/back2"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 

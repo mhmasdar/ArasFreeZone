@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ public class imageActivity extends Activity {
     private TouchImageView img;
     private CircularProgressBar lytLoading;
 
+    int mainType;
+    String imageName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +33,60 @@ public class imageActivity extends Activity {
         img = (TouchImageView) findViewById(R.id.img);
         lytLoading = (CircularProgressBar) findViewById(R.id.lytLoading);
 
-        Glide.with(this).load("http://gsharing.ir/Content/Upload/back1.png").asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap bm, GlideAnimation<? super Bitmap> glideAnimation) {
-                img.setImageBitmap(bm);
-                lytLoading.setVisibility(View.GONE);
-                img.setVisibility(View.VISIBLE);
-            }
-        });
+        mainType = getIntent().getIntExtra("MainType", 0);
+        imageName = getIntent().getStringExtra("ImgName");
+
+        if (imageName != null)
+            if (!imageName.equals(""))
+                Glide.with(this).load(app.imgMainAddr + getImgAddr(mainType) + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bm, GlideAnimation<? super Bitmap> glideAnimation) {
+                        img.setImageBitmap(bm);
+                        lytLoading.setVisibility(View.GONE);
+                        img.setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+
+    public String getImgAddr(int type) {
+
+        String imgAddress = "";
+
+        switch (type) {
+            case 1:
+                imgAddress = app.eatingImgAddr;
+                break;
+            case 2:
+                imgAddress = app.shoppingImgAddr;
+                break;
+            case 3:
+                imgAddress = app.restImgAddr;
+                break;
+            case 4:
+                imgAddress = app.tourismImgAddr;
+                break;
+            case 5:
+                imgAddress = app.culturalImgAddr;
+                break;
+            case 6:
+                imgAddress = app.transportImgAddr;
+                break;
+            case 7:
+                imgAddress = app.serviceImgAddr;
+                break;
+            case 8:
+                imgAddress = app.officeImgAddr;
+                break;
+            case 9:
+                imgAddress = app.medicalImgAddr;
+                break;
+            case 10:
+                imgAddress = app.eventImgAddr;
+                break;
+            default:
+                imgAddress = "";
+        }
+        return imgAddress;
     }
 
 }

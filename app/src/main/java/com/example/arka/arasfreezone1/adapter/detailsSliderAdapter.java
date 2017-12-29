@@ -63,7 +63,9 @@ public class detailsSliderAdapter extends PagerAdapter {
 //        //set image dark
         imageView.setColorFilter(Color.rgb(183, 183, 183), android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        Glide.with(context).load(app.imgMainAddr + getImgAddr(imageList.get(position).type) + imageList.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        if (imageList.get(position).name != null)
+            if (!imageList.get(position).name.equals(""))
+        Glide.with(context).load(app.imgMainAddr + getImgAddr(imageList.get(position).type) + imageList.get(position).name).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
 
 
         view.addView(imageLayout, 0);
