@@ -53,6 +53,7 @@ public class stayFragment extends Fragment {
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
 
+
     public stayFragment() {
         // Required empty public constructor
     }
@@ -171,8 +172,11 @@ public class stayFragment extends Fragment {
 
     private void initSlider() {
 
-
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.stay1);
+        images.add(R.drawable.stay2);
+        images.add(R.drawable.stay3);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
 
         // Auto start of viewpager

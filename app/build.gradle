@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        aaptOptions { cruncherEnabled = false }
     }
     buildTypes {
         release {
@@ -40,4 +41,7 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     compile 'com.github.MKergall:osmbonuspack:6.4'
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    //noinspection GradleCompatible
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
 }
+apply plugin: 'com.google.gms.google-services'

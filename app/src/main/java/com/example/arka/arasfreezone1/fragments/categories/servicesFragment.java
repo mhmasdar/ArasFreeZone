@@ -170,8 +170,11 @@ public class servicesFragment extends Fragment {
     private void initSlider() {
 
 
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
-
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.ser1);
+        images.add(R.drawable.ser2);
+        images.add(R.drawable.ser3);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
         // Auto start of viewpager
         final Handler handler = new Handler();

@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setLytSupport();
+//                Intent intent = new Intent(MainActivity.this , testActivity.class);
+//                startActivity(intent);
             }
         });
 

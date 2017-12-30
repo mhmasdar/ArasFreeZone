@@ -50,12 +50,14 @@ public class favoriteFragment extends Fragment {
         DatabaseCallback databaseCallback = new DatabaseCallback(getActivity());
         databaseCallback.execute();
 
-//        lytBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
+        lytBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+
 
         return view;
     }

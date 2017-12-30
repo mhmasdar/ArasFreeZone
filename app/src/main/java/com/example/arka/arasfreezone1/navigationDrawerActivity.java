@@ -223,27 +223,25 @@ public class navigationDrawerActivity extends AppCompatActivity {
 
         if (idUser > 0) {
             txtLogin.setText("مشاهده حساب کاربری");
-        }
-        else{
-            txtLogin.setText("ورود / ثبت نام");
-        }
-
-
-        profileCheck = prefs.getInt("profile" , 0);
-        if (profileCheck != 0)
-        {
-            switch (profileCheck)
+            profileCheck = prefs.getInt("profile" , 0);
+            if (profileCheck != 0)
             {
-                case 1:
-                    UserImage.setImageResource(R.drawable.ic_man);
-                    break;
+                switch (profileCheck)
+                {
+                    case 1:
+                        UserImage.setImageResource(R.drawable.ic_man);
+                        break;
 
-                case 2:
-                    UserImage.setImageResource(R.drawable.ic_woman);
-                    break;
+                    case 2:
+                        UserImage.setImageResource(R.drawable.ic_woman);
+                        break;
+                }
             }
         }
-
+        else{
+            UserImage.setImageResource(R.drawable.ic_profile);
+            txtLogin.setText("ورود / ثبت نام");
+        }
     }
 
 }

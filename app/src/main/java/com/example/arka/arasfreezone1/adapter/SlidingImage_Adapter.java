@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompatSideChannelService;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;

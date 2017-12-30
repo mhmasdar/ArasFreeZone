@@ -69,7 +69,7 @@
         <ImageView
             android:layout_width="90dp"
             android:id="@+id/imgNews"
-            android:src="@drawable/test2"
+            android:background="@drawable/items_default"
             android:scaleType="fitXY"
             android:layout_height="90dp" />
 

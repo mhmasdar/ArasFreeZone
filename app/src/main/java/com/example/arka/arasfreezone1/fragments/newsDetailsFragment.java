@@ -59,7 +59,6 @@ public class newsDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_details, container, false);
-        app.inside2 = true;
 
         Bundle args = getArguments();
         id = args.getInt("ID");

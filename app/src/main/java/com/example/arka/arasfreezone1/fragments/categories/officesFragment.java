@@ -178,8 +178,11 @@ public class officesFragment extends Fragment {
     private void initSlider() {
 
 
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
-
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.off1);
+        images.add(R.drawable.off2);
+        images.add(R.drawable.wide_back);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
         // Auto start of viewpager
         final Handler handler = new Handler();

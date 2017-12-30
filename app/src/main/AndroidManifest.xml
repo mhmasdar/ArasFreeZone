@@ -15,31 +15,76 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".suggestionActivity" />
-        <activity android:name=".commentsActivity" />
-        <activity android:name=".referendumActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".navigationDrawerActivity" />
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".suggestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".commentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".referendumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".navigationDrawerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".introduceActivity" />
-        <activity android:name=".loginActivity" />
-        <activity android:name=".profileActivity" />
+        <activity
+            android:name=".introduceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".loginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".imageActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".introPage.IntroActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/introActivityTheme" />
-        <activity android:name=".RoutingActivity" />
-        <activity android:name=".favoriteActivity" />
-        <activity android:name=".aboutActivity"></activity>
+        <activity
+            android:name=".RoutingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".favoriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aboutActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".notification.MFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".notification.MFirebaseInstanceIDService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".testActivity"></activity>
     </application>
 
 </manifest>

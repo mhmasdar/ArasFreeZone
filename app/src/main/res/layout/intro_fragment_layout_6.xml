@@ -17,7 +17,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_aras" />
+            android:src="@drawable/aras_logo" />
 
         <TextView
             android:layout_width="wrap_content"

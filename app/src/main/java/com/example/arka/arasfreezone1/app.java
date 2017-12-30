@@ -16,13 +16,13 @@ import java.util.Timer;
 public class app extends Application {
 
     public static int check=0;
-    public static int frg;
-    public static boolean inside1=false;
-    public static boolean inside2=false;
-    public static boolean inside3=false;
     public static Context context;
     public static Timer swipeTimer = new Timer();
+    public static Timer detailsTimer = new Timer();
+
     public static boolean isScheduled = false;
+    public static boolean isScheduledSlider = false;
+
 
 
     public static String imgMainAddr = "http://gsharing.ir/Content/Upload/Img/";

@@ -172,7 +172,11 @@ public class transportFragment extends Fragment {
     private void initSlider() {
 
 
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.trans1);
+        images.add(R.drawable.trans2);
+        images.add(R.drawable.trans3);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
 
         // Auto start of viewpager

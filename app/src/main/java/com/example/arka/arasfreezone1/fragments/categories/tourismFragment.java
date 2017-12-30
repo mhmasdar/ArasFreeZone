@@ -170,8 +170,11 @@ public class tourismFragment extends Fragment {
     private void initSlider() {
 
 
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
-
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.tour1);
+        images.add(R.drawable.tour2);
+        images.add(R.drawable.tour3);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
         // Auto start of viewpager
         final Handler handler = new Handler();

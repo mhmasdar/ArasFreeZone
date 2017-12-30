@@ -93,6 +93,7 @@ public class galleryFragment extends Fragment {
 
         fm = getActivity().getFragmentManager();
 
+
         img[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,36 +193,6 @@ public class galleryFragment extends Fragment {
         img[0] = (ImageView) view.findViewById(R.id.img1);
     }
 
-    private void showdialog() {
-        dialog = new Dialog(getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_gallery_image);
-
-        layout = (TouchImageView) dialog.findViewById(R.id.back);
-        lytLoading = (LinearLayout) dialog.findViewById(R.id.lytLoading);
-
-
-        Glide.with(getContext()).load("http://gsharing.ir/Content/Upload/img/Home/back1.png").asBitmap().into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                // you can do something with loaded bitmap here
-
-                // .....
-                layout.setImageBitmap(resource);
-                lytLoading.setVisibility(View.GONE);
-                layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-
-//        DrawableRequestBuilder<String> a = Glide.with(this).load("http://192.168.1.105/Content/files/students/personal/1.png").diskCacheStrategy(DiskCacheStrategy.NONE);
-//        String s = String.valueOf(a);
-//        int imageResource = getResources().getIdentifier(s, null, getActivity().getPackageName());
-//        Drawable res = getResources().getDrawable(imageResource);
-//        layout.setImageDrawable(res);
-
-        dialog.show();
-    }
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 

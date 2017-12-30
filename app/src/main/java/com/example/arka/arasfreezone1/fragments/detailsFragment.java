@@ -64,7 +64,7 @@ public class detailsFragment extends Fragment {
     private ViewPager mPager;
     private int currentPage = 0;
     private boolean detailsSlider = false;
-    public Timer swipeTimer = new Timer();
+    public Timer detailsTimer = new Timer();
     private LinearLayout lytRating;
     private LinearLayout lytGallery;
     private TextView txtName;
@@ -329,14 +329,16 @@ public class detailsFragment extends Fragment {
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
-        if (detailsSlider == false) {
-            swipeTimer.schedule(new TimerTask() {
+
+//        app.isScheduled = true;
+        if (app.isScheduledSlider == false) {
+            app.detailsTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     handler.post(Update);
                 }
-            }, 2000, 3000);
-            detailsSlider = true;
+            }, 2000, 4000);
+            app.isScheduledSlider = true;
         }
         // Pager listener over indicator
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

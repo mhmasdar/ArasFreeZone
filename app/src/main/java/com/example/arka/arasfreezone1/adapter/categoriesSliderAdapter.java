@@ -24,12 +24,12 @@ public class categoriesSliderAdapter extends PagerAdapter {
     private Context context;
     private List<Integer> images = new ArrayList<>();
 
-    public categoriesSliderAdapter(Context context) {
+    public categoriesSliderAdapter(Context context, List<Integer> images) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        images.add(R.drawable.test3);
-        images.add(R.drawable.test4);
-        images.add(R.drawable.test2);
+        this.images = images;
+//        images.add(R.drawable.test4);
+//        images.add(R.drawable.test2);
     }
 
     @Override

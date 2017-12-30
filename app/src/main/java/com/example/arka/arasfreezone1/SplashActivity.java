@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.introPage.IntroActivity;
 import com.example.arka.arasfreezone1.services.WebService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeoutException;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 1000;
+    private static int SPLASH_TIME_OUT;
     private ImageView imgSp1, imgSp2, imgSp3;
     private LinearLayout splashBack;
     private ImageView imgAras;
@@ -43,6 +44,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initView();
+
+        FirebaseMessaging.getInstance().subscribeToTopic("global");
+
+        if (app.isInternetOn())
+            SPLASH_TIME_OUT = 1000;
+        else
+            SPLASH_TIME_OUT = 4000;
 
 
 //        Glide.with(this).load(R.drawable.aras_logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);

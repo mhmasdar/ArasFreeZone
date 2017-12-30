@@ -171,8 +171,11 @@ public class shoppingFragment extends Fragment {
     private void initSlider() {
 
 
-        mPager.setAdapter(new categoriesSliderAdapter(getContext()));
-
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.shop1);
+        images.add(R.drawable.shop2);
+        images.add(R.drawable.shop3);
+        mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 //        app.isScheduled = false;
 
         // Auto start of viewpager

@@ -164,7 +164,7 @@
         <ImageView
             android:layout_width="110dp"
             android:id="@+id/imgTitle"
-            android:src="@drawable/test2"
+            android:background="@drawable/items_default"
             android:scaleType="fitXY"
             android:layout_height="match_parent" />
 
