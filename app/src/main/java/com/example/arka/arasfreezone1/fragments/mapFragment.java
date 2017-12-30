@@ -927,84 +927,88 @@ public class mapFragment extends Fragment {
 
     private void addMarkersToMap(final List<MapModel> placesList) {
 
-        items = new ArrayList<OverlayItem>();
+        if (this.getView() != null) {
 
-        for (int i = 0; i < placesList.size(); i++) {
+            items = new ArrayList<OverlayItem>();
 
-            GeoPoint placeLoc = new GeoPoint(placesList.get(i).lat, placesList.get(i).lon);
-            myLocationOverlayItem = new OverlayItem("" + placesList.get(i).id, placesList.get(i).name, placeLoc);
+            for (int i = 0; i < placesList.size(); i++) {
 
-            switch (placesList.get(i).mainType) {
-                case 1:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.restaurants);
-                    break;
-                case 2:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.shopping);
-                    break;
-                case 3:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.hotels);
-                    break;
-                case 4:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.tourism);
-                    break;
-                case 5:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.museums);
-                    break;
-                case 6:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.transport);
-                    break;
-                case 7:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.services);
-                    break;
-                case 8:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.government);
-                    break;
-                case 9:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.medical);
-                    break;
-                case 10:
-                    myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.event);
-                    break;
+                GeoPoint placeLoc = new GeoPoint(placesList.get(i).lat, placesList.get(i).lon);
+                myLocationOverlayItem = new OverlayItem("" + placesList.get(i).id, placesList.get(i).name, placeLoc);
+
+                switch (placesList.get(i).mainType) {
+                    case 1:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.restaurants);
+                        break;
+                    case 2:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.shopping);
+                        break;
+                    case 3:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.hotels);
+                        break;
+                    case 4:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.tourism);
+                        break;
+                    case 5:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.museums);
+                        break;
+                    case 6:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.transport);
+                        break;
+                    case 7:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.services);
+                        break;
+                    case 8:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.government);
+                        break;
+                    case 9:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.medical);
+                        break;
+                    case 10:
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.event);
+                        break;
+                }
+
+                myLocationOverlayItem.setMarker(myCurrentLocationMarker);
+                items.add(myLocationOverlayItem);
+
             }
 
-            myLocationOverlayItem.setMarker(myCurrentLocationMarker);
-            items.add(myLocationOverlayItem);
+            locationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
+                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                        public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+
+                            tapedPlace = placesList.get(index);
+                            lytDetails.setVisibility(View.VISIBLE);
+                            rating.setVisibility(View.VISIBLE);
+                            imgNav.setVisibility(View.VISIBLE);
+                            imgNav.setAnimation(mp4);
+                            lytDetails.startAnimation(mp3);
+                            txtName.setText(placesList.get(index).name);
+                            txtAddress.setText(placesList.get(index).address);
+                            if (placesList.get(index).image != null)
+                                if (!placesList.get(index).image.equals(""))
+                                    Glide.with(getContext()).load(app.imgMainAddr + getImgAddr(placesList.get(index).mainType) + placesList.get(index).image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgDetails);
+
+                            if (placesList.get(index).mainType != 10 && placesList.get(index).mainType != 8)
+                                rating.setRating(Float.parseFloat(placesList.get(index).star + ""));
+                            else {
+                                rating.setVisibility(View.INVISIBLE);
+                            }
+                            return true;
+                        }
+
+                        public boolean onItemLongPress(final int index, final OverlayItem item) {
+                            return true;
+                        }
+                    }, getContext());
+            map.getOverlays().add(this.locationOverlay);
+
+
+            //detect tap on map
+            addEventListener();
 
         }
-
-        locationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-
-                        tapedPlace = placesList.get(index);
-                        lytDetails.setVisibility(View.VISIBLE);
-                        rating.setVisibility(View.VISIBLE);
-                        imgNav.setVisibility(View.VISIBLE);
-                        imgNav.setAnimation(mp4);
-                        lytDetails.startAnimation(mp3);
-                        txtName.setText(placesList.get(index).name);
-                        txtAddress.setText(placesList.get(index).address);
-                        if (placesList.get(index).image != null)
-                            if (!placesList.get(index).image.equals(""))
-                                Glide.with(getContext()).load(app.imgMainAddr + getImgAddr(placesList.get(index).mainType) + placesList.get(index).image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgDetails);
-
-                        if (placesList.get(index).mainType != 10 && placesList.get(index).mainType != 8)
-                            rating.setRating(Float.parseFloat(placesList.get(index).star + ""));
-                        else {
-                            rating.setVisibility(View.INVISIBLE);
-                        }
-                        return true;
-                    }
-
-                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        return true;
-                    }
-                }, getContext());
-        map.getOverlays().add(this.locationOverlay);
-
-
-        //detect tap on map
-        addEventListener();
 
     }
 
