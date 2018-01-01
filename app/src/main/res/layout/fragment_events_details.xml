@@ -74,7 +74,6 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="0"
                         android:id="@+id/txtLikeCount"
                         android:textSize="12sp"
                         android:layout_marginLeft="3dp"
@@ -102,7 +101,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
                 android:gravity="center"
-                android:text="برگزاری میزگرد تخصصی فعالیت های دانش بنیان ارس در نمایشگاه رینو"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -112,6 +110,7 @@
             android:layout_weight="1"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:gravity="right"
             android:layout_height="match_parent">
@@ -136,7 +135,7 @@
                     android:text="تماس"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -148,15 +147,14 @@
                     <TextView
                         android:id="@+id/txtStartDate"
                         android:layout_width="wrap_content"
-                        android:text="جمعه 26 آبان 96"
                         android:textColor="@color/mainBarText"
                         android:layout_marginRight="5dp"
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:layout_width="20dp"
+                        android:layout_width="17dp"
                         android:src="@drawable/ic_event_details"
-                        android:layout_height="20dp" />
+                        android:layout_height="17dp" />
 
                 </LinearLayout>
 
@@ -194,7 +192,7 @@
                     android:text="افزودن به تقویم"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,15 +204,14 @@
                     <TextView
                         android:id="@+id/txtEndtDate"
                         android:layout_width="wrap_content"
-                        android:text="جمعه 26 آبان 96"
                         android:textColor="@color/mainBarText"
                         android:layout_marginRight="5dp"
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:layout_width="20dp"
+                        android:layout_width="17dp"
                         android:src="@drawable/ic_event_details"
-                        android:layout_height="20dp" />
+                        android:layout_height="17dp" />
 
                 </LinearLayout>
 
@@ -261,7 +258,6 @@
                     <TextView
                         android:id="@+id/txtAddress"
                         android:layout_width="wrap_content"
-                        android:text="جلفا - خیابان اصلی - فلکه بزرگ"
                         android:textColor="@color/mainBarText"
                         android:layout_marginRight="5dp"
                         android:layout_height="wrap_content" />
@@ -310,12 +306,11 @@
                         android:fillViewport="true"
                         android:layout_height="match_parent">
 
-                        <TextView
+                        <com.uncopt.android.widget.text.justify.JustifiedTextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txtInfo"
                             android:textColor="#a7b5b6"
                             android:layout_gravity="right"
-                            android:text="@string/s3"
                             android:lineSpacingMultiplier="1.2"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"

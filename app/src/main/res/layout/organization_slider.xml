@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:background="@drawable/wide_back"
         android:scaleType="fitXY"/>
 
 </RelativeLayout>

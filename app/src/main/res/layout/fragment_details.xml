@@ -14,6 +14,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
+            android:background="@drawable/wide_back"
             android:layout_height="match_parent" />
 
         <RelativeLayout
@@ -381,7 +382,7 @@
                 android:fillViewport="true"
                 android:layout_height="match_parent">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:id="@+id/txtInfo"
                     android:textColor="#a7b5b6"

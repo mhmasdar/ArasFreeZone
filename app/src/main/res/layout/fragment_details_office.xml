@@ -14,6 +14,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
+            android:background="@drawable/wide_back"
             android:layout_height="match_parent" />
 
         <RelativeLayout
@@ -59,7 +60,6 @@
                 android:paddingTop="10dp"
                 android:textSize="18sp"
                 android:textColor="@color/white"
-                android:text=":: رستوران مظفریه"
                 android:layout_height="wrap_content" />
 
             <ImageView
@@ -123,7 +123,6 @@
                     android:textColor="#a7b5b6"
                     android:id="@+id/txtAddress"
                     android:layout_marginLeft="8dp"
-                    android:text="آدرس : تبریز - زعفرانیه - کوی شبنم - 10 متری 49 غربی - پلاک 11 - طبقه سوم "
                     android:layout_height="wrap_content" />
 
 
@@ -156,12 +155,11 @@
                 android:fillViewport="true"
                 android:layout_height="match_parent">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:id="@+id/txtInfo"
                     android:textColor="#a7b5b6"
                     android:layout_gravity="right"
-                    android:text="@string/s3"
                     android:lineSpacingMultiplier="1.2"
                     android:textSize="12sp"
                     android:layout_marginTop="5dp"
