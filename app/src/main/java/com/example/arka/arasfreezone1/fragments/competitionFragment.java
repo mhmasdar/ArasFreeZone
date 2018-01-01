@@ -84,7 +84,7 @@ public class competitionFragment extends Fragment {
                 } else {
                     Intent intent = new Intent(getContext(), loginActivity.class);
                     startActivity(intent);
-
+                    getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
                 }
             }
         });

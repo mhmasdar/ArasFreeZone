@@ -3,6 +3,7 @@ package com.example.arka.arasfreezone1.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -76,6 +77,9 @@ public class detailsOfficeFragment extends Fragment {
         tblName = args.getString("TBL_NAME");
 
         initView(view);
+
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
+        txtInfo.setTypeface(typeface);
 
         DatabaseCallbackOffice databaseCallbackOffice = new DatabaseCallbackOffice(getContext(), tblName, id);
         databaseCallbackOffice.execute();

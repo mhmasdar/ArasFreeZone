@@ -88,7 +88,7 @@ public class referendumFragment extends Fragment {
                 } else {
                     Intent intent = new Intent(getContext(), loginActivity.class);
                     startActivity(intent);
-
+                    getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
                 }
             }
         });
@@ -245,7 +245,7 @@ public class referendumFragment extends Fragment {
                 if (Integer.parseInt(result) == 1) {
 
                     Toast.makeText(getContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
-                    txtSend.setText("قبلا شرکت کرده اید");
+                    txtSend.setText("قبلا شرکت کردین");
 //                    txtCompetitionTitle.setText(referendumList.get(0).name);
                     //lytRepetitive.setVisibility(View.GONE);
 //                    lytLoading.setVisibility(View.GONE);
@@ -262,8 +262,8 @@ public class referendumFragment extends Fragment {
                 } else if (Integer.parseInt(result) == 0) {
                     Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
                 } else if (Integer.parseInt(result) == -1) {
-                    Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
-                    txtSend.setText("قبلا شرکت کرده اید");
+                    Toast.makeText(getContext(), "قبلا شرکت کردین", Toast.LENGTH_LONG).show();
+                    txtSend.setText("قبلا شرکت کردین");
                     txtCompetitionTitle.setText(referendumList.get(0).title);
                     //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);

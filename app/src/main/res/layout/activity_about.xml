@@ -184,7 +184,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="تبریز، دانشگاه تبریز، مرکز رشد، دفتر شماره 37"
+                    android:text="تبریز، دانشگاه تبریز، مرکز نوآوری، اتاق G6 "
                     android:layout_marginRight="10dp"
                     android:layout_height="wrap_content" />
 

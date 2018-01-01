@@ -120,18 +120,18 @@ public class referendumAdapter extends RecyclerView.Adapter<referendumAdapter.my
                     if (!current.options.get(i).equals("") && !current.options.get(i).equals("null")) {
                         txtOption[i].setText(current.options.get(i));
                         if (i == 0) {
-                            txtPercent[i].setText(current.res1 + "");
+                            txtPercent[i].setText(current.res1 + "%");
                             progress[i].setProgress((int)current.res1);
                         }else if (i == 1) {
-                            txtPercent[i].setText(current.res2 + "");
+                            txtPercent[i].setText(current.res2 + "%");
                             progress[i].setProgress((int)current.res2);
                         }
                         if (i == 2) {
-                            txtPercent[i].setText(current.res3 + "");
+                            txtPercent[i].setText(current.res3 + "%");
                             progress[i].setProgress((int)current.res3);
                         }
                         if (i == 3) {
-                            txtPercent[i].setText(current.res4 + "");
+                            txtPercent[i].setText(current.res4 + "%");
                             progress[i].setProgress((int)current.res4);
                         }
                     } else {

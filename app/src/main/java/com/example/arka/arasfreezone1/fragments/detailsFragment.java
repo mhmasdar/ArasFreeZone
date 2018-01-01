@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.location.GnssClock;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -142,6 +143,9 @@ public class detailsFragment extends Fragment {
 
         initView(view);
 
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
+        txtInfo.setTypeface(typeface);
+
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
         databaseCallback.execute();
 
@@ -189,14 +193,14 @@ public class detailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
-                iRouting.putExtra("PlaceName", placesModel.name);
-                iRouting.putExtra("PlaceLat", placesModel.lat);
-                iRouting.putExtra("PlaceLon", placesModel.lon);
-                //iRouting.putExtra("PlaceType", placesModel.type);
-                iRouting.putExtra("PlaceMainType", mainType);
-                startActivity(iRouting);
-
+//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+//                iRouting.putExtra("PlaceName", placesModel.name);
+//                iRouting.putExtra("PlaceLat", placesModel.lat);
+//                iRouting.putExtra("PlaceLon", placesModel.lon);
+//                //iRouting.putExtra("PlaceType", placesModel.type);
+//                iRouting.putExtra("PlaceMainType", mainType);
+//                startActivity(iRouting);
+                showdialog();
             }
         });
 
@@ -298,6 +302,34 @@ public class detailsFragment extends Fragment {
         initSlider(view);
 
         return view;
+    }
+
+
+    private void showdialog() {
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_navigate);
+        Button btnGoogle = (Button) dialog.findViewById(R.id.btnGoogle);
+        Button btnInside = (Button) dialog.findViewById(R.id.btnInside);
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+        btnInside.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+        dialog.show();
     }
 
     private void initSlider(View view) {

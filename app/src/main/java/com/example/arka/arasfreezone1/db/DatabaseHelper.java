@@ -1164,7 +1164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_HomePage (id,name,des,image,visibility,lastUpdate) VALUES('"
+        sql = "INSERT INTO Tbl_HomePage (id,title,des,image,visibility,lastUpdate) VALUES('"
                 + placesModel.id + "','" + placesModel.title + "','" + placesModel.des + "','" + placesModel.image + "','" + placesModel.visibility + "','" + placesModel.lastUpdate + "')";
         ArasDB.execSQL(sql);
 
@@ -1194,7 +1194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_HomePage SET name='" + placesModel.title + "',des='" + placesModel.des + "',image='" + placesModel.image + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_HomePage SET title='" + placesModel.title + "',des='" + placesModel.des + "',image='" + placesModel.image + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }

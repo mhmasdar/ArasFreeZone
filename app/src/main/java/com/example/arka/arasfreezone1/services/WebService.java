@@ -1117,7 +1117,7 @@ public class WebService {
                         JSONObject Object = Arrey.getJSONObject(i);
                         HomePageModel homeModel = new HomePageModel();
                         homeModel.id = Object.getInt("id");
-                        homeModel.title = Object.getString("name");
+                        homeModel.title = Object.getString("title");
                         homeModel.des = Object.getString("des");
                         homeModel.image = Object.getString("image");
                         homeModel.visibility = Object.getBoolean("Visibility");

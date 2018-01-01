@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -76,6 +77,8 @@ public class eventsDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_events_details, container, false);
         initView(view);
 
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
+        txtInfo.setTypeface(typeface);
 
         //set image dark
         imgTitle.setColorFilter(Color.rgb(170, 170, 170), android.graphics.PorterDuff.Mode.MULTIPLY);
