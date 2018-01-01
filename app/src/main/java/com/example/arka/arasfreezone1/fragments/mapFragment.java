@@ -285,6 +285,7 @@ public class mapFragment extends Fragment {
                     zoomLevel = 15;
                     mapController.setZoom(zoomLevel);
                     mapController.setCenter(currentLocation);
+                    markCurrentLocatin();
                 }
                 else {
                     Toast.makeText(getContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
