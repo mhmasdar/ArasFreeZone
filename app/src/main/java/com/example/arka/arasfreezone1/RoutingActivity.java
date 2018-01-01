@@ -296,7 +296,7 @@ public class RoutingActivity extends AppCompatActivity {
                 myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.medical);
                 break;
             case 10:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.event);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.events);
                 break;
         }
 

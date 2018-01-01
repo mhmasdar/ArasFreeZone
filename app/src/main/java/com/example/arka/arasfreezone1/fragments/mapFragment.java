@@ -285,6 +285,7 @@ public class mapFragment extends Fragment {
                     zoomLevel = 15;
                     mapController.setZoom(zoomLevel);
                     mapController.setCenter(currentLocation);
+                    markCurrentLocatin();
                 }
                 else {
                     Toast.makeText(getContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
@@ -965,7 +966,7 @@ public class mapFragment extends Fragment {
                         myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.medical);
                         break;
                     case 10:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.event);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.events);
                         break;
                 }
 
