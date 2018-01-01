@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="fitXY"
-        android:background="@drawable/wide_back" />
+        android:background="@drawable/long_back" />
 
     <LinearLayout
         android:id="@+id/linear_NCandidate"

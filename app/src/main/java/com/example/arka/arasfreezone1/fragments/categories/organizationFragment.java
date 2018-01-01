@@ -65,7 +65,7 @@ public class organizationFragment extends Fragment {
     private TextView txtOrgAddress;
     private static Timer swipeTimer = new Timer();
     private ImageView imgBack;
-    private ImageView imgRoute;
+    private LinearLayout lytRoute;
     private RecyclerView Recycler;
 
     PlacesModel placesModel;
@@ -171,7 +171,7 @@ public class organizationFragment extends Fragment {
             }
         });
 
-        imgRoute.setOnClickListener(new View.OnClickListener() {
+        lytRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent iRouting = new Intent(getContext(), RoutingActivity.class);
@@ -263,7 +263,7 @@ public class organizationFragment extends Fragment {
         txtOrgintroduce = (TextView) view.findViewById(R.id.txtOrgintroduce);
         txtOrgAddress = (TextView) view.findViewById(R.id.txtOrgAddress);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);
-        imgRoute = (ImageView) view.findViewById(R.id.imgRoute);
+        lytRoute = (LinearLayout) view.findViewById(R.id.lytRoute);
         Recycler = (RecyclerView) view.findViewById(R.id.Recycler);
     }
 

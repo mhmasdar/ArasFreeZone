@@ -74,7 +74,6 @@
                 android:id="@+id/txtNewsTitle"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:text="ارس فراتر از میانگین ارزیابی مناطق آزاد در حوزه فرهنگی اجتماعی "
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -109,7 +108,6 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="23"
                         android:id="@+id/txtLikeCount"
                         android:textSize="12sp"
                         android:layout_marginLeft="3dp"
@@ -128,7 +126,6 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="1396/9/4"
                         android:id="@+id/txtDate"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="5dp"
@@ -159,11 +156,10 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_weight="1"
                         android:id="@+id/imgNews"
-                        android:src="@drawable/test"
+                        android:background="@drawable/wide_back"
                         android:scaleType="fitXY"
-                        android:layout_height="0dp" />
+                        android:layout_height="200dp" />
 
                     <com.uncopt.android.widget.text.justify.JustifiedTextView
                         android:layout_width="match_parent"
@@ -172,7 +168,6 @@
                         android:layout_marginTop="15dp"
                         android:gravity="right"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="@string/s1"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout

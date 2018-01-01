@@ -180,7 +180,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:background="#e25f5b78"
-                    android:gravity="center"
+                    android:gravity="right"
                     android:padding="20dp"
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
@@ -188,20 +188,38 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:id="@+id/txtOrgAddress"
-                        android:text="@string/s1"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         android:textColor="@color/white"
                         android:lineSpacingMultiplier="1.4"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:layout_width="75dp"
-                        android:padding="15dp"
-                        android:id="@+id/imgRoute"
-                        android:src="@drawable/ic_route"
-                        android:layout_height="75dp" />
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:orientation="horizontal"
+                       android:id="@+id/lytRoute"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginBottom="10dp"
+                       android:gravity="right|center_vertical"
+                       android:layout_height="wrap_content">
+
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="مشاهده روی نقشه"
+                           android:textSize="13sp"
+                           android:layout_marginRight="5dp"
+                           android:textColor="@color/white"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:src="@drawable/ic_route"
+                           android:layout_height="20dp" />
+
+                   </LinearLayout>
 
                 </LinearLayout>
 
