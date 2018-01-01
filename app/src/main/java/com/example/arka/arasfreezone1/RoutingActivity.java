@@ -125,23 +125,8 @@ public class RoutingActivity extends AppCompatActivity {
         addCompass();
 
         mapController = map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(16);
         GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
-
-        if (myLocation != null){
-            if (myLocation.getLastKnownLocation()!= null){
-                GeoPoint startPoint = new GeoPoint(myLocation.getLastKnownLocation().getLatitude(), myLocation.getLastKnownLocation().getLongitude());
-                mapController.setCenter(startPoint);
-            }
-            else {
-                GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
-                mapController.setCenter(startPoint);
-            }
-        }
-        else{
-            GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
-            mapController.setCenter(startPoint);
-        }
 
 
 
@@ -198,6 +183,15 @@ public class RoutingActivity extends AppCompatActivity {
         }
 
 
+        if (currentLocation != null){
+                GeoPoint startPoint = new GeoPoint(currentLocation.getLatitude(), currentLocation.getLongitude());
+                mapController.setCenter(startPoint);
+        }
+        else{
+            GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
+            mapController.setCenter(startPoint);
+        }
+
         imgZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,7 +218,7 @@ public class RoutingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentLocation != null) {
-                    mapController.setZoom(15);
+                    mapController.setZoom(17);
                     mapController.setCenter(currentLocation);
                 } else {
                     Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();

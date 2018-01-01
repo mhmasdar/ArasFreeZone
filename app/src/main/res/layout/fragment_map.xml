@@ -138,6 +138,17 @@
                 android:src="@drawable/ic_route"
                 android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/imgGoogle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="140dp"
+                android:background="@drawable/map_tool_back2"
+                android:padding="9dp"
+                android:src="@drawable/ic_google"
+                android:visibility="gone"/>
+
             <LinearLayout
                 android:id="@+id/lytDetails"
                 android:layout_width="match_parent"

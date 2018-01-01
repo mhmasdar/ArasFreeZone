@@ -315,7 +315,11 @@ public class detailsFragment extends Fragment {
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String address = "http://maps.google.com/maps?daddr=" + placesModel.lat + "," + placesModel.lon;
 
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
+                startActivity(intent);
+                dialog.dismiss();
             }
         });
 
@@ -323,7 +327,14 @@ public class detailsFragment extends Fragment {
         btnInside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", placesModel.name);
+                iRouting.putExtra("PlaceLat", placesModel.lat);
+                iRouting.putExtra("PlaceLon", placesModel.lon);
+                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceMainType", mainType);
+                startActivity(iRouting);
+                dialog.dismiss();
             }
         });
 

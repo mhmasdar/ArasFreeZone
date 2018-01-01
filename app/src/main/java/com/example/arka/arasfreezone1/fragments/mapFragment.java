@@ -2,14 +2,17 @@ package com.example.arka.arasfreezone1.fragments;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,7 +90,7 @@ public class mapFragment extends Fragment {
     ArrayList<OverlayItem> currentItems;
     private LinearLayout lytDetails;
     private TextView txtName, txtAddress;
-    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort, imgNav;
+    private ImageView imgDetails, imgMyLocation, imgZoomOut, imgZoomIn, imgFilter, imgSort, imgNav, imgGoogle;
     private Dialog filterDialog, sortDialog;
     private Animation mp, mp2, mp3, mp4;
     RatingBar rating;
@@ -282,7 +285,7 @@ public class mapFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (currentLocation != null) {
-                    zoomLevel = 15;
+                    zoomLevel = 17;
                     mapController.setZoom(zoomLevel);
                     mapController.setCenter(currentLocation);
                     markCurrentLocatin();
@@ -307,6 +310,30 @@ public class mapFragment extends Fragment {
             }
         });
 
+        imgGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+//                iRouting.putExtra("PlaceName", tapedPlace.name);
+//                iRouting.putExtra("PlaceLat", tapedPlace.lat);
+//                iRouting.putExtra("PlaceLon", tapedPlace.lon);
+//                //iRouting.putExtra("PlaceType", placesModel.type);
+//                iRouting.putExtra("PlaceMainType", tapedPlace.mainType);
+//                startActivity(iRouting);
+//                getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
+
+
+//String address = "http://maps.google.com/maps?saddr=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&daddr=" + tapedPlace.lat + "," + tapedPlace.lon;
+                String address = "http://maps.google.com/maps?daddr=" + tapedPlace.lat + "," + tapedPlace.lon;
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
+                startActivity(intent);
+
+
+            }
+        });
 
         imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,6 +418,7 @@ public class mapFragment extends Fragment {
 
                 lytDetails.setVisibility(View.GONE);
                 imgNav.setVisibility(View.GONE);
+                imgGoogle.setVisibility(View.GONE);
 
                 return false;
             }
@@ -461,6 +489,7 @@ public class mapFragment extends Fragment {
         imgNav = (ImageView) view.findViewById(R.id.imgNav);
         rating = view.findViewById(R.id.rating);
         lytLoading = view.findViewById(R.id.lytLoading);
+        imgGoogle = view.findViewById(R.id.imgGoogle);
     }
 
     public void onResume() {
@@ -984,6 +1013,8 @@ public class mapFragment extends Fragment {
                             rating.setVisibility(View.VISIBLE);
                             imgNav.setVisibility(View.VISIBLE);
                             imgNav.setAnimation(mp4);
+                            imgGoogle.setVisibility(View.VISIBLE);
+                            imgGoogle.setAnimation(mp4);
                             lytDetails.startAnimation(mp3);
                             txtName.setText(placesList.get(index).name);
                             txtAddress.setText(placesList.get(index).address);

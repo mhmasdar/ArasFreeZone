@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,8 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +63,8 @@ public class detailsOfficeFragment extends Fragment {
     int id;
     PlacesModel placesModel;
     private List<ImgModel> imgList;
+
+    Dialog dialog;
 
     public detailsOfficeFragment() {
         // Required empty public constructor
@@ -124,13 +129,15 @@ public class detailsOfficeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
-                iRouting.putExtra("PlaceName", placesModel.name);
-                iRouting.putExtra("PlaceLat", placesModel.lat);
-                iRouting.putExtra("PlaceLon", placesModel.lon);
-                //iRouting.putExtra("PlaceType", placesModel.type);
-                iRouting.putExtra("PlaceMainType", 8);
-                startActivity(iRouting);
+//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+//                iRouting.putExtra("PlaceName", placesModel.name);
+//                iRouting.putExtra("PlaceLat", placesModel.lat);
+//                iRouting.putExtra("PlaceLon", placesModel.lon);
+//                //iRouting.putExtra("PlaceType", placesModel.type);
+//                iRouting.putExtra("PlaceMainType", 8);
+//                startActivity(iRouting);
+
+                showdialog();
 
             }
         });
@@ -138,6 +145,44 @@ public class detailsOfficeFragment extends Fragment {
         initSlider(view);
 
         return view;
+    }
+
+    private void showdialog() {
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_navigate);
+        Button btnGoogle = (Button) dialog.findViewById(R.id.btnGoogle);
+        Button btnInside = (Button) dialog.findViewById(R.id.btnInside);
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = "http://maps.google.com/maps?daddr=" + placesModel.lat + "," + placesModel.lon;
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+
+        btnInside.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", placesModel.name);
+                iRouting.putExtra("PlaceLat", placesModel.lat);
+                iRouting.putExtra("PlaceLon", placesModel.lon);
+                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceMainType", 8);
+                startActivity(iRouting);
+                dialog.dismiss();
+            }
+        });
+
+
+
+        dialog.show();
     }
 
     private void initSlider(View view) {

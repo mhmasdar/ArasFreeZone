@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments.categories;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -71,6 +74,8 @@ public class organizationFragment extends Fragment {
     PlacesModel placesModel;
     List<PhoneModel> phoneList;
     private List<ImgModel> imgList;
+
+    Dialog dialog;
 
     public organizationFragment() {
         // Required empty public constructor
@@ -174,6 +179,43 @@ public class organizationFragment extends Fragment {
         lytRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+//                iRouting.putExtra("PlaceName", placesModel.name);
+//                iRouting.putExtra("PlaceLat", placesModel.lat);
+//                iRouting.putExtra("PlaceLon", placesModel.lon);
+//                //iRouting.putExtra("PlaceType", placesModel.type);
+//                iRouting.putExtra("PlaceMainType", 8);
+//                startActivity(iRouting);
+
+                showdialog();
+            }
+        });
+
+        return view;
+    }
+
+    private void showdialog() {
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_navigate);
+        Button btnGoogle = (Button) dialog.findViewById(R.id.btnGoogle);
+        Button btnInside = (Button) dialog.findViewById(R.id.btnInside);
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = "http://maps.google.com/maps?daddr=" + placesModel.lat + "," + placesModel.lon;
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+
+        btnInside.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent iRouting = new Intent(getContext(), RoutingActivity.class);
                 iRouting.putExtra("PlaceName", placesModel.name);
                 iRouting.putExtra("PlaceLat", placesModel.lat);
@@ -181,12 +223,14 @@ public class organizationFragment extends Fragment {
                 //iRouting.putExtra("PlaceType", placesModel.type);
                 iRouting.putExtra("PlaceMainType", 8);
                 startActivity(iRouting);
+                dialog.dismiss();
             }
         });
 
-        return view;
-    }
 
+
+        dialog.show();
+    }
 
     private void initSlider(View view) {
 
