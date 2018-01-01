@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ArasFreeZone.iml" filepath="$PROJECT_DIR$/ArasFreeZone.iml" />
       <module fileurl="file://C:\Users\mohamadHasan\Desktop\github\ArasFreeZone1\ArasFreeZone.iml" filepath="C:\Users\mohamadHasan\Desktop\github\ArasFreeZone1\ArasFreeZone.iml" />
       <module fileurl="file://C:\Users\mohamadHasan\Music\ArasFreeZone1\ArasFreeZone1\ArasFreeZone.iml" filepath="C:\Users\mohamadHasan\Music\ArasFreeZone1\ArasFreeZone1\ArasFreeZone.iml" />
       <module fileurl="file://C:\Users\mohamadHasan\Documents\ArasFreeZone1\ArasFreeZone.iml" filepath="C:\Users\mohamadHasan\Documents\ArasFreeZone1\ArasFreeZone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ArasFreeZone1.iml" filepath="$PROJECT_DIR$/ArasFreeZone1.iml" />
       <module fileurl="file://D:\Academic\projects\AndroidStudioProject4\ArasFreeZone\ArasFreeZone1.iml" filepath="D:\Academic\projects\AndroidStudioProject4\ArasFreeZone\ArasFreeZone1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

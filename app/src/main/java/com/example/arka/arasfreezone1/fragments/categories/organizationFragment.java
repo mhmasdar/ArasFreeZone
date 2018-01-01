@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
+import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.ViewPagerCustomDuration;
 import com.example.arka.arasfreezone1.adapter.organizationAdapter;
 import com.example.arka.arasfreezone1.adapter.organizationSliderAdapter;
@@ -170,6 +171,18 @@ public class organizationFragment extends Fragment {
             }
         });
 
+        imgRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iRouting = new Intent(getContext(), RoutingActivity.class);
+                iRouting.putExtra("PlaceName", placesModel.name);
+                iRouting.putExtra("PlaceLat", placesModel.lat);
+                iRouting.putExtra("PlaceLon", placesModel.lon);
+                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceMainType", 8);
+                startActivity(iRouting);
+            }
+        });
 
         return view;
     }

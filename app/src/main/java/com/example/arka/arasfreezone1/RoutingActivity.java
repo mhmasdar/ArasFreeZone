@@ -51,6 +51,7 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
@@ -62,6 +63,7 @@ public class RoutingActivity extends AppCompatActivity {
     public CompassOverlay mCompassOverlay;
     public ItemizedIconOverlay locationOverlay;
     public ItemizedIconOverlay currentLocationOverlay;
+    ItemizedIconOverlay startLocationOverlay;
     public GeoPoint currentLocation;
     public MyLocationListener locationListener;
     public LocationManager locationManager;
@@ -120,13 +122,28 @@ public class RoutingActivity extends AppCompatActivity {
 
 
         map.setMultiTouchControls(true);
+        addCompass();
 
         mapController = map.getController();
-        mapController.setZoom(13);
+        mapController.setZoom(15);
         GpsMyLocationProvider myLocation = new GpsMyLocationProvider(ctx);
 
-        GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
-        mapController.setCenter(startPoint);
+        if (myLocation != null){
+            if (myLocation.getLastKnownLocation()!= null){
+                GeoPoint startPoint = new GeoPoint(myLocation.getLastKnownLocation().getLatitude(), myLocation.getLastKnownLocation().getLongitude());
+                mapController.setCenter(startPoint);
+            }
+            else {
+                GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
+                mapController.setCenter(startPoint);
+            }
+        }
+        else{
+            GeoPoint startPoint = new GeoPoint(placeLat, placeLon);
+            mapController.setCenter(startPoint);
+        }
+
+
 
         this.mLocationOverlay = new MyLocationNewOverlay(myLocation, map);
         this.mLocationOverlay.enableMyLocation();
@@ -151,7 +168,7 @@ public class RoutingActivity extends AppCompatActivity {
             flagPermission = true;
         }
 
-        if (flagPermission == true) {
+        if (flagPermission) {
             locationListener = new MyLocationListener();
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (locationManager == null) {
@@ -166,6 +183,7 @@ public class RoutingActivity extends AppCompatActivity {
             if (location != null) {
                 currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                 markCurrentLocatin();
+                markStartLocation();
                 if (currentLocation != null) {
                     if (app.isInternetOn())
                         drawRoute();
@@ -251,34 +269,34 @@ public class RoutingActivity extends AppCompatActivity {
 
         switch (placeMainType) {
             case 1:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.restaurants);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.restaurants);
                 break;
             case 2:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.shopping);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.shopping);
                 break;
             case 3:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.hotels);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.hotels);
                 break;
             case 4:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.tourism);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.tourism);
                 break;
             case 5:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.museums);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.museums);
                 break;
             case 6:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.transport);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.transport);
                 break;
             case 7:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.services);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
                 break;
             case 8:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.government);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.government);
                 break;
             case 9:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.medical);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.medical);
                 break;
             case 10:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.event);
+                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.event);
                 break;
         }
 
@@ -310,11 +328,11 @@ public class RoutingActivity extends AppCompatActivity {
 
             markCurrentLocatin();
 
-            if (currentLocation != null) {
-                drawRoute();
-            } else {
-                Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
-            }
+//            if (currentLocation != null) {
+//                drawRoute();
+//            } else {
+//                Toast.makeText(getApplicationContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
+//            }
 
 //            new Handler().postDelayed(new Runnable() {
 //
@@ -359,37 +377,74 @@ public class RoutingActivity extends AppCompatActivity {
         }
 
 
-//        OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
-//        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
-//        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
+        OverlayItem myLocationOverlayItemCurrent = new OverlayItem("شما", "موقعیت شما", currentLocation);
+        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.marker_user);
+        myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
+
+        currentItems.add(myLocationOverlayItemCurrent);
+
+        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(getApplicationContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                }, getApplicationContext());
+        map.getOverlays().add(this.currentLocationOverlay);
+
+
+//        Drawable userIcon = getResources().getDrawable(R.mipmap.marker_user);
 //
-//        currentItems.add(myLocationOverlayItemCurrent);
 //
-//        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(currentItems,
-//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-//                        Toast.makeText(getApplicationContext(), "موقعیت خودم", Toast.LENGTH_LONG).show();
-//                        return true;
-//                    }
+//        Marker m = new Marker(map);
+//        m.setPosition(currentLocation);
+//        m.setIcon(userIcon);
+////        if (currentLocation != null && PreviousNode != null)
+////            if (PreviousNode.mLocation != null)
+////                m.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), PreviousNode.mLocation.getLatitude(), PreviousNode.mLocation.getLongitude()));
 //
-//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-//                        return true;
-//                    }
-//                }, getApplicationContext());
-//        map.getOverlays().add(this.currentLocationOverlay);
+//        map.getOverlays().add(m);
 
 
-        Drawable userIcon = getResources().getDrawable(R.drawable.marker_car);
+    }
 
+    private void markStartLocation(){
 
-        Marker m = new Marker(map);
-        m.setPosition(currentLocation);
-        m.setIcon(userIcon);
-        if (currentLocation != null && PreviousNode != null)
-            if (PreviousNode.mLocation != null)
-                m.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), PreviousNode.mLocation.getLatitude(), PreviousNode.mLocation.getLongitude()));
+//        Drawable startIcon = getResources().getDrawable(R.mipmap.startloc);
+//
+//        Marker mc = new Marker(map);
+//        mc.setPosition(currentLocation);
+//        mc.setIcon(startIcon);
+////        if (currentLocation != null && PreviousNode != null)
+////            if (PreviousNode.mLocation != null)
+////                mc.setRotation((float) bearingBetweenLocations(currentLocation.getLatitude(), currentLocation.getLongitude(), PreviousNode.mLocation.getLatitude(), PreviousNode.mLocation.getLongitude()));
+//
+//        map.getOverlays().add(mc);
 
-        map.getOverlays().add(m);
+        ArrayList<OverlayItem>  startItems = new ArrayList<>();
+
+        OverlayItem startOverlayItem = new OverlayItem("شما", "موقعیت شما", currentLocation);
+        Drawable startLocationMarker = this.getResources().getDrawable(R.mipmap.startloc);
+        startOverlayItem.setMarker(startLocationMarker);
+
+        startItems.add(startOverlayItem);
+
+        startLocationOverlay = new ItemizedIconOverlay<OverlayItem>(startItems,
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(getApplicationContext(), "مکان شروع", Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                }, getApplicationContext());
+        map.getOverlays().add(this.startLocationOverlay);
 
 
     }
@@ -468,34 +523,33 @@ public class RoutingActivity extends AppCompatActivity {
             if (currentLocation != null) {
                 if (placeLon != 0 && placeLat != 0) {
                     if (road != null) {
-                        if (road.mNodes != null)
-                            if (road.mNodes.size() > 0)
-                                PreviousNode = road.mNodes.get(0);
-                        map.getOverlays().clear();
-                        markCurrentLocatin();
-                        addPlaceMarker(placeLat, placeLon);
-                        addCompass();
+                        if (road.mNodes != null) {
+                            //map.getOverlays().clear();
+                            //markCurrentLocatin();
+                            //addPlaceMarker(placeLat, placeLon);
+                            //addCompass();
 
-                        roadOverlay = RoadManager.buildRoadOverlay(road);
-                        roadOverlay.setWidth(12);
-                        map.getOverlays().add(roadOverlay);
+                            roadOverlay = RoadManager.buildRoadOverlay(road);
+                            roadOverlay.setWidth(12);
+                            map.getOverlays().add(roadOverlay);
 
-                        Drawable nodeIcon = getResources().getDrawable(R.drawable.marker_node);
-                        for (int i = 0; i < road.mNodes.size(); i++) {
-                            RoadNode node = road.mNodes.get(i);
-                            nodeMarker = new Marker(map);
-                            nodeMarker.setPosition(node.mLocation);
-                            nodeMarker.setIcon(nodeIcon);
-                            nodeMarker.setTitle("قدم " + i);
-                            //nodeMarker.setSnippet(node.mInstructions);
-                            nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
-                            map.getOverlays().add(nodeMarker);
+                            Drawable nodeIcon = getResources().getDrawable(R.mipmap.marker_node);
+                            for (int i = 0; i < road.mNodes.size(); i++) {
+                                RoadNode node = road.mNodes.get(i);
+                                nodeMarker = new Marker(map);
+                                nodeMarker.setPosition(node.mLocation);
+                                nodeMarker.setIcon(nodeIcon);
+                                nodeMarker.setTitle("قدم " + i);
+                                //nodeMarker.setSnippet(node.mInstructions);
+                                nodeMarker.setSubDescription(Road.getLengthDurationText(context, node.mLength, node.mDuration));
+                                map.getOverlays().add(nodeMarker);
+                            }
+
+                            map.invalidate();
+
+                            lytLoading.setVisibility(View.GONE);
+
                         }
-
-                        map.invalidate();
-
-                        lytLoading.setVisibility(View.GONE);
-
                     }
 
                 }

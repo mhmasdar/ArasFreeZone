@@ -41,7 +41,6 @@ public class referendumFragment extends Fragment {
     private LinearLayout lytMain;
     private RecyclerView recycle;
     private LinearLayout lytQuestionSend;
-    private LinearLayout lytRepetitive;
     private LinearLayout lytEmpty;
     private LinearLayout lytDisconnect;
     private TextView txtCompetitionTitle;
@@ -103,11 +102,10 @@ public class referendumFragment extends Fragment {
         recycle = (RecyclerView) view.findViewById(R.id.recycle);
         lytQuestionSend = (LinearLayout) view.findViewById(R.id.lytQuestionSend);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
-        lytRepetitive = (LinearLayout) view.findViewById(R.id.lytRepetitive);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         txtCompetitionTitle = (TextView) view.findViewById(R.id.txtCompetitionTitle);
         txtSend = (TextView) view.findViewById(R.id.txtSend);
-        repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
+        //repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
 
     }
 
@@ -172,8 +170,8 @@ public class referendumFragment extends Fragment {
                         if (prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
                             txtSend.setText("قبلا شرکت کردین");
                             txtCompetitionTitle.setText(referendumList.get(0).title);
-                            repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
-                            lytRepetitive.setVisibility(View.VISIBLE);
+                            //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
+                            //lytRepetitive.setVisibility(View.VISIBLE);
                             lytLoading.setVisibility(View.GONE);
                             lytMain.setVisibility(View.VISIBLE);
                             lytEmpty.setVisibility(View.GONE);
@@ -267,8 +265,8 @@ public class referendumFragment extends Fragment {
                     Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کرده اید");
                     txtCompetitionTitle.setText(referendumList.get(0).title);
-                    repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
-                    lytRepetitive.setVisibility(View.VISIBLE);
+                    //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
+                    //lytRepetitive.setVisibility(View.VISIBLE);
                     lytLoading.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
                     lytEmpty.setVisibility(View.GONE);
@@ -301,7 +299,7 @@ public class referendumFragment extends Fragment {
                 if (prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
                     txtSend.setText("قبلا شرکت کرده اید");
                     txtCompetitionTitle.setText(referendumList.get(0).title);
-                    repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
+                    //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);
                     lytLoading.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);

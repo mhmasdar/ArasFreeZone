@@ -525,7 +525,7 @@ public class mapFragment extends Fragment {
         OverlayItem myLocationOverlayItemCurrent = new OverlayItem("current", "Current Position", currentLocation);
 
         if (this.getView() != null) {
-            Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.marker_user);
+            Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.marker_user);
             myLocationOverlayItemCurrent.setMarker(myCurrentLocationMarker);
 
             currentItems.add(myLocationOverlayItemCurrent);
@@ -938,34 +938,34 @@ public class mapFragment extends Fragment {
 
                 switch (placesList.get(i).mainType) {
                     case 1:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.restaurants);
+                        myCurrentLocationMarker = getResources().getDrawable(R.mipmap.restaurants);
                         break;
                     case 2:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.shopping);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.shopping);
                         break;
                     case 3:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.hotels);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.hotels);
                         break;
                     case 4:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.tourism);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.tourism);
                         break;
                     case 5:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.museums);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.museums);
                         break;
                     case 6:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.transport);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.transport);
                         break;
                     case 7:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.services);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
                         break;
                     case 8:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.government);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.government);
                         break;
                     case 9:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.medical);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.medical);
                         break;
                     case 10:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.event);
+                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.event);
                         break;
                 }
 
