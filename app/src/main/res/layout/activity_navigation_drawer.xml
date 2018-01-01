@@ -258,6 +258,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/lytExit"
+                android:visibility="gone"
                 android:gravity="right|center_vertical"
                 android:layout_marginTop="15dp"
                 android:paddingTop="10dp"

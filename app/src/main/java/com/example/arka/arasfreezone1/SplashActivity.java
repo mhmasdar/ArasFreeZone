@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.arka.arasfreezone1.fragments.supportFragment;
 import com.example.arka.arasfreezone1.introPage.IntroActivity;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -74,6 +75,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         prefs = getApplicationContext().getSharedPreferences("login", 0);
+
 
 
     }

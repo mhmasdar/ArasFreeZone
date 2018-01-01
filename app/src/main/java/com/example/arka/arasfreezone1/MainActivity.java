@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    private LinearLayout container;
+    private LinearLayout container, container3;
     private LinearLayout lytSupport, lytMenu;
     private ImageView imgSupport;
     private TextView txtSupport;
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgHome;
     private TextView txtHome;
     private FragmentTransaction ft, ft2, ft3, ft4;
-    private boolean doubleBackToExitPressedOnce = false;
+    private boolean doubleBackToExitPressedOnce = false, frgCreateCheck4 = false;
+    public newsListFragment news;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ft.add(R.id.container, new HomeFragment());
         ft.commit();
 
+        news = new newsListFragment();
 
         lytCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +83,14 @@ public class MainActivity extends AppCompatActivity {
         lytSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLytSupport();
-//                Intent intent = new Intent(MainActivity.this , testActivity.class);
-//                startActivity(intent);
+                if (!frgCreateCheck4)
+                {
+                    frgCreateCheck4 = true;
+                    setLytSupport();
+                }
+
+                else
+                    showLytSupport();
             }
         });
 
@@ -106,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         container = (LinearLayout) findViewById(R.id.container);
+        container3 = (LinearLayout) findViewById(R.id.container3);
         lytSupport = (LinearLayout) findViewById(R.id.lytSupport);
         lytMenu = (LinearLayout) findViewById(R.id.lytMenu);
         imgSupport = (ImageView) findViewById(R.id.imgSupport);
@@ -125,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setLytCategory(){
+
+
         imgCategory.setImageResource(R.drawable.ic_category_selected);
         imgHome.setImageResource(R.drawable.ic_home);
         imgEvents.setImageResource(R.drawable.ic_event);
@@ -138,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
         ft2.replace(R.id.container, new categoryFragment());
         ft2.commit();
 
+        container.setVisibility(View.VISIBLE);
+        container3.setVisibility(View.GONE);
+
         app.check = 1;
     }
 
@@ -150,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
         txtHome.setTextColor(getResources().getColor(R.color.mainBarText));
         txtEvents.setTextColor(getResources().getColor(R.color.colorPrimary));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
+
+        container.setVisibility(View.VISIBLE);
+        container3.setVisibility(View.GONE);
 
         ft3 = getSupportFragmentManager().beginTransaction();
         ft3.replace(R.id.container, new newsListFragment());
@@ -168,8 +186,11 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.colorPrimary));
 
+        container.setVisibility(View.GONE);
+        container3.setVisibility(View.VISIBLE);
+
         ft4 = getSupportFragmentManager().beginTransaction();
-        ft4.replace(R.id.container, new supportFragment());
+        ft4.replace(R.id.container3, new supportFragment());
         ft4.commit();
 
         app.check = 3;
@@ -184,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
         txtHome.setTextColor(getResources().getColor(R.color.colorPrimary));
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
+
+        container.setVisibility(View.VISIBLE);
+        container3.setVisibility(View.GONE);
 
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, new HomeFragment());
@@ -202,6 +226,9 @@ public class MainActivity extends AppCompatActivity {
         txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
         txtSupport.setTextColor(getResources().getColor(R.color.mainBarText));
 
+        container.setVisibility(View.VISIBLE);
+        container3.setVisibility(View.GONE);
+
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, new mapFragment());
         ft.commit();
@@ -209,6 +236,20 @@ public class MainActivity extends AppCompatActivity {
         app.check = 4;
     }
 
+    private void showLytSupport(){
+
+        imgCategory.setImageResource(R.drawable.ic_category);
+        imgHome.setImageResource(R.drawable.ic_home);
+        imgEvents.setImageResource(R.drawable.ic_event);
+        imgSupport.setImageResource(R.drawable.ic_support_selected);
+        txtCategory.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtHome.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtEvents.setTextColor(getResources().getColor(R.color.mainBarText));
+        txtSupport.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        container.setVisibility(View.GONE);
+        container3.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onBackPressed() {

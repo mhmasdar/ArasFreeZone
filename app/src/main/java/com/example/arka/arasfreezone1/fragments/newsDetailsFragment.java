@@ -3,6 +3,7 @@ package com.example.arka.arasfreezone1.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -48,6 +49,7 @@ public class newsDetailsFragment extends Fragment {
 
     private SharedPreferences prefs;
     int idUser;
+    private Typeface typeface;
 
     public newsDetailsFragment() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class newsDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_details, container, false);
+        typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
         Bundle args = getArguments();
         id = args.getInt("ID");
@@ -71,6 +74,8 @@ public class newsDetailsFragment extends Fragment {
 
         initView(view);
         setViews();
+
+
 
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
@@ -135,6 +140,7 @@ public class newsDetailsFragment extends Fragment {
     }
 
     private void setViews(){
+        txtNewsBody.setTypeface(typeface);
         txtNewsTitle.setText(title);
         txtDate.setText(app.changeDateToString(date));
         txtNewsBody.setText(body);

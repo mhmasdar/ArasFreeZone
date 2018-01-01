@@ -84,7 +84,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".testActivity"></activity>
     </application>
 
 </manifest>

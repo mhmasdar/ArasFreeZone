@@ -70,8 +70,9 @@ public class newsListFragment extends Fragment {
     private int totalTabsCount;
 
     LinearLayoutManager mLinearLayoutManagerVertical;
-
+    WebServiceCallBackList callBackList;
     public boolean firstTimeCheck = true;
+
 
     public newsListFragment() {
         // Required empty public constructor
@@ -88,7 +89,7 @@ public class newsListFragment extends Fragment {
 
 
         if (newsList.size() < 1) {
-            WebServiceCallBackList callBackList = new WebServiceCallBackList();
+            callBackList = new WebServiceCallBackList();
             callBackList.execute();
         }
 
@@ -325,6 +326,7 @@ public class newsListFragment extends Fragment {
         private WebService webService;
         private List<NewsModel> tmpList;
 
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -405,5 +407,22 @@ public class newsListFragment extends Fragment {
         } else {
             firstTimeCheck = false;
         }
+    }
+
+    public static void clearAsyncTask(AsyncTask<?, ?, ?> asyncTask) {
+        if (asyncTask != null) {
+            if (!asyncTask.isCancelled()) {
+                asyncTask.cancel(true);
+            }
+            asyncTask = null;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+//        Toast.makeText(getContext(), "stop", Toast.LENGTH_LONG).show();
+        if(callBackList != null && callBackList.getStatus() == AsyncTask.Status.RUNNING)
+            callBackList.cancel(true);
     }
 }

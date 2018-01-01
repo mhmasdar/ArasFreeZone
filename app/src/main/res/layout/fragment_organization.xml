@@ -182,6 +182,7 @@
                     android:background="#e25f5b78"
                     android:gravity="center"
                     android:padding="20dp"
+                    android:orientation="vertical"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -194,6 +195,13 @@
                         android:lineSpacingMultiplier="1.4"
                         android:textSize="15sp"
                         android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:padding="15dp"
+                        android:id="@+id/imgRoute"
+                        android:src="@drawable/ic_route"
+                        android:layout_height="75dp" />
 
                 </LinearLayout>
 

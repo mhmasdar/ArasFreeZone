@@ -64,6 +64,7 @@ public class organizationFragment extends Fragment {
     private TextView txtOrgAddress;
     private static Timer swipeTimer = new Timer();
     private ImageView imgBack;
+    private ImageView imgRoute;
     private RecyclerView Recycler;
 
     PlacesModel placesModel;
@@ -249,6 +250,7 @@ public class organizationFragment extends Fragment {
         txtOrgintroduce = (TextView) view.findViewById(R.id.txtOrgintroduce);
         txtOrgAddress = (TextView) view.findViewById(R.id.txtOrgAddress);
         imgBack = (ImageView) view.findViewById(R.id.imgBack);
+        imgRoute = (ImageView) view.findViewById(R.id.imgRoute);
         Recycler = (RecyclerView) view.findViewById(R.id.Recycler);
     }
 

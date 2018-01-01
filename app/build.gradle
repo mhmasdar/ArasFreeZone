@@ -43,5 +43,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     //noinspection GradleCompatible
     compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.uncopt:android.justified:1.0'
 }
 apply plugin: 'com.google.gms.google-services'

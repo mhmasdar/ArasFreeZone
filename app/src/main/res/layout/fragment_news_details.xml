@@ -165,7 +165,7 @@
                         android:scaleType="fitXY"
                         android:layout_height="0dp" />
 
-                    <TextView
+                    <com.uncopt.android.widget.text.justify.JustifiedTextView
                         android:layout_width="match_parent"
                         android:id="@+id/txtNewsBody"
                         android:textColor="@color/itmesText"

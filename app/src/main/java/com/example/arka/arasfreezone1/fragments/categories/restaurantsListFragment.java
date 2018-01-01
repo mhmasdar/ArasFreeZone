@@ -184,9 +184,9 @@ public class restaurantsListFragment extends Fragment {
     private void initSlider() {
 
         List<Integer> images = new ArrayList<>();
-        images.add(R.drawable.cul1);
-        images.add(R.drawable.cul2);
-        images.add(R.drawable.cul3);
+        images.add(R.drawable.eat1);
+        images.add(R.drawable.eat2);
+        images.add(R.drawable.eat3);
         mPager.setAdapter(new categoriesSliderAdapter(getContext(), images));
 
         // Auto start of viewpager
