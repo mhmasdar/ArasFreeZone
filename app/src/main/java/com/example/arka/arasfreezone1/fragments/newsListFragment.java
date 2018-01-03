@@ -74,6 +74,7 @@ public class newsListFragment extends Fragment {
     public boolean firstTimeCheck = true;
 
 
+
     public newsListFragment() {
         // Required empty public constructor
     }

@@ -55,6 +55,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 
 /**
@@ -118,7 +119,8 @@ public class detailsFragment extends Fragment {
     // diolog rating content
     RatingBar rating_dialog;
     Dialog dialog;
-    CircularProgressBar progressBar;
+    SmoothProgressBar progressBar;
+    LinearLayout lytLoading;
 
     private boolean CanLike = true;
     private boolean CanAddFavorite = true;
@@ -414,6 +416,7 @@ public class detailsFragment extends Fragment {
         Button btnSubmitRating = (Button) dialog.findViewById(R.id.btnSubmitRating);
         Button btnCancelRating = (Button) dialog.findViewById(R.id.btnCancelRating);
         progressBar = dialog.findViewById(R.id.progressBar);
+        lytLoading = dialog.findViewById(R.id.lytLoading);
         btnCancelRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1323,7 +1326,7 @@ public class detailsFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-            progressBar.setVisibility(View.VISIBLE);
+            lytLoading.setVisibility(View.VISIBLE);
             if (idUserRate > 0)
                 idLR = idUserRate;
             else if (idUserRate < 1 && idUserLike > 0)
@@ -1347,7 +1350,7 @@ public class detailsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            progressBar.setVisibility(View.INVISIBLE);
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 

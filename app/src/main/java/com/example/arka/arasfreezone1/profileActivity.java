@@ -41,6 +41,9 @@ public class profileActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private int idUser, profileSelect=0, profileCheck;
 
+    LinearLayout lytLoading;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,7 +177,8 @@ public class profileActivity extends AppCompatActivity {
         final EditText edtNewPass = (EditText) dialog.findViewById(R.id.edtNewPass);
         Button btnPassSend = (Button) dialog.findViewById(R.id.btnPassSend);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-        progressBar = dialog.findViewById(R.id.progressBar);
+        //progressBar = dialog.findViewById(R.id.progressBar);
+        lytLoading = dialog.findViewById(R.id.lytLoading);
 
 
         btnPassSend.setOnClickListener(new View.OnClickListener() {
@@ -388,7 +392,7 @@ public class profileActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
-            progressBar.setVisibility(View.VISIBLE);
+            lytLoading.setVisibility(View.VISIBLE);
 
             idUser = prefs.getInt("UserId", 0);
         }
@@ -405,7 +409,7 @@ public class profileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            progressBar.setVisibility(View.INVISIBLE);
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 

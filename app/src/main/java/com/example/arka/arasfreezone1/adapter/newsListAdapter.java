@@ -46,6 +46,8 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
 
     public static int selectedPosition = 0;
 
+
+
     public newsListAdapter(Context context, List<NewsModel> newsList, boolean searchFlag) {
         this.context = context;
         mInflater = LayoutInflater.from(context);

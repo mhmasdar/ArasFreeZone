@@ -51,6 +51,8 @@ public class newsDetailsFragment extends Fragment {
     int idUser;
     private Typeface typeface;
 
+    private boolean CanLike = true;
+
     public newsDetailsFragment() {
         // Required empty public constructor
     }
@@ -149,36 +151,39 @@ public class newsDetailsFragment extends Fragment {
 
     private void manageLike(View view){
 
-        if (idUser > 0) {
+        if (CanLike) {
 
-            if (prefs.getBoolean("NewsLike" + id, false)){
-                imgLike.setLiked(false);
-                likeCount--;
-                txtLikeCount.setText(likeCount + "");
-                WebServiceCallLikeDelete callDelete = new WebServiceCallLikeDelete();
-                callDelete.execute();
+            if (idUser > 0) {
+
+                CanLike = false;
+
+                if (prefs.getBoolean("NewsLike" + id, false)) {
+                    imgLike.setLiked(false);
+                    likeCount--;
+                    txtLikeCount.setText(likeCount + "");
+                    WebServiceCallLikeDelete callDelete = new WebServiceCallLikeDelete();
+                    callDelete.execute();
+                } else {
+                    imgLike.setLiked(true);
+                    likeCount++;
+                    txtLikeCount.setText(likeCount + "");
+                    WebServiceCallLikeAdd callAdd = new WebServiceCallLikeAdd();
+                    callAdd.execute();
+                }
+
+            } else {
+
+                Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                snackbar.setAction("ثبت نام", new registerAction());
+
+                Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                textView.setLayoutParams(parms);
+                textView.setGravity(Gravity.LEFT);
+                snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                snackbar.show();
             }
-            else{
-                imgLike.setLiked(true);
-                likeCount++;
-                txtLikeCount.setText(likeCount + "");
-                WebServiceCallLikeAdd callAdd = new WebServiceCallLikeAdd();
-                callAdd.execute();
-            }
-
-        }
-        else{
-
-            Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
-            snackbar.setAction("ثبت نام", new registerAction());
-
-            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-            TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
-            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
-            textView.setLayoutParams(parms);
-            textView.setGravity(Gravity.LEFT);
-            snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
-            snackbar.show();
         }
 
     }
@@ -244,6 +249,8 @@ public class newsDetailsFragment extends Fragment {
                 txtLikeCount.setText(likeCount + "");
             }
 
+            CanLike = true;
+
         }
 
     }
@@ -298,6 +305,8 @@ public class newsDetailsFragment extends Fragment {
                 likeCount++;
                 txtLikeCount.setText(likeCount + "");
             }
+
+            CanLike = true;
 
         }
 

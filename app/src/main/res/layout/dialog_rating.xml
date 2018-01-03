@@ -32,6 +32,7 @@
         android:layout_height="wrap_content">
 
         <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:indeterminate="true"
             style="@style/GNowProgressBar"
