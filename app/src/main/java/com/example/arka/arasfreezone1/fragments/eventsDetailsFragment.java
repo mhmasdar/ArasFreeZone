@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,7 @@ public class eventsDetailsFragment extends Fragment {
 
     TextView txtTitle, txtStartDate, txtEndtDate, txtAddress, txtInfo, txtLikeCount;
     Button btnCall, btnAddtoCalender;
-    ImageView imgBookmark, imgTitle, imgShare;
+    ImageView imgBookmark, imgTitle, imgShare, imgBack;
     private LikeButton btnLike;
     LinearLayout lytLocation;
 
@@ -206,7 +207,13 @@ public class eventsDetailsFragment extends Fragment {
             }
         });
 
-
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+        });
 
         dialog.show();
     }
@@ -222,6 +229,7 @@ public class eventsDetailsFragment extends Fragment {
         btnCall = view.findViewById(R.id.btnCall);
         imgBookmark = view.findViewById(R.id.imgBookmark);
         imgTitle = view.findViewById(R.id.imgTitle);
+        imgBack = view.findViewById(R.id.imgBack);
         imgShare = view.findViewById(R.id.imgShare);
         btnLike = view.findViewById(R.id.btnLike);
         txtLikeCount = view.findViewById(R.id.txtLikeCount);

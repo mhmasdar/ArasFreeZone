@@ -25,13 +25,13 @@
 
 
             <ImageView
-                android:layout_width="35dp"
+                android:layout_width="45dp"
                 android:id="@+id/imgBack"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_back"
-                android:padding="8dp"
-                android:layout_height="35dp" />
+                android:padding="10dp"
+                android:layout_height="45dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
