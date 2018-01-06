@@ -46,6 +46,7 @@ public class WebService {
 
 
     String addr = "http://gsharing.ir/api/";
+//    String addr = "http://172.16.42.96/api/";
 
 
     private String connectToServer(String address, String RequestMethod) {

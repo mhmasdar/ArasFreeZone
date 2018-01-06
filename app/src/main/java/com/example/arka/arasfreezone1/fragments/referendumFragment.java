@@ -45,14 +45,13 @@ public class referendumFragment extends Fragment {
     private LinearLayout lytDisconnect;
     private TextView txtCompetitionTitle;
     private TextView txtSend;
-    private TextView repetitiveTitle;
-
     private List<ReferendumModel> referendumList;
     private List<Integer> idQuestions;
-
     private SharedPreferences prefs;
     int idUser, idReferendum;
     boolean isAnsweredRef;
+    private WebServiceCallAnswers callBackAnswer;
+    private WebServiceCallBack webServiceCallBack;
 
     public referendumFragment() {
         // Required empty public constructor
@@ -69,7 +68,7 @@ public class referendumFragment extends Fragment {
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
 
-        WebServiceCallBack webServiceCallBack = new WebServiceCallBack();
+        webServiceCallBack = new WebServiceCallBack();
         webServiceCallBack.execute();
 
 
@@ -80,7 +79,7 @@ public class referendumFragment extends Fragment {
             public void onClick(View v) {
                 if (idUser > 0) {
                     if (!prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
-                        WebServiceCallAnswers callBackAnswer = new WebServiceCallAnswers();
+                        callBackAnswer = new WebServiceCallAnswers();
                         callBackAnswer.execute();
                     } else {
                         Toast.makeText(getContext(), "نظر شما برای این نظرسنجی قبلا ثبت شده", Toast.LENGTH_LONG).show();
@@ -161,6 +160,7 @@ public class referendumFragment extends Fragment {
 
                 if (referendumList.size() > 0) {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
+                    txtCompetitionTitle.setVisibility(View.VISIBLE);
                     idReferendum = referendumList.get(0).id;
                     for (int i = 0; i < referendumList.size(); i++)
                         idQuestions.add(referendumList.get(i).idQuestion);
@@ -170,6 +170,7 @@ public class referendumFragment extends Fragment {
                         if (prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
                             txtSend.setText("قبلا شرکت کردین");
                             txtCompetitionTitle.setText(referendumList.get(0).title);
+                            txtCompetitionTitle.setVisibility(View.VISIBLE);
                             //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                             //lytRepetitive.setVisibility(View.VISIBLE);
                             lytLoading.setVisibility(View.GONE);
@@ -267,6 +268,7 @@ public class referendumFragment extends Fragment {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
                     //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);
+                    txtCompetitionTitle.setVisibility(View.VISIBLE);
                     lytLoading.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
                     lytEmpty.setVisibility(View.GONE);
@@ -297,8 +299,9 @@ public class referendumFragment extends Fragment {
         if (idUser > 0) {
             if (idReferendum > 0) {
                 if (prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
-                    txtSend.setText("قبلا شرکت کرده اید");
+                    txtSend.setText("قبلا شرکت کردین");
                     txtCompetitionTitle.setText(referendumList.get(0).title);
+                    txtCompetitionTitle.setVisibility(View.VISIBLE);
                     //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);
                     lytLoading.setVisibility(View.GONE);
@@ -322,4 +325,14 @@ public class referendumFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(callBackAnswer != null && callBackAnswer.getStatus() == AsyncTask.Status.RUNNING)
+            callBackAnswer.cancel(true);
+
+        if(webServiceCallBack != null && webServiceCallBack.getStatus() == AsyncTask.Status.RUNNING)
+            webServiceCallBack.cancel(true);
+    }
 }

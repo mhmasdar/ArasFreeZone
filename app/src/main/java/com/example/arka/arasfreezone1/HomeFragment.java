@@ -54,10 +54,8 @@ public class HomeFragment extends Fragment {
     private TextView txtMaghreb;
     private TextView txtNimeShab;
     private Button btnCancel;
-
-
-
-    LinearLayout lytLoading, lytMain, lytDisconnect;
+    private LinearLayout lytLoading, lytMain, lytDisconnect;
+    private WeatherServiceCallBack WcallBack;
 
     private ReligiousTimesModel timesModel;
 
@@ -95,7 +93,7 @@ public class HomeFragment extends Fragment {
         });
 
         if (checkWeather && app.isInternetOn()) {
-            WeatherServiceCallBack WcallBack = new WeatherServiceCallBack();
+            WcallBack = new WeatherServiceCallBack();
             WcallBack.execute();
         }
 
@@ -299,4 +297,11 @@ public class HomeFragment extends Fragment {
         dialog.show();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(WcallBack != null && WcallBack.getStatus() == AsyncTask.Status.RUNNING)
+            WcallBack.cancel(true);
+    }
 }

@@ -87,8 +87,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
+                android:id="@+id/txt1"
                 android:text="@string/intro1"
                 android:layout_marginTop="15dp"
                 android:lineSpacingMultiplier="1.3"
@@ -117,8 +118,9 @@
                 android:layout_marginTop="30dp"
                 android:layout_height="0.5dp"></LinearLayout>
 
-            <TextView
+            <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
+                android:id="@+id/txt2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:text="مزایای رقابتی ارس"
@@ -142,8 +144,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt3"
                     android:text="قرارگیري در مرزهاي سه کشور آذربايجان، ارمنستان و نخجوان و نزدیکی به کشور ترکیه"
                     android:textSize="12sp"
                     android:layout_height="wrap_content" />
@@ -162,8 +165,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt4"
                     android:text="نزدیکی به بازار 400 میلیونی کشورهای CIS و قرارگیری در درون بازار 10 میلیونی شمالغرب"
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -183,8 +187,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt5"
                     android:text="اتصال به جاده هاي ترانزيتي و خط آهن سراسري "
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -204,8 +209,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt6"
                     android:text="قرارگیري در کريدورهاي شمال- جنوب و شرق- غرب "
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -225,8 +231,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt7"
                     android:text="منابع انساني و نیروي کار ارزان و متخصص و انرژي ارزان "
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -246,8 +253,9 @@
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt8"
                     android:text="وجود سدهاي ارس، خداآفرين، گلفرج و پتانسیل هاي گردشگري و تفريحي "
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -283,8 +291,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
+                android:id="@+id/txt9"
                 android:text="@string/intro3"
                 android:layout_marginTop="20dp"
                 android:lineSpacingMultiplier="1.3"
@@ -779,10 +788,12 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
+                android:id="@+id/txt10"
                 android:layout_marginTop="30dp"
                 android:textColor="#e93939"
+                android:lineSpacingMultiplier="1.3"
                 android:text="اراضی و طرح های آماده برای سرمایه گذاری در کاربری های مختلف صنعتی، کشاورزی، گردشگری، علمی و فن آوری و ترانزیت"
                 android:layout_height="wrap_content" />
 
@@ -793,8 +804,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt11"
                     android:layout_marginLeft="10dp"
                     android:text=" دشت های وسیع کشاورزی گرديان، گلفرج، خداآفرين، قلی بیگلو و سايت 140 هکتاری گلخانه ای "
                     android:layout_height="wrap_content" />
@@ -814,8 +826,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/txt12"
                     android:layout_marginLeft="10dp"
                     android:text="شهرک های صنعتی 135، 260، 300 و 40 هکتاری صنایع پاک و شهرک صنعتی 1400 هکتاری صنایع سنگین"
                     android:layout_height="wrap_content" />
@@ -877,9 +890,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:id="@+id/txt13"
                     android:text="طرح ها و پروژه های مطالعه شده اولویت دار آماده سرمایه گذاری"
                     android:layout_height="wrap_content" />
 

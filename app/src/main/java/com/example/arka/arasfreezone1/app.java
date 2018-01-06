@@ -3,6 +3,7 @@ package com.example.arka.arasfreezone1;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.webkit.WebView;
 
 import com.example.arka.arasfreezone1.db.IOHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -22,6 +23,8 @@ public class app extends Application {
 
     public static boolean isScheduled = false;
     public static boolean isScheduledSlider = false;
+
+    public static WebView webView;
 
 
 

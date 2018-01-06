@@ -1,5 +1,7 @@
 package com.example.arka.arasfreezone1;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtHome;
     private FragmentTransaction ft, ft2, ft3, ft4;
     private boolean doubleBackToExitPressedOnce = false, frgCreateCheck4 = false;
-    public newsListFragment news;
-
+    InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +59,27 @@ public class MainActivity extends AppCompatActivity {
         initView();
 
 
+
+
         //display home fragment as default
         ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.container, new HomeFragment());
         ft.commit();
 
-        news = new newsListFragment();
+        imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+
+
 
         lytCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLytCategory();
+
+                if (imm.isAcceptingText())
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                if (app.check != 1 && app.check != 5)
+                    setLytCategory();
+
             }
         });
 
@@ -75,7 +87,13 @@ public class MainActivity extends AppCompatActivity {
         lytEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLytEvants();
+
+                if (imm.isAcceptingText())
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+
+                if (app.check != 2 && app.check != 6)
+                    setLytEvants();
             }
         });
 
@@ -98,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         lytHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (imm.isAcceptingText())
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
                 if (app.check != 0)
                     setLytHome();
             }
@@ -107,7 +129,12 @@ public class MainActivity extends AppCompatActivity {
         lytMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLytMap();
+
+                if (imm.isAcceptingText())
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                if (app.check != 4)
+                    setLytMap();
             }
         });
 
@@ -249,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
 
         container.setVisibility(View.GONE);
         container3.setVisibility(View.VISIBLE);
+
+        app.check = 3;
     }
 
     @Override

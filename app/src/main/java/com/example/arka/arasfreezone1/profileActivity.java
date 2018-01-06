@@ -177,8 +177,7 @@ public class profileActivity extends AppCompatActivity {
         final EditText edtNewPass = (EditText) dialog.findViewById(R.id.edtNewPass);
         Button btnPassSend = (Button) dialog.findViewById(R.id.btnPassSend);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-        //progressBar = dialog.findViewById(R.id.progressBar);
-        lytLoading = dialog.findViewById(R.id.lytLoading);
+        progressBar = dialog.findViewById(R.id.progressBar);
 
 
         btnPassSend.setOnClickListener(new View.OnClickListener() {

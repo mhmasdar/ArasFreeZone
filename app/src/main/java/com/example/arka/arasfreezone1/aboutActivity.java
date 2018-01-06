@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
+
 public class aboutActivity extends AppCompatActivity {
 
     private RelativeLayout relativeBack;
@@ -17,6 +20,7 @@ public class aboutActivity extends AppCompatActivity {
     private String url = "http://arkatech.ir";
     private LinearLayout lytCall;
     private TextView txtWebSite;
+    private JustifiedTextView txt1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class aboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         initView();
 
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+        txt1.setTypeface(typeface);
 
         imgArka.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,5 +78,6 @@ public class aboutActivity extends AppCompatActivity {
         imgArka = (ImageView) findViewById(R.id.imgArka);
         lytCall = (LinearLayout) findViewById(R.id.lytCall);
         txtWebSite = (TextView) findViewById(R.id.txtWebSite);
+        txt1 = (JustifiedTextView) findViewById(R.id.txt1);
     }
 }

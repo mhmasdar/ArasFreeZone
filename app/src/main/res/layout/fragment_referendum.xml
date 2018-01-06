@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:padding="8dp"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:background="@drawable/btn_intro"
             android:textSize="15sp"
             android:textColor="@color/colorPrimaryDark"

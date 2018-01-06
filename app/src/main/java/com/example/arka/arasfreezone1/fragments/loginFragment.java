@@ -156,10 +156,11 @@ public class loginFragment extends Fragment {
                     callBackF.execute();
 
                     getActivity().finish();
+                    Toast.makeText(getContext(), "ورود موفق به حساب کاربری", Toast.LENGTH_LONG).show();
 
                 }
                 else{
-                    Toast.makeText(getContext(), "اشتباه است", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "نام کاربری یا کلمه عبور اشتباه است", Toast.LENGTH_LONG).show();
                 }
             }
             else{

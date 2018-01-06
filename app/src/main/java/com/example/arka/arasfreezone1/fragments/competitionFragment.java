@@ -41,13 +41,13 @@ public class competitionFragment extends Fragment {
     private LinearLayout lytDisconnect, lytRepetitive;
     private TextView txtCompetitionTitle, txtSend;
     private TextView repetitiveTitle;
-
+    private WebServiceCallBack webServiceCallBack;
     private List<ReferendumModel> referendumList;
     private List<Integer> idQuestions;
-
     private SharedPreferences prefs;
-    int idUser, idCompetition;
-    boolean isAnsweredCompt;
+    private int idUser, idCompetition;
+    private boolean isAnsweredCompt;
+    private WebServiceCallAnswers callBackAnswer;
 
     public competitionFragment() {
         // Required empty public constructor
@@ -64,7 +64,7 @@ public class competitionFragment extends Fragment {
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
 
-        WebServiceCallBack webServiceCallBack = new WebServiceCallBack();
+        webServiceCallBack = new WebServiceCallBack();
         webServiceCallBack.execute();
 
 
@@ -75,7 +75,7 @@ public class competitionFragment extends Fragment {
             public void onClick(View v) {
                 if (idUser > 0) {
                     if (!prefs.getBoolean("IsAnswered" + idCompetition, false)) {
-                        WebServiceCallAnswers callBackAnswer = new WebServiceCallAnswers();
+                        callBackAnswer = new WebServiceCallAnswers();
                         callBackAnswer.execute();
                     }
                     else{
@@ -147,6 +147,7 @@ public class competitionFragment extends Fragment {
 
                 if (referendumList.size() > 0) {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
+                    txtCompetitionTitle.setVisibility(View.VISIBLE);
                     idCompetition = referendumList.get(0).id;
                     for (int i = 0; i < referendumList.size(); i++)
                         idQuestions.add(referendumList.get(i).idQuestion);
@@ -154,7 +155,7 @@ public class competitionFragment extends Fragment {
 
                     if (idUser > 0) {
                         if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
-                            txtSend.setText("قبلا شرکت کرده اید");
+                            txtSend.setText("قبلا شرکت کردین");
                             repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
                             lytRepetitive.setVisibility(View.VISIBLE);
                             lytLoading.setVisibility(View.GONE);
@@ -229,7 +230,7 @@ public class competitionFragment extends Fragment {
                 if (Integer.parseInt(result) == 1) {
 
                     Toast.makeText(getContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
-                    txtSend.setText("قبلا شرکت کرده اید");
+                    txtSend.setText("قبلا شرکت کردین");
                     lytRepetitive.setVisibility(View.GONE);
                     lytLoading.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
@@ -241,8 +242,8 @@ public class competitionFragment extends Fragment {
                 } else if (Integer.parseInt(result) == 0) {
                     Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
                 } else if (Integer.parseInt(result) == -1) {
-                    Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
-                    txtSend.setText("قبلا شرکت کرده اید");
+                    Toast.makeText(getContext(), "قبلا شرکت کردین", Toast.LENGTH_LONG).show();
+                    txtSend.setText("قبلا شرکت کردین");
                     repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
                     lytRepetitive.setVisibility(View.VISIBLE);
                     lytLoading.setVisibility(View.GONE);
@@ -296,5 +297,16 @@ public class competitionFragment extends Fragment {
             lytEmpty.setVisibility(View.GONE);
             lytRepetitive.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(webServiceCallBack != null && webServiceCallBack.getStatus() == AsyncTask.Status.RUNNING)
+            webServiceCallBack.cancel(true);
+
+        if(callBackAnswer != null && callBackAnswer.getStatus() == AsyncTask.Status.RUNNING)
+            callBackAnswer.cancel(true);
     }
 }
