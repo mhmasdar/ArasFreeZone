@@ -280,7 +280,7 @@ public class detailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = "";
-                if (placesModel.website != null && !placesModel.website.equals("")) {
+                if (placesModel.website != null && !placesModel.website.equals("") && !placesModel.website.equals("null")) {
                     url = placesModel.website;
 
                     if (!url.startsWith("http://") && !url.startsWith("https://"))
