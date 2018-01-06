@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.commentsActivity;
@@ -147,6 +149,10 @@ public class newsDetailsFragment extends Fragment {
         txtDate.setText(app.changeDateToString(date));
         txtNewsBody.setText(body);
         txtLikeCount.setText(likeCount + "");
+        if (img != null)
+            if (img.equals(""))
+                Glide.with(getContext()).load(app.imgMainAddr + app.newsImgAddr + img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
+
     }
 
     private void manageLike(View view){

@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
@@ -163,6 +165,10 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             this.txtCommentCount.setText(current.commentCount + "");
             this.txtDate.setText(app.changeDateToString(current.Date));
             this.txtType.setText(getPlaceType(current.Type));
+            if (current.Img != null)
+                if (!current.Img.equals(""))
+                    Glide.with(context).load(app.imgMainAddr + app.newsImgAddr + current.Img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
+
 
             this.position = position;
             this.current = current;
