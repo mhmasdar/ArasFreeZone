@@ -213,7 +213,8 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String req = "{\"Name\":\"" + name + "\",\"LName\":\"" + lName + "\",\"Mobile\":\"" + mobile + "\",\"Email\":\"" + email + "\",\"Pass\":\"" + pass + "\",\"Visibility\":1,\"lastUpdate\":1}";
+            //String req = "{\"Name\":\"" + name + "\",\"LName\":\"" + lName + "\",\"Mobile\":\"" + mobile + "\",\"Email\":\"" + email + "\",\"Pass\":\"" + pass + "\",\"Visibility\":1,\"lastUpdate\":1}";
+            String req = "{idRow:0,Name:\"" + name + "\",LName:\"" + lName + "\",Mobile:\"" + mobile + "\",Email:\"" + email + "\",Pass:\"" + pass + "\",Visibility:1,lastUpdate:1}";
             String response = connectToServerByJson(addr + "login/register", "POST", req);
             Log.i("LOG", response + "");
 
@@ -1755,6 +1756,7 @@ public class WebService {
                         model.Plate = Object.getString("Plate");
                         model.Model = Object.getString("Model");
                         model.Color = Object.getString("Color");
+                        model.Direction = Object.getString("Direction");
 
                         driversList.add(model);
 

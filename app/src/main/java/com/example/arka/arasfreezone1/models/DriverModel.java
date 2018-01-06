@@ -15,6 +15,7 @@ public class DriverModel {
     public String Plate;
     public String Model;
     public String Color;
+    public String Direction;
     public boolean isMarried;
     public int idRow;
 

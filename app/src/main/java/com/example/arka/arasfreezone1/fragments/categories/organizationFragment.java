@@ -163,7 +163,7 @@ public class organizationFragment extends Fragment {
             public void onClick(View view) {
                 // open website in explorer
                 String url = "";
-                if (placesModel.website != null && !placesModel.website.equals("")) {
+                if (placesModel.website != null && !placesModel.website.equals("") && !placesModel.website.equals("null")) {
                     url = placesModel.website;
 
                     if (!url.startsWith("http://") && !url.startsWith("https://"))

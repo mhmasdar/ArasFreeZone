@@ -89,6 +89,15 @@ public class eventsDetailsFragment extends Fragment {
         imgTitle.setColorFilter(Color.rgb(170, 170, 170), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+        });
+
+
 //        Bundle args = getArguments();
 //        currentModel.id = args.getInt("id");
 //        currentModel.body = args.getString("body");

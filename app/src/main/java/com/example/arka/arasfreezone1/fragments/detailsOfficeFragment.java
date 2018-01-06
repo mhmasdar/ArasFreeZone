@@ -66,6 +66,8 @@ public class detailsOfficeFragment extends Fragment {
 
     Dialog dialog;
 
+    LinearLayout lytGallery;
+
     public detailsOfficeFragment() {
         // Required empty public constructor
     }
@@ -82,6 +84,9 @@ public class detailsOfficeFragment extends Fragment {
         tblName = args.getString("TBL_NAME");
 
         initView(view);
+
+        Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
+        lytGallery.startAnimation(fade_in);
 
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
         txtInfo.setTypeface(typeface);
@@ -112,7 +117,7 @@ public class detailsOfficeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = "";
-                if (placesModel.website != null && !placesModel.website.equals("")) {
+                if (placesModel.website != null && !placesModel.website.equals("") && !placesModel.website.equals("null")) {
                     url = placesModel.website;
 
                     if (!url.startsWith("http://") && !url.startsWith("https://"))
@@ -139,6 +144,24 @@ public class detailsOfficeFragment extends Fragment {
 
                 showdialog();
 
+            }
+        });
+
+        lytGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                galleryFragment fragment = new galleryFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("ID", id);
+                args.putInt("MainType", 8);
+
+                fragment.setArguments(args);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_back_enter, R.anim.fragment_bacl_exit);
+                    ft.replace(R.id.container, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
@@ -255,6 +278,7 @@ public class detailsOfficeFragment extends Fragment {
         txtAddress = (TextView) view.findViewById(R.id.txtAddress);
         txtInfo = (TextView) view.findViewById(R.id.txtInfo);
         lytWebsite = (LinearLayout) view.findViewById(R.id.lytWebsite);
+        lytGallery = view.findViewById(R.id.lytGallery);
 
     }
 
@@ -295,9 +319,16 @@ public class detailsOfficeFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            if (placesModel.address != null && !placesModel.address.equals("null"))
             txtAddress.setText("آدرس: " + placesModel.address);
+            if (placesModel.info != null && !placesModel.info.equals("null"))
             txtInfo.setText(placesModel.info);
+            if (placesModel.name != null && !placesModel.name.equals("null"))
             txtName.setText(placesModel.name);
+
+            if (imgList != null)
+                if (imgList.size() > 0)
+                    initSlider(getView());
 
         }
 

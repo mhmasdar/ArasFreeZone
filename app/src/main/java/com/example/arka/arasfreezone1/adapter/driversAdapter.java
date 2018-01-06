@@ -1,9 +1,11 @@
 package com.example.arka.arasfreezone1.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +58,15 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
         final DriverModel currentObj = driversList.get(position);
         holder.setData(currentObj, position);
 
+        holder.txtCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                intentCall.setData(Uri.fromParts("tel", "0" + currentObj.Mobile, null));
+                context.startActivity(intentCall);
+            }
+        });
+
     }
 
     @Override
@@ -94,13 +105,13 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
 
             this.txtName.setText(current.Name + " " + current.LName);
             this.txtCarModel.setText(current.Model);
-            //this.imgNews.setImageResource();
             if (current.Img != null)
                 if (!current.Img.equals(""))
                     Glide.with(context).load(app.imgMainAddr + app.driverImgAddr + current.Img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
 
             this.txtCarColor.setText("رنگ: " + current.Color);
             this.txtPlate.setText(current.Plate);
+            this.txtPath.setText(current.Direction);
 
             this.position = position;
             this.current = current;

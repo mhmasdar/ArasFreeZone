@@ -1080,7 +1080,7 @@ public class detailsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            facilityList = webService.getfacility(app.isInternetOn(), mainType, placesModel.id);
+            facilityList = webService.getfacility(app.isInternetOn(), placesModel.id, mainType);
 
             return null;
         }
