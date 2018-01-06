@@ -148,12 +148,14 @@ public class eventsDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (currentModel.phone != null) {
-                    if (currentModel.phone.length() > 0) {
-                        Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                        intentCall.setData(Uri.fromParts("tel", currentModel.phone, null));
-                        startActivity(intentCall);
-                    } else
-                        Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                    if (currentModel.phone != "null") {
+                        if (currentModel.phone.length() > 0) {
+                            Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                            intentCall.setData(Uri.fromParts("tel", "0" + currentModel.phone, null));
+                            startActivity(intentCall);
+                        } else
+                            Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                    }
                 } else
                     Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
@@ -334,7 +336,7 @@ public class eventsDetailsFragment extends Fragment {
         }
     };
 
-    public class registerAction implements View.OnClickListener{
+    public class registerAction implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -432,7 +434,7 @@ public class eventsDetailsFragment extends Fragment {
             txtLikeCount.setText(currentModel.likeCount + "");
             if (currentModel.image != null)
                 if (!currentModel.image.equals(""))
-            Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + currentModel.image).diskCacheStrategy(DiskCacheStrategy.NONE).into(imgTitle);
+                    Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + currentModel.image).diskCacheStrategy(DiskCacheStrategy.NONE).into(imgTitle);
         }
 
     }

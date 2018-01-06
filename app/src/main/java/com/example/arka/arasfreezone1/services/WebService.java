@@ -1233,7 +1233,7 @@ public class WebService {
             return -10;
     }
 
-    public List<MenuModel> getMenu(boolean isInternetAvailable, int id, int idType) {
+    public List<MenuModel> getMenu(boolean isInternetAvailable,  int idType, int id) {
 
         if (isInternetAvailable) {
 

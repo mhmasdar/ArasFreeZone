@@ -178,6 +178,7 @@ public class profileActivity extends AppCompatActivity {
         Button btnPassSend = (Button) dialog.findViewById(R.id.btnPassSend);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         progressBar = dialog.findViewById(R.id.progressBar);
+        lytLoading = dialog.findViewById(R.id.lytLoading);
 
 
         btnPassSend.setOnClickListener(new View.OnClickListener() {

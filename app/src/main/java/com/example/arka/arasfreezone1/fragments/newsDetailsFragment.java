@@ -150,7 +150,7 @@ public class newsDetailsFragment extends Fragment {
         txtNewsBody.setText(body);
         txtLikeCount.setText(likeCount + "");
         if (img != null)
-            if (img.equals(""))
+            if (!img.equals(""))
                 Glide.with(getContext()).load(app.imgMainAddr + app.newsImgAddr + img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
 
     }

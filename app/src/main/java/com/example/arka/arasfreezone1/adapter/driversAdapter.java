@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -61,9 +62,13 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
         holder.txtCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                intentCall.setData(Uri.fromParts("tel", "0" + currentObj.Mobile, null));
-                context.startActivity(intentCall);
+                if (currentObj.Mobile != null && !currentObj.Mobile.equals("") && !currentObj.Mobile.equals("null")) {
+                    Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                    intentCall.setData(Uri.fromParts("tel", currentObj.Mobile, null));
+                    context.startActivity(intentCall);
+                }
+                else
+                    Toast.makeText(context, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -107,9 +107,14 @@ public class detailsOfficeFragment extends Fragment {
         lytCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                intentCall.setData(Uri.fromParts("tel", placesModel.phone, null));
-                startActivity(intentCall);
+                if (placesModel.phone != null && !placesModel.phone.equals("") && !placesModel.phone.equals("null")) {
+
+                    Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                    intentCall.setData(Uri.fromParts("tel", "0" + placesModel.phone, null));
+                    startActivity(intentCall);
+                }
+                else
+                    Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
         });
 
