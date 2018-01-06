@@ -92,8 +92,8 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
         }
 
-        txtSliderName.setText(names[position]);
-        txtSliderDetail.setText(details[position]);
+        txtSliderName.setText(pageList.get(position).title);
+        txtSliderDetail.setText(pageList.get(position).des);
 
         view.addView(imageLayout, 0);
 
