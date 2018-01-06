@@ -750,7 +750,7 @@ public class detailsFragment extends Fragment {
             txtName.setText(placesModel.name);
 
             if (!placesModel.startTime.equals("00:00") && !placesModel.endTime.equals("00:00"))
-                txtHour.setText("از" + placesModel.startTime + "الی" + placesModel.endTime);
+                txtHour.setText("از" + placesModel.startTime + " الی " + placesModel.endTime);
             else
                 txtHour.setText("24 ساعته");
 
