@@ -64,7 +64,7 @@ public class driversAdapter extends RecyclerView.Adapter<driversAdapter.myViewHo
             public void onClick(View v) {
                 if (currentObj.Mobile != null && !currentObj.Mobile.equals("") && !currentObj.Mobile.equals("null")) {
                     Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                    intentCall.setData(Uri.fromParts("tel", currentObj.Mobile, null));
+                    intentCall.setData(Uri.fromParts("tel","0" + currentObj.Mobile, null));
                     context.startActivity(intentCall);
                 }
                 else

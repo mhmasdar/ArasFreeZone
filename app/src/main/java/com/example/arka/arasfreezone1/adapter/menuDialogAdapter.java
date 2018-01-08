@@ -68,7 +68,7 @@ public class menuDialogAdapter extends RecyclerView.Adapter<menuDialogAdapter.my
         private void setData(MenuModel current, int position) {
 
             this.txtMenuName.setText(current.Name);
-            this.txtMenuPrice.setText(current.Price);
+            this.txtMenuPrice.setText(current.Price + " ریال");
 
             this.position = position;
             this.current = current;

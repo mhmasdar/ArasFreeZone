@@ -176,14 +176,13 @@ public class WebService {
             String response = connectToServer(addr + "login/login?username=" + userName + "&pass=" + password, "GET");
             Log.i("LOG", response + "");
 
-            if (response != null){
+            if (response != null) {
 
-                if (response.equals("[]")){
+                if (response.equals("[]")) {
                     UserModel userModel = new UserModel();
                     userModel.id = -1;
                     return userModel;
-                }
-                else {
+                } else {
 
                     try {
 
@@ -259,7 +258,6 @@ public class WebService {
         } else
             return null;
     }
-
 
 
     public int getCulture(boolean isInternetAvailable) {
@@ -985,6 +983,7 @@ public class WebService {
                         imgModel.name = Object.getString("Name");
                         imgModel.lastUpdate = Object.getString("lastUpdate");
                         imgModel.idRow = Object.getInt("idRow");
+                        imgModel.visibility = Object.getBoolean("Visibility");
 
                         imgList.add(imgModel);
 
@@ -999,12 +998,13 @@ public class WebService {
                             imgModel = imgList.get(i);
                             List<String> s = helper.selectImageId(imgModel.id + "");
                             if (s.isEmpty()) {
-                                helper.insertNewImage(imgModel);
+                                if (imgModel.visibility)
+                                    helper.insertNewImage(imgModel);
                             } else {
                                 if (imgModel.id == Integer.parseInt(s.get(0))) {
                                     List<String> v = helper.selectImageByLastUpdate(imgModel.id + "");
-//                                    if (!placesModel.visibility)
-//                                        helper.deleteImage(s.get(0));
+                                    if (!imgModel.visibility)
+                                        helper.deleteImage(s.get(0));
                                     if (imgModel.lastUpdate.compareTo(v.get(0)) > 0) {
                                         helper.updateImage(imgModel);
                                     }
@@ -1074,7 +1074,8 @@ public class WebService {
                             eventModel = eventList.get(i);
                             List<String> s = helper.selectEventId(eventModel.id + "");
                             if (s.isEmpty()) {
-                                helper.insertNewEvent(eventModel);
+                                if (eventModel.visibility)
+                                    helper.insertNewEvent(eventModel);
                             } else {
                                 if (eventModel.id == Integer.parseInt(s.get(0))) {
                                     List<String> v = helper.selectEventByLastUpdate(eventModel.id + "");
@@ -1233,7 +1234,7 @@ public class WebService {
             return -10;
     }
 
-    public List<MenuModel> getMenu(boolean isInternetAvailable,  int idType, int id) {
+    public List<MenuModel> getMenu(boolean isInternetAvailable, int idType, int id) {
 
         if (isInternetAvailable) {
 
@@ -1389,7 +1390,7 @@ public class WebService {
             String response = connectToServer(addr + "favorite/delete?id=" + id, "GET");
             Log.i("LOG", response + "");
 
-            if (response != null){
+            if (response != null) {
 
                 return response;
 
@@ -1576,7 +1577,7 @@ public class WebService {
 
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putBoolean("NewsLike" + actionModel.idRow, true);
-                                editor.putInt("IdUserLike" +  actionModel.idRow,  actionModel.id);
+                                editor.putInt("IdUserLike" + actionModel.idRow, actionModel.id);
                                 editor.apply();
 
                             } else {
@@ -1595,7 +1596,6 @@ public class WebService {
         }
 
     }
-
 
 
     public List<CommentModel> getComments(boolean isInternetAvailable, int id, int idType) {
@@ -1624,16 +1624,15 @@ public class WebService {
                         String answers = Object.getString("answers");
 
                         JSONArray ArreyAnswer = new JSONArray(answers);
-                        for (int j = 0; j < ArreyAnswer.length(); j++){
+                        for (int j = 0; j < ArreyAnswer.length(); j++) {
                             JSONObject ObjectAnswer = ArreyAnswer.getJSONObject(j);
                             CommentModel modelAnswer = new CommentModel();
-                           // modelAnswer.id = ObjectAnswer.getInt("id");
+                            // modelAnswer.id = ObjectAnswer.getInt("id");
                             modelAnswer.name = ObjectAnswer.getString("name");
                             modelAnswer.body = ObjectAnswer.getString("body");
 
                             model.answers.add(modelAnswer);
                         }
-
 
 
                         commentList.add(model);
@@ -1669,10 +1668,10 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(addr + "comment/like?idComment=" + id + "&status=" + isliKe , "GET");
+            String response = connectToServer(addr + "comment/like?idComment=" + id + "&status=" + isliKe, "GET");
             Log.i("LOG", response + "");
 
-            if (response != null){
+            if (response != null) {
 
                 return response;
 
@@ -1726,7 +1725,6 @@ public class WebService {
     }
 
 
-
     public List<DriverModel> getDrivers(boolean isInternetAvailable, int idRow) {
 
         if (isInternetAvailable) {
@@ -1774,7 +1772,6 @@ public class WebService {
     }
 
 
-
     public List<ReferendumModel> getComptitions(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {
@@ -1800,9 +1797,9 @@ public class WebService {
                         String options = Object.getString("options");
 
                         JSONArray ArreyOptions = new JSONArray(options);
-                        for (int j = 0; j < ArreyOptions.length(); j++){
+                        for (int j = 0; j < ArreyOptions.length(); j++) {
                             JSONObject ObjectOptions = ArreyOptions.getJSONObject(j);
-                            String op1 = "" , op2 = "", op3 = "", op4 = "";
+                            String op1 = "", op2 = "", op3 = "", op4 = "";
                             op1 = ObjectOptions.getString("op1");
                             model.options.add(op1);
                             op2 = ObjectOptions.getString("op2");
@@ -1836,7 +1833,7 @@ public class WebService {
 
             String req = "[";
 
-            for (int i = 0; i < userAnswers.size(); i++){
+            for (int i = 0; i < userAnswers.size(); i++) {
                 req += "{\"idRef\":" + idQ.get(i) + ",\"idUser\":" + idUser + ",\"userAnswer\":" + userAnswers.get(i) + "}";
                 if (i != userAnswers.size() - 1)
                     req += ",";
@@ -1881,9 +1878,9 @@ public class WebService {
                         String options = Object.getString("options");
 
                         JSONArray ArreyOptions = new JSONArray(options);
-                        for (int j = 0; j < ArreyOptions.length(); j++){
+                        for (int j = 0; j < ArreyOptions.length(); j++) {
                             JSONObject ObjectOptions = ArreyOptions.getJSONObject(j);
-                            String op1 = "" , op2 = "", op3 = "", op4 = "";
+                            String op1 = "", op2 = "", op3 = "", op4 = "";
                             op1 = ObjectOptions.getString("op1");
                             model.options.add(op1);
                             op2 = ObjectOptions.getString("op2");
@@ -1910,9 +1907,6 @@ public class WebService {
         } else
             return null;
     }
-
-
-
 
 
 }

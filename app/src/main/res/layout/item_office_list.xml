@@ -66,12 +66,31 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="90dp"
-            android:id="@+id/imgNews"
-            android:background="@drawable/items_default"
-            android:scaleType="fitXY"
-            android:layout_height="90dp" />
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="110dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/imgNews"
+                android:background="@drawable/items_default"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/txtType"
+                android:layout_alignParentBottom="true"
+                android:background="#b8f7f7f7"
+                style="@style/AudioFileInfoOverlayText2"
+                android:textSize="10sp"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:textColor="@color/dark"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

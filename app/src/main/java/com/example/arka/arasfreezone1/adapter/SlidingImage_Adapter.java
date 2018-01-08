@@ -74,8 +74,8 @@ public class SlidingImage_Adapter extends PagerAdapter {
         imageView.setColorFilter(Color.rgb(225, 225, 225), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         if (position == 0) {
-            if (pageList.get(position).image.equals("1514498287547.png"))
-                Glide.with(context).load(R.drawable.back1).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            if (pageList.get(position).image.equals("1514498484465.jpg"))
+                Glide.with(context).load(R.drawable.back3).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
             else
                 Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
         }
@@ -86,10 +86,11 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
         }
         else {
-            if (pageList.get(position).image.equals("1514498484465.jpg"))
-                Glide.with(context).load(R.drawable.back3).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            if (pageList.get(position).image.equals("1514498287547.png"))
+                Glide.with(context).load(R.drawable.back1).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
             else
                 Glide.with(context).load(images.get(position)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+
         }
 
         //set value

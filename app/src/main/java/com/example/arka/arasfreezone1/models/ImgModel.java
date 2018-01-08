@@ -11,5 +11,6 @@ public class ImgModel {
     public int type;
     public String name;
     public String lastUpdate;
+    public boolean visibility;
 
 }

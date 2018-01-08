@@ -107,10 +107,10 @@ public class detailsOfficeFragment extends Fragment {
         lytCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placesModel.phone != null && !placesModel.phone.equals("") && !placesModel.phone.equals("null")) {
+                if (placesModel.tel != null && !placesModel.tel.equals("") && !placesModel.tel.equals("null")) {
 
                     Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                    intentCall.setData(Uri.fromParts("tel", "0" + placesModel.phone, null));
+                    intentCall.setData(Uri.fromParts("tel", "0" + placesModel.tel, null));
                     startActivity(intentCall);
                 }
                 else

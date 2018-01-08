@@ -97,6 +97,7 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
         private TextView txtName;
         private TextView txtAddress;
         private ImageView imgNews;
+        private TextView txtType;
 
         int position;
         public PlacesModel current;
@@ -108,7 +109,7 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtAddress = (TextView) itemView.findViewById(R.id.txtAddress);
             imgNews = (ImageView) itemView.findViewById(R.id.imgNews);
-
+            txtType = (TextView) itemView.findViewById(R.id.txtType);
 
         }
 
@@ -120,12 +121,194 @@ public class officeListAdapter  extends RecyclerView.Adapter<officeListAdapter.m
             if (current.image != null)
                 if (!current.image.equals(""))
             Glide.with(context).load(app.imgMainAddr + app.officeImgAddr + current.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNews);
+
+            this.txtType.setText(getPlaceType(8, current.type));
+
             this.position = position;
             this.current = current;
 
         }
 
 
+    }
+
+    public String getPlaceType(int mainType, int type) {
+
+        String returnType = "";
+
+        switch (mainType) {
+            case 1:
+                tblName = "Tbl_Eating";
+
+                switch (type) {
+                    case 1:
+                        returnType = "رستوران";
+                        break;
+                    case 2:
+                        returnType = "فست فود";
+                        break;
+                    case 3:
+                        returnType = "کافی شاپ";
+                        break;
+                    case 4:
+                        returnType = "شیرینی و آجیل";
+                        break;
+                    case 5:
+                        returnType = "بستنی";
+                        break;
+                    default:
+                }
+
+                break;
+            case 2:
+                tblName = "Tbl_Shoppings";
+                switch (type) {
+                    case 1:
+                        returnType = "مرکز خرید";
+                        break;
+                    case 2:
+                        returnType = "فروشگاه";
+                        break;
+                    case 3:
+                        returnType = "بازارچه";
+                        break;
+                    default:
+                }
+                break;
+            case 3:
+                tblName = "Tbl_Rests";
+                switch (type) {
+                    case 1:
+                        returnType = "هتل";
+                        break;
+                    case 2:
+                        returnType = "مسافرخانه";
+                        break;
+                    case 3:
+                        returnType = "خوابگاه";
+                        break;
+                    default:
+                }
+                break;
+            case 4:
+                tblName = "Tbl_Tourisms";
+                switch (type) {
+                    case 1:
+                        returnType = "تفریحی";
+                        break;
+                    case 2:
+                        returnType = "میراث فرهنگی";
+                        break;
+                    case 3:
+                        returnType = "پارک";
+                        break;
+                    case 4:
+                        returnType = "جاذبه های طبیعی";
+                        break;
+                    default:
+                }
+                break;
+            case 5:
+                tblName = "Tbl_Culturals";
+                switch (type) {
+                    case 1:
+                        returnType = "موزه";
+                        break;
+                    case 2:
+                        returnType = "تئاتر و سینما";
+                        break;
+                    case 3:
+                        returnType = "جشنواره";
+                        break;
+                    default:
+                }
+                break;
+            case 6:
+                tblName = "Tbl_Transports";
+                switch (type) {
+                    case 1:
+                        returnType = "تاکسی";
+                        break;
+                    case 2:
+                        returnType = "اتوبوس";
+                        break;
+                    case 3:
+                        returnType = "قطار";
+                        break;
+                    case 4:
+                        returnType = "آژانس تلفنی";
+                        break;
+                    default:
+                }
+                break;
+            case 7:
+                tblName = "Tbl_Services";
+                switch (type) {
+                    case 1:
+                        returnType = "سالن ورزشی";
+                        break;
+                    case 2:
+                        returnType = "تعمیر گاه";
+                        break;
+                    case 3:
+                        returnType = "پارکینگ";
+                        break;
+                    case 4:
+                        returnType = "پمپ بنزین";
+                        break;
+                    case 5:
+                        returnType = "مراکز صدور پلاک";
+                        break;
+                    default:
+                }
+                break;
+            case 8:
+                tblName = "Tbl_Offices";
+                switch (type) {
+                    case 1:
+                        returnType = "مسجد و امام زاده";
+                        break;
+                    case 2:
+                        returnType = "دانشگاه";
+                        break;
+                    case 3:
+                        returnType = "ادارات";
+                        break;
+                    case 4:
+                        returnType = "کلانتری";
+                        break;
+                    case 5:
+                        returnType = "بانک";
+                        break;
+                    default:
+                }
+                break;
+            case 9:
+                tblName = "Tbl_Medicals";
+                switch (type) {
+                    case 1:
+                        returnType = "بیمارستان";
+                        break;
+                    case 2:
+                        returnType = "درمانگاه";
+                        break;
+                    case 3:
+                        returnType = "داروخاه";
+                        break;
+                    case 4:
+                        returnType = "کلینیک";
+                        break;
+                    default:
+                }
+                break;
+            case 10:
+                tblName = "Tbl_Events";
+                break;
+            default:
+                tblName = "";
+        }
+
+        return returnType;
     }
 
     private void setAnimation(View viewToAnimate, int position)

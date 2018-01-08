@@ -66,7 +66,8 @@
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/MineCustomTabText"
-        app:tabTextColor="@color/colorPrimary" />
+        app:tabTextColor="@color/colorPrimary"
+        app:tabIndicatorHeight="4dp"/>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

@@ -434,7 +434,7 @@ public class eventsDetailsFragment extends Fragment {
             txtLikeCount.setText(currentModel.likeCount + "");
             if (currentModel.image != null)
                 if (!currentModel.image.equals(""))
-                    Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + currentModel.image).diskCacheStrategy(DiskCacheStrategy.NONE).into(imgTitle);
+                    Glide.with(context).load(app.imgMainAddr + app.eventImgAddr + currentModel.image).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTitle);
         }
 
     }

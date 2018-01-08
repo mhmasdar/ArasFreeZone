@@ -264,8 +264,7 @@ public class detailsFragment extends Fragment {
                     Intent intentCall = new Intent(Intent.ACTION_DIAL);
                     intentCall.setData(Uri.fromParts("tel", "0" + placesModel.phone, null));
                     startActivity(intentCall);
-                }
-                else
+                } else
                     Toast.makeText(getContext(), "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
             }
         });
@@ -344,7 +343,6 @@ public class detailsFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-
 
 
         dialog.show();
@@ -475,7 +473,7 @@ public class detailsFragment extends Fragment {
         dialog.show();
     }
 
-    public class registerAction implements View.OnClickListener{
+    public class registerAction implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -558,35 +556,35 @@ public class detailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-           if (CanAddFavorite) {
+            if (CanAddFavorite) {
 
-               if (idUser > 0) {
+                if (idUser > 0) {
 
-                   CanAddFavorite = false;
+                    CanAddFavorite = false;
 
-                   if (idUserFavorite > 0) {
-                       imgBookmark.setImageResource(R.drawable.ic_bookmark1);
-                       WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
-                       favoriteDelete.execute();
+                    if (idUserFavorite > 0) {
+                        imgBookmark.setImageResource(R.drawable.ic_bookmark1);
+                        WebServiceCallBackFavoriteDelete favoriteDelete = new WebServiceCallBackFavoriteDelete();
+                        favoriteDelete.execute();
 
-                   } else {
-                       imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
-                       WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
-                       webServiceCallBackFavoriteAdd.execute();
-                   }
-               } else {
-                   Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
-                   snackbar.setAction("ثبت نام", new registerAction());
+                    } else {
+                        imgBookmark.setImageResource(R.drawable.ic_bookmark1_selected);
+                        WebServiceCallBackFavoriteAdd webServiceCallBackFavoriteAdd = new WebServiceCallBackFavoriteAdd();
+                        webServiceCallBackFavoriteAdd.execute();
+                    }
+                } else {
+                    Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("ثبت نام", new registerAction());
 
-                   Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-                   TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
-                   LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
-                   textView.setLayoutParams(parms);
-                   textView.setGravity(Gravity.LEFT);
-                   snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
-                   snackbar.show();
-               }
-           }
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                    snackbar.show();
+                }
+            }
 
         }
     };
@@ -688,7 +686,6 @@ public class detailsFragment extends Fragment {
     }
 
 
-
     private void setUpRecyclerViewFacilities(List<FacilityModel> facilityList) {
 
         facilityDialogAdapter adapter = new facilityDialogAdapter(getContext(), facilityList);
@@ -698,7 +695,6 @@ public class detailsFragment extends Fragment {
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerFacility.setLayoutManager(mLinearLayoutManagerVertical);
     }
-
 
 
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
@@ -762,7 +758,11 @@ public class detailsFragment extends Fragment {
 
             if (tblName.equals("Tbl_Tourisms")) {
                 imgMenuAndCost.setImageResource(R.drawable.cost);
-                txtMenuAndCost.setText(placesModel.cost + "ریال");
+                txtMenuAndCost.setText("");
+                if (!placesModel.cost.equals("null"))
+                    txtMenuAndCost.setText(placesModel.cost + " ریال");
+                else
+                    txtMenuAndCost.setText("رایگان");
             }
             if (tblName.equals("Tbl_Transports")) {
                 imgMenuAndCost.setImageResource(R.drawable.ic_detail_menu);

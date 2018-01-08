@@ -40,8 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getLastUpdate(String tableName) {
 
         String lastUpdate;
-        SQLiteDatabase candidateDB = getReadableDatabase();
-        Cursor cursor = candidateDB.rawQuery("SELECT MAX(lastUpdate) FROM "
+        SQLiteDatabase ArasDB = getReadableDatabase();
+        Cursor cursor = ArasDB.rawQuery("SELECT MAX(lastUpdate) FROM "
                 + tableName, null);
         cursor.moveToFirst();
         lastUpdate = cursor.getString(0);
@@ -243,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.lat = cursor.getDouble(cursor.getColumnIndex("lat"));
                 pm.lon = cursor.getDouble(cursor.getColumnIndex("lon"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
-                pm.phone = cursor.getString(cursor.getColumnIndex("tel"));
+                pm.tel = cursor.getString(cursor.getColumnIndex("tel"));
                 pm.info = cursor.getString(cursor.getColumnIndex("Info"));
                 pm.website = cursor.getString(cursor.getColumnIndex("webSite"));
 
@@ -583,7 +583,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Offices SET type=" + placesModel.type + ",name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',tel='" + placesModel.address + "',image='" + placesModel.image + "' WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_Offices SET type=" + placesModel.type + ",name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',tel='" + placesModel.tel + "',image='" + placesModel.image + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1385,6 +1385,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
+
+    public void deleteImage(String id) {
+
+        //Log.i("LOG", "delete city:" + id);
+        SQLiteDatabase ArasDB = getWritableDatabase();
+        String sql = "DELETE FROM Tbl_Images WHERE id=" + id + "";
+        ArasDB.execSQL(sql);
+        ArasDB.close();
+
+    }
+
+
 
     public List<ImgModel> selectPlacesImages(int mainType, int idRow) {
 
