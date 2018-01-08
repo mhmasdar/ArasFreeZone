@@ -28,6 +28,7 @@ import com.example.arka.arasfreezone1.favoriteActivity;
 import com.example.arka.arasfreezone1.fragments.detailsFragment;
 import com.example.arka.arasfreezone1.models.PlacesModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +41,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
 
     private Context context;
     private LayoutInflater mInflater;
-    private List<PlacesModel> placesList;
+    private List<PlacesModel> placesList = new ArrayList<>();
     private String tblName;
     private int lastPosition = -1;
 
@@ -48,7 +49,7 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     public restaurantListAdapter(Context context, List<PlacesModel> placesList, String tblName) {
         this.context = context;
         this.placesList = placesList;
-        mInflater = LayoutInflater.from(context);
+        this.mInflater = LayoutInflater.from(context);
         this.tblName = tblName;
 
     }
@@ -60,6 +61,10 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
         return holder;
     }
 
+    @Override
+    public int getItemCount() {
+        return placesList.size();
+    }
 
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
@@ -75,9 +80,13 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             @Override
             public void onClick(View view) {
 
+                getTblName(currentObj.mainType);
+
                 if (tblName.equals("")) {
                     getTblName(currentObj.mainType);
                 }
+
+
 
                 detailsFragment fragment = new detailsFragment();
                 Bundle args = new Bundle();
@@ -106,11 +115,6 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
             }
         });
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return placesList.size();
     }
 
     public void getTblName(int type) {

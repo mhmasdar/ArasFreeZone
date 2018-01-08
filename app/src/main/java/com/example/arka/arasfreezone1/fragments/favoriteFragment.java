@@ -44,8 +44,8 @@ public class favoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         initView(view);
 
-        recycleEvents.setNestedScrollingEnabled(false);
-        recyclePlaces.setNestedScrollingEnabled(false);
+        recycleEvents.setNestedScrollingEnabled(true);
+        recyclePlaces.setNestedScrollingEnabled(true);
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getActivity());
         databaseCallback.execute();
@@ -79,8 +79,8 @@ public class favoriteFragment extends Fragment {
 
     private void setUpRecyclerViewEvent(List<EventModel> list) {
 
-        eventsListAdapter adapter = new eventsListAdapter(getContext(), list, false);
-        recycleEvents.setAdapter(adapter);
+        eventsListAdapter adapter2 = new eventsListAdapter(getContext(), list, false);
+        recycleEvents.setAdapter(adapter2);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recycleEvents.setLayoutManager(gridLayoutManager);
     }
@@ -145,7 +145,8 @@ public class favoriteFragment extends Fragment {
             }
             if (placesList != null) {
                 if (placesList.size() > 0) {
-                    setUpRecyclerViewPlaces(placesList);
+                    List<PlacesModel> tmp = placesList;
+                    setUpRecyclerViewPlaces(tmp);
                 }
             }
             if (eventList != null && placesList != null) {

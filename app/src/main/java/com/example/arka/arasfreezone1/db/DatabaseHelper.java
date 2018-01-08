@@ -1507,7 +1507,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.startDate = cursor.getInt(cursor.getColumnIndex("startDate"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
-                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
 
 
                 list.add(pm);
