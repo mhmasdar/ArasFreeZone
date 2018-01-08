@@ -154,7 +154,7 @@ public class referendumFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            lytLoading.setVisibility(View.GONE);
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (referendumList != null) {
 
@@ -173,7 +173,7 @@ public class referendumFragment extends Fragment {
                             txtCompetitionTitle.setVisibility(View.VISIBLE);
                             //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                             //lytRepetitive.setVisibility(View.VISIBLE);
-                            lytLoading.setVisibility(View.GONE);
+                            lytLoading.setVisibility(View.INVISIBLE);
                             lytMain.setVisibility(View.VISIBLE);
                             lytEmpty.setVisibility(View.GONE);
                             setUpRecyclerViewResult(referendumList);
@@ -239,7 +239,7 @@ public class referendumFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            lytLoading.setVisibility(View.GONE);
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 
@@ -269,7 +269,7 @@ public class referendumFragment extends Fragment {
                     //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);
                     txtCompetitionTitle.setVisibility(View.VISIBLE);
-                    lytLoading.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.INVISIBLE);
                     lytMain.setVisibility(View.VISIBLE);
                     lytEmpty.setVisibility(View.GONE);
                     setUpRecyclerViewResult(referendumList);
@@ -304,7 +304,7 @@ public class referendumFragment extends Fragment {
                     txtCompetitionTitle.setVisibility(View.VISIBLE);
                     //repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     //lytRepetitive.setVisibility(View.VISIBLE);
-                    lytLoading.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.INVISIBLE);
                     lytMain.setVisibility(View.VISIBLE);
                     lytEmpty.setVisibility(View.GONE);
                     setUpRecyclerViewResult(referendumList);

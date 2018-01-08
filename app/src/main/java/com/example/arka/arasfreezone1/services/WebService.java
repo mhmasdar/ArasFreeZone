@@ -1314,7 +1314,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":\"" + Integer.parseInt(date) + "}";
+            String req = "{\"name\":\"" + name + "\",\"email\":\"" + email + "\",\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"date\":" + Integer.parseInt(date) + "}";
             String response = connectToServerByJson(addr + "suggestion/add", "POST", req);
             Log.i("LOG", response + "");
 

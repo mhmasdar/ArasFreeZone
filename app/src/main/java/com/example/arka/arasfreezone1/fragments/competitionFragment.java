@@ -141,7 +141,7 @@ public class competitionFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            lytLoading.setVisibility(View.GONE);
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (referendumList != null) {
 
@@ -158,7 +158,7 @@ public class competitionFragment extends Fragment {
                             txtSend.setText("قبلا شرکت کردین");
                             repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
                             lytRepetitive.setVisibility(View.VISIBLE);
-                            lytLoading.setVisibility(View.GONE);
+                            lytLoading.setVisibility(View.INVISIBLE);
                             lytMain.setVisibility(View.GONE);
                             lytEmpty.setVisibility(View.GONE);
                         }
@@ -210,6 +210,9 @@ public class competitionFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            lytLoading.setVisibility(View.VISIBLE);
+
             answers = competitionsAdapter.answers;
         }
 
@@ -224,6 +227,8 @@ public class competitionFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            lytLoading.setVisibility(View.INVISIBLE);
 
             if (result != null) {
 

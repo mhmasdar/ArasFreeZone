@@ -11,7 +11,7 @@
        android:layout_width="match_parent"
        android:indeterminate="true"
        style="@style/GNowProgressBar"
-       android:layout_height="15dp" />
+       android:layout_height="10dp" />
 
    <LinearLayout
        android:layout_width="match_parent"
