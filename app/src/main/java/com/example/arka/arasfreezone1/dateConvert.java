@@ -364,7 +364,7 @@ public class dateConvert {
 
         this.year = gY;
 
-        this.month = gM;
+        this.month = gM - 1;
 
         this.day = gD;
 
