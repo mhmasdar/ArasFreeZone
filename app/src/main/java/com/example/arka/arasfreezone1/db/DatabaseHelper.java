@@ -1429,10 +1429,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<PlacesModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
         //String order = "orderb";
-        String sql = "SELECT id,type,name,address,star,likeCount,mainType FROM " + tblNames.get(0) + " WHERE name LIKE '%" + searchValue + "%'";
+        String sql = "SELECT id,type,name,address,star,likeCount,mainType,image FROM " + tblNames.get(0) + " WHERE name LIKE '%" + searchValue + "%'";
 
         for (int i = 1; i < tblNames.size(); i++) {
-            sql += " UNION SELECT id,type,name,address,star,likeCount,mainType FROM " + tblNames.get(i) + " WHERE name LIKE '%" + searchValue + "%'";
+            sql += " UNION SELECT id,type,name,address,star,likeCount,mainType,image FROM " + tblNames.get(i) + " WHERE name LIKE '%" + searchValue + "%'";
         }
 
         sql += "order by " + sort + " DESC";
@@ -1449,7 +1449,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                if (!tblNames.equals("Tbl_Offices"))
                 pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
-                //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
+                pm.image = cursor.getString(cursor.getColumnIndex("image"));
 
 
                 list.add(pm);

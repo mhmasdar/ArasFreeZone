@@ -60,6 +60,7 @@ public class categorySeatchFragment extends Fragment {
     private List<String> selectedFilters;
     private List<PlacesModel> placeList = new ArrayList<>();
 
+    public boolean firstTime = true;
 
     public categorySeatchFragment() {
         // Required empty public constructor
@@ -84,7 +85,10 @@ public class categorySeatchFragment extends Fragment {
         //allFilters.add("Tbl_Offices");
         allFilters.add("Tbl_Medicals");
 
-        selectedFilters = allFilters;
+        if (firstTime) {
+            selectedFilters = allFilters;
+            firstTime = false;
+        }
 
         new Handler().postDelayed(new Runnable() {
 
