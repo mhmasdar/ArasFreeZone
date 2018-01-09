@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
     private Button btnCancel;
     private LinearLayout lytLoading, lytMain, lytDisconnect;
     private WeatherServiceCallBack WcallBack;
+    private DatabaseCallback databaseCallback;
 
     private ReligiousTimesModel timesModel;
 
@@ -79,7 +80,7 @@ public class HomeFragment extends Fragment {
         mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
-        DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
+        databaseCallback = new DatabaseCallback(getContext());
         databaseCallback.execute();
 
         //initSlider();
@@ -155,7 +156,6 @@ public class HomeFragment extends Fragment {
 
         }
     }
-
 
     private void initSlider() {
 
@@ -303,5 +303,7 @@ public class HomeFragment extends Fragment {
 
         if(WcallBack != null && WcallBack.getStatus() == AsyncTask.Status.RUNNING)
             WcallBack.cancel(true);
+        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+            databaseCallback.cancel(true);
     }
 }

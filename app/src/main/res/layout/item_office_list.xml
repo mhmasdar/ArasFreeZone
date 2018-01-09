@@ -81,12 +81,12 @@
                 android:layout_width="match_parent"
                 android:id="@+id/txtType"
                 android:layout_alignParentBottom="true"
-                android:background="#b8f7f7f7"
-                style="@style/AudioFileInfoOverlayText2"
+                android:background="#9d252525"
                 android:textSize="10sp"
                 android:paddingBottom="3dp"
                 android:paddingTop="3dp"
-                android:textColor="@color/dark"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:layout_height="wrap_content"/>
 

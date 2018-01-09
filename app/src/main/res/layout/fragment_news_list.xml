@@ -12,7 +12,7 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimary1"
             android:layout_height="wrap_content">
 
 
@@ -28,7 +28,7 @@
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="اخبار"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
                         android:layout_height="wrap_content" />
 

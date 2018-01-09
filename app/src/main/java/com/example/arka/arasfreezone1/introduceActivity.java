@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 public class introduceActivity extends AppCompatActivity {
@@ -16,7 +17,7 @@ public class introduceActivity extends AppCompatActivity {
     private ImageView img1;
     private JustifiedTextView txt1;
     private JustifiedTextView txt2;
-    private ImageView img2;
+    private ImageView img2, img3;
     private JustifiedTextView txt3;
     private JustifiedTextView txt4;
     private JustifiedTextView txt5;
@@ -58,7 +59,9 @@ public class introduceActivity extends AppCompatActivity {
             }
         });
 
-//        Glide.with(this).load(R.drawable.intro1).into(img1);
+        Glide.with(this).load(R.drawable.ic_intro1).into(img1);
+        Glide.with(this).load(R.drawable.intro2).into(img2);
+        Glide.with(this).load(R.drawable.intro3).into(img3);
     }
 
 
@@ -74,6 +77,7 @@ public class introduceActivity extends AppCompatActivity {
         txt1 = (JustifiedTextView) findViewById(R.id.txt1);
         txt2 = (JustifiedTextView) findViewById(R.id.txt2);
         img2 = (ImageView) findViewById(R.id.img2);
+        img3 = (ImageView) findViewById(R.id.img3);
         txt3 = (JustifiedTextView) findViewById(R.id.txt3);
         txt4 = (JustifiedTextView) findViewById(R.id.txt4);
         txt5 = (JustifiedTextView) findViewById(R.id.txt5);

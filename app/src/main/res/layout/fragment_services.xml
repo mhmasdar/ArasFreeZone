@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimary1"
         android:layout_height="wrap_content">
 
 
@@ -24,7 +24,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="خدمات و تسهیلات"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:layout_centerInParent="true"
                     android:layout_height="wrap_content" />
@@ -42,7 +42,7 @@
                     <ImageView
                         android:layout_width="23dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back"
+                        android:src="@drawable/ic_back_search"
                         android:layout_height="23dp" />
 
                 </RelativeLayout>
@@ -55,17 +55,18 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
         android:id="@+id/catListTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
         android:background="@color/mainBarBack"
-        android:layout_marginBottom="3dp"
-        app:tabTextAppearance="@style/MineCustomTabText"
-        app:tabTextColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/colorPrimary"
         android:backgroundTintMode="src_over"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabMode="scrollable"
-        android:layout_height="wrap_content"/>
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/MineCustomTabText"
+        app:tabTextColor="@color/colorPrimary"
+        app:tabIndicatorHeight="4dp"/>
 
 
     <android.support.v4.widget.NestedScrollView

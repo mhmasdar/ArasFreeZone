@@ -6,7 +6,7 @@
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="spbStyle">@style/GNowProgressBar</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark1</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/font</item>
     </style>
@@ -14,6 +14,10 @@
 
     <style name="introActivityTheme" parent="AppTheme">
         <item name="colorPrimaryDark">@color/introPrimaryDark</item>
+    </style>
+
+    <style name="splashActivityTheme" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
     <!-- change tabLayout font size -->
@@ -30,7 +34,7 @@
 
     <style name="AudioFileInfoOverlayText2">
         <!--<item name="android:textColor">#ffffffff</item>-->
-        <item name="android:shadowColor">#c2c2c2</item>
+        <item name="android:shadowColor">#f7f4f4</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">5</item>
@@ -83,6 +87,9 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+
+
 
 
 </resources>

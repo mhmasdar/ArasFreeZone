@@ -83,9 +83,8 @@
                 android:layout_width="match_parent"
                 android:id="@+id/img1"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_intro1"
                 android:layout_marginTop="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="160dp" />
 
             <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
@@ -132,21 +131,21 @@
                 android:layout_width="match_parent"
                 android:id="@+id/img2"
                 android:scaleType="fitXY"
-                android:src="@drawable/intro2"
                 android:layout_marginTop="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="140dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="5dp"
+
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
                 <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:id="@+id/txt3"
+                    android:layout_marginLeft="15dp"
                     android:text="قرارگیري در مرزهاي سه کشور آذربايجان، ارمنستان و نخجوان و نزدیکی به کشور ترکیه"
                     android:textSize="12sp"
                     android:layout_height="wrap_content" />
@@ -162,12 +161,14 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+
                 android:gravity="center_vertical|right"
                 android:layout_height="wrap_content">
 
                 <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:id="@+id/txt4"
+                    android:layout_marginLeft="15dp"
                     android:text="نزدیکی به بازار 400 میلیونی کشورهای CIS و قرارگیری در درون بازار 10 میلیونی شمالغرب"
                     android:layout_marginRight="5dp"
                     android:textSize="12sp"
@@ -287,9 +288,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/intro3"
+                android:id="@+id/img3"
                 android:layout_marginTop="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="140dp" />
 
             <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:layout_width="wrap_content"
