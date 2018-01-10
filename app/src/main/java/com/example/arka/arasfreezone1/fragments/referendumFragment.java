@@ -310,17 +310,17 @@ public class referendumFragment extends Fragment {
                     setUpRecyclerViewResult(referendumList);
                 } else {
                     txtSend.setText("ثبت پاسخ ها");
-                    lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
+//                    lytMain.setVisibility(View.VISIBLE);
+//                    lytDisconnect.setVisibility(View.GONE);
+//                    lytEmpty.setVisibility(View.GONE);
 
                 }
             }
         } else {
             txtSend.setText("ثبت نام/ورود");
-            lytMain.setVisibility(View.VISIBLE);
-            lytDisconnect.setVisibility(View.GONE);
-            lytEmpty.setVisibility(View.GONE);
+//            lytMain.setVisibility(View.VISIBLE);
+//            lytDisconnect.setVisibility(View.GONE);
+//            lytEmpty.setVisibility(View.GONE);
 
         }
     }

@@ -289,18 +289,18 @@ public class competitionFragment extends Fragment {
                 }
                 else {
                     txtSend.setText("ثبت پاسخ ها");
-                    lytMain.setVisibility(View.VISIBLE);
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
-                    lytRepetitive.setVisibility(View.GONE);
+//                    lytMain.setVisibility(View.VISIBLE);
+//                    lytDisconnect.setVisibility(View.GONE);
+//                    lytEmpty.setVisibility(View.GONE);
+//                    lytRepetitive.setVisibility(View.GONE);
                 }
             }
         } else {
             txtSend.setText("ثبت نام/ورود");
-            lytMain.setVisibility(View.VISIBLE);
-            lytDisconnect.setVisibility(View.GONE);
-            lytEmpty.setVisibility(View.GONE);
-            lytRepetitive.setVisibility(View.GONE);
+//            lytMain.setVisibility(View.VISIBLE);
+//            lytDisconnect.setVisibility(View.GONE);
+//            lytEmpty.setVisibility(View.GONE);
+//            lytRepetitive.setVisibility(View.GONE);
         }
     }
 
