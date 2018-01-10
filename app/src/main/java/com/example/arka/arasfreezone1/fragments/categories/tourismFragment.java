@@ -52,6 +52,7 @@ public class tourismFragment extends Fragment {
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
+    private DatabaseCallback dbGetPlacesList;
 
     public tourismFragment() {
         // Required empty public constructor
@@ -71,7 +72,7 @@ public class tourismFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DatabaseCallback dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Tourisms");
+        dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Tourisms");
         dbGetPlacesList.execute();
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +247,14 @@ public class tourismFragment extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(dbGetPlacesList != null && dbGetPlacesList.getStatus() == AsyncTask.Status.RUNNING)
+            dbGetPlacesList.cancel(true);
     }
 
 }

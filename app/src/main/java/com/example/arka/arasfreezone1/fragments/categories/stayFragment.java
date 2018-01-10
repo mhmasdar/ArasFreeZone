@@ -52,6 +52,7 @@ public class stayFragment extends Fragment {
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
+    private DatabaseCallback dbGetPlacesList;
 
 
     public stayFragment() {
@@ -72,7 +73,7 @@ public class stayFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DatabaseCallback dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Rests");
+        dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Rests");
         dbGetPlacesList.execute();
 
 
@@ -252,4 +253,11 @@ public class stayFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(dbGetPlacesList != null && dbGetPlacesList.getStatus() == AsyncTask.Status.RUNNING)
+            dbGetPlacesList.cancel(true);
+    }
 }

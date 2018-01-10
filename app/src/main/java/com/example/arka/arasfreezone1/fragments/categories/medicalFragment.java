@@ -45,7 +45,7 @@ public class medicalFragment extends Fragment {
     private int currentPage = 0;
     private int totalSlides = 3;
     private ViewPagerCustomDuration mPager;
-
+    private DbGetPlacesList dbGetPlacesList;
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
@@ -69,7 +69,7 @@ public class medicalFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DbGetPlacesList dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Medicals");
+        dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Medicals");
         dbGetPlacesList.execute();
 
 
@@ -247,4 +247,11 @@ public class medicalFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(dbGetPlacesList != null && dbGetPlacesList.getStatus() == AsyncTask.Status.RUNNING)
+            dbGetPlacesList.cancel(true);
+    }
 }

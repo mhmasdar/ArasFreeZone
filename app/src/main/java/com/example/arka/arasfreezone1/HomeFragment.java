@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.adapter.SlidingImage_Adapter;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
@@ -70,7 +71,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        initView();
         currentTemperatureField = (TextView) view.findViewById(R.id.current_temperature_field);
         humidity_field = (TextView) view.findViewById(R.id.humidity_field);
         weatherIcon = (TextView) view.findViewById(R.id.weather_icon);
@@ -110,10 +110,6 @@ public class HomeFragment extends Fragment {
 
 
         return view;
-    }
-
-    private void initView() {
-
     }
 
 

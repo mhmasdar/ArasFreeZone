@@ -55,6 +55,7 @@ public class restaurantsListFragment extends Fragment {
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
+    private DatabaseCallback databaseCallback;
 
     public restaurantsListFragment() {
         // Required empty public constructor
@@ -72,7 +73,7 @@ public class restaurantsListFragment extends Fragment {
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
 
-        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), "Tbl_Eating");
+        databaseCallback = new DatabaseCallback(getContext(), "Tbl_Eating");
         databaseCallback.execute();
 
 
@@ -253,4 +254,11 @@ public class restaurantsListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+            databaseCallback.cancel(true);
+    }
 }

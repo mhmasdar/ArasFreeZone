@@ -41,7 +41,7 @@ public class eventsFragment extends Fragment {
     private ExpandableLayout expandable_layout;
     private LinearLayout lytMain, lytEmpty, lytDisconnect;
     private EditText edt_search;
-
+    private DatabaseCallback databaseCallback;
     List<EventModel> searchList = new ArrayList<>();
 
     private List<EventModel> eventList;
@@ -69,7 +69,7 @@ public class eventsFragment extends Fragment {
 
         //setUpRecyclerView();
 
-        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), "Tbl_Events");
+        databaseCallback = new DatabaseCallback(getContext(), "Tbl_Events");
         databaseCallback.execute();
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -173,53 +173,6 @@ public class eventsFragment extends Fragment {
         recycler.setLayoutManager(gridLayoutManager);
     }
 
-//    private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
-//
-//        private WebService webService;
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            eventList = new ArrayList<>();
-//            webService = new WebService();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Object... params) {
-//
-//            //eventList = webService.getEvents(app.isInternetOn(), app.getDate());
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//
-//            if (eventList != null) {
-//
-//                if (eventList.size() > 0) {
-//                    lytMain.setVisibility(View.VISIBLE);
-//                    lytDisconnect.setVisibility(View.GONE);
-//                    lytEmpty.setVisibility(View.GONE);
-//                    setUpRecyclerView(eventList);
-//                } else {
-//                    lytMain.setVisibility(View.GONE);
-//                    lytDisconnect.setVisibility(View.GONE);
-//                    lytEmpty.setVisibility(View.VISIBLE);
-//                }
-//
-//            } else {
-//                lytMain.setVisibility(View.GONE);
-//                lytEmpty.setVisibility(View.GONE);
-//                lytDisconnect.setVisibility(View.VISIBLE);
-//            }
-//
-//        }
-//
-//    }
-
     public class DatabaseCallback extends AsyncTask<Object, Void, Void> {
 
 
@@ -258,6 +211,14 @@ public class eventsFragment extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+            databaseCallback.cancel(true);
     }
 
 }

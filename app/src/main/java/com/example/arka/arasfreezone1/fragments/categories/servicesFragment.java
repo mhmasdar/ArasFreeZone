@@ -50,6 +50,7 @@ public class servicesFragment extends Fragment {
     List<PlacesModel> placesList;
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
+    private DatabaseCallback dbGetPlacesList;
 
     public servicesFragment() {
         // Required empty public constructor
@@ -70,7 +71,7 @@ public class servicesFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DatabaseCallback dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Services");
+        dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Services");
         dbGetPlacesList.execute();
 
 
@@ -249,4 +250,11 @@ public class servicesFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(dbGetPlacesList != null && dbGetPlacesList.getStatus() == AsyncTask.Status.RUNNING)
+            dbGetPlacesList.cancel(true);
+    }
 }

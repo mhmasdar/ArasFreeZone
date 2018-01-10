@@ -74,7 +74,8 @@ public class organizationFragment extends Fragment {
     PlacesModel placesModel;
     List<PhoneModel> phoneList;
     private List<ImgModel> imgList;
-
+    private DatabaseCallback databaseCallback;
+    private DatabaseCallbackPhones CallbackPhones;
     Dialog dialog;
 
     public organizationFragment() {
@@ -90,10 +91,10 @@ public class organizationFragment extends Fragment {
         initView(view);
         //initSlider(view);
 
-        DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
+        databaseCallback = new DatabaseCallback(getContext());
         databaseCallback.execute();
 
-        DatabaseCallbackPhones CallbackPhones = new DatabaseCallbackPhones(getContext());
+        CallbackPhones = new DatabaseCallbackPhones(getContext());
         CallbackPhones.execute();
 
         //setUpRecyclerView();
@@ -426,4 +427,14 @@ public class organizationFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+            databaseCallback.cancel(true);
+        if(CallbackPhones != null && CallbackPhones.getStatus() == AsyncTask.Status.RUNNING)
+            CallbackPhones.cancel(true);
+    }
 }

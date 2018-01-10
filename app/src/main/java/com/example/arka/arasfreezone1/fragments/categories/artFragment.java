@@ -52,6 +52,7 @@ public class artFragment extends Fragment {
 
     List<PlacesModel> filteredList = new ArrayList<>();
     private int totalTabsCount;
+    private DatabaseCallback databaseCallback;
 
     public artFragment() {
         // Required empty public constructor
@@ -71,7 +72,7 @@ public class artFragment extends Fragment {
 
         recycler.setNestedScrollingEnabled(false);
 
-        DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), "Tbl_Culturals");
+        databaseCallback = new DatabaseCallback(getContext(), "Tbl_Culturals");
         databaseCallback.execute();
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -249,5 +250,11 @@ public class artFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
+        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+            databaseCallback.cancel(true);
+    }
 }

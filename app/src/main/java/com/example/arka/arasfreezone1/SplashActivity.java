@@ -54,8 +54,6 @@ public class SplashActivity extends AppCompatActivity {
             SPLASH_TIME_OUT = 4000;
 
 
-//        Glide.with(this).load(R.drawable.aras_logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
-//        Glide.with(this).load(R.drawable.aras_text).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(txtSplash);
 
         Animation sp0 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash0);
         Animation sp1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash1);
@@ -70,6 +68,10 @@ public class SplashActivity extends AppCompatActivity {
         imgAras.startAnimation(logo);
 //        txtSplash.setVisibility(View.VISIBLE);
         txtSplash.startAnimation(text);
+
+//        Glide.with(this).load(R.drawable.aras_logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+//        Glide.with(this).load(R.drawable.aras_text).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(txtSplash);
+
 
         setUpTimer();
 
