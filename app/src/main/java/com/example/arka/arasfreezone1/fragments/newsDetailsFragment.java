@@ -42,6 +42,7 @@ public class newsDetailsFragment extends Fragment {
     private ImageView imgShare;
     private LikeButton imgLike;
     private TextView txtDate;
+    private RelativeLayout lytNewsLink;
     private ImageView imgNews;
     private TextView txtNewsBody;
     private LinearLayout lytNewsComments;
@@ -112,6 +113,12 @@ public class newsDetailsFragment extends Fragment {
             }
         });
 
+        lytNewsLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +147,7 @@ public class newsDetailsFragment extends Fragment {
         txtDate = (TextView) view.findViewById(R.id.txtDate);
         imgNews = (ImageView) view.findViewById(R.id.imgNews);
         txtNewsBody = (TextView) view.findViewById(R.id.txtNewsBody);
+        lytNewsLink = (RelativeLayout) view.findViewById(R.id.lytNewsLink);
         lytNewsComments = (LinearLayout) view.findViewById(R.id.lytNewsComments);
     }
 

@@ -66,16 +66,15 @@ public class MainActivity extends AppCompatActivity {
         ft.add(R.id.container, new HomeFragment());
         ft.commit();
 
+
+
         imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-
-
 
         lytCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (imm.isAcceptingText())
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                imm.hideSoftInputFromWindow(lytCategory.getWindowToken(), 0);
 
                 if (app.check != 1 && app.check != 5)
                     setLytCategory();
@@ -87,10 +86,7 @@ public class MainActivity extends AppCompatActivity {
         lytEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (imm.isAcceptingText())
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
+                imm.hideSoftInputFromWindow(lytEvents.getWindowToken(), 0);
 
                 if (app.check != 2 && app.check != 6)
                     setLytEvants();
@@ -101,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         lytSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
                 if (!frgCreateCheck4)
                 {
                     frgCreateCheck4 = true;
@@ -116,9 +114,7 @@ public class MainActivity extends AppCompatActivity {
         lytHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (imm.isAcceptingText())
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                imm.hideSoftInputFromWindow(lytHome.getWindowToken(), 0);
 
                 if (app.check != 0)
                     setLytHome();
@@ -129,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
         lytMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (imm.isAcceptingText())
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                imm.hideSoftInputFromWindow(lytMap.getWindowToken(), 0);
 
                 if (app.check != 4)
                     setLytMap();
@@ -139,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void initView() {
         container = (LinearLayout) findViewById(R.id.container);

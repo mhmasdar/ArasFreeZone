@@ -1,6 +1,7 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -62,7 +65,6 @@ public class categoryFragment extends Fragment {
         initView(view);
         app.check = 1;
 
-//        Glide.with(this).load(R.drawable.category_back).into(imgCategory);
 
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
