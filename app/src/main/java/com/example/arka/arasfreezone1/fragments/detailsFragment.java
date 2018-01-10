@@ -337,7 +337,7 @@ public class detailsFragment extends Fragment {
                 iRouting.putExtra("PlaceName", placesModel.name);
                 iRouting.putExtra("PlaceLat", placesModel.lat);
                 iRouting.putExtra("PlaceLon", placesModel.lon);
-                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceType", placesModel.type);
                 iRouting.putExtra("PlaceMainType", mainType);
                 startActivity(iRouting);
                 dialog.dismiss();
@@ -513,20 +513,24 @@ public class detailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_menu);
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
+            if (!tblName.equals("Tbl_Tourisms")) {
 
-            recyclerMenu = dialog.findViewById(R.id.recycler);
-            lytLoadingM = dialog.findViewById(R.id.lytLoading);
-            lytEmptyM = dialog.findViewById(R.id.lytEmpty);
-            lytDisconnectM = dialog.findViewById(R.id.lytDisconnect);
+                Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_menu);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
 
-            WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
-            webServiceCallBackMenu.execute();
+                recyclerMenu = dialog.findViewById(R.id.recycler);
+                lytLoadingM = dialog.findViewById(R.id.lytLoading);
+                lytEmptyM = dialog.findViewById(R.id.lytEmpty);
+                lytDisconnectM = dialog.findViewById(R.id.lytDisconnect);
+
+                WebServiceCallBackMenu webServiceCallBackMenu = new WebServiceCallBackMenu();
+                webServiceCallBackMenu.execute();
+
+            }
 
         }
     };

@@ -105,7 +105,7 @@ public class RoutingActivity extends AppCompatActivity {
         placeLat = getIntent().getDoubleExtra("PlaceLat", 0);
         placeLon = getIntent().getDoubleExtra("PlaceLon", 0);
         placeName = getIntent().getStringExtra("PlaceName");
-        //placeType = getIntent().getIntExtra("PlaceType", 0);
+        placeType = getIntent().getIntExtra("PlaceType", 0);
         placeMainType = getIntent().getIntExtra("PlaceMainType", 0);
 
         initView();
@@ -281,7 +281,10 @@ public class RoutingActivity extends AppCompatActivity {
                 myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.transport);
                 break;
             case 7:
-                myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
+                if (placeType == 1)
+                    myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.gym);
+                else
+                    myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
                 break;
             case 8:
                 myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.government);

@@ -65,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 MapModel pm = new MapModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
                 if (!tblName.equals("Tbl_Events"))
-                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                    pm.type = cursor.getInt(cursor.getColumnIndex("type"));
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
@@ -285,9 +285,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArasDB.close();
         return pm;
     }
-
-
-
 
 
     public double selectRateValueById(String tblName, int r) {
@@ -1397,7 +1394,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public List<ImgModel> selectPlacesImages(int mainType, int idRow) {
 
         List<ImgModel> list = new ArrayList<>();
@@ -1473,12 +1469,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 PlacesModel pm = new PlacesModel();
                 pm.id = cursor.getInt(cursor.getColumnIndex("id"));
-                pm.type = cursor.getInt(cursor.getColumnIndex("type"));
+                if (!tblName.equals("Tbl_Events"))
+                    pm.type = cursor.getInt(cursor.getColumnIndex("type"));
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
                 pm.image = cursor.getString(cursor.getColumnIndex("image"));
-                if (!tblName.equals("Tbl_Offices"))
+                if (!tblName.equals("Tbl_Offices") && !tblName.equals("Tbl_Events"))
                     pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 //pm.imgPersonal = cursor.getString(cursor.getColumnIndex("imgPersonal"));
 

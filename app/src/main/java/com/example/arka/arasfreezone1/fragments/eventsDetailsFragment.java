@@ -211,7 +211,7 @@ public class eventsDetailsFragment extends Fragment {
                 iRouting.putExtra("PlaceName", currentModel.name);
                 iRouting.putExtra("PlaceLat", currentModel.lat);
                 iRouting.putExtra("PlaceLon", currentModel.lon);
-                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceType", 0);
                 iRouting.putExtra("PlaceMainType", 10);
                 startActivity(iRouting);
                 dialog.dismiss();

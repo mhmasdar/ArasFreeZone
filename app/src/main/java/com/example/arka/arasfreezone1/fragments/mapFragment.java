@@ -66,6 +66,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 /**
@@ -147,6 +148,8 @@ public class mapFragment extends Fragment {
 
         initView(view);
 
+        DatabaseCallbackListAll databaseCallback = new DatabaseCallbackListAll(getContext());
+        databaseCallback.execute();
 
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -187,9 +190,6 @@ public class mapFragment extends Fragment {
         this.mCompassOverlay.enableCompass();
         map.getOverlays().add(this.mCompassOverlay);
 
-
-        DatabaseCallbackListAll databaseCallback = new DatabaseCallbackListAll(getContext());
-        databaseCallback.execute();
 
         // add marker with custom icon ****************************************************************************************
 
@@ -249,7 +249,7 @@ public class mapFragment extends Fragment {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             Location location;
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location == null){
+            if (location == null) {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
             if (location != null) {
@@ -289,8 +289,7 @@ public class mapFragment extends Fragment {
                     mapController.setZoom(zoomLevel);
                     mapController.setCenter(currentLocation);
                     markCurrentLocatin();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
                 }
             }
@@ -303,7 +302,7 @@ public class mapFragment extends Fragment {
                 iRouting.putExtra("PlaceName", tapedPlace.name);
                 iRouting.putExtra("PlaceLat", tapedPlace.lat);
                 iRouting.putExtra("PlaceLon", tapedPlace.lon);
-                //iRouting.putExtra("PlaceType", placesModel.type);
+                iRouting.putExtra("PlaceType", tapedPlace.type);
                 iRouting.putExtra("PlaceMainType", tapedPlace.mainType);
                 startActivity(iRouting);
                 getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
@@ -322,7 +321,6 @@ public class mapFragment extends Fragment {
 //                iRouting.putExtra("PlaceMainType", tapedPlace.mainType);
 //                startActivity(iRouting);
 //                getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.stay);
-
 
 
 //String address = "http://maps.google.com/maps?saddr=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&daddr=" + tapedPlace.lat + "," + tapedPlace.lon;
@@ -409,7 +407,7 @@ public class mapFragment extends Fragment {
         return view;
     }
 
-    public void addEventListener(){
+    public void addEventListener() {
         //detect tap on map ********************************************************************************
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
@@ -895,46 +893,41 @@ public class mapFragment extends Fragment {
 
                 sortedList = new ArrayList<>();
 
-                if (radioNone.isChecked()){
+                if (radioNone.isChecked()) {
                     selectedSort = "none";
                     sortedList = filteredList;
-                }
-                else if (radioRate.isChecked()){
+                } else if (radioRate.isChecked()) {
                     selectedSort = "rate";
-                    for (int i = 0; i < filteredList.size(); i++){
+                    for (int i = 0; i < filteredList.size(); i++) {
                         if (filteredList.get(i).star > 3)
                             sortedList.add(filteredList.get(i));
                     }
-                }
-                else if (radioNear.isChecked()){
+                } else if (radioNear.isChecked()) {
                     selectedSort = "near";
                     if (currentLocation != null) {
                         for (int i = 0; i < filteredList.size(); i++) {
                             if (getDistance(currentLocation.getLatitude(), currentLocation.getLongitude(), filteredList.get(i).lat, filteredList.get(i).lon, "K") < 4)
                                 sortedList.add(filteredList.get(i));
                         }
-                    }
-                    else{
+                    } else {
                         sortedList = filteredList;
                         Toast.makeText(getContext(), "موقعیت شما یافت نشد", Toast.LENGTH_LONG).show();
                     }
 
-                }
-                else if (radioFavorite.isChecked()){
+                } else if (radioFavorite.isChecked()) {
                     selectedSort = "favorite";
 
-                    if (favoriteList != null){
+                    if (favoriteList != null) {
                         if (favoriteList.size() > 0) {
                             for (int i = 0; i < filteredList.size(); i++) {
                                 for (int j = 0; j < favoriteList.size(); j++) {
-                                    if (favoriteList.get(j).mainType == filteredList.get(i).mainType && favoriteList.get(j).id == filteredList.get(i).id){
+                                    if (favoriteList.get(j).mainType == filteredList.get(i).mainType && favoriteList.get(j).id == filteredList.get(i).id) {
                                         sortedList.add(filteredList.get(i));
                                     }
                                 }
                             }
                         }
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getContext(), "لیست علاقه مندی ها خالی می باشد", Toast.LENGTH_LONG).show();
                     }
 
@@ -986,7 +979,10 @@ public class mapFragment extends Fragment {
                         myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.transport);
                         break;
                     case 7:
-                        myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
+                        if (placesList.get(i).type == 1)
+                            myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.gym);
+                        else
+                            myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.services);
                         break;
                     case 8:
                         myCurrentLocationMarker = this.getResources().getDrawable(R.mipmap.government);
@@ -1102,7 +1098,7 @@ public class mapFragment extends Fragment {
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-	/*::	This function converts decimal degrees to radians						 :*/
+    /*::	This function converts decimal degrees to radians						 :*/
 	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
@@ -1159,7 +1155,6 @@ public class mapFragment extends Fragment {
             placesList.addAll(databaseHelper.selectAllPlacesToMap("Tbl_Offices"));
             placesList.addAll(databaseHelper.selectAllPlacesToMap("Tbl_Medicals"));
             placesList.addAll(databaseHelper.selectAllPlacesToMap("Tbl_Events"));
-
 
 
             favoriteList.addAll(databaseHelper.selectAllPlacesByFavorite("Tbl_Eating"));
