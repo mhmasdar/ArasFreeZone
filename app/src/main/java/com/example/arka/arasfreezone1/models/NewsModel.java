@@ -14,5 +14,6 @@ public class NewsModel {
     public String Img;
     public String Body;
     public String Title;
+    public String externalLink;
 
 }

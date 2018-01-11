@@ -100,6 +100,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
                 args.putString("Img", currentObj.Img);
                 args.putString("Body", currentObj.Body);
                 args.putString("Title", currentObj.Title);
+                args.putString("NewsLink", currentObj.externalLink);
                 fragment.setArguments(args);
 
                 MainActivity activity = (MainActivity) context;

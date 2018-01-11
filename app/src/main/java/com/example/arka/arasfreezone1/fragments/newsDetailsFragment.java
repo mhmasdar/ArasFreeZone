@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -48,7 +49,7 @@ public class newsDetailsFragment extends Fragment {
     private LinearLayout lytNewsComments;
 
     private int id, type, likeCount, date;
-    private String img, title, body;
+    private String img, title, body, newsLink;
 
     private SharedPreferences prefs;
     int idUser;
@@ -76,6 +77,7 @@ public class newsDetailsFragment extends Fragment {
         img = args.getString("Img");
         title = args.getString("Title");
         body = args.getString("Body");
+        newsLink = args.getString("NewsLink");
 
         initView(view);
         setViews();
@@ -116,6 +118,18 @@ public class newsDetailsFragment extends Fragment {
         lytNewsLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String url = "";
+                if (!newsLink.equals("") && !newsLink.equals("null")) {
+                    url = newsLink;
+
+                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                        url = "http://" + url;
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                } else {
+                    Toast.makeText(getContext(), "لینک خبر موجود نمی باشد", Toast.LENGTH_LONG).show();
+                }
 
             }
         });

@@ -140,6 +140,7 @@ public class RoutingActivity extends AppCompatActivity {
             addPlaceMarker(placeLat, placeLon);
         } else {
             Toast.makeText(getApplicationContext(), "محل مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
+            lytLoading.setVisibility(View.INVISIBLE);
         }
 
 

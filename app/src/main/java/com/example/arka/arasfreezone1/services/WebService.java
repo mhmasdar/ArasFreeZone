@@ -1708,6 +1708,7 @@ public class WebService {
                         model.Title = Object.getString("Title");
                         model.Body = Object.getString("Body");
                         model.Img = Object.getString("Img");
+                        model.externalLink = Object.getString("externalLink");
 
                         newsList.add(model);
 
