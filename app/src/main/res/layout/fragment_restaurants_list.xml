@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary1">
+        android:background="@color/colorPrimary">
 
 
         <android.support.v7.widget.Toolbar
@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="رستوران ها"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <RelativeLayout
@@ -44,7 +44,7 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back_search" />
+                        android:src="@drawable/ic_back" />
 
                 </RelativeLayout>
 

@@ -63,7 +63,7 @@
             android:gravity="center"
             android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:layout_width="100dp"
                 android:id="@+id/imgAras"
                 android:src="@drawable/aras_logo1"
