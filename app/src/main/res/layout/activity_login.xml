@@ -82,7 +82,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:id="@+id/imgAras"
-                    android:src="@drawable/ic_aras"
+                    android:src="@drawable/ic_aras2"
                     android:layout_height="50dp" />
 
                 <TextView

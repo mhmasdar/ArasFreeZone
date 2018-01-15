@@ -145,8 +145,8 @@ public class loginFragment extends Fragment {
                     editor.putString("UserName", result.name);
                     editor.putString("UserLName", result.lName);
                     editor.putString("UserMobile", result.mobile);
-                    editor.putString("UserEmail", result.email);
-                    editor.putString("UserPass", result.pass);
+                    editor.putString("UserEmail", user);
+                    editor.putString("UserPass", pass);
                     editor.apply();
 
 //                    Intent i = new Intent(getActivity(), MainActivity.class);

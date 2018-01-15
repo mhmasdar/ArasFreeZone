@@ -5,9 +5,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.webkit.WebView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.arka.arasfreezone1.db.IOHelper;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Timer;
 
 /**
@@ -48,6 +50,7 @@ public class app extends Application {
         @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         context = getApplicationContext();
         IOHelper.transferDatabaseFile(context);
     }

@@ -264,14 +264,20 @@ public class newsDetailsFragment extends Fragment {
                     editor.apply();
                 }
                 else {
-                    Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    if (getContext() != null)
+                        Toast.makeText(getContext(), "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                    else if (app.context != null)
+                        Toast.makeText(app.context, "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
                     imgLike.setLiked(false);
                     likeCount--;
                     txtLikeCount.setText(likeCount + "");
                 }
 
             } else {
-                Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                if (getContext() != null)
+                    Toast.makeText(getContext(), "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                else if (app.context != null)
+                    Toast.makeText(app.context, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 imgLike.setLiked(false);
                 likeCount--;
                 txtLikeCount.setText(likeCount + "");
