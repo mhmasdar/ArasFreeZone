@@ -45,7 +45,6 @@ import java.util.List;
 public class galleryFragment extends Fragment {
 
 
-    private RelativeLayout lytBack;
     private Dialog dialog;
     private ImageView[] img = new ImageView[9];
 //    private ImageView img2;
@@ -83,13 +82,7 @@ public class galleryFragment extends Fragment {
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
         databaseCallback.execute();
 
-        lytBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.popBackStack();
-            }
-        });
+
 
         fm = getActivity().getFragmentManager();
 
@@ -181,7 +174,6 @@ public class galleryFragment extends Fragment {
     }
 
     private void initView(View view) {
-        lytBack = (RelativeLayout) view.findViewById(R.id.lytBack);
         img[1] = (ImageView) view.findViewById(R.id.img2);
         img[2] = (ImageView) view.findViewById(R.id.img3);
         img[3] = (ImageView) view.findViewById(R.id.img4);

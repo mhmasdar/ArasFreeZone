@@ -173,7 +173,7 @@ public class detailsFragment extends Fragment {
         lytGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                galleryFragment fragment = new galleryFragment();
+                imagesFragment fragment = new imagesFragment();
 
                 Bundle args = new Bundle();
                 args.putInt("ID", id);

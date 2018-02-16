@@ -5,52 +5,7 @@
     android:orientation="vertical"
     tools:context="com.example.arka.arasfreezone1.fragments.galleryFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content">
 
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="گالری عکس"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:layout_height="wrap_content" />
-
-                <RelativeLayout
-                    android:id="@+id/lytBack"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_back"
-                        android:layout_height="22dp" />
-
-                </RelativeLayout>
-
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
