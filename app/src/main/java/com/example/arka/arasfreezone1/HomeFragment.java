@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     private static int currentPage = 0;
     private RelativeLayout relative_Menu;
     private LinearLayout lytWeather;
-    TextView cityField, txtPray, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
+    TextView cityField, txtPray, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, weatherIcon2, weatherIcon3, updatedField;
     private boolean checkWeather = true;
     private CirclePageIndicator indicator;
     private Dialog dialog;
@@ -74,6 +74,8 @@ public class HomeFragment extends Fragment {
         currentTemperatureField = (TextView) view.findViewById(R.id.current_temperature_field);
         humidity_field = (TextView) view.findViewById(R.id.humidity_field);
         weatherIcon = (TextView) view.findViewById(R.id.weather_icon);
+        weatherIcon2 = (TextView) view.findViewById(R.id.weather_icon2);
+        weatherIcon3 = (TextView) view.findViewById(R.id.weather_icon3);
         txtPray = (TextView) view.findViewById(R.id.txtPray);
         relative_Menu = (RelativeLayout) view.findViewById(R.id.relative_Menu);
         lytWeather = (LinearLayout) view.findViewById(R.id.lytWeather);
@@ -143,6 +145,8 @@ public class HomeFragment extends Fragment {
                 currentTemperatureField.setText(weatherModel.temperature);
                 humidity_field.setText(weatherModel.humidity);
                 weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
+                weatherIcon2.setText(Html.fromHtml(weatherModel.iconText));
+                weatherIcon3.setText(Html.fromHtml(weatherModel.iconText));
                 checkWeather = false;
                 lytWeather.setVisibility(View.VISIBLE);
             }
