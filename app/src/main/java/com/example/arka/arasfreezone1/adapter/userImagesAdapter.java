@@ -35,8 +35,6 @@ public class userImagesAdapter extends RecyclerView.Adapter<userImagesAdapter.my
 
     @Override
     public void onBindViewHolder(userImagesAdapter.myViewHolder holder, int position) {
-        if (position % 2 == 0)
-            holder.img.setImageResource(R.drawable.cul1);
     }
 
     @Override
