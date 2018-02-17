@@ -27,6 +27,8 @@ public class imagesFragment extends Fragment {
     private android.support.v4.view.ViewPager ViewPager;
     private Typeface typeface;
 
+    public static int idRow, mainType;
+
     public imagesFragment() {
         // Required empty public constructor
     }
@@ -44,6 +46,8 @@ public class imagesFragment extends Fragment {
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
         Bundle args = getArguments();
+        idRow = args.getInt("ID");
+        mainType = args.getInt("MainType");
 
 
         TabLayout.addTab(TabLayout.newTab().setText("تصاویر سازمان"));
