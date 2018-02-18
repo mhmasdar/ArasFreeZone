@@ -991,6 +991,11 @@ public class WebService {
                         imgModel.lastUpdate = Object.getString("lastUpdate");
                         imgModel.idRow = Object.getInt("idRow");
                         imgModel.visibility = Object.getBoolean("Visibility");
+                        imgModel.idUser = Object.getInt("idUser");
+                        imgModel.isAdmin = Object.getBoolean("isAdmin");
+
+//                        imgModel.idUser = 0;
+//                        imgModel.isAdmin = true;
 
                         imgList.add(imgModel);
 

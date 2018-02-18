@@ -1348,8 +1348,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql = "";
-        sql = "INSERT INTO Tbl_Images (id,type,name,lastUpdate,idRow) VALUES('"
-                + imgModel.id + "','" + imgModel.type + "','" + imgModel.name + "','" + imgModel.lastUpdate + "','" + imgModel.idRow + "')";
+        sql = "INSERT INTO Tbl_Images (id,type,name,lastUpdate,idRow,isAdmin,idUser) VALUES('"
+                + imgModel.id + "','" + imgModel.type + "','" + imgModel.name + "','" + imgModel.lastUpdate + "','" + imgModel.idRow + "','" + ((imgModel.isAdmin) ? 1 : 0) + "','" + imgModel.idUser + "')";
         ArasDB.execSQL(sql);
 
         ArasDB.close();
@@ -1378,7 +1378,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Images SET type=" + imgModel.type + ",name='" + imgModel.name + "',lastUpdate='" + imgModel.lastUpdate + "',idRow=" + imgModel.idRow + " WHERE id=" + imgModel.id;
+        sql = "UPDATE Tbl_Images SET type=" + imgModel.type + ",name='" + imgModel.name + "',lastUpdate='" + imgModel.lastUpdate + "',idRow=" + imgModel.idRow  + ",isAdmin=" + ((imgModel.isAdmin) ? 1 : 0) + ",idUser=" + imgModel.idUser + " WHERE id=" + imgModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1394,12 +1394,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<ImgModel> selectPlacesImages(int mainType, int idRow) {
+    public List<ImgModel> selectPlacesImages(int mainType, int idRow, int isAdmin) {
 
         List<ImgModel> list = new ArrayList<>();
         SQLiteDatabase ArasDB = getReadableDatabase();
         //String order = "orderb";
-        String sql = "SELECT * FROM Tbl_Images WHERE type=" + mainType + " AND idRow=" + idRow;
+        String sql = "SELECT * FROM Tbl_Images WHERE type=" + mainType + " AND idRow=" + idRow + " AND isAdmin=" + isAdmin;
         Cursor cursor = ArasDB.rawQuery(sql, null);
         cursor.moveToFirst();
         if (!cursor.isAfterLast()) {

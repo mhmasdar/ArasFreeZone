@@ -315,7 +315,7 @@ public class detailsOfficeFragment extends Fragment {
 
             placesModel = databaseHelper.selectOfficesDetail(tblName, id);
 
-            imgList = databaseHelper.selectPlacesImages(8, id);
+            imgList = databaseHelper.selectPlacesImages(8, id, 1);
 
             return null;
         }

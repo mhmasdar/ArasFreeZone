@@ -4,6 +4,7 @@ package com.example.arka.arasfreezone1.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -27,16 +28,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.eventsListAdapter;
 import com.example.arka.arasfreezone1.adapter.userImagesAdapter;
 import com.example.arka.arasfreezone1.app;
+import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.loginActivity;
+import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.services.ClassDate;
 import com.example.arka.arasfreezone1.services.FilePath;
 import com.example.arka.arasfreezone1.services.WebService;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
@@ -60,6 +67,8 @@ public class usersImagesFragment extends Fragment {
     int idRow, mainType;
     String detailsResult;
     Dialog dialog2;
+
+    List<ImgModel> imgList;
 
     public usersImagesFragment() {
         // Required empty public constructor
@@ -86,7 +95,9 @@ public class usersImagesFragment extends Fragment {
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
 
-        setUpRecyclerView();
+//        setUpRecyclerView();
+        DatabaseCallbackList callbackList = new DatabaseCallbackList(getContext());
+        callbackList.execute();
 
 
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -169,9 +180,9 @@ public class usersImagesFragment extends Fragment {
         }
     }
 
-    private void setUpRecyclerView() {
+    private void setUpRecyclerView(List<ImgModel> list) {
 
-        userImagesAdapter adapter = new userImagesAdapter(getContext());
+        userImagesAdapter adapter = new userImagesAdapter(getContext(), list, mainType);
         recycler.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         recycler.setLayoutManager(gridLayoutManager);
@@ -229,6 +240,49 @@ public class usersImagesFragment extends Fragment {
             flagPermission = true;
         } else
             flagPermission = false;
+    }
+
+    public class DatabaseCallbackList extends AsyncTask<Object, Void, Void> {
+
+
+        private DatabaseHelper databaseHelper;
+        private Context context;
+
+        public DatabaseCallbackList(Context context) {
+            this.context = context;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            imgList = new ArrayList<>();
+            databaseHelper = new DatabaseHelper(context);
+        }
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+            imgList = databaseHelper.selectPlacesImages(mainType, idRow, 0);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (imgList != null) {
+                if (imgList.size() > 0) {
+                    setUpRecyclerView(imgList);
+                }
+            }
+
+        }
+
+
+
     }
 
     private class CallBackFileDetails extends AsyncTask<Object, Void, Void> {
@@ -394,9 +448,10 @@ public class usersImagesFragment extends Fragment {
     }
 
 
+
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onResume() {
+        super.onResume();
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
     }

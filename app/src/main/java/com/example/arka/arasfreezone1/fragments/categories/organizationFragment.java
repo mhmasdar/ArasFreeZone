@@ -360,7 +360,7 @@ public class organizationFragment extends Fragment {
 
             placesModel = databaseHelper.selectOrgDetail("Tbl_Offices", 6);
 
-            imgList = databaseHelper.selectPlacesImages(8, placesModel.id);
+            imgList = databaseHelper.selectPlacesImages(8, placesModel.id,1);
 
             return null;
         }

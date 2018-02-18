@@ -208,7 +208,7 @@ public class galleryFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... objects) {
 
-            imgList = databaseHelper.selectPlacesImages(mainType, idRow);
+            imgList = databaseHelper.selectPlacesImages(mainType, idRow, 1);
 
             return null;
         }

@@ -729,7 +729,7 @@ public class detailsFragment extends Fragment {
 
             placesModel = databaseHelper.selectPlacesDetail(tblName, id);
 
-            imgList = databaseHelper.selectPlacesImages(mainType, id);
+            imgList = databaseHelper.selectPlacesImages(mainType, id, 1);
 
             return null;
         }

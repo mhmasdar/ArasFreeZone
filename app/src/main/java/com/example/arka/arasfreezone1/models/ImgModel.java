@@ -12,5 +12,7 @@ public class ImgModel {
     public String name;
     public String lastUpdate;
     public boolean visibility;
+    public boolean isAdmin;
+    public int idUser;
 
 }
