@@ -41,6 +41,7 @@ public class competitionFragment extends Fragment {
     private LinearLayout lytDisconnect, lytRepetitive;
     private TextView txtCompetitionTitle, txtSend;
     private TextView repetitiveTitle;
+    private TextView txtAward;
     private WebServiceCallBack webServiceCallBack;
     private List<ReferendumModel> referendumList;
     private List<Integer> idQuestions;
@@ -113,6 +114,7 @@ public class competitionFragment extends Fragment {
         lytLoading = view.findViewById(R.id.lytLoading);
         lytRepetitive = view.findViewById(R.id.lytRepetitive);
         repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
+        txtAward = view.findViewById(R.id.txtAward);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {

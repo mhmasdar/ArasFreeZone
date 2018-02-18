@@ -32,6 +32,15 @@
             android:textColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/txtAward"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:textSize="13sp"
+            android:text="جایزه : یک دستگاه خودروی پراید برای 3 نفر"
+            android:layout_height="wrap_content" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

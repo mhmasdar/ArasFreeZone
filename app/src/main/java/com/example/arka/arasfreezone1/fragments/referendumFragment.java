@@ -45,6 +45,7 @@ public class referendumFragment extends Fragment {
     private LinearLayout lytDisconnect;
     private TextView txtCompetitionTitle;
     private TextView txtSend;
+    private TextView txtAward;
     private List<ReferendumModel> referendumList;
     private List<Integer> idQuestions;
     private SharedPreferences prefs;
@@ -104,6 +105,7 @@ public class referendumFragment extends Fragment {
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         txtCompetitionTitle = (TextView) view.findViewById(R.id.txtCompetitionTitle);
         txtSend = (TextView) view.findViewById(R.id.txtSend);
+        txtAward = (TextView) view.findViewById(R.id.txtAward);
         //repetitiveTitle = view.findViewById(R.id.repetitiveTitle);
 
     }

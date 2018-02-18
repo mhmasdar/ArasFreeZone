@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
+    android:layout_width="280dp"
     android:layout_height="match_parent"
     android:background="@color/darkWhite"
     android:orientation="vertical">
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:text="اوقات شرعی به افق جلفا"
+        android:text="اوقات شرعی"
         android:textColor="@color/white" />
 
     <LinearLayout
@@ -23,137 +23,444 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txtSobh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="اذان صبح " />
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="زنوز" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-            <TextView
-                android:id="@+id/txttolo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="خدافرین" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="طلوع آفتاب " />
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="جلفا" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-            <TextView
-                android:id="@+id/txtZohr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="40dp"
+                    android:gravity="center" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="اذان ظهر" />
+            </TableRow>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/txtGhorob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="غروب آفتاب" />
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtSobh3" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtSobh2" />
 
-            <TextView
-                android:id="@+id/txtMaghreb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="اذان مغرب" />
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtSobh" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="اذان صبح"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
 
-            <TextView
-                android:id="@+id/txtNimeShab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="نیمه شب شرعی" />
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
 
-        </LinearLayout>
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txttolo3" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txttolo2" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txttolo" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="طلوع آفتاب"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
+
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtZohr3" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtZohr2" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtZohr" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="اذان ظهر"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
+
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtGhorob3" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtGhorob2" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtGhorob" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="غروب آفتاب"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
+
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtMaghreb3" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtMaghreb2" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtMaghreb" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="اذان مغرب"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
+
+            <TableRow android:gravity="right" android:layout_width="match_parent" android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtNimeShab3" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtNimeShab2" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:id="@+id/txtNimeShab" />
+
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/mainBarText"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="نیمه شب شرعی"
+                    android:textSize="12sp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:background="@color/mainBarText"/>
+
+
+        </TableLayout>
 
     </LinearLayout>
 
@@ -175,7 +482,6 @@
             app:cpb_rotation_speed="1.0"
             app:cpb_stroke_width="5dp"
             app:cpb_sweep_speed="1.0" />
-
 
     </LinearLayout>
 
