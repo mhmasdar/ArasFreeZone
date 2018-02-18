@@ -9,7 +9,8 @@
    <LinearLayout
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:background="@color/colorPrimaryDark">
 
       <android.support.design.widget.AppBarLayout
           android:layout_width="match_parent"
@@ -92,7 +93,7 @@
              android:layout_marginTop="40dp"
              android:gravity="center"
              android:id="@+id/lytWeather"
-             android:visibility="gone"
+             android:visibility="visible"
              android:orientation="vertical"
              android:layout_alignParentTop="true"
              android:layout_height="wrap_content">
@@ -218,6 +219,7 @@
                          android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/current_temperature_field_khod"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
                             style="@style/AudioFileInfoOverlayText2"
@@ -229,6 +231,7 @@
 
                         <!--humidity and pressure-->
                         <TextView
+                            android:id="@+id/humidity_field_khod"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
                             android:text="50%"
@@ -242,7 +245,7 @@
 
                      <TextView
                          android:layout_width="wrap_content"
-                         android:id="@+id/weather_icon2"
+                         android:id="@+id/weather_icon_khod"
                          android:layout_marginLeft="10dp"
                          android:layout_height="wrap_content"
                          android:textColor="@color/yellow"
@@ -293,6 +296,7 @@
                          android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/current_temperature_field_zonoz"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
                             style="@style/AudioFileInfoOverlayText2"
@@ -304,6 +308,7 @@
 
                         <!--humidity and pressure-->
                         <TextView
+                            android:id="@+id/humidity_field_zonoz"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
                             android:text="65%"
@@ -317,7 +322,7 @@
 
                      <TextView
                          android:layout_width="wrap_content"
-                         android:id="@+id/weather_icon3"
+                         android:id="@+id/weather_icon_zonoz"
                          android:layout_marginLeft="10dp"
                          android:layout_height="wrap_content"
                          android:textColor="@color/yellow"

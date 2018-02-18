@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.adapter.SlidingImage_Adapter;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
@@ -43,7 +42,10 @@ public class HomeFragment extends Fragment {
     private static int currentPage = 0;
     private RelativeLayout relative_Menu;
     private LinearLayout lytWeather;
-    TextView cityField, txtPray, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, weatherIcon2, weatherIcon3, updatedField;
+    TextView cityField, txtPray, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
+
+    TextView currentTemperatureFieldZonoz, currentTemperatureFieldKhod, humidity_fieldZonoz, humidity_fieldKhod, weatherIconZonoz, weatherIconKhod;
+
     private boolean checkWeather = true;
     private CirclePageIndicator indicator;
     private Dialog dialog;
@@ -54,12 +56,13 @@ public class HomeFragment extends Fragment {
     private TextView txtGhorob;
     private TextView txtMaghreb;
     private TextView txtNimeShab;
+    TextView txtSobhKhod, txttoloKhod, txtZohrKhod, txtGhorobKhod, txtMaghrebKhod, txtNimeShabKhod, txtSobhZonoz, txttoloZonoz, txtZohrZonoz, txtGhorobZonoz, txtMaghrebZonoz, txtNimeShabZonoz;
     private Button btnCancel;
     private LinearLayout lytLoading, lytMain, lytDisconnect;
     private WeatherServiceCallBack WcallBack;
     private DatabaseCallback databaseCallback;
 
-    private ReligiousTimesModel timesModel;
+    private ReligiousTimesModel timesModelJolfa, timesModelZonoz, timesModelKhod;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,10 +75,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         currentTemperatureField = (TextView) view.findViewById(R.id.current_temperature_field);
+        currentTemperatureFieldZonoz = (TextView) view.findViewById(R.id.current_temperature_field_zonoz);
+        currentTemperatureFieldKhod = (TextView) view.findViewById(R.id.current_temperature_field_khod);
         humidity_field = (TextView) view.findViewById(R.id.humidity_field);
+        humidity_fieldZonoz = (TextView) view.findViewById(R.id.humidity_field_zonoz);
+        humidity_fieldKhod = (TextView) view.findViewById(R.id.humidity_field_khod);
         weatherIcon = (TextView) view.findViewById(R.id.weather_icon);
-        weatherIcon2 = (TextView) view.findViewById(R.id.weather_icon2);
-        weatherIcon3 = (TextView) view.findViewById(R.id.weather_icon3);
+        weatherIconZonoz = (TextView) view.findViewById(R.id.weather_icon_zonoz);
+        weatherIconKhod = (TextView) view.findViewById(R.id.weather_icon_khod);
         txtPray = (TextView) view.findViewById(R.id.txtPray);
         relative_Menu = (RelativeLayout) view.findViewById(R.id.relative_Menu);
         lytWeather = (LinearLayout) view.findViewById(R.id.lytWeather);
@@ -118,7 +125,7 @@ public class HomeFragment extends Fragment {
     private class WeatherServiceCallBack extends AsyncTask<Object, Void, Void> {
 
         private WeatherService weatherService;
-        private WeatherModel weatherModel;
+        private WeatherModel weatherModelJolfa, weatherModelZonoz, weatherModelKhod;
         private WebService webService;
 
         @Override
@@ -131,8 +138,14 @@ public class HomeFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            weatherModel = weatherService.getCurrentWeather();
-            timesModel = webService.getReligiousTimes(app.isInternetOn());
+            weatherModelJolfa = weatherService.getWeatherJolfa();
+            weatherModelZonoz = weatherService.getWeatherZonoz();
+            weatherModelKhod = weatherService.getWeatherKhod();
+
+            timesModelJolfa = webService.getReligiousTimes(app.isInternetOn());
+            timesModelZonoz = webService.getReligiousTimes(app.isInternetOn());
+            timesModelKhod = webService.getReligiousTimes(app.isInternetOn());
+
             return null;
         }
 
@@ -141,12 +154,24 @@ public class HomeFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             //set weather
-            if (weatherModel != null) {
-                currentTemperatureField.setText(weatherModel.temperature);
-                humidity_field.setText(weatherModel.humidity);
-                weatherIcon.setText(Html.fromHtml(weatherModel.iconText));
-                weatherIcon2.setText(Html.fromHtml(weatherModel.iconText));
-                weatherIcon3.setText(Html.fromHtml(weatherModel.iconText));
+            if (weatherModelJolfa != null) {
+                currentTemperatureField.setText(weatherModelJolfa.temperature);
+                humidity_field.setText(weatherModelJolfa.humidity);
+                weatherIcon.setText(Html.fromHtml(weatherModelJolfa.iconText));
+                checkWeather = false;
+                lytWeather.setVisibility(View.VISIBLE);
+            }
+            if (weatherModelZonoz != null) {
+                currentTemperatureFieldZonoz.setText(weatherModelZonoz.temperature);
+                humidity_fieldZonoz.setText(weatherModelZonoz.humidity);
+                weatherIconZonoz.setText(Html.fromHtml(weatherModelZonoz.iconText));
+                checkWeather = false;
+                lytWeather.setVisibility(View.VISIBLE);
+            }
+            if (weatherModelKhod != null) {
+                currentTemperatureFieldKhod.setText(weatherModelKhod.temperature);
+                humidity_fieldKhod.setText(weatherModelKhod.humidity);
+                weatherIconKhod.setText(Html.fromHtml(weatherModelKhod.iconText));
                 checkWeather = false;
                 lytWeather.setVisibility(View.VISIBLE);
             }
@@ -259,30 +284,59 @@ public class HomeFragment extends Fragment {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_pray);
+
         txtSobh = (TextView) dialog.findViewById(R.id.txtSobh);
         txttolo = (TextView) dialog.findViewById(R.id.txttolo);
         txtZohr = (TextView) dialog.findViewById(R.id.txtZohr);
         txtGhorob = (TextView) dialog.findViewById(R.id.txtGhorob);
         txtMaghreb = (TextView) dialog.findViewById(R.id.txtMaghreb);
         txtNimeShab = (TextView) dialog.findViewById(R.id.txtNimeShab);
+
+        txtSobhKhod = (TextView) dialog.findViewById(R.id.txtSobh2);
+        txttoloKhod  = (TextView) dialog.findViewById(R.id.txttolo2);
+        txtZohrKhod  = (TextView) dialog.findViewById(R.id.txtZohr2);
+        txtGhorobKhod  = (TextView) dialog.findViewById(R.id.txtGhorob2);
+        txtMaghrebKhod  = (TextView) dialog.findViewById(R.id.txtMaghreb2);
+        txtNimeShabKhod  = (TextView) dialog.findViewById(R.id.txtNimeShab2);
+
+        txtSobhZonoz = (TextView) dialog.findViewById(R.id.txtSobh3);
+        txttoloZonoz = (TextView) dialog.findViewById(R.id.txttolo3);
+        txtZohrZonoz = (TextView) dialog.findViewById(R.id.txtZohr3);
+        txtGhorobZonoz = (TextView) dialog.findViewById(R.id.txtGhorob3);
+        txtMaghrebZonoz = (TextView) dialog.findViewById(R.id.txtMaghreb3);
+        txtNimeShabZonoz = (TextView) dialog.findViewById(R.id.txtNimeShab3);
+
         btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
         lytDisconnect = dialog.findViewById(R.id.lytDisconnect);
         lytMain = dialog.findViewById(R.id.lytMain);
         lytLoading = dialog.findViewById(R.id.lytLoading);
 
 
-        if (timesModel != null){
+        if (timesModelJolfa != null && timesModelZonoz != null && timesModelKhod != null) {
 
-            txtSobh.setText(timesModel.Imsaak);
-            txttolo.setText(timesModel.Sunrise);
-            txtZohr.setText(timesModel.Noon);
-            txtGhorob.setText(timesModel.Sunset);
-            txtMaghreb.setText(timesModel.Maghreb);
-            txtNimeShab.setText(timesModel.Midnight);
+            txtSobh.setText(timesModelJolfa.Imsaak);
+            txttolo.setText(timesModelJolfa.Sunrise);
+            txtZohr.setText(timesModelJolfa.Noon);
+            txtGhorob.setText(timesModelJolfa.Sunset);
+            txtMaghreb.setText(timesModelJolfa.Maghreb);
+            txtNimeShab.setText(timesModelJolfa.Midnight);
+
+            txtSobhKhod.setText(timesModelKhod.Imsaak);
+            txttoloKhod.setText(timesModelKhod.Sunrise);
+            txtZohrKhod.setText(timesModelKhod.Noon);
+            txtGhorobKhod.setText(timesModelKhod.Sunset);
+            txtMaghrebKhod.setText(timesModelKhod.Maghreb);
+            txtNimeShabKhod.setText(timesModelKhod.Midnight);
+
+            txtSobhZonoz.setText(timesModelZonoz.Imsaak);
+            txttoloZonoz.setText(timesModelZonoz.Sunrise);
+            txtZohrZonoz.setText(timesModelZonoz.Noon);
+            txtGhorobZonoz.setText(timesModelZonoz.Sunset);
+            txtMaghrebZonoz.setText(timesModelZonoz.Maghreb);
+            txtNimeShabZonoz.setText(timesModelZonoz.Midnight);
 
 
-        }
-        else{
+        } else {
             lytDisconnect.setVisibility(View.VISIBLE);
             lytMain.setVisibility(View.GONE);
         }
@@ -301,9 +355,9 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        if(WcallBack != null && WcallBack.getStatus() == AsyncTask.Status.RUNNING)
+        if (WcallBack != null && WcallBack.getStatus() == AsyncTask.Status.RUNNING)
             WcallBack.cancel(true);
-        if(databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
+        if (databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
             databaseCallback.cancel(true);
     }
 }
