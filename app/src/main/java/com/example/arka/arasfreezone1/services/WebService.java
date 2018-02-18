@@ -142,11 +142,79 @@ public class WebService {
     }
 
 
-    public ReligiousTimesModel getReligiousTimes(boolean isInternetAvailable) {
+    public ReligiousTimesModel getReligiousTimesJolfa(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {
 
             String response = connectToServer("https://prayer.aviny.com/api/prayertimes/1003", "GET");
+            Log.i("LOG", response + "");
+
+
+            if (response != null) {
+                ReligiousTimesModel religiousTimesModel = new ReligiousTimesModel();
+                try {
+                    JSONObject Object = new JSONObject(response);
+
+                    religiousTimesModel.Imsaak = Object.getString("Imsaak");
+                    religiousTimesModel.Maghreb = Object.getString("Maghreb");
+                    religiousTimesModel.Midnight = Object.getString("Midnight");
+                    religiousTimesModel.Noon = Object.getString("Noon");
+                    religiousTimesModel.Sunrise = Object.getString("Sunrise");
+                    religiousTimesModel.Sunset = Object.getString("Sunset");
+                    religiousTimesModel.TimeZone = Object.getString("TimeZone");
+                    religiousTimesModel.Today = Object.getString("Today");
+                    religiousTimesModel.TodayQamari = Object.getString("TodayQamari");
+
+                    return religiousTimesModel;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+        } else
+            return null;
+    }
+
+    public ReligiousTimesModel getReligiousTimesZonoz(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer("https://prayer.aviny.com/api/prayertimes/1218", "GET");
+            Log.i("LOG", response + "");
+
+
+            if (response != null) {
+                ReligiousTimesModel religiousTimesModel = new ReligiousTimesModel();
+                try {
+                    JSONObject Object = new JSONObject(response);
+
+                    religiousTimesModel.Imsaak = Object.getString("Imsaak");
+                    religiousTimesModel.Maghreb = Object.getString("Maghreb");
+                    religiousTimesModel.Midnight = Object.getString("Midnight");
+                    religiousTimesModel.Noon = Object.getString("Noon");
+                    religiousTimesModel.Sunrise = Object.getString("Sunrise");
+                    religiousTimesModel.Sunset = Object.getString("Sunset");
+                    religiousTimesModel.TimeZone = Object.getString("TimeZone");
+                    religiousTimesModel.Today = Object.getString("Today");
+                    religiousTimesModel.TodayQamari = Object.getString("TodayQamari");
+
+                    return religiousTimesModel;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+        } else
+            return null;
+    }
+
+    public ReligiousTimesModel getReligiousTimesKhod(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer("https://prayer.aviny.com/api/prayertimes/1566", "GET");
             Log.i("LOG", response + "");
 
 

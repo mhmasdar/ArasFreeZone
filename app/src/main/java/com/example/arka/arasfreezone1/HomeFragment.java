@@ -142,9 +142,9 @@ public class HomeFragment extends Fragment {
             weatherModelZonoz = weatherService.getWeatherZonoz();
             weatherModelKhod = weatherService.getWeatherKhod();
 
-            timesModelJolfa = webService.getReligiousTimes(app.isInternetOn());
-            timesModelZonoz = webService.getReligiousTimes(app.isInternetOn());
-            timesModelKhod = webService.getReligiousTimes(app.isInternetOn());
+            timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
+            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
+            timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
 
             return null;
         }
