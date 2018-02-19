@@ -1,33 +1,54 @@
 package com.example.arka.arasfreezone1.fragments;
 
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.telephony.SmsMessage;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.arka.arasfreezone1.MainActivity;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.services.WebService;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class registerFragment extends Fragment {
 
-    private Button btnRegister;
-    private EditText edtName, edtLName, edtMobile, edtEmail, edtPass;
+    private Button btnRegister, btnPhoneSubmit, btnCodeSubmit;
+    private EditText edtName, edtLName, edtMobile, edtEmail, edtPass, edtPhone;
     Dialog dialog2;
+    LinearLayout lytSms, lytCodeAccept, lytRegister;
+    EditText edtCode;
+    TextView txtTryAgain;
+
+    String codeFromServer, CodeFromUser;
+
+    private BroadcastReceiver smsBroadcastReceiver;
+    IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+    Bundle bundle;
 
     public registerFragment() {
         // Required empty public constructor
@@ -42,6 +63,107 @@ public class registerFragment extends Fragment {
 
         initView(view);
 
+        if (!isReadSmsAllowed())
+            requestSmsPermission();
+
+
+        smsBroadcastReceiver = new BroadcastReceiver() {
+
+            String code;
+            Context context;
+            private final String serverPhone = "+9810000007707077";
+
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("smsBroadcastReceiver", "onReceive1");
+                this.context = context;
+
+                // Retrieves a map of extended data from the intent.
+                bundle = intent.getExtras();
+
+                try {
+
+                    if (bundle != null) {
+
+                        final Object[] pdusObj = (Object[]) bundle.get("pdus");
+
+                        for (int i = 0; i < pdusObj.length; i++) {
+
+                            SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+                            String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+
+                            String senderNum = phoneNumber;
+                            String message = currentMessage.getDisplayMessageBody();
+
+                            Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
+
+
+                            if(senderNum.equals(serverPhone)){
+
+                                if (!message.equals("")) {
+                                    //code = message.substring(0, message.indexOf(":"));
+                                    code = message.substring(message.indexOf(":") + 1);
+                                    edtCode.setText(code);
+                                }
+                            }
+                        } // end for loop
+                    } // bundle is null
+                } catch (Exception e) {
+                    Log.e("SmsReceiver", "Exception smsReceiver" + e);
+                }
+            }
+        };
+
+
+        txtTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lytSms.setVisibility(View.VISIBLE);
+                lytRegister.setVisibility(View.GONE);
+                lytCodeAccept.setVisibility(View.GONE);
+
+            }
+        });
+
+        btnPhoneSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edtPhone.getText().toString().equals("")) {
+//                    String sub = edtPhone.getText().toString().substring(0,2);
+                    if (edtPhone.getText().toString().length() == 11 && edtPhone.getText().toString().substring(0, 2).equals("09")) {
+
+                        CallBackPhone callBackPhone = new CallBackPhone();
+                        callBackPhone.execute();
+
+                    } else
+                        Toast.makeText(getContext(), "شماره تلفن صحیح نیست", Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(getContext(), "لطفا شماره تلفن را وارد کنید", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnCodeSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!edtCode.getText().toString().equals("")) {
+//                    String sub = edtPhone.getText().toString().substring(0,2);
+                    if (edtCode.getText().toString().equals(codeFromServer)) {
+
+                        lytSms.setVisibility(View.GONE);
+                        lytRegister.setVisibility(View.VISIBLE);
+                        lytCodeAccept.setVisibility(View.GONE);
+
+                    } else
+                        Toast.makeText(getContext(), "کدوارد شده صحیح نیست", Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(getContext(), "لطفا کد دریافت شده را وارد کنید", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,16 +172,13 @@ public class registerFragment extends Fragment {
                         if (edtMobile.getText().toString().length() == 11) {
                             WebServiceCallBack callBack = new WebServiceCallBack();
                             callBack.execute();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(getContext(), "شماره تلفن نا معتبر است", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getContext(), "ایمیل نا معتبر است", Toast.LENGTH_LONG).show();
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
                 }
             }
@@ -76,6 +195,14 @@ public class registerFragment extends Fragment {
         edtEmail = view.findViewById(R.id.edtEmail);
         edtPass = view.findViewById(R.id.edtPass);
         btnRegister = view.findViewById(R.id.btnRegister);
+        btnPhoneSubmit = view.findViewById(R.id.btnPhoneSubmit);
+        lytSms = view.findViewById(R.id.lytSms);
+        lytCodeAccept = view.findViewById(R.id.lytCodeAccept);
+        lytRegister = view.findViewById(R.id.lytRegister);
+        edtPhone = view.findViewById(R.id.edtPhone);
+        edtCode = view.findViewById(R.id.edtCode);
+        txtTryAgain = view.findViewById(R.id.txtTryAgain);
+        btnCodeSubmit = view.findViewById(R.id.btnCodeSubmit);
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {
@@ -137,18 +264,90 @@ public class registerFragment extends Fragment {
 //                    startActivity(i);
                     getActivity().finish();
 
-                }
-                else if (Integer.parseInt(result) == 0){
+                } else if (Integer.parseInt(result) == 0) {
                     Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
-                }
-                else if (Integer.parseInt(result) == -1){
+                } else if (Integer.parseInt(result) == -1) {
                     Toast.makeText(getContext(), "ایمیل تکراری است", Toast.LENGTH_LONG).show();
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
             }
         }
     }
+
+    private class CallBackPhone extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String userPhone;
+        String result;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+//            dialog2 = new Dialog(getContext());
+//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog2.setContentView(R.layout.dialog_waiting);
+//            dialog2.setCancelable(true);
+//            dialog2.setCanceledOnTouchOutside(true);
+//            dialog2.show();
+
+            userPhone = edtPhone.getText().toString();
+
+            lytSms.setVisibility(View.GONE);
+            lytRegister.setVisibility(View.GONE);
+            lytCodeAccept.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.postUserPhone(app.isInternetOn(), userPhone);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+//            dialog2.dismiss();
+
+            if (result != null) {
+
+                if (Integer.parseInt(result) > 0) {
+
+                    codeFromServer = result;
+                    Toast.makeText(getContext(), codeFromServer, Toast.LENGTH_LONG).show();
+
+                } else codeFromServer = "0";
+
+            } else codeFromServer = "-1";
+        }
+    }
+
+    private boolean isReadSmsAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_SMS);
+
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
+    }
+
+    private void requestSmsPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity() , Manifest.permission.READ_SMS)){
+        }
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(getActivity() ,new String[]{android.Manifest.permission.READ_SMS},23);
+    }
+
 
 }

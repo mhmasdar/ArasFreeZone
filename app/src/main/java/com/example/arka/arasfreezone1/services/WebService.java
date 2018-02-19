@@ -283,6 +283,20 @@ public class WebService {
             return null;
     }
 
+    public String postUserPhone(boolean isInternetAvailable, String phone) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/getPhone?num=" + phone, "GET");
+            Log.i("LOG", response + "");
+
+
+           return response;
+
+        } else
+            return null;
+    }
+
     public String postRegisterInfo(boolean isInternetAvailable, String name, String lName, String mobile, String email, String pass) {
 
         if (isInternetAvailable) {
