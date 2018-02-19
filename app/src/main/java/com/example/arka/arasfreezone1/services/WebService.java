@@ -336,11 +336,11 @@ public class WebService {
             return null;
     }
 
-    public String recoverPass(boolean isInternetAvailable, String email) {
+    public String recoverPass(boolean isInternetAvailable, String email, int type) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(addr + "login/forgetPass?email=" + email, "GET");
+            String response = connectToServer(addr + "login/forgetPass?email=" + email + "&type=" + type , "GET");
             Log.i("LOG", response + "");
 
             return response;

@@ -8,16 +8,22 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +52,9 @@ public class loginFragment extends Fragment {
     private TextView txtForgetPass;
     private Dialog dialog, dialog2;
     LinearLayout lytLoading;
+
+    RadioButton radioPhone, radioEmail;
+    EditText edtPhoneEmail;
 
     public loginFragment() {
         // Required empty public constructor
@@ -95,6 +104,7 @@ public class loginFragment extends Fragment {
         edtUserPass = view.findViewById(R.id.edtUserPass);
         btnUserLogin = view.findViewById(R.id.btnUserLogin);
         txtForgetPass = view.findViewById(R.id.txtForgetPass);
+
 
     }
 
@@ -174,6 +184,7 @@ public class loginFragment extends Fragment {
         private WebService webService;
         String result;
         String email;
+        int type;
 
         public WebServiceCallBackForget(String email){
             this.email = email;
@@ -184,12 +195,19 @@ public class loginFragment extends Fragment {
             super.onPreExecute();
             webService = new WebService();
             lytLoading.setVisibility(View.VISIBLE);
+
+            if (radioEmail.isChecked()){
+                type = 1;
+            }
+            else {
+                type = 2;
+            }
         }
 
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.recoverPass(app.isInternetOn(), email);
+            result = webService.recoverPass(app.isInternetOn(), email, type);
 
             return null;
         }
@@ -202,10 +220,13 @@ public class loginFragment extends Fragment {
 
             if (result != null) {
 
-                if (result.equals("true")) {
+                if (Integer.parseInt(result) == 1) {
 
-                    Toast.makeText(getContext(), "کلمه عبور به ایمیل ارسال شد", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "کلمه عبور ارسال شد", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
+                }
+                else if (Integer.parseInt(result) == -1){
+                    Toast.makeText(getContext(), "حساب کاربری وجود ندارد", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
@@ -282,6 +303,9 @@ public class loginFragment extends Fragment {
         Button btnSendEmail = (Button) dialog.findViewById(R.id.btnSendEmail);
         Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         lytLoading = dialog.findViewById(R.id.lytLoading);
+        radioPhone = dialog.findViewById(R.id.radioPhone);
+        radioEmail = dialog.findViewById(R.id.radioEmail);
+        edtPhoneEmail = dialog.findViewById(R.id.edtPhoneEmail);
 
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -295,7 +319,7 @@ public class loginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!txtForgetPass.getText().equals("")){
-                    WebServiceCallBackForget callBackForget = new WebServiceCallBackForget(txtForgetPass.getText().toString());
+                    WebServiceCallBackForget callBackForget = new WebServiceCallBackForget(edtPhoneEmail.getText().toString());
                     callBackForget.execute();
                 }
                 else{
@@ -305,6 +329,26 @@ public class loginFragment extends Fragment {
         });
 
         dialog.show();
+
+
+        radioEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    edtPhoneEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                }
+            }
+        });
+
+        radioPhone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    edtPhoneEmail.setInputType(InputType.TYPE_CLASS_PHONE);
+                }
+            }
+        });
+
     }
 
 }

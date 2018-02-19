@@ -1,15 +1,21 @@
 package com.example.arka.arasfreezone1;
 
 
+import android.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +70,8 @@ public class HomeFragment extends Fragment {
 
     private ReligiousTimesModel timesModelJolfa, timesModelZonoz, timesModelKhod;
 
+    public boolean flagPermission = false;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -88,6 +96,20 @@ public class HomeFragment extends Fragment {
         lytWeather = (LinearLayout) view.findViewById(R.id.lytWeather);
         mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getContext().checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || getContext().checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this.getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            } else {
+                flagPermission = true;
+            }
+        } else {
+            flagPermission = true;
+        }
+
+
 
         databaseCallback = new DatabaseCallback(getContext());
         databaseCallback.execute();
@@ -349,6 +371,19 @@ public class HomeFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.v("TAG", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+        } else
+            flagPermission = false;
+
     }
 
     @Override

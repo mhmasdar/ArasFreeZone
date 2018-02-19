@@ -9,12 +9,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsMessage;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +54,8 @@ public class registerFragment extends Fragment {
     IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
     Bundle bundle;
 
+    String IMEI = "0", macAddress;
+
     public registerFragment() {
         // Required empty public constructor
     }
@@ -63,58 +69,60 @@ public class registerFragment extends Fragment {
 
         initView(view);
 
-        if (!isReadSmsAllowed())
-            requestSmsPermission();
+//        if (!isReadSmsAllowed())
+//            requestSmsPermission();
+//        smsBroadcastReceiver = new BroadcastReceiver() {
+//
+//            String code;
+//            Context context;
+//            private final String serverPhone = "+9810000007707077";
+//
+//
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.i("smsBroadcastReceiver", "onReceive1");
+//                this.context = context;
+//
+//                // Retrieves a map of extended data from the intent.
+//                bundle = intent.getExtras();
+//
+//                try {
+//
+//                    if (bundle != null) {
+//
+//                        final Object[] pdusObj = (Object[]) bundle.get("pdus");
+//
+//                        for (int i = 0; i < pdusObj.length; i++) {
+//
+//                            SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+//                            String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+//
+//                            String senderNum = phoneNumber;
+//                            String message = currentMessage.getDisplayMessageBody();
+//
+//                            Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
+//
+//
+//                            if(senderNum.equals(serverPhone)){
+//
+//                                if (!message.equals("")) {
+//                                    //code = message.substring(0, message.indexOf(":"));
+//                                    code = message.substring(message.indexOf(":") + 1);
+//                                    edtCode.setText(code);
+//                                }
+//                            }
+//                        } // end for loop
+//                    } // bundle is null
+//                } catch (Exception e) {
+//                    Log.e("SmsReceiver", "Exception smsReceiver" + e);
+//                }
+//            }
+//        };
 
 
-        smsBroadcastReceiver = new BroadcastReceiver() {
-
-            String code;
-            Context context;
-            private final String serverPhone = "+9810000007707077";
-
-
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.i("smsBroadcastReceiver", "onReceive1");
-                this.context = context;
-
-                // Retrieves a map of extended data from the intent.
-                bundle = intent.getExtras();
-
-                try {
-
-                    if (bundle != null) {
-
-                        final Object[] pdusObj = (Object[]) bundle.get("pdus");
-
-                        for (int i = 0; i < pdusObj.length; i++) {
-
-                            SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                            String phoneNumber = currentMessage.getDisplayOriginatingAddress();
-
-                            String senderNum = phoneNumber;
-                            String message = currentMessage.getDisplayMessageBody();
-
-                            Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
-
-
-                            if(senderNum.equals(serverPhone)){
-
-                                if (!message.equals("")) {
-                                    //code = message.substring(0, message.indexOf(":"));
-                                    code = message.substring(message.indexOf(":") + 1);
-                                    edtCode.setText(code);
-                                }
-                            }
-                        } // end for loop
-                    } // bundle is null
-                } catch (Exception e) {
-                    Log.e("SmsReceiver", "Exception smsReceiver" + e);
-                }
-            }
-        };
-
+        if (!isReadStateAllowed()) {
+            requestStoragePermission();
+        }
 
         txtTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,11 +175,27 @@ public class registerFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtName.getText().toString().equals("") && !edtLName.getText().toString().equals("") && !edtMobile.getText().toString().equals("") && !edtEmail.getText().toString().equals("") && !edtPass.getText().toString().equals("")) {
+                if (!edtName.getText().toString().equals("") && !edtLName.getText().toString().equals("") && !edtPhone.getText().toString().equals("") && !edtEmail.getText().toString().equals("") && !edtPass.getText().toString().equals("")) {
                     if (edtEmail.getText().toString().contains("@") && edtEmail.getText().toString().contains(".")) {
-                        if (edtMobile.getText().toString().length() == 11) {
-                            WebServiceCallBack callBack = new WebServiceCallBack();
-                            callBack.execute();
+                        if (edtPhone.getText().toString().length() == 11) {
+
+
+                                TelephonyManager telephonyManager = (TelephonyManager) app.context.getSystemService(app.context.TELEPHONY_SERVICE);
+                                IMEI = telephonyManager.getDeviceId();
+//                Toast.makeText(getContext() , "sent" , Toast.LENGTH_SHORT).show();
+
+                                WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                WifiInfo wInfo = wifiManager.getConnectionInfo();
+                                macAddress = wInfo.getMacAddress();
+
+
+
+                                WebServiceCallBack callBack = new WebServiceCallBack();
+                                callBack.execute();
+
+
+
+
                         } else {
                             Toast.makeText(getContext(), "شماره تلفن نا معتبر است", Toast.LENGTH_LONG).show();
                         }
@@ -225,7 +249,7 @@ public class registerFragment extends Fragment {
 
             name = edtName.getText().toString();
             lName = edtLName.getText().toString();
-            mobile = edtMobile.getText().toString();
+            mobile = edtPhone.getText().toString();
             mobile = mobile.substring(1);
             email = edtEmail.getText().toString();
             pass = edtPass.getText().toString();
@@ -347,6 +371,40 @@ public class registerFragment extends Fragment {
 
         //And finally ask for the permission
         ActivityCompat.requestPermissions(getActivity() ,new String[]{android.Manifest.permission.READ_SMS},23);
+    }
+
+
+
+
+
+    //permission for imei and mac address
+
+    private boolean isReadStateAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_PHONE_STATE);
+
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
+    }
+
+    private void requestStoragePermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity() , Manifest.permission.READ_PHONE_STATE)){
+        }
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_PHONE_STATE},23);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == 23)
+        {
+        }
     }
 
 

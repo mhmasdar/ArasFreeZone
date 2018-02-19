@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
+    android:layout_width="280dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="right"
@@ -35,19 +35,19 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="لطفا ایمیل خود را وارد کنید"
+        android:text="لطفا ایمیل یا شماره تلفن خود را وارد کنید"
         android:layout_margin="15dp"
         android:textSize="12sp"
         android:textColor="@color/dark"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/edt_search"
+        android:id="@+id/edtPhoneEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:inputType="textEmailAddress"
-        android:hint="آدرس ایمیل"
+        android:hint="آدرس ایمیل / شماره تلفن"
         android:maxLines="1"
         android:padding="10dp"
         android:textCursorDrawable="@drawable/cursor_color"
@@ -95,13 +95,14 @@
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:id="@+id/radio1"
+                    android:id="@+id/radioEmail"
                     android:buttonTint="@color/colorPrimary"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:id="@+id/radio2"
+                    android:id="@+id/radioPhone"
                     android:buttonTint="@color/colorPrimary"
                     android:layout_height="40dp" />
 
