@@ -31,6 +31,7 @@ public class navigationDrawerActivity extends AppCompatActivity {
     private LinearLayout lytFavorites;
     private LinearLayout lytreferendum;
     private LinearLayout lytSuggestion;
+    private LinearLayout lytFreeNet;
     private LinearLayout lytShare;
     private LinearLayout lytAbout;
     private LinearLayout lytExit;
@@ -104,6 +105,15 @@ public class navigationDrawerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), introduceActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+            }
+        });
+
+        lytFreeNet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), FreeNetActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.activity_enter, R.anim.stay);
             }
@@ -202,6 +212,7 @@ public class navigationDrawerActivity extends AppCompatActivity {
         txtLogin = (TextView) findViewById(R.id.txtLogin);
         lytIntroduction = (LinearLayout) findViewById(R.id.lytIntroduction);
         lytFavorites = (LinearLayout) findViewById(R.id.lytFavorites);
+        lytFreeNet = (LinearLayout) findViewById(R.id.lytFreeNet);
         lytreferendum = (LinearLayout) findViewById(R.id.lytreferendum);
         lytSuggestion = (LinearLayout) findViewById(R.id.lytSuggestion);
         lytShare = (LinearLayout) findViewById(R.id.lytShare);
