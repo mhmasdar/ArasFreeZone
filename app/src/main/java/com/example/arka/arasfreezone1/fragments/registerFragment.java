@@ -120,9 +120,9 @@ public class registerFragment extends Fragment {
 //        };
 
 
-        if (!isReadStateAllowed()) {
-            requestStoragePermission();
-        }
+//        if (!isReadStateAllowed()) {
+//            requestStoragePermission();
+//        }
 
         txtTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,13 +180,13 @@ public class registerFragment extends Fragment {
                         if (edtPhone.getText().toString().length() == 11) {
 
 
-                                TelephonyManager telephonyManager = (TelephonyManager) app.context.getSystemService(app.context.TELEPHONY_SERVICE);
-                                IMEI = telephonyManager.getDeviceId();
-//                Toast.makeText(getContext() , "sent" , Toast.LENGTH_SHORT).show();
-
-                                WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                WifiInfo wInfo = wifiManager.getConnectionInfo();
-                                macAddress = wInfo.getMacAddress();
+//                                TelephonyManager telephonyManager = (TelephonyManager) app.context.getSystemService(app.context.TELEPHONY_SERVICE);
+//                                IMEI = telephonyManager.getDeviceId();
+////                Toast.makeText(getContext() , "sent" , Toast.LENGTH_SHORT).show();
+//
+//                                WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//                                WifiInfo wInfo = wifiManager.getConnectionInfo();
+//                                macAddress = wInfo.getMacAddress();
 
 
 

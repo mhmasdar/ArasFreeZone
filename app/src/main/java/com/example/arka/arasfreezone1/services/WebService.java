@@ -348,6 +348,17 @@ public class WebService {
             return null;
     }
 
+    public String freeNet(boolean isInternetAvailable, String email, String c1, String c2) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/freeNet?email=" + email + "&c1=" + c1 + "&c2=" + c2 , "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
 
     public int getCulture(boolean isInternetAvailable) {
 
