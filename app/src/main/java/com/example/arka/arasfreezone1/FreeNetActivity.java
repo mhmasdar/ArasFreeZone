@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,7 @@ public class FreeNetActivity extends AppCompatActivity {
     String IMEI = "0", macAddress, email;
 
     CallBackFreeNet callBackFreeNet;
+    public boolean flagPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +67,20 @@ public class FreeNetActivity extends AppCompatActivity {
                 idUser = prefs.getInt("UserId", -1);
                 if (idUser > 0) {
 
-                    if (!isReadStateAllowed()) {
-                        requestStoragePermission();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.READ_PHONE_STATE ) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(FreeNetActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE}, 100);
+                        } else {
+                            flagPermission = true;
+                            callBackFreeNet = new CallBackFreeNet();
+                            callBackFreeNet.execute();
+                        }
                     } else {
+                        flagPermission = true;
                         callBackFreeNet = new CallBackFreeNet();
                         callBackFreeNet.execute();
                     }
+
 
                 } else {
                     Snackbar snackbar = Snackbar.make(v, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
@@ -133,21 +144,39 @@ public class FreeNetActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == 23 || requestCode == 24) {
+//            //Getting the permission status
+//            int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
+//            int resultLoc = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+//            if (result == PackageManager.PERMISSION_GRANTED && resultLoc == PackageManager.PERMISSION_GRANTED) {
+//
+//                callBackFreeNet = new CallBackFreeNet();
+//                callBackFreeNet.execute();
+//            } else {
+//                Toast.makeText(getApplicationContext(), "مجوز ها صادر نشده است", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 23) {
-            //Getting the permission status
-            int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
-            int resultLoc = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-            if (result == PackageManager.PERMISSION_GRANTED && resultLoc == PackageManager.PERMISSION_GRANTED) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-                callBackFreeNet = new CallBackFreeNet();
-                callBackFreeNet.execute();
-            } else {
-                Toast.makeText(getApplicationContext(), "دسترسی ها صادر نشده است", Toast.LENGTH_LONG).show();
-            }
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+            Log.v("TAG", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+            callBackFreeNet = new CallBackFreeNet();
+            callBackFreeNet.execute();
+        } else {
+            flagPermission = false;
+            Toast.makeText(getApplicationContext(), "مجوز ها صادر نشد", Toast.LENGTH_LONG).show();
         }
     }
+
 
 
     private class CallBackFreeNet extends AsyncTask<Object, Void, Void> {
