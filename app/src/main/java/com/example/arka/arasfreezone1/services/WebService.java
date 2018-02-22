@@ -1900,6 +1900,7 @@ public class WebService {
                         model.idQuestion = Object.getInt("id");
                         model.title = Object.getString("title");
                         model.question = Object.getString("question");
+                        model.award = Object.getString("award");
                         String options = Object.getString("options");
 
                         JSONArray ArreyOptions = new JSONArray(options);
@@ -1977,6 +1978,7 @@ public class WebService {
                         model.idQuestion = Object.getInt("id");
                         model.title = Object.getString("title");
                         model.question = Object.getString("question");
+                        model.award = Object.getString("award");
                         model.res1 = Object.getInt("res1");
                         model.res2 = Object.getInt("res2");
                         model.res3 = Object.getInt("res3");

@@ -12,6 +12,7 @@ public class ReferendumModel {
     public int idQuestion;
     public String title;
     public String question;
+    public String award;
     public List<String> options;
     public double res1;
     public double res2;

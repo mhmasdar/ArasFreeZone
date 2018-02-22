@@ -122,6 +122,7 @@
                          android:textStyle="bold"
                          android:textColor="@color/white"
                          android:layout_height="wrap_content"
+                         android:text="-"
                          android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                      <TextView
@@ -149,6 +150,7 @@
                          android:textSize="22sp"
                          style="@style/AudioFileInfoOverlayText2"
                          android:textColor="@color/white"
+                         android:text="-"
                          android:layout_height="wrap_content"
                          android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -173,6 +175,7 @@
                    android:layout_marginLeft="10dp"
                    android:layout_height="wrap_content"
                    android:textColor="@color/yellow"
+                   android:text="&#xf00d;"
                    style="@style/AudioFileInfoOverlayText2"
                    android:textSize="70sp"
                    android:gravity="center"
@@ -223,7 +226,7 @@
                             android:textSize="13sp"
                             style="@style/AudioFileInfoOverlayText2"
                             android:textStyle="bold"
-                            android:text="25"
+                            android:text="-"
                             android:textColor="@color/white"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"/>
@@ -233,7 +236,7 @@
                             android:id="@+id/humidity_field_khod"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
-                            android:text="50%"
+                            android:text="-"
                             android:layout_marginTop="5dp"
                             style="@style/AudioFileInfoOverlayText2"
                             android:textColor="@color/white"
@@ -248,6 +251,7 @@
                          android:layout_marginLeft="10dp"
                          android:layout_height="wrap_content"
                          android:textColor="@color/yellow"
+                         android:text="&#xf00d;"
                          style="@style/AudioFileInfoOverlayText2"
                          android:textSize="35sp"
                          android:gravity="center"
@@ -300,7 +304,7 @@
                             android:textSize="13sp"
                             style="@style/AudioFileInfoOverlayText2"
                             android:textStyle="bold"
-                            android:text="21"
+                            android:text="-"
                             android:textColor="@color/white"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"/>
@@ -310,7 +314,7 @@
                             android:id="@+id/humidity_field_zonoz"
                             android:layout_width="wrap_content"
                             android:textSize="13sp"
-                            android:text="65%"
+                            android:text="-"
                             android:layout_marginTop="5dp"
                             style="@style/AudioFileInfoOverlayText2"
                             android:textColor="@color/white"
@@ -325,6 +329,7 @@
                          android:layout_marginLeft="10dp"
                          android:layout_height="wrap_content"
                          android:textColor="@color/yellow"
+                         android:text="&#xf00d;"
                          style="@style/AudioFileInfoOverlayText2"
                          android:textSize="35sp"
                          android:gravity="center"

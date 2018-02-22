@@ -80,8 +80,14 @@ public class referendumFragment extends Fragment {
             public void onClick(View v) {
                 if (idUser > 0) {
                     if (!prefs.getBoolean("IsAnsweredRef" + idReferendum, false)) {
-                        callBackAnswer = new WebServiceCallAnswers();
-                        callBackAnswer.execute();
+
+                        if (referendumAdapterQuestion.answers.size() != 0) {
+                            callBackAnswer = new WebServiceCallAnswers();
+                            callBackAnswer.execute();
+                        }
+                        else{
+                            Toast.makeText(getContext(), "هیچ گزینه ای انتخاب نکرده اید", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(getContext(), "نظر شما برای این نظرسنجی قبلا ثبت شده", Toast.LENGTH_LONG).show();
                     }
@@ -163,6 +169,11 @@ public class referendumFragment extends Fragment {
                 if (referendumList.size() > 0) {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
                     txtCompetitionTitle.setVisibility(View.VISIBLE);
+                    if (referendumList.get(0).award != null)
+                        if (!referendumList.get(0).award.equals("null") && !referendumList.get(0).award.equals("")) {
+                            txtAward.setText("جوایز:" + referendumList.get(0).award);
+                            txtAward.setVisibility(View.VISIBLE);
+                        }
                     idReferendum = referendumList.get(0).id;
                     for (int i = 0; i < referendumList.size(); i++)
                         idQuestions.add(referendumList.get(i).idQuestion);

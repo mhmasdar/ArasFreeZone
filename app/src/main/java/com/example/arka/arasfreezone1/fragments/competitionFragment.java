@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.adapter.competitionsAdapter;
+import com.example.arka.arasfreezone1.adapter.referendumAdapterQuestion;
 import com.example.arka.arasfreezone1.app;
 import com.example.arka.arasfreezone1.loginActivity;
 import com.example.arka.arasfreezone1.models.ReferendumModel;
@@ -76,10 +77,13 @@ public class competitionFragment extends Fragment {
             public void onClick(View v) {
                 if (idUser > 0) {
                     if (!prefs.getBoolean("IsAnswered" + idCompetition, false)) {
-                        callBackAnswer = new WebServiceCallAnswers();
-                        callBackAnswer.execute();
-                    }
-                    else{
+                        if (competitionsAdapter.answers.size() != 0) {
+                            callBackAnswer = new WebServiceCallAnswers();
+                            callBackAnswer.execute();
+                        } else {
+                            Toast.makeText(getContext(), "هیچ گزینه ای انتخاب نکرده اید", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
                         Toast.makeText(getContext(), "قبلا شرکت کرده اید", Toast.LENGTH_LONG).show();
                     }
                 } else {
@@ -150,6 +154,12 @@ public class competitionFragment extends Fragment {
                 if (referendumList.size() > 0) {
                     txtCompetitionTitle.setText(referendumList.get(0).title);
                     txtCompetitionTitle.setVisibility(View.VISIBLE);
+                    if (referendumList.get(0).award != null)
+                        if (!referendumList.get(0).award.equals("null") && !referendumList.get(0).award.equals("")) {
+                            txtAward.setText("جوایز:" + referendumList.get(0).award);
+                            txtAward.setVisibility(View.VISIBLE);
+                        }
+                    txtCompetitionTitle.setVisibility(View.VISIBLE);
                     idCompetition = referendumList.get(0).id;
                     for (int i = 0; i < referendumList.size(); i++)
                         idQuestions.add(referendumList.get(i).idQuestion);
@@ -158,13 +168,12 @@ public class competitionFragment extends Fragment {
                     if (idUser > 0) {
                         if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                             txtSend.setText("قبلا شرکت کردین");
-                            repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                            repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                             lytRepetitive.setVisibility(View.VISIBLE);
                             lytLoading.setVisibility(View.INVISIBLE);
                             lytMain.setVisibility(View.GONE);
                             lytEmpty.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             txtSend.setText("ثبت پاسخ ها");
                             setUpRecyclerView(referendumList);
                             lytMain.setVisibility(View.VISIBLE);
@@ -180,8 +189,6 @@ public class competitionFragment extends Fragment {
                         lytEmpty.setVisibility(View.GONE);
                         lytRepetitive.setVisibility(View.GONE);
                     }
-
-
 
 
                 } else if (referendumList.size() < 1) {
@@ -239,7 +246,7 @@ public class competitionFragment extends Fragment {
                     Toast.makeText(getContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کردین");
                     lytRepetitive.setVisibility(View.GONE);
-                    lytLoading.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.INVISIBLE);
                     lytMain.setVisibility(View.VISIBLE);
                     lytEmpty.setVisibility(View.GONE);
                     SharedPreferences.Editor editor = prefs.edit();
@@ -251,9 +258,9 @@ public class competitionFragment extends Fragment {
                 } else if (Integer.parseInt(result) == -1) {
                     Toast.makeText(getContext(), "قبلا شرکت کردین", Toast.LENGTH_LONG).show();
                     txtSend.setText("قبلا شرکت کردین");
-                    repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                    repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     lytRepetitive.setVisibility(View.VISIBLE);
-                    lytLoading.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.INVISIBLE);
                     lytMain.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
                     SharedPreferences.Editor editor = prefs.edit();
@@ -283,13 +290,12 @@ public class competitionFragment extends Fragment {
             if (idCompetition > 0) {
                 if (prefs.getBoolean("IsAnswered" + idCompetition, false)) {
                     txtSend.setText("قبلا شرکت کرده اید");
-                    repetitiveTitle.setText("\"" +referendumList.get(0).title + "\"");
+                    repetitiveTitle.setText("\"" + referendumList.get(0).title + "\"");
                     lytRepetitive.setVisibility(View.VISIBLE);
-                    lytLoading.setVisibility(View.GONE);
+                    lytLoading.setVisibility(View.INVISIBLE);
                     lytMain.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     txtSend.setText("ثبت پاسخ ها");
 //                    lytMain.setVisibility(View.VISIBLE);
 //                    lytDisconnect.setVisibility(View.GONE);
@@ -310,10 +316,10 @@ public class competitionFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        if(webServiceCallBack != null && webServiceCallBack.getStatus() == AsyncTask.Status.RUNNING)
+        if (webServiceCallBack != null && webServiceCallBack.getStatus() == AsyncTask.Status.RUNNING)
             webServiceCallBack.cancel(true);
 
-        if(callBackAnswer != null && callBackAnswer.getStatus() == AsyncTask.Status.RUNNING)
+        if (callBackAnswer != null && callBackAnswer.getStatus() == AsyncTask.Status.RUNNING)
             callBackAnswer.cancel(true);
     }
 }
