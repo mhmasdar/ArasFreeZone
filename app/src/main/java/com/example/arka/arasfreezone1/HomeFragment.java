@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout lytLoading, lytMain, lytDisconnect;
     private WeatherServiceCallBack WcallBack;
     private DatabaseCallback databaseCallback;
+    private ReligiousTimesCallBack timesCallBack;
 
     private ReligiousTimesModel timesModelJolfa, timesModelZonoz, timesModelKhod;
 
@@ -127,6 +128,10 @@ public class HomeFragment extends Fragment {
         if (checkWeather && app.isInternetOn()) {
             WcallBack = new WeatherServiceCallBack();
             WcallBack.execute();
+            timesCallBack = new ReligiousTimesCallBack();
+            timesCallBack.execute();
+
+
         }
 
         relative_Menu.setOnClickListener(new View.OnClickListener() {
@@ -164,9 +169,9 @@ public class HomeFragment extends Fragment {
             weatherModelZonoz = weatherService.getWeatherZonoz();
             weatherModelKhod = weatherService.getWeatherKhod();
 
-            timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
-            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
-            timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
+//            timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
+//            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
+//            timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
 
             return null;
         }
@@ -197,6 +202,66 @@ public class HomeFragment extends Fragment {
                 checkWeather = false;
                 lytWeather.setVisibility(View.VISIBLE);
             }
+
+            //set times
+
+
+        }
+    }
+
+    private class ReligiousTimesCallBack extends AsyncTask<Object, Void, Void> {
+
+        private WeatherService weatherService;
+        private WeatherModel weatherModelJolfa, weatherModelZonoz, weatherModelKhod;
+        private WebService webService;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            weatherService = new WeatherService();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+//            weatherModelJolfa = weatherService.getWeatherJolfa();
+//            weatherModelZonoz = weatherService.getWeatherZonoz();
+//            weatherModelKhod = weatherService.getWeatherKhod();
+
+            timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
+            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
+            timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            //set weather
+//            if (weatherModelJolfa != null) {
+//                currentTemperatureField.setText(weatherModelJolfa.temperature);
+//                humidity_field.setText(weatherModelJolfa.humidity);
+//                weatherIcon.setText(Html.fromHtml(weatherModelJolfa.iconText));
+//                checkWeather = false;
+//                lytWeather.setVisibility(View.VISIBLE);
+//            }
+//            if (weatherModelZonoz != null) {
+//                currentTemperatureFieldZonoz.setText(weatherModelZonoz.temperature);
+//                humidity_fieldZonoz.setText(weatherModelZonoz.humidity);
+//                weatherIconZonoz.setText(Html.fromHtml(weatherModelZonoz.iconText));
+//                checkWeather = false;
+//                lytWeather.setVisibility(View.VISIBLE);
+//            }
+//            if (weatherModelKhod != null) {
+//                currentTemperatureFieldKhod.setText(weatherModelKhod.temperature);
+//                humidity_fieldKhod.setText(weatherModelKhod.humidity);
+//                weatherIconKhod.setText(Html.fromHtml(weatherModelKhod.iconText));
+//                checkWeather = false;
+//                lytWeather.setVisibility(View.VISIBLE);
+//            }
 
             //set times
 
@@ -392,6 +457,8 @@ public class HomeFragment extends Fragment {
 
         if (WcallBack != null && WcallBack.getStatus() == AsyncTask.Status.RUNNING)
             WcallBack.cancel(true);
+        if (timesCallBack != null && timesCallBack.getStatus() == AsyncTask.Status.RUNNING)
+            timesCallBack.cancel(true);
         if (databaseCallback != null && databaseCallback.getStatus() == AsyncTask.Status.RUNNING)
             databaseCallback.cancel(true);
     }
