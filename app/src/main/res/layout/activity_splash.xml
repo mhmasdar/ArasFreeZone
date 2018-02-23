@@ -66,17 +66,26 @@
             <ImageView
                 android:layout_width="100dp"
                 android:id="@+id/imgAras"
-                android:src="@drawable/aras_logo1"
                 android:layout_height="100dp" />
 
 
             <ImageView
                 android:layout_width="110dp"
-                android:src="@drawable/aras_text2"
                 android:scaleType="fitXY"
                 android:layout_marginTop="10dp"
                 android:id="@+id/txtSplash"
                 android:layout_height="40dp" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txtTitle"
+            android:layout_marginTop="10dp"
+            android:text="برنامه گردشگری منطقه آزاد ارس"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
 
             <fr.castorflex.android.circularprogressbar.CircularProgressBar

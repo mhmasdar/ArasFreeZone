@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.fragments.supportFragment;
 import com.example.arka.arasfreezone1.introPage.IntroActivity;
+import com.example.arka.arasfreezone1.models.LogoModel;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -39,6 +40,8 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView txtSplash;
     private SharedPreferences prefs;
     private WebServiceCallBack callBack;
+    private WebServiceLogo callBackLogo;
+    TextView txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +68,19 @@ public class SplashActivity extends AppCompatActivity {
         imgSp3.startAnimation(sp2);
         imgSp2.startAnimation(sp1);
 //        imgAras.setVisibility(View.VISIBLE);
-        imgAras.startAnimation(logo);
+//        imgAras.startAnimation(logo);
 //        txtSplash.setVisibility(View.VISIBLE);
-        txtSplash.startAnimation(text);
+//        txtSplash.startAnimation(text);
 
 //        Glide.with(this).load(R.drawable.aras_logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
 //        Glide.with(this).load(R.drawable.aras_text).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(txtSplash);
 
 
-        setUpTimer();
-
-
         prefs = getApplicationContext().getSharedPreferences("login", 0);
 
 
+        callBackLogo = new WebServiceLogo();
+        callBackLogo.execute();
 
     }
 
@@ -113,6 +115,95 @@ public class SplashActivity extends AppCompatActivity {
         splashBack = (LinearLayout) findViewById(R.id.splashBack);
         imgAras = (ImageView) findViewById(R.id.imgAras);
         txtSplash = (ImageView) findViewById(R.id.txtSplash);
+        txtTitle = findViewById(R.id.txtTitle);
+    }
+
+    private class WebServiceLogo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+        LogoModel logoModel;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            logoModel = new LogoModel();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            logoModel = webService.getLogo(app.isInternetOn());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SharedPreferences.Editor editor = prefs.edit();
+
+            if (logoModel != null){
+                if (logoModel.logo != null){
+                    if (!logoModel.logo.equals("null") && !logoModel.logo.equals("")){
+
+
+                        editor.putString("LogoImgName", logoModel.logo);
+                        editor.putString("LogoText", logoModel.text);
+                        editor.apply();
+
+                        Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + logoModel.logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                        txtTitle.setText(logoModel.text);
+                        txtSplash.setVisibility(View.GONE);
+                        txtTitle.setVisibility(View.VISIBLE);
+
+
+                    }
+                    else {
+
+                        editor.putString("LogoImgName", "");
+                        editor.putString("LogoText", "");
+                        editor.apply();
+
+                        imgAras.setImageResource(R.drawable.aras_logo1);
+                        txtSplash.setImageResource(R.drawable.aras_text2);
+                        txtSplash.setVisibility(View.VISIBLE);
+                        txtTitle.setVisibility(View.GONE);
+                    }
+                }
+            } else{
+
+                String LogoImgName = prefs.getString("LogoImgName", "");
+                String LogoText = prefs.getString("LogoText", "");
+
+                if (LogoImgName.equals("")){
+                    imgAras.setImageResource(R.drawable.aras_logo1);
+                    txtSplash.setImageResource(R.drawable.aras_text2);
+                    txtSplash.setVisibility(View.VISIBLE);
+                    txtTitle.setVisibility(View.GONE);
+                }
+                else{
+                    Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                    txtTitle.setText(LogoText);
+                    txtSplash.setVisibility(View.GONE);
+                    txtTitle.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            Animation logo = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_logo);
+            Animation text = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.splash_text);
+
+            imgAras.startAnimation(logo);
+            txtSplash.startAnimation(text);
+            txtTitle.startAnimation(text);
+
+            setUpTimer();
+
+        }
+
     }
 
     private class WebServiceCallBack extends AsyncTask<Object, Void, Void> {

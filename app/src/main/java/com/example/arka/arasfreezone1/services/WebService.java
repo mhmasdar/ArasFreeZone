@@ -13,6 +13,7 @@ import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.FacilityModel;
 import com.example.arka.arasfreezone1.models.HomePageModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
+import com.example.arka.arasfreezone1.models.LogoModel;
 import com.example.arka.arasfreezone1.models.MenuModel;
 import com.example.arka.arasfreezone1.models.NewsModel;
 import com.example.arka.arasfreezone1.models.PhoneModel;
@@ -291,7 +292,7 @@ public class WebService {
             Log.i("LOG", response + "");
 
 
-           return response;
+            return response;
 
         } else
             return null;
@@ -340,7 +341,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(addr + "login/forgetPass?email=" + email + "&type=" + type , "GET");
+            String response = connectToServer(addr + "login/forgetPass?email=" + email + "&type=" + type, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -352,7 +353,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(addr + "login/freeNet?email=" + email + "&c1=" + c1 + "&c2=" + c2 , "GET");
+            String response = connectToServer(addr + "login/freeNet?email=" + email + "&c1=" + c1 + "&c2=" + c2, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -2017,7 +2018,6 @@ public class WebService {
     }
 
 
-
     public String postUserImages(boolean isInternetAvailable, int idRow, int Type, String Name, int idUser, long lastUpdate) {
 
         if (isInternetAvailable) {
@@ -2171,6 +2171,37 @@ public class WebService {
 
             }
             return null;
+        } else
+            return null;
+    }
+
+
+    public LogoModel getLogo(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(addr + "login/logo", "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                try {
+
+                    JSONObject Object = new JSONObject(response);
+                    LogoModel model = new LogoModel();
+
+                    model.logo = Object.getString("logo");
+                    model.text = Object.getString("text");
+
+
+                    return model;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
         } else
             return null;
     }

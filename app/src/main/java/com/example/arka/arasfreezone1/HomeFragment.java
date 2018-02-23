@@ -5,6 +5,7 @@ import android.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -21,10 +22,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arka.arasfreezone1.adapter.SlidingImage_Adapter;
 import com.example.arka.arasfreezone1.db.DatabaseHelper;
 import com.example.arka.arasfreezone1.models.HomePageModel;
@@ -73,6 +77,12 @@ public class HomeFragment extends Fragment {
 
     public boolean flagPermission = false;
 
+    TextView txtTitle;
+    private ImageView imgAras;
+    private ImageView txtSplash;
+
+    private SharedPreferences prefs;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -97,7 +107,9 @@ public class HomeFragment extends Fragment {
         lytWeather = (LinearLayout) view.findViewById(R.id.lytWeather);
         mPager = (ViewPagerCustomDuration) view.findViewById(R.id.pager);
         indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-
+        imgAras = (ImageView) view.findViewById(R.id.imgAras);
+        txtSplash = (ImageView) view.findViewById(R.id.txtSplash);
+        txtTitle = view.findViewById(R.id.txtTitle);
 
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -110,6 +122,25 @@ public class HomeFragment extends Fragment {
 //            flagPermission = true;
 //        }
 
+
+        prefs = getContext().getSharedPreferences("login", 0);
+
+
+        String LogoImgName = prefs.getString("LogoImgName", "");
+        String LogoText = prefs.getString("LogoText", "");
+
+        if (LogoImgName.equals("")){
+            imgAras.setImageResource(R.drawable.aras_logo1);
+            txtSplash.setImageResource(R.drawable.aras_text2);
+            txtSplash.setVisibility(View.VISIBLE);
+            txtTitle.setVisibility(View.GONE);
+        }
+        else{
+            Glide.with(getContext()).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+            txtTitle.setText(LogoText);
+            txtSplash.setVisibility(View.GONE);
+            txtTitle.setVisibility(View.VISIBLE);
+        }
 
 
         databaseCallback = new DatabaseCallback(getContext());
