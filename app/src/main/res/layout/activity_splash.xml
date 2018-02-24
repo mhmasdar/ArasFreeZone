@@ -9,97 +9,97 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="match_parent"></LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_weight="1"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="0.4"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
+            android:orientation="horizontal">
 
 
             <ImageView
-                android:layout_width="match_parent"
                 android:id="@+id/imgSp1"
-                android:layout_weight="1"
-                android:src="@drawable/splash3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:scaleType="fitXY"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/splash3" />
 
             <ImageView
-                android:layout_width="match_parent"
                 android:id="@+id/imgSp2"
-                android:layout_weight="0.4"
-                android:src="@drawable/splash2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_weight="0.4"
                 android:scaleType="fitXY"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/splash2" />
 
             <ImageView
-                android:layout_width="match_parent"
                 android:id="@+id/imgSp3"
-                android:scaleType="fitXY"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/splash4"
-                android:layout_height="match_parent" />
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/splash4" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_weight="0.3"
             android:id="@+id/splashBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
             android:background="@drawable/splash1"
-            android:orientation="vertical"
             android:gravity="center"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
                 android:id="@+id/imgAras"
+                android:layout_width="100dp"
                 android:layout_height="100dp" />
 
 
             <ImageView
-                android:layout_width="110dp"
-                android:scaleType="fitXY"
-                android:layout_marginTop="10dp"
                 android:id="@+id/txtSplash"
-                android:layout_height="40dp" />
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/txtTitle"
-            android:layout_marginTop="10dp"
-            android:text="برنامه گردشگری منطقه آزاد ارس"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nastaliq"
+                android:text="برنامه گردشگری منطقه آزاد ارس"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
 
             <fr.castorflex.android.circularprogressbar.CircularProgressBar
                 android:layout_width="35dp"
-                android:indeterminate="true"
+                android:layout_height="35dp"
                 android:layout_marginTop="50dp"
+                android:indeterminate="true"
                 app:cpb_colors="@array/arr"
-                app:cpb_rotation_speed="1.0"
-                app:cpb_sweep_speed="1.0"
-                app:cpb_stroke_width="5dp"
-                app:cpb_min_sweep_angle="10"
                 app:cpb_max_sweep_angle="300"
-                android:layout_height="35dp" />
-
+                app:cpb_min_sweep_angle="10"
+                app:cpb_rotation_speed="1.0"
+                app:cpb_stroke_width="5dp"
+                app:cpb_sweep_speed="1.0" />
 
 
             <!--<TextView-->
@@ -116,7 +116,6 @@
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>
