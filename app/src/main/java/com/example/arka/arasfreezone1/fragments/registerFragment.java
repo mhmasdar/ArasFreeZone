@@ -48,6 +48,8 @@ public class registerFragment extends Fragment {
     EditText edtCode;
     TextView txtTryAgain;
 
+    CallBackPhone callBackPhone;
+
     String codeFromServer, CodeFromUser;
 
     private BroadcastReceiver smsBroadcastReceiver;
@@ -128,6 +130,10 @@ public class registerFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (callBackPhone != null)
+                    if (callBackPhone.getStatus() == AsyncTask.Status.RUNNING)
+                        callBackPhone.cancel(true);
+
                 lytSms.setVisibility(View.VISIBLE);
                 lytRegister.setVisibility(View.GONE);
                 lytCodeAccept.setVisibility(View.GONE);
@@ -142,7 +148,7 @@ public class registerFragment extends Fragment {
 //                    String sub = edtPhone.getText().toString().substring(0,2);
                     if (edtPhone.getText().toString().length() == 11 && edtPhone.getText().toString().substring(0, 2).equals("09")) {
 
-                        CallBackPhone callBackPhone = new CallBackPhone();
+                        callBackPhone = new CallBackPhone();
                         callBackPhone.execute();
 
                     } else
@@ -189,11 +195,8 @@ public class registerFragment extends Fragment {
 //                                macAddress = wInfo.getMacAddress();
 
 
-
-                                WebServiceCallBack callBack = new WebServiceCallBack();
-                                callBack.execute();
-
-
+                            WebServiceCallBack callBack = new WebServiceCallBack();
+                            callBack.execute();
 
 
                         } else {
@@ -364,17 +367,14 @@ public class registerFragment extends Fragment {
         return false;
     }
 
-    private void requestSmsPermission(){
+    private void requestSmsPermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity() , Manifest.permission.READ_SMS)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_SMS)) {
         }
 
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(getActivity() ,new String[]{android.Manifest.permission.READ_SMS},23);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_SMS}, 23);
     }
-
-
-
 
 
     //permission for imei and mac address
@@ -391,19 +391,18 @@ public class registerFragment extends Fragment {
         return false;
     }
 
-    private void requestStoragePermission(){
+    private void requestStoragePermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity() , Manifest.permission.READ_PHONE_STATE)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_PHONE_STATE)) {
         }
 
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_PHONE_STATE},23);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, 23);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == 23)
-        {
+        if (requestCode == 23) {
         }
     }
 

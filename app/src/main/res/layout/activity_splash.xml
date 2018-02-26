@@ -84,7 +84,7 @@
                 android:fontFamily="@font/nastaliq"
                 android:text="برنامه گردشگری منطقه آزاد ارس"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
