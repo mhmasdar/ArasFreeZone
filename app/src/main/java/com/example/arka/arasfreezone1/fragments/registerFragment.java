@@ -347,7 +347,7 @@ public class registerFragment extends Fragment {
                 if (Integer.parseInt(result) > 0) {
 
                     codeFromServer = result;
-                    Toast.makeText(getContext(), codeFromServer, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), codeFromServer, Toast.LENGTH_LONG).show();
 
                 } else codeFromServer = "0";
 

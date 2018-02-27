@@ -147,8 +147,9 @@ public class SplashActivity extends AppCompatActivity {
 
             if (logoModel != null){
                 if (logoModel.logo != null){
-                    if (!logoModel.logo.equals("null") && !logoModel.logo.equals("")){
+                    if (!logoModel.logo.equals("null") && !logoModel.logo.equals("") && !logoModel.text.equals("null") && !logoModel.text.equals("")){
 
+                        //logo and text are changed
 
                         editor.putString("LogoImgName", logoModel.logo);
                         editor.putString("LogoText", logoModel.text);
@@ -161,7 +162,38 @@ public class SplashActivity extends AppCompatActivity {
 
 
                     }
+                    else if (!logoModel.logo.equals("null") && !logoModel.logo.equals("") && (logoModel.text.equals("null") || logoModel.text.equals(""))){
+
+                        //logo is changed
+
+                        editor.putString("LogoImgName", logoModel.logo);
+                        editor.putString("LogoText", "");
+                        editor.apply();
+
+                        Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + logoModel.logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                        //txtTitle.setText(logoModel.text);
+                        txtSplash.setVisibility(View.VISIBLE);
+                        txtTitle.setVisibility(View.GONE);
+
+                    }
+                    else if ((logoModel.logo.equals("null") || logoModel.logo.equals("")) && (!logoModel.text.equals("null") && !logoModel.text.equals(""))){
+
+                        //text is changed
+
+                        editor.putString("LogoImgName", "");
+                        editor.putString("LogoText", logoModel.text);
+                        editor.apply();
+
+                        imgAras.setImageResource(R.drawable.aras_logo1);
+                        //Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + logoModel.logo).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                        txtTitle.setText(logoModel.text);
+                        txtSplash.setVisibility(View.GONE);
+                        txtTitle.setVisibility(View.VISIBLE);
+
+                    }
                     else {
+
+                        //none of them is changed
 
                         editor.putString("LogoImgName", "");
                         editor.putString("LogoText", "");

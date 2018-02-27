@@ -39,11 +39,10 @@
                       android:id="@+id/txtTitle"
                       android:text="برنامه گردشگری منطقه آزاد ارس"
                       android:textColor="@color/white"
-                      android:textSize="20sp"
+                      android:textSize="14sp"
                       android:textStyle="bold"
                       android:layout_height="wrap_content"
                       android:visibility="gone"
-                      android:fontFamily="@font/nastaliq"
                       android:layout_marginRight="10dp"/>
 
                   <ImageView

@@ -29,6 +29,8 @@ public class app extends Application {
     public static WebView webView;
 
 
+    public static String supportAddr = "http://80.191.210.19:7862/";
+
     public static String imgMainAddr = "http://80.191.210.19:7862/Content/Upload/Img/";
 //    public static String imgMainAddr = "http://gsharing.ir/Content/Upload/Img/";
 

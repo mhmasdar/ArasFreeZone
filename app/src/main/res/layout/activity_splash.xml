@@ -81,10 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/nastaliq"
                 android:text="برنامه گردشگری منطقه آزاد ارس"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
