@@ -31,6 +31,10 @@ import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.services.WebService;
 
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.List;
+
 public class FreeNetActivity extends AppCompatActivity {
 
     private RelativeLayout relativeBack;
@@ -177,7 +181,32 @@ public class FreeNetActivity extends AppCompatActivity {
         }
     }
 
+    public String getWifiMacAddress() {
+        try {
+            String interfaceName = "wlan0";
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface intf : interfaces) {
+                if (!intf.getName().equalsIgnoreCase(interfaceName)){
+                    continue;
+                }
 
+                byte[] mac = intf.getHardwareAddress();
+                if (mac==null){
+                    return "";
+                }
+
+                StringBuilder buf = new StringBuilder();
+                for (byte aMac : mac) {
+                    buf.append(String.format("%02X:", aMac));
+                }
+                if (buf.length()>0) {
+                    buf.deleteCharAt(buf.length() - 1);
+                }
+                return buf.toString();
+            }
+        } catch (Exception ex) { } // for now eat exceptions
+        return "";
+    }
 
     private class CallBackFreeNet extends AsyncTask<Object, Void, Void> {
 
@@ -201,9 +230,14 @@ public class FreeNetActivity extends AppCompatActivity {
             IMEI = telephonyManager.getDeviceId();
 //                Toast.makeText(getContext() , "sent" , Toast.LENGTH_SHORT).show();
 
-            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            WifiInfo wInfo = wifiManager.getConnectionInfo();
-            macAddress = wInfo.getMacAddress();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiInfo wInfo = wifiManager.getConnectionInfo();
+                macAddress = wInfo.getMacAddress();
+            } else {
+                macAddress = getWifiMacAddress();
+            }
+
 
             prefs = getSharedPreferences("MYPREFS", 0);
             email = prefs.getString("UserEmail", "");
