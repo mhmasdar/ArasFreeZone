@@ -131,8 +131,8 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.my
 
             this.txvTitle.setText(current.name);
 
-
-            this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));
+            if (String.valueOf(current.startDate).length() == 8)
+                this.txtDate.setText("زمان: " + app.changeDateToString(current.startDate));
             this.txtAddress.setText("مکان: " + current.address);
             //this.imgNews.setImageResource();
             if (current.image != null)

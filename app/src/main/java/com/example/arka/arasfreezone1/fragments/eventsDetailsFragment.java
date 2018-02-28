@@ -427,7 +427,9 @@ public class eventsDetailsFragment extends Fragment {
 
 
             txtTitle.setText(currentModel.name);
+            if (String.valueOf(currentModel.startDate).length() == 8)
             txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
+            if (String.valueOf(currentModel.endDate).length() == 8)
             txtEndtDate.setText(app.changeDateToString(currentModel.endDate) + " ساعت " + currentModel.endTime);
             txtAddress.setText(currentModel.name);
             txtInfo.setText(currentModel.name);
