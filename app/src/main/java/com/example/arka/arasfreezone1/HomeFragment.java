@@ -143,6 +143,7 @@ public class HomeFragment extends Fragment {
         }
         else if (LogoImgName.equals("") && !LogoText.equals("")){
             //Glide.with(getContext()).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+            imgAras.setImageResource(R.drawable.aras_logo1);
             txtTitle.setText(LogoText);
             txtSplash.setVisibility(View.GONE);
             txtTitle.setVisibility(View.VISIBLE);

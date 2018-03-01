@@ -210,11 +210,24 @@ public class SplashActivity extends AppCompatActivity {
                 String LogoImgName = prefs.getString("LogoImgName", "");
                 String LogoText = prefs.getString("LogoText", "");
 
-                if (LogoImgName.equals("")){
+                if (LogoImgName.equals("") && LogoText.equals("")){
                     imgAras.setImageResource(R.drawable.aras_logo1);
                     txtSplash.setImageResource(R.drawable.aras_text2);
                     txtSplash.setVisibility(View.VISIBLE);
                     txtTitle.setVisibility(View.GONE);
+                }
+                else if (!LogoImgName.equals("") && LogoText.equals("")){
+                    Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                    //txtTitle.setText(LogoText);
+                    txtSplash.setVisibility(View.VISIBLE);
+                    txtTitle.setVisibility(View.GONE);
+                }
+                else if (LogoImgName.equals("") && !LogoText.equals("")){
+                    //Glide.with(getContext()).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
+                    imgAras.setImageResource(R.drawable.aras_logo1);
+                    txtTitle.setText(LogoText);
+                    txtSplash.setVisibility(View.GONE);
+                    txtTitle.setVisibility(View.VISIBLE);
                 }
                 else{
                     Glide.with(SplashActivity.this).load(app.imgMainAddr + "logo/" + LogoImgName).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgAras);
