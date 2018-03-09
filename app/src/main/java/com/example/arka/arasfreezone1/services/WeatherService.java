@@ -20,7 +20,7 @@ import java.util.Locale;
  */
 public class WeatherService {
 
-    private String connectToServer(String address, String requestMethod){
+    private String connectToServer(String address, String requestMethod) {
         try {
             URL url = new URL(address);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -32,12 +32,12 @@ public class WeatherService {
         return null;
     }
 
-    private String inputStreamToString(InputStream inputStream){
+    private String inputStreamToString(InputStream inputStream) {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String nextLine;
         try {
-            while ((nextLine = reader.readLine()) != null){
+            while ((nextLine = reader.readLine()) != null) {
                 stringBuilder.append(nextLine);
             }
         } catch (IOException e) {
@@ -46,9 +46,9 @@ public class WeatherService {
         return stringBuilder.toString();
     }
 
-    public WeatherModel getWeatherJolfa(){
+    public WeatherModel getWeatherJolfa() {
         String response = connectToServer("http://api.openweathermap.org/data/2.5/weather?lat=38.9275559&lon=45.6499703&APPID=b996dd71d70d2b9f4e72a87e5c3b9260&units=metric", "GET");
-        if (response != null){
+        if (response != null) {
             WeatherModel weatherModel = new WeatherModel();
 
             try {
@@ -60,11 +60,15 @@ public class WeatherService {
                 weatherModel.city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                 weatherModel.description = details.getString("description").toUpperCase(Locale.US);
                 weatherModel.temperature = String.format("%.2f", main.getDouble("temp"));
-                int dot = weatherModel.temperature.indexOf(".");
-                weatherModel.temperature = weatherModel.temperature.substring(0 , dot)+ "°";
+                int dot;
+                if (weatherModel.temperature.contains("٫"))
+                    dot = weatherModel.temperature.indexOf("٫");
+                else
+                    dot = weatherModel.temperature.indexOf(".");
+                weatherModel.temperature = weatherModel.temperature.substring(0, dot) + "°";
                 weatherModel.humidity = main.getString("humidity") + "%";
                 weatherModel.pressure = main.getString("pressure") + " hPa";
-                weatherModel.updatedOn = df.format(new Date(json.getLong("dt")*1000));
+                weatherModel.updatedOn = df.format(new Date(json.getLong("dt") * 1000));
                 weatherModel.iconText = setWeatherIcon(details.getInt("id"),
                         json.getJSONObject("sys").getLong("sunrise") * 1000,
                         json.getJSONObject("sys").getLong("sunset") * 1000);
@@ -78,9 +82,9 @@ public class WeatherService {
         return null;
     }
 
-    public WeatherModel getWeatherZonoz(){
+    public WeatherModel getWeatherZonoz() {
         String response = connectToServer("http://api.openweathermap.org/data/2.5/weather?lat=38.5857799&lon=45.8290884&APPID=b996dd71d70d2b9f4e72a87e5c3b9260&units=metric", "GET");
-        if (response != null){
+        if (response != null) {
             WeatherModel weatherModel = new WeatherModel();
 
             try {
@@ -92,11 +96,15 @@ public class WeatherService {
                 weatherModel.city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                 weatherModel.description = details.getString("description").toUpperCase(Locale.US);
                 weatherModel.temperature = String.format("%.2f", main.getDouble("temp"));
-                int dot = weatherModel.temperature.indexOf(".");
-                weatherModel.temperature = weatherModel.temperature.substring(0 , dot)+ "°";
+                int dot;
+                if (weatherModel.temperature.contains("٫"))
+                    dot = weatherModel.temperature.indexOf("٫");
+                else
+                    dot = weatherModel.temperature.indexOf(".");
+                weatherModel.temperature = weatherModel.temperature.substring(0, dot) + "°";
                 weatherModel.humidity = main.getString("humidity") + "%";
                 weatherModel.pressure = main.getString("pressure") + " hPa";
-                weatherModel.updatedOn = df.format(new Date(json.getLong("dt")*1000));
+                weatherModel.updatedOn = df.format(new Date(json.getLong("dt") * 1000));
                 weatherModel.iconText = setWeatherIcon(details.getInt("id"),
                         json.getJSONObject("sys").getLong("sunrise") * 1000,
                         json.getJSONObject("sys").getLong("sunset") * 1000);
@@ -110,9 +118,9 @@ public class WeatherService {
         return null;
     }
 
-    public WeatherModel getWeatherKhod(){
+    public WeatherModel getWeatherKhod() {
         String response = connectToServer("http://api.openweathermap.org/data/2.5/weather?lat=39.1375218&lon=46.9523732&APPID=b996dd71d70d2b9f4e72a87e5c3b9260&units=metric", "GET");
-        if (response != null){
+        if (response != null) {
             WeatherModel weatherModel = new WeatherModel();
 
             try {
@@ -124,11 +132,15 @@ public class WeatherService {
                 weatherModel.city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                 weatherModel.description = details.getString("description").toUpperCase(Locale.US);
                 weatherModel.temperature = String.format("%.2f", main.getDouble("temp"));
-                int dot = weatherModel.temperature.indexOf(".");
-                weatherModel.temperature = weatherModel.temperature.substring(0 , dot)+ "°";
+                int dot;
+                if (weatherModel.temperature.contains("٫"))
+                    dot = weatherModel.temperature.indexOf("٫");
+                else
+                    dot = weatherModel.temperature.indexOf(".");
+                weatherModel.temperature = weatherModel.temperature.substring(0, dot) + "°";
                 weatherModel.humidity = main.getString("humidity") + "%";
                 weatherModel.pressure = main.getString("pressure") + " hPa";
-                weatherModel.updatedOn = df.format(new Date(json.getLong("dt")*1000));
+                weatherModel.updatedOn = df.format(new Date(json.getLong("dt") * 1000));
                 weatherModel.iconText = setWeatherIcon(details.getInt("id"),
                         json.getJSONObject("sys").getLong("sunrise") * 1000,
                         json.getJSONObject("sys").getLong("sunset") * 1000);
@@ -142,29 +154,35 @@ public class WeatherService {
         return null;
     }
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+    public static String setWeatherIcon(int actualId, long sunrise, long sunset) {
         int id = actualId / 100;
         String icon = "";
-        if(actualId == 800){
+        if (actualId == 800) {
             long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset) {
+            if (currentTime >= sunrise && currentTime < sunset) {
                 icon = "&#xf00d;";
             } else {
                 icon = "&#xf02e;";
             }
         } else {
-            switch(id) {
-                case 2 : icon = "&#xf01e;";
+            switch (id) {
+                case 2:
+                    icon = "&#xf01e;";
                     break;
-                case 3 : icon = "&#xf01c;";
+                case 3:
+                    icon = "&#xf01c;";
                     break;
-                case 7 : icon = "&#xf014;";
+                case 7:
+                    icon = "&#xf014;";
                     break;
-                case 8 : icon = "&#xf013;";
+                case 8:
+                    icon = "&#xf013;";
                     break;
-                case 6 : icon = "&#xf01b;";
+                case 6:
+                    icon = "&#xf01b;";
                     break;
-                case 5 : icon = "&#xf019;";
+                case 5:
+                    icon = "&#xf019;";
                     break;
             }
         }

@@ -37,6 +37,7 @@ import com.example.arka.arasfreezone1.models.EventModel;
 import com.example.arka.arasfreezone1.models.ImgModel;
 import com.example.arka.arasfreezone1.services.WebService;
 import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -180,7 +181,77 @@ public class eventsDetailsFragment extends Fragment {
 
         imgBookmark.setOnClickListener(imgBookmarkClick);
 
-        btnLike.setOnClickListener(btnLikeClick);
+        //btnLike.setOnClickListener(btnLikeClick);
+
+        btnLike.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+
+                if (CanLike) {
+
+                    if (idUser > 0) {
+
+                        CanLike = false;
+
+                        if (idUserLike < 1) {
+                            //btnLike.setLiked(true);
+                            currentModel.likeCount++;
+                            txtLikeCount.setText(currentModel.likeCount + "");
+                            WebServiceCallLikeAdd webServiceCallLikeAdd = new WebServiceCallLikeAdd();
+                            webServiceCallLikeAdd.execute();
+                        }
+                    } else {
+
+                        btnLike.setLiked(false);
+
+                        Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                        snackbar.setAction("ثبت نام", new registerAction());
+
+                        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                        TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                        textView.setLayoutParams(parms);
+                        textView.setGravity(Gravity.LEFT);
+                        snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                        snackbar.show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+                if (CanLike) {
+
+                    if (idUser > 0) {
+
+                        CanLike = false;
+
+                        if (idUserLike > 0) {
+                            btnLike.setLiked(false);
+                            currentModel.likeCount--;
+                            txtLikeCount.setText(currentModel.likeCount + "");
+                            WebServiceCallLikeDelete likeDelete = new WebServiceCallLikeDelete();
+                            likeDelete.execute();
+
+                        }
+                    } else {
+                        Snackbar snackbar = Snackbar.make(getView(), "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                        snackbar.setAction("ثبت نام", new registerAction());
+
+                        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                        TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                        textView.setLayoutParams(parms);
+                        textView.setGravity(Gravity.LEFT);
+                        snackbar.setActionTextColor(getResources().getColor(R.color.yellow));
+                        snackbar.show();
+                    }
+                }
+
+            }
+        });
 
         return view;
     }
