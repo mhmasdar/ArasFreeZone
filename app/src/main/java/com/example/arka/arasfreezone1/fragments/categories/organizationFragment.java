@@ -1,15 +1,23 @@
 package com.example.arka.arasfreezone1.fragments.categories;
 
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.arka.arasfreezone1.BuildConfig;
 import com.example.arka.arasfreezone1.R;
 import com.example.arka.arasfreezone1.RoutingActivity;
 import com.example.arka.arasfreezone1.ViewPagerCustomDuration;
@@ -39,6 +48,13 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -59,6 +75,7 @@ public class organizationFragment extends Fragment {
     private LinearLayout lytOrgAddress;
     private LinearLayout lytOrgPhone;
     private LinearLayout lytOrgWeb;
+    private LinearLayout lytOrgRules;
     private ExpandableLayout expanableLayout1, expanableLayout2, expanableLayout3;
     private boolean openCheck1 = false, openCheck2 = false, openCheck3 = false;
     private int height;
@@ -77,6 +94,9 @@ public class organizationFragment extends Fragment {
     private DatabaseCallback databaseCallback;
     private DatabaseCallbackPhones CallbackPhones;
     Dialog dialog;
+    private String addr = "http://80.191.210.19:7862/api/";
+    private String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+    private int permsRequestCode;
 
     public organizationFragment() {
         // Required empty public constructor
@@ -192,6 +212,25 @@ public class organizationFragment extends Fragment {
             }
         });
 
+
+        lytOrgRules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (isReadStateAllowed())
+                {
+                    downloadFile file = new downloadFile();
+                    file.execute();
+                }
+
+                else
+                {
+                    requestStoragePermission();
+                    permsRequestCode = 201;
+                }
+            }
+        });
+
         return view;
     }
 
@@ -301,6 +340,7 @@ public class organizationFragment extends Fragment {
         lytOrgAddress = (LinearLayout) view.findViewById(R.id.lytOrgAddress);
         lytOrgPhone = (LinearLayout) view.findViewById(R.id.lytOrgPhone);
         lytOrgWeb = (LinearLayout) view.findViewById(R.id.lytOrgWeb);
+        lytOrgRules = (LinearLayout) view.findViewById(R.id.lytOrgRules);
         expanableLayout1 = (ExpandableLayout) view.findViewById(R.id.expanableLayout1);
         expanableLayout2 = (ExpandableLayout) view.findViewById(R.id.expanableLayout2);
         expanableLayout3 = (ExpandableLayout) view.findViewById(R.id.expanableLayout3);
@@ -426,6 +466,156 @@ public class organizationFragment extends Fragment {
         }
 
     }
+
+
+    private class downloadFile extends AsyncTask<Object, Void, Void>{
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_waiting);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            String fileName = "aras.pdf";
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File folder = new File(extStorageDirectory, ".aras");
+            if (!folder.isDirectory())
+                folder.mkdir();
+
+
+            File pdfFile = new File(folder, fileName);
+
+            InputStream input = null;
+            OutputStream output = null;
+            HttpURLConnection connection = null;
+
+            try {
+                URL url = new URL("http://80.191.210.19:7862/Content/Upload/PDF/arasfz.pdf");
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+
+
+                // download the file
+                input = connection.getInputStream();
+                output = new FileOutputStream(pdfFile);
+
+                byte data[] = new byte[1*1024*1024];
+                int count;
+                while ((count = input.read(data)) != -1) {
+                    // allow canceling with back button
+                    if (isCancelled()) {
+                        input.close();
+                        return null;
+                    }
+                    output.write(data, 0, count);
+                }
+            } catch (Exception e) {
+
+            } finally {
+                try {
+                    if (output != null)
+                        output.close();
+                    if (input != null)
+                        input.close();
+                } catch (IOException ignored) {
+                }
+
+                if (connection != null)
+                    connection.disconnect();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/.aras/" + "aras.pdf");  // -> filename = maven.pdf
+            openFile(pdfFile);
+        }
+    }
+
+    private void openFile(File file){
+        Uri path;
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            path = Uri.fromFile(file);
+        else
+            path = FileProvider.getUriForFile(getContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        // Check what kind of file you are trying to open, by comparing the url with extensions.
+        // When the if condition is matched, plugin sets the correct intent (mime) type,
+        // so Android knew what application to use to open the file
+        if(path.toString().contains(".pdf") || path.toString().contains(".PDF")) {
+            // PDF file
+            intent.setDataAndType(path, "application/pdf");
+        }
+        else {
+            //if you want you can also define the intent type for any other file
+
+            //additionally use else clause below, to manage other unknown extensions
+            //in this case, Android will show all applications installed on the device
+            //so you can choose which application to use
+            intent.setDataAndType(path, "*/*");
+        }
+
+        try {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getContext(), "هیچ برنامه ای برای باز کردن فایل وجود ندارد", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+    public boolean isReadStateAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
+    }
+
+    public void requestStoragePermission(){
+
+        requestPermissions(perms, permsRequestCode);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            downloadFile file = new downloadFile();
+            file.execute();
+        }
+        else
+        {
+            Toast.makeText(getContext() , "لطفا برای دانلود فایل اجازه دسترسی را صادر کنید " , Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 
     @Override

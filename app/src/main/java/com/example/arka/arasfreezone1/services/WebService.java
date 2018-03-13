@@ -52,8 +52,8 @@ import static android.content.ContentValues.TAG;
 
 public class WebService {
 
-    private String addr = "http://80.191.210.19:7862/api/";
-//    private String addr = "http://gsharing.ir/api/";
+//    private String addr = "http://80.191.210.19:7862/api/";
+    private String addr = "http://gsharing.ir/api/";
 //    String addr = "http://172.16.42.96/api/";
 
 
@@ -303,7 +303,7 @@ public class WebService {
         if (isInternetAvailable) {
 
             //String req = "{\"Name\":\"" + name + "\",\"LName\":\"" + lName + "\",\"Mobile\":\"" + mobile + "\",\"Email\":\"" + email + "\",\"Pass\":\"" + pass + "\",\"Visibility\":1,\"lastUpdate\":1}";
-            String req = "{idRow:0,Name:\"" + name + "\",LName:\"" + lName + "\",Mobile:\"" + mobile + "\",Email:\"" + email + "\",Pass:\"" + pass + "\",Visibility:1,lastUpdate:1}";
+            String req = "{idRow:0,Name:\"" + name + "\",LName:\"" + lName + "\",Mobile:\"" + mobile + "\",Email:\"" + email + "\",Pass:\"" + pass + "\",Visibility:1,lastUpdate:1,imei:null,macAddress:null}";
             String response = connectToServerByJson(addr + "login/register", "POST", req);
             Log.i("LOG", response + "");
 

@@ -70,14 +70,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="right|center_vertical"
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textColor="@color/white"
                         android:text="معرفی سازمان"
                         android:layout_height="wrap_content" />
@@ -107,7 +107,7 @@
                 android:id="@+id/expanableLayout1"
                 app:el_duration="1000"
                 app:el_expanded="false"
-                app:el_parallax="0.5"
+                app:el_parallax="0.4"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -141,14 +141,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="right|center_vertical"
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textColor="@color/white"
                         android:text="آدرس سازمان"
                         android:layout_height="wrap_content" />
@@ -175,7 +175,7 @@
                 android:id="@+id/expanableLayout2"
                 app:el_duration="1000"
                 app:el_expanded="false"
-                app:el_parallax="0.5"
+                app:el_parallax="0.4"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -235,14 +235,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="right|center_vertical"
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textColor="@color/white"
                         android:text="تماس با سازمان"
                         android:layout_height="wrap_content" />
@@ -269,7 +269,7 @@
                 android:id="@+id/expanableLayout3"
                 app:el_duration="1000"
                 app:el_expanded="false"
-                app:el_parallax="0.5"
+                app:el_parallax="0.4"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -340,14 +340,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="right|center_vertical"
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textColor="@color/white"
                         android:text="وب سایت سازمان"
                         android:layout_height="wrap_content" />
@@ -363,6 +363,44 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:src="@drawable/ic_organize4"
+                        android:layout_height="35dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/lytOrgRules"
+                android:background="#e26b6d92"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="right|center_vertical"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        android:text="قوانین و آیین نامه های مناطق آزاد"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:src="@drawable/ic_rules"
                         android:layout_height="35dp" />
 
                 </LinearLayout>
