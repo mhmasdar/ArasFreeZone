@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="380dp"
+    android:layout_width="360dp"
     android:layout_height="match_parent"
     android:background="@color/darkWhite"
     android:orientation="vertical">
@@ -35,7 +35,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="40dp"
@@ -48,7 +48,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="40dp"
@@ -61,7 +61,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="40dp"
@@ -74,7 +74,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="40dp"
@@ -95,7 +95,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -108,7 +108,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -121,7 +121,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -134,7 +134,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="اذان صبح"
@@ -157,7 +157,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -170,7 +170,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -183,7 +183,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -196,7 +196,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="طلوع آفتاب"
@@ -219,7 +219,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -232,7 +232,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -245,7 +245,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -258,7 +258,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="اذان ظهر"
@@ -281,7 +281,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -294,7 +294,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -307,7 +307,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -320,7 +320,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="غروب آفتاب"
@@ -343,7 +343,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -356,7 +356,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -369,7 +369,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -382,7 +382,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="اذان مغرب"
@@ -405,7 +405,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -418,7 +418,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -431,7 +431,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:layout_height="50dp"
@@ -444,7 +444,7 @@
                     android:background="@color/mainBarText"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:paddingRight="2dp"
                     android:paddingLeft="2dp"
                     android:text="نیمه شب شرعی"
