@@ -1,18 +1,15 @@
 package com.example.arka.arasfreezone1;
 
 
-import android.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
@@ -210,11 +207,11 @@ public class HomeFragment extends Fragment {
         protected Void doInBackground(Object... params) {
 
             weatherModelJolfa = weatherService.getWeatherJolfa();
-            weatherModelZonoz = weatherService.getWeatherZonoz();
+            weatherModelZonoz = weatherService.getWeatherNordoz();
             weatherModelKhod = weatherService.getWeatherKhod();
 
 //            timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
-//            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
+//            timesModelZonoz = webService.getReligiousTimesNordoz(app.isInternetOn());
 //            timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
 
             return null;
@@ -270,11 +267,11 @@ public class HomeFragment extends Fragment {
         protected Void doInBackground(Object... params) {
 
 //            weatherModelJolfa = weatherService.getWeatherJolfa();
-//            weatherModelZonoz = weatherService.getWeatherZonoz();
+//            weatherModelZonoz = weatherService.getWeatherNordoz();
 //            weatherModelKhod = weatherService.getWeatherKhod();
 
             timesModelJolfa = webService.getReligiousTimesJolfa(app.isInternetOn());
-            timesModelZonoz = webService.getReligiousTimesZonoz(app.isInternetOn());
+            timesModelZonoz = webService.getReligiousTimesNordoz(app.isInternetOn());
             timesModelKhod = webService.getReligiousTimesKhod(app.isInternetOn());
 
             return null;

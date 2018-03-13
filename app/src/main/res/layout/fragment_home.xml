@@ -296,7 +296,7 @@
                       android:textStyle="bold"
                       android:textColor="@color/white"
                       android:layout_height="wrap_content"
-                      android:text="زنوز"
+                      android:text="نوردوز"
                       android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                   <LinearLayout

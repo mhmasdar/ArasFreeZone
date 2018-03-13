@@ -52,8 +52,8 @@ import static android.content.ContentValues.TAG;
 
 public class WebService {
 
-//    private String addr = "http://80.191.210.19:7862/api/";
-    private String addr = "http://gsharing.ir/api/";
+    private String addr = "http://80.191.210.19:7862/api/";
+//    private String addr = "http://gsharing.ir/api/";
 //    String addr = "http://172.16.42.96/api/";
 
 
@@ -177,11 +177,12 @@ public class WebService {
             return null;
     }
 
-    public ReligiousTimesModel getReligiousTimesZonoz(boolean isInternetAvailable) {
+    public ReligiousTimesModel getReligiousTimesNordoz(boolean isInternetAvailable) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("https://prayer.aviny.com/api/prayertimes/1218", "GET");
+//            String response = connectToServer("https://prayer.aviny.com/api/prayertimes/1218", "GET");
+            String response = connectToServer("https://prayer.aviny.com/api/prayertimes/695", "GET");
             Log.i("LOG", response + "");
 
 

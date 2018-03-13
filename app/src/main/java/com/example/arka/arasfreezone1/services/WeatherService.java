@@ -82,8 +82,8 @@ public class WeatherService {
         return null;
     }
 
-    public WeatherModel getWeatherZonoz() {
-        String response = connectToServer("http://api.openweathermap.org/data/2.5/weather?lat=38.5857799&lon=45.8290884&APPID=b996dd71d70d2b9f4e72a87e5c3b9260&units=metric", "GET");
+    public WeatherModel getWeatherNordoz() {
+        String response = connectToServer("http://api.openweathermap.org/data/2.5/weather?lat=38.843511&lon=46.2027724&APPID=b996dd71d70d2b9f4e72a87e5c3b9260&units=metric", "GET");
         if (response != null) {
             WeatherModel weatherModel = new WeatherModel();
 
