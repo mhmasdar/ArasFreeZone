@@ -52,8 +52,8 @@ import static android.content.ContentValues.TAG;
 
 public class WebService {
 
-//    private String addr = "http://80.191.210.19:7862/api/";
-    private String addr = "http://gsharing.ir/api/";
+    private String addr = "http://80.191.210.19:7862/api/";
+//    private String addr = "http://gsharing.ir/api/";
 //    String addr = "http://172.16.42.96/api/";
 
 
