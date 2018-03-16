@@ -83,8 +83,8 @@ public class commentsActivity extends AppCompatActivity {
                 if (canSend) {
 
                     if (idUser > 0) {
-                        canSend = false;
                         if (!edtComment.getText().toString().equals("")) {
+                            canSend = false;
                             WebServiceCallBackAdd callBackAdd = new WebServiceCallBackAdd(idUser);
                             callBackAdd.execute();
                         } else {
