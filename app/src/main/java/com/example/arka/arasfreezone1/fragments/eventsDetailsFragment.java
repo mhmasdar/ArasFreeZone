@@ -191,9 +191,9 @@ public class eventsDetailsFragment extends Fragment {
 
                     if (idUser > 0) {
 
-                        CanLike = false;
 
                         if (idUserLike < 1) {
+                            CanLike = false;
                             //btnLike.setLiked(true);
                             currentModel.likeCount++;
                             txtLikeCount.setText(currentModel.likeCount + "");
@@ -226,9 +226,10 @@ public class eventsDetailsFragment extends Fragment {
 
                     if (idUser > 0) {
 
-                        CanLike = false;
+
 
                         if (idUserLike > 0) {
+                            CanLike = false;
                             btnLike.setLiked(false);
                             currentModel.likeCount--;
                             txtLikeCount.setText(currentModel.likeCount + "");
@@ -502,8 +503,8 @@ public class eventsDetailsFragment extends Fragment {
             txtStartDate.setText(app.changeDateToString(currentModel.startDate) + " ساعت " + currentModel.startTime);
             if (String.valueOf(currentModel.endDate).length() == 8)
             txtEndtDate.setText(app.changeDateToString(currentModel.endDate) + " ساعت " + currentModel.endTime);
-            txtAddress.setText(currentModel.name);
-            txtInfo.setText(currentModel.name);
+            txtAddress.setText(currentModel.address);
+            txtInfo.setText(currentModel.body);
             txtLikeCount.setText(currentModel.likeCount + "");
             if (currentModel.image != null)
                 if (!currentModel.image.equals(""))

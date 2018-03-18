@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.fragments.favoriteFragment;
 
@@ -113,9 +114,12 @@ public class navigationDrawerActivity extends AppCompatActivity {
         lytFreeNet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), FreeNetActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+//                Intent i = new Intent(getApplicationContext(), FreeNetActivity.class);
+//                startActivity(i);
+//                overridePendingTransition(R.anim.activity_enter, R.anim.stay);
+
+                Toast.makeText(navigationDrawerActivity.this, "این قسمت فعلا فعال نمی باشد", Toast.LENGTH_LONG).show();
+
             }
         });
 

@@ -1378,7 +1378,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Images SET type=" + imgModel.type + ",name='" + imgModel.name + "',lastUpdate='" + imgModel.lastUpdate + "',idRow=" + imgModel.idRow  + ",isAdmin=" + ((imgModel.isAdmin) ? 1 : 0) + ",idUser=" + imgModel.idUser + " WHERE id=" + imgModel.id;
+        sql = "UPDATE Tbl_Images SET type=" + imgModel.type + ",name='" + imgModel.name + "',lastUpdate='" + imgModel.lastUpdate + "',idRow=" + imgModel.idRow + ",isAdmin=" + ((imgModel.isAdmin) ? 1 : 0) + ",idUser=" + imgModel.idUser + " WHERE id=" + imgModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }
@@ -1442,13 +1442,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 pm.type = cursor.getInt(cursor.getColumnIndex("type"));
                 pm.name = cursor.getString(cursor.getColumnIndex("name"));
                 pm.address = cursor.getString(cursor.getColumnIndex("address"));
-//                if (!tblNames.equals("Tbl_Offices"))
-                pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
+                if (!tblNames.equals("Tbl_Offices"))
+                    pm.star = cursor.getDouble(cursor.getColumnIndex("star"));
                 pm.mainType = cursor.getInt(cursor.getColumnIndex("mainType"));
                 pm.image = cursor.getString(cursor.getColumnIndex("image"));
 
 
-                list.add(pm);
+                if (!(pm.mainType == 8 && pm.id == 1))
+                    list.add(pm);
             } while (cursor.moveToNext());
 
         }

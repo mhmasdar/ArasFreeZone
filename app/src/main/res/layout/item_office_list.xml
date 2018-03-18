@@ -31,7 +31,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_marginTop="8dp"
-                android:text="رستوران مظفریه"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -53,7 +52,7 @@
                     android:lineSpacingMultiplier="1.3"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="تبریز - شهرک زعفرانیه - کوی شبنم - 10 متری 49 غربی"
+
                     android:layout_height="wrap_content" />
 
                 <ImageView

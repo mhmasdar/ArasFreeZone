@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arka.arasfreezone1.R;
@@ -82,7 +83,7 @@ public class categorySeatchFragment extends Fragment {
         allFilters.add("Tbl_Culturals");
         allFilters.add("Tbl_Transports");
         allFilters.add("Tbl_Services");
-        //allFilters.add("Tbl_Offices");
+        allFilters.add("Tbl_Offices");
         allFilters.add("Tbl_Medicals");
 
         if (firstTime) {
@@ -212,10 +213,14 @@ public class categorySeatchFragment extends Fragment {
         final CheckBox checkArt = dialog.findViewById(R.id.checkArt);
         final CheckBox checkTransport = dialog.findViewById(R.id.checkTransport);
         final CheckBox checkServices = dialog.findViewById(R.id.checkServices);
-        //final CheckBox checkOffices = dialog.findViewById(R.id.checkOffices);
+        final CheckBox checkOffices = dialog.findViewById(R.id.checkOffices);
         final CheckBox checkMedical = dialog.findViewById(R.id.checkMedical);
+        final CheckBox checkEvent = dialog.findViewById(R.id.checkEvents);
+        final TextView txtEvent = dialog.findViewById(R.id.txtEvent);
+        checkEvent.setVisibility(View.GONE);
+        txtEvent.setVisibility(View.GONE);
 
-        if (selectedFilters.size() == 8){
+        if (selectedFilters.size() == 9){
             checkAll.setChecked(true);
         }
         else{
@@ -234,6 +239,8 @@ public class categorySeatchFragment extends Fragment {
                     checkTransport.setChecked(true);
                 if (selectedFilters.get(i).equals("Tbl_Services"))
                     checkServices.setChecked(true);
+                if (selectedFilters.get(i).equals("Tbl_Offices"))
+                    checkOffices.setChecked(true);
                 if (selectedFilters.get(i).equals("Tbl_Medicals"))
                     checkMedical.setChecked(true);
             }
@@ -289,13 +296,13 @@ public class categorySeatchFragment extends Fragment {
                     checkAll.setChecked(false);
             }
         });
-//        checkOffices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked)
-//                    checkAll.setChecked(false);
-//            }
-//        });
+        checkOffices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkAll.setChecked(false);
+            }
+        });
         checkMedical.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -314,7 +321,7 @@ public class categorySeatchFragment extends Fragment {
                     checkArt.setChecked(false);
                     checkTransport.setChecked(false);
                     checkServices.setChecked(false);
-                    //checkOffices.setChecked(false);
+                    checkOffices.setChecked(false);
                     checkMedical.setChecked(false);
 
                 }
@@ -356,8 +363,8 @@ public class categorySeatchFragment extends Fragment {
                         selectedFilters.add(allFilters.get(5));
                     if (checkServices.isChecked())
                         selectedFilters.add(allFilters.get(6));
-//                    if (checkOffices.isChecked())
-//                        selectedFilters.add(allFilters.get(7));
+                    if (checkOffices.isChecked())
+                        selectedFilters.add(allFilters.get(7));
                     if (checkMedical.isChecked())
                         selectedFilters.add(allFilters.get(7));
                 }

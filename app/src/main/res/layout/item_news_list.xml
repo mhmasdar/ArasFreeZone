@@ -31,8 +31,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_marginTop="10dp"
-                android:text=":: ارس فراتر از میانگین ارزیابی مناطق آزاد در حوزه فرهنگی اجتماعی"
-                android:layout_height="wrap_content" />
+              android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,8 +43,7 @@
                 android:lineSpacingMultiplier="1.5"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="معاون فرهنگی اجتماعی و گردشگری سازمان منطقه آزاد ارس گفت: طبق ا معاون فرهنگی اجتماعی و گردشگری سازمان منطقه آزاد ارس گفت: طبق ا معاون فرهنگی اجتماعی و گردشگری سازمان منطقه آزاد ارس گفت: طبق ا"
-                android:layout_height="wrap_content" />
+               android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -67,7 +65,7 @@
                 android:id="@+id/txtType"
                 android:layout_alignParentBottom="true"
                 android:background="#b8f7f7f7"
-                android:text="فرهنگی"
+
                 style="@style/AudioFileInfoOverlayText2"
                 android:textSize="10sp"
                 android:paddingBottom="3dp"
@@ -110,7 +108,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="12"
+                android:text="0"
                 android:id="@+id/txtCommentCount"
                 android:textSize="13sp"
                 android:textColor="@color/colorPrimary"
@@ -169,7 +167,6 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="1396/9/4"
                 android:id="@+id/txtDate"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
