@@ -318,17 +318,21 @@ public class SplashActivity extends AppCompatActivity {
             {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
-                    Pair[] pairs = new Pair[2];
-                    pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
-                    pairs[1] = new Pair<View, String>(txtSplash, "App_text");
+//                    Pair[] pairs = new Pair[2];
+//                    pairs[0] = new Pair<View, String>(imgAras, "App_Logo");
+//                    pairs[1] = new Pair<View, String>(txtSplash, "App_text");
+//
+//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
+//                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+//                    ChangeBounds bounds = new ChangeBounds();
+//                    bounds.setDuration(2000);
+//                    getWindow().setSharedElementEnterTransition(bounds);
+//                    getWindow().setSharedElementExitTransition(bounds);
+//                    startActivity(i, options.toBundle());
+//                    finish();
 
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    ChangeBounds bounds = new ChangeBounds();
-                    bounds.setDuration(2000);
-                    getWindow().setSharedElementEnterTransition(bounds);
-                    getWindow().setSharedElementExitTransition(bounds);
-                    startActivity(i, options.toBundle());
+                    startActivity(i);
                     finish();
                 }
                 else
