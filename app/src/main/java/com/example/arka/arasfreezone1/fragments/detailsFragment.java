@@ -295,7 +295,7 @@ public class detailsFragment extends Fragment {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(browserIntent);
                 } else {
-                    Toast.makeText(getContext(), "وب سایت موجود نمی باشد", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "شبکه اجتماعی موجود نمی باشد", Toast.LENGTH_LONG).show();
                 }
             }
         });
