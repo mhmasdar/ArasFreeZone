@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 if (tblName.equals("Tbl_Tourisms"))
                     pm.cost = cursor.getString(cursor.getColumnIndex("cost"));
                 if (tblName.equals("Tbl_Rests"))
-                    pm.placeStar = cursor.getInt(cursor.getColumnIndex("placeStar"));
+                    pm.placeStar = cursor.getString(cursor.getColumnIndex("placeStar"));
 //                pm.visibility = cursor.getInt(cursor.getColumnIndex("visibility"));
 //                pm.lastUpdate = cursor.getInt(cursor.getColumnIndex("lastUpdate"));
 
@@ -1063,7 +1063,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase ArasDB = getReadableDatabase();
         String sql;
-        sql = "UPDATE Tbl_Rests SET type=" + placesModel.type + ",idStartDay=" + placesModel.idStartDay + ",idEndDay=" + placesModel.idEndDay + ",startTime='" + placesModel.startTime + "',endTime='" + placesModel.endTime + "',name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",phone='" + placesModel.phone + "',star=" + placesModel.star + ",starCount=" + placesModel.starCount + ",likeCount=" + placesModel.likeCount + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',placeStar=" + placesModel.placeStar + ",image='" + placesModel.image + "' WHERE id=" + placesModel.id;
+        sql = "UPDATE Tbl_Rests SET type=" + placesModel.type + ",idStartDay=" + placesModel.idStartDay + ",idEndDay=" + placesModel.idEndDay + ",startTime='" + placesModel.startTime + "',endTime='" + placesModel.endTime + "',name='" + placesModel.name + "',lat=" + placesModel.lat + ",lon=" + placesModel.lon + ",phone='" + placesModel.phone + "',star=" + placesModel.star + ",starCount=" + placesModel.starCount + ",likeCount=" + placesModel.likeCount + ",Info='" + placesModel.info + "',webSite='" + placesModel.website + "',visibility=" + ((placesModel.visibility) ? 1 : 0) + ",lastUpdate='" + placesModel.lastUpdate + "',address='" + placesModel.address + "',placeStar='" + placesModel.placeStar + "',image='" + placesModel.image + "' WHERE id=" + placesModel.id;
         ArasDB.execSQL(sql);
         ArasDB.close();
     }

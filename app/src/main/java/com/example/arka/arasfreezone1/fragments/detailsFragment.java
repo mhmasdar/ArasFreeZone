@@ -835,7 +835,7 @@ public class detailsFragment extends Fragment {
                 txtInfo.setText(placesModel.info);
             txtName.setText(placesModel.name);
 
-            if (!placesModel.startTime.equals("00:00") && !placesModel.endTime.equals("00:00"))
+            if (!tblName.equals("Tbl_Rests") && !tblName.equals("Tbl_Eating"))
                 txtHour.setText("از" + placesModel.startTime + " الی " + placesModel.endTime);
             else
                 txtHour.setText("24 ساعته");
@@ -855,55 +855,58 @@ public class detailsFragment extends Fragment {
             }
             if (tblName.equals("Tbl_Rests")) {
                 txtHotelStars.setVisibility(View.VISIBLE);
-                txtHotelStars.setText(placesModel.placeStar + " ستاره");
+                txtHotelStars.setText(placesModel.placeStar);
             }
 
-
-            switch (placesModel.idStartDay) {
-                case 1:
-                    txtDay.setText("شنبه تا ");
-                    break;
-                case 2:
-                    txtDay.setText("یکشنبه تا ");
-                    break;
-                case 3:
-                    txtDay.setText("دوشنبه تا ");
-                    break;
-                case 4:
-                    txtDay.setText("سه شنبه تا ");
-                    break;
-                case 5:
-                    txtDay.setText("جهارشنبه تا ");
-                    break;
-                case 6:
-                    txtDay.setText("پنجشنبه تا ");
-                    break;
-                case 7:
-                    txtDay.setText("جمعه تا ");
-                    break;
-            }
-            switch (placesModel.idEndDay) {
-                case 1:
-                    txtDay.setText(txtDay.getText().toString() + "شنبه");
-                    break;
-                case 2:
-                    txtDay.setText(txtDay.getText().toString() + "یکشنبه");
-                    break;
-                case 3:
-                    txtDay.setText(txtDay.getText().toString() + "دوشنبه");
-                    break;
-                case 4:
-                    txtDay.setText(txtDay.getText().toString() + "سه شنبه");
-                    break;
-                case 5:
-                    txtDay.setText(txtDay.getText().toString() + "جهارشنبه");
-                    break;
-                case 6:
-                    txtDay.setText(txtDay.getText().toString() + "پنجشنبه");
-                    break;
-                case 7:
-                    txtDay.setText(txtDay.getText().toString() + "جمعه");
-                    break;
+            if (!tblName.equals("Tbl_Rests") && !tblName.equals("Tbl_Eating")) {
+                switch (placesModel.idStartDay) {
+                    case 1:
+                        txtDay.setText("شنبه تا ");
+                        break;
+                    case 2:
+                        txtDay.setText("یکشنبه تا ");
+                        break;
+                    case 3:
+                        txtDay.setText("دوشنبه تا ");
+                        break;
+                    case 4:
+                        txtDay.setText("سه شنبه تا ");
+                        break;
+                    case 5:
+                        txtDay.setText("چهارشنبه تا ");
+                        break;
+                    case 6:
+                        txtDay.setText("پنجشنبه تا ");
+                        break;
+                    case 7:
+                        txtDay.setText("جمعه تا ");
+                        break;
+                }
+                switch (placesModel.idEndDay) {
+                    case 1:
+                        txtDay.setText(txtDay.getText().toString() + "شنبه");
+                        break;
+                    case 2:
+                        txtDay.setText(txtDay.getText().toString() + "یکشنبه");
+                        break;
+                    case 3:
+                        txtDay.setText(txtDay.getText().toString() + "دوشنبه");
+                        break;
+                    case 4:
+                        txtDay.setText(txtDay.getText().toString() + "سه شنبه");
+                        break;
+                    case 5:
+                        txtDay.setText(txtDay.getText().toString() + "چهارشنبه");
+                        break;
+                    case 6:
+                        txtDay.setText(txtDay.getText().toString() + "پنجشنبه");
+                        break;
+                    case 7:
+                        txtDay.setText(txtDay.getText().toString() + "جمعه");
+                        break;
+                }
+            } else{
+                txtDay.setText("شنبه تا جمعه");
             }
 
         }

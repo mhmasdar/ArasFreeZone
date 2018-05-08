@@ -24,7 +24,7 @@ public class PlacesModel {
     public String endTime;
     public boolean visibility;
     public String lastUpdate;
-    public int placeStar;
+    public String placeStar;
     public String cost;
     public String tel;
     public String image;

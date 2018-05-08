@@ -1019,7 +1019,7 @@ public class WebService {
                         placesModel.visibility = Object.getBoolean("Visibility");
                         placesModel.lastUpdate = Object.getString("lastUpdate");
                         placesModel.address = Object.getString("Address");
-                        placesModel.placeStar = Object.getInt("placeStar");
+                        placesModel.placeStar = Object.getString("placeStar");
                         placesModel.image = Object.getString("image");
 
                         placeslList.add(placesModel);

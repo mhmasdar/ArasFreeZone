@@ -292,10 +292,16 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
                         returnType = "هتل";
                         break;
                     case 2:
-                        returnType = "مسافرخانه";
+                        returnType = "هتل آپارتمان";
                         break;
                     case 3:
-                        returnType = "خوابگاه";
+                        returnType = "مهمان پذیر";
+                        break;
+                    case 4:
+                        returnType = "کاشانه مهمان";
+                        break;
+                    case 5:
+                        returnType = "اقامتگاه بوم گردی";
                         break;
                     default:
                 }

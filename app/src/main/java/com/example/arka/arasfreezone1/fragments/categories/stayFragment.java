@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,15 +67,16 @@ public class stayFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stay, container, false);
         initView(view);
+
+        dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Rests");
+        dbGetPlacesList.execute();
+
         initSlider();
 
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
 
 
         recycler.setNestedScrollingEnabled(false);
-
-        dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Rests");
-        dbGetPlacesList.execute();
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +88,10 @@ public class stayFragment extends Fragment {
         });
 
 
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("خوابگاه"));
-        catListTabLayout.addTab(catListTabLayout.newTab().setText("مسافرخانه"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("اقامتگاه بوم گردی"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("کاشانه مهمان"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("مهمان پذیر"));
+        catListTabLayout.addTab(catListTabLayout.newTab().setText("هتل آپارتمان"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("هتل"));
         catListTabLayout.addTab(catListTabLayout.newTab().setText("همه"));
 
@@ -137,7 +141,7 @@ public class stayFragment extends Fragment {
         boolean handler = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catListTabLayout.getTabAt(3).select();
+                catListTabLayout.getTabAt(5).select();
             }
         }, 2);
 
@@ -228,16 +232,19 @@ public class stayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            Log.i("TIME", "staaaaaaaart");
             placesList = new ArrayList<>();
             databaseHelper = new DatabaseHelper(context);
+            Log.i("TIME", "preeeeeeeeeeeee");
         }
 
 
         @Override
         protected Void doInBackground(Object... objects) {
 
+            Log.i("TIME", "possssssssst");
             placesList = databaseHelper.selectAllPlacesToList(tblName);
-
+            Log.i("TIME", "fiiiiiiiniish");
             return null;
         }
 
@@ -245,6 +252,7 @@ public class stayFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            Log.i("TIME", "reeeeeecyvlleer");
             if (placesList != null)
                 if (placesList.size() > 0)
                     setUpRecyclerView(placesList);
