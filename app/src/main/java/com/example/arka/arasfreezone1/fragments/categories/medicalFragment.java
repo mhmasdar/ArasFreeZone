@@ -70,7 +70,7 @@ public class medicalFragment extends Fragment {
         recycler.setNestedScrollingEnabled(false);
 
         dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Medicals");
-        dbGetPlacesList.execute();
+        dbGetPlacesList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {

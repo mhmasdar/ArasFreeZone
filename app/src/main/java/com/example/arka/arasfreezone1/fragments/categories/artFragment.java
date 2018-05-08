@@ -73,7 +73,7 @@ public class artFragment extends Fragment {
         recycler.setNestedScrollingEnabled(false);
 
         databaseCallback = new DatabaseCallback(getContext(), "Tbl_Culturals");
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -70,7 +70,7 @@ public class eventsFragment extends Fragment {
         //setUpRecyclerView();
 
         databaseCallback = new DatabaseCallback(getContext(), "Tbl_Events");
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override

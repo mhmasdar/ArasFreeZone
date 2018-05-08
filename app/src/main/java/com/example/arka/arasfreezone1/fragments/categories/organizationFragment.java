@@ -112,10 +112,10 @@ public class organizationFragment extends Fragment {
         //initSlider(view);
 
         databaseCallback = new DatabaseCallback(getContext());
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         CallbackPhones = new DatabaseCallbackPhones(getContext());
-        CallbackPhones.execute();
+        CallbackPhones.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         //setUpRecyclerView();
 

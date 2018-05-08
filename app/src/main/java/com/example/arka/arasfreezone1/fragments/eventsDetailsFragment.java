@@ -123,13 +123,13 @@ public class eventsDetailsFragment extends Fragment {
         //setViews();
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         prefs = getContext().getSharedPreferences("MYPREFS", 0);
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
             DatabaseCallFavoriteLike databaseCallFavoriteLike = new DatabaseCallFavoriteLike(getContext(), tblName, id);
-            databaseCallFavoriteLike.execute();
+            databaseCallFavoriteLike.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         btnAddtoCalender.setOnClickListener(btnCalenderClick);

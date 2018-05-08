@@ -74,7 +74,7 @@ public class restaurantsListFragment extends Fragment {
 
 
         databaseCallback = new DatabaseCallback(getContext(), "Tbl_Eating");
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {

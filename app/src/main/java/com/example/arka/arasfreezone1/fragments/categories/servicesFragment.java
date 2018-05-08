@@ -72,7 +72,7 @@ public class servicesFragment extends Fragment {
         recycler.setNestedScrollingEnabled(false);
 
         dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Services");
-        dbGetPlacesList.execute();
+        dbGetPlacesList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {

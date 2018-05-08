@@ -73,7 +73,7 @@ public class tourismFragment extends Fragment {
         recycler.setNestedScrollingEnabled(false);
 
         dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Tourisms");
-        dbGetPlacesList.execute();
+        dbGetPlacesList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
             @Override

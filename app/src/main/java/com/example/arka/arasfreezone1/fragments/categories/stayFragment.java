@@ -69,7 +69,7 @@ public class stayFragment extends Fragment {
         initView(view);
 
         dbGetPlacesList = new DatabaseCallback(getContext(), "Tbl_Rests");
-        dbGetPlacesList.execute();
+        dbGetPlacesList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         initSlider();
 

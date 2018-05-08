@@ -65,6 +65,7 @@ import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 public class detailsFragment extends Fragment {
 
     private ViewPager mPager;
+    CirclePageIndicator indicator;
     private int currentPage = 0;
     private boolean detailsSlider = false;
     public Timer detailsTimer = new Timer();
@@ -145,12 +146,13 @@ public class detailsFragment extends Fragment {
         mainType = getMainType(tblName);
 
         initView(view);
+//        initSlider(view);
 
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font.ttf");
         txtInfo.setTypeface(typeface);
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext(), tblName, id);
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         lytMenu.setVisibility(View.GONE);
         lytDrivers.setVisibility(View.GONE);
@@ -164,7 +166,7 @@ public class detailsFragment extends Fragment {
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
             DatabaseCallFavoriteLikeRate databaseCallFavoriteLikeRate = new DatabaseCallFavoriteLikeRate(getContext(), tblName, id);
-            databaseCallFavoriteLikeRate.execute();
+            databaseCallFavoriteLikeRate.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         Animation fade_in = AnimationUtils.loadAnimation(getContext(), R.anim.details_gallery_layout);
@@ -386,7 +388,7 @@ public class detailsFragment extends Fragment {
             }
         });
 
-        initSlider(view);
+
 
         return view;
     }
@@ -429,16 +431,13 @@ public class detailsFragment extends Fragment {
         dialog.show();
     }
 
-    private void initSlider(View view) {
-
-        mPager = (ViewPager) view.findViewById(R.id.pager);
+    private void initSlider() {
 
 
         mPager.setAdapter(new detailsSliderAdapter(app.context, imgList));
 
 
-        CirclePageIndicator indicator = (CirclePageIndicator)
-                view.findViewById(R.id.indicator);
+
 
         indicator.setViewPager(mPager);
 
@@ -588,6 +587,9 @@ public class detailsFragment extends Fragment {
         txtMenuAndCost = view.findViewById(R.id.txtMenuAndCost);
         imgMenuAndCost = view.findViewById(R.id.imgMenuAndCost);
         rateBar = view.findViewById(R.id.rateBar);
+        mPager = (ViewPager) view.findViewById(R.id.pager);
+        indicator = (CirclePageIndicator)
+                view.findViewById(R.id.indicator);
     }
 
     View.OnClickListener lytMenuClick = new View.OnClickListener() {
@@ -821,7 +823,7 @@ public class detailsFragment extends Fragment {
 
             if (imgList != null)
                 if (imgList.size() > 0)
-                    initSlider(getView());
+                    initSlider();
 
             if (tblName.equals("Tbl_Transports") && placesModel.type == 1) {
                 lytMenu.setVisibility(View.GONE);
@@ -1476,7 +1478,7 @@ public class detailsFragment extends Fragment {
         idUser = prefs.getInt("UserId", -1);
         if (idUser > 0) {
             DatabaseCallFavoriteLikeRate databaseCallFavoriteLikeRate = new DatabaseCallFavoriteLikeRate(getContext(), tblName, id);
-            databaseCallFavoriteLikeRate.execute();
+            databaseCallFavoriteLikeRate.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 }

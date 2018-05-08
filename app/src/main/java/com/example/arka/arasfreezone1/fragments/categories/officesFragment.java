@@ -74,7 +74,7 @@ public class officesFragment extends Fragment {
         recycler.setNestedScrollingEnabled(false);
 
         dbGetPlacesList = new DbGetPlacesList(getContext(), "Tbl_Offices");
-        dbGetPlacesList.execute();
+        dbGetPlacesList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         relativeBack.setOnClickListener(new View.OnClickListener() {
