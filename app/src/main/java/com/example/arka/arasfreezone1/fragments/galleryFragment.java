@@ -80,7 +80,7 @@ public class galleryFragment extends Fragment {
         mainType = args.getInt("MainType");
 
         DatabaseCallback databaseCallback = new DatabaseCallback(getContext());
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
 

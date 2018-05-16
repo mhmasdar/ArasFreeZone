@@ -118,7 +118,7 @@ public class newsListAdapter extends RecyclerView.Adapter<newsListAdapter.myView
             if (!searchFlag) {
                 //Toast.makeText(context, "Last " + position, Toast.LENGTH_LONG).show();
                 WebServiceCallBackList callBackList = new WebServiceCallBackList();
-                callBackList.execute();
+                callBackList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }
 

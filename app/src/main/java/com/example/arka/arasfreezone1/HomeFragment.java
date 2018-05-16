@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment {
 
 
         databaseCallback = new DatabaseCallback(getContext());
-        databaseCallback.execute();
+        databaseCallback.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         //initSlider();
 

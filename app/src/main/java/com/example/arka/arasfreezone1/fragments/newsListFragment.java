@@ -91,7 +91,7 @@ public class newsListFragment extends Fragment {
 
         if (newsList.size() < 1) {
             callBackList = new WebServiceCallBackList();
-            callBackList.execute();
+            callBackList.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         rc.addOnScrollListener(new RecyclerView.OnScrollListener() {
